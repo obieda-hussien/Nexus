@@ -90,9 +90,20 @@ Nexus is a comprehensive educational platform designed to compete with major Egy
 ### Available Scripts
 
 - `npm run dev` - Start development server
+- `npm run dev:open` - Start development server and open browser automatically
 - `npm run build` - Build for production
-- `npm run preview` - Preview production build
+- `npm run preview` - Preview production build locally
+- `npm run preview:build` - Build and preview in one command
 - `npm run lint` - Run ESLint
+
+## 🌟 معاينة التغييرات / Preview Changes
+
+لمعاينة التغييرات في الفروع قبل النشر النهائي، يرجى مراجعة [دليل المعاينة الشامل](docs/PREVIEW_GUIDE.md).
+
+### طرق المعاينة السريعة:
+- **📥 محلياً**: `npm run dev:open` 
+- **☁️ سحابياً**: [دليل المعاينة](docs/PREVIEW_GUIDE.md)
+- **🚀 تلقائياً**: كل push ينشئ build للمعاينة في Actions
 
 ## 📱 Responsive Breakpoints
 

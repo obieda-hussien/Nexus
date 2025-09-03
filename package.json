@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:open": "vite --open",
+    "preview:build": "npm run build && npm run preview"
   },
   "dependencies": {
     "aos": "^2.3.4",
