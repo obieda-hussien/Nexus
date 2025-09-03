@@ -9,6 +9,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Permissions needed for the workflow
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   # Build and provide preview options
   preview:
@@ -39,6 +45,7 @@ jobs:
       - name: Comment preview instructions
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
+        continue-on-error: true
         with:
           script: |
             const fs = require('fs');
@@ -89,9 +96,14 @@ jobs:
             - Build Time: \`${new Date().toLocaleString('ar-EG')}\`
             `;
             
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
+            try {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+              console.log('Successfully created preview comment');
+            } catch (error) {
+              console.log('Failed to create comment, but build succeeded:', error.message);
+            }
