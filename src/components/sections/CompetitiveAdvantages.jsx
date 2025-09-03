@@ -1,0 +1,141 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Users, BookOpen, Trophy, Target, Clock, CheckCircle } from 'lucide-react';
+
+const CompetitiveAdvantages = () => {
+  const advantages = [
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "AI-Powered Learning",
+      titleAr: "التعلم بالذكاء الاصطناعي",
+      description: "Personalized learning paths adapted to your pace and style",
+      descriptionAr: "مسارات تعليمية مخصصة تتكيف مع سرعتك وأسلوب تعلمك"
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: "Interactive Community",
+      titleAr: "مجتمع تفاعلي",
+      description: "Connect with students and instructors in real-time",
+      descriptionAr: "تواصل مع الطلاب والمدرسين في الوقت الفعلي"
+    },
+    {
+      icon: <BookOpen className="w-8 h-8" />,
+      title: "Comprehensive Content",
+      titleAr: "محتوى شامل",
+      description: "From basic concepts to advanced research topics",
+      descriptionAr: "من المفاهيم الأساسية إلى موضوعات البحث المتقدمة"
+    },
+    {
+      icon: <Trophy className="w-8 h-8" />,
+      title: "Certified Achievements",
+      titleAr: "إنجازات معتمدة",
+      description: "Internationally recognized certificates",
+      descriptionAr: "شهادات معترف بها دولياً"
+    },
+    {
+      icon: <Clock className="w-8 h-8" />,
+      title: "24/7 Availability",
+      titleAr: "متاح ٢٤/٧",
+      description: "Learn anytime, anywhere, at your own pace",
+      descriptionAr: "تعلم في أي وقت وأي مكان وبالسرعة التي تناسبك"
+    },
+    {
+      icon: <CheckCircle className="w-8 h-8" />,
+      title: "Quality Assurance",
+      titleAr: "ضمان الجودة",
+      description: "Content reviewed by academic experts",
+      descriptionAr: "محتوى مراجع من قبل خبراء أكاديميين"
+    }
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-white mb-4">
+            <span className="block">Why Choose Nexus?</span>
+            <span className="block text-2xl text-blue-300 mt-2">لماذا تختار نكسس؟</span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Discover what makes us the leading educational platform in Egypt
+          </p>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
+            اكتشف ما يجعلنا المنصة التعليمية الرائدة في مصر
+          </p>
+        </motion.div>
+
+        {/* Advantages Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {advantages.map((advantage, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group"
+            >
+              <div className="glass-card h-full p-8 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                <div className="text-blue-400 mb-6 group-hover:text-blue-300 transition-colors duration-300">
+                  {advantage.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {advantage.title}
+                </h3>
+                <h4 className="text-lg font-medium text-blue-300 mb-4">
+                  {advantage.titleAr}
+                </h4>
+                <p className="text-gray-300 mb-3">
+                  {advantage.description}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  {advantage.descriptionAr}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center mt-16"
+        >
+          <div className="glass-card p-8 rounded-2xl backdrop-blur-md bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/20">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Ready to Start Your Learning Journey?
+            </h3>
+            <p className="text-lg text-blue-300 mb-6">
+              مستعد لبدء رحلتك التعليمية؟
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+              >
+                Start Free Trial
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                View Demo | مشاهدة العرض
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default CompetitiveAdvantages;
