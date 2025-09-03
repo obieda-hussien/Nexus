@@ -126,7 +126,7 @@ const Courses = () => {
                     <div className="relative z-10 flex items-center justify-between p-4">
                       <div className="text-4xl">{course.image}</div>
                       <div className="p-2 glass rounded-lg">
-                        <Icon className="w-6 h-6 text-neon-blue" />
+                        <Icon className="w-6 h-6 text-neon-blue" aria-hidden="true" />
                       </div>
                     </div>
                   </div>
@@ -145,11 +145,11 @@ const Courses = () => {
                     {/* Course Meta */}
                     <div className="flex items-center justify-between text-sm text-text-secondary">
                       <div className="flex items-center space-x-1">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="w-4 h-4" aria-hidden="true" />
                         <span>{course.duration}</span>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <Users className="w-4 h-4" />
+                        <Users className="w-4 h-4" aria-hidden="true" />
                         <span>{course.students.toLocaleString()}</span>
                       </div>
                     </div>
@@ -157,7 +157,7 @@ const Courses = () => {
                     {/* Rating and Level */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" aria-hidden="true" />
                         <span className="text-white font-medium">{course.rating}</span>
                         <span className="text-text-secondary text-sm">
                           ({course.students} {isRTL ? 'طالب' : 'students'})
@@ -179,12 +179,17 @@ const Courses = () => {
                       <div className="text-2xl font-bold gradient-text">
                         {course.price}
                       </div>
-                      <Button variant="primary" size="sm" className="group/btn">
+                      <Button 
+                        variant="primary" 
+                        size="sm" 
+                        className="group/btn"
+                        aria-label={`${isRTL ? 'سجل في دورة' : 'Enroll in'} ${course.title}`}
+                      >
                         <span>{isRTL ? 'التسجيل' : 'Enroll'}</span>
                         <motion.div
                           className="w-0 group-hover/btn:w-4 overflow-hidden transition-all duration-300"
                         >
-                          <BookOpen className="w-4 h-4 ml-1" />
+                          <BookOpen className="w-4 h-4 ml-1" aria-hidden="true" />
                         </motion.div>
                       </Button>
                     </div>

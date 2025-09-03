@@ -49,10 +49,10 @@ const Instructor = () => {
   ];
 
   const socialLinks = [
-    { icon: Mail, href: 'mailto:instructor@nexus.edu', label: 'Email' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Globe, href: '#', label: 'Website' }
+    { icon: Mail, href: 'mailto:instructor@nexus.edu', label: isRTL ? 'راسل المدرس' : 'Email instructor' },
+    { icon: Linkedin, href: '#', label: isRTL ? 'لينكد إن' : 'LinkedIn profile' },
+    { icon: Twitter, href: '#', label: isRTL ? 'تويتر' : 'Twitter profile' },
+    { icon: Globe, href: '#', label: isRTL ? 'الموقع الشخصي' : 'Personal website' }
   ];
 
   const containerVariants = {
@@ -162,8 +162,9 @@ const Instructor = () => {
                       className="w-10 h-10 glass rounded-lg flex items-center justify-center text-text-secondary hover:text-neon-blue transition-colors duration-300"
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
+                      aria-label={social.label}
                     >
-                      <Icon size={18} />
+                      <Icon size={18} aria-hidden="true" />
                     </motion.a>
                   );
                 })}
@@ -193,8 +194,8 @@ const Instructor = () => {
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Icon className={`w-6 h-6 mx-auto mb-2 ${achievement.color}`} />
-                      <div className="text-xl font-bold text-white mb-1">
+                      <Icon className={`w-6 h-6 mx-auto mb-2 ${achievement.color}`} aria-hidden="true" />
+                      <div className="text-xl font-bold text-white mb-1" aria-label={`${achievement.value} ${achievement.label}`}>
                         {achievement.value}
                       </div>
                       <div className="text-sm text-text-secondary">
