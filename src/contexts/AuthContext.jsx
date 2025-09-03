@@ -21,39 +21,68 @@ export const AuthProvider = ({ children }) => {
 
   // Sign up function
   const signup = async (email, password, displayName) => {
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('Starting signup process...', { email, displayName });
     
-    // Update user profile in Firebase Auth
-    await updateProfile(user, { displayName });
-    
-    // Create user document in Firestore
-    const userProfileData = {
-      displayName,
-      email,
-      createdAt: new Date().toISOString(),
-      role: 'student',
-      progress: {},
-      enrolledCourses: [],
-      completedCourses: [],
-      lastLogin: new Date().toISOString(),
-      // Additional profile fields
-      profilePicture: null,
-      bio: '',
-      phoneNumber: '',
-      dateOfBirth: '',
-      preferences: {
-        language: 'ar',
-        notifications: true,
-        darkMode: true
+    try {
+      // First create the authentication user
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User created in Auth:', user.uid);
+      
+      // Update user profile in Firebase Auth
+      await updateProfile(user, { displayName });
+      console.log('Profile updated in Auth');
+      
+      // Create user document in Firestore
+      const userProfileData = {
+        uid: user.uid,
+        displayName,
+        email,
+        createdAt: new Date().toISOString(),
+        role: 'student',
+        progress: {},
+        enrolledCourses: [],
+        completedCourses: [],
+        lastLogin: new Date().toISOString(),
+        // Additional profile fields
+        profilePicture: null,
+        bio: '',
+        phoneNumber: '',
+        dateOfBirth: '',
+        preferences: {
+          language: 'ar',
+          notifications: true,
+          darkMode: true
+        }
+      };
+      
+      console.log('Attempting to save user data to Firestore:', userProfileData);
+      
+      // Use a try-catch specifically for Firestore write
+      try {
+        await setDoc(doc(db, 'users', user.uid), userProfileData);
+        console.log('User data saved to Firestore successfully');
+      } catch (firestoreError) {
+        console.error('Firestore write error:', firestoreError);
+        // Try alternative approach - set with merge
+        try {
+          await setDoc(doc(db, 'users', user.uid), userProfileData, { merge: true });
+          console.log('User data saved to Firestore with merge successfully');
+        } catch (mergeError) {
+          console.error('Firestore merge error:', mergeError);
+          // Even if Firestore fails, we still have the auth user, so don't throw
+          console.warn('Continuing with authentication only, Firestore save failed');
+        }
       }
-    };
-    
-    await setDoc(doc(db, 'users', user.uid), userProfileData);
-    
-    // Update the local userProfile state immediately
-    setUserProfile(userProfileData);
-    
-    return user;
+      
+      // Update the local userProfile state immediately
+      setUserProfile(userProfileData);
+      console.log('Local userProfile state updated');
+      
+      return user;
+    } catch (error) {
+      console.error('Error in signup process:', error);
+      throw error;
+    }
   };
 
   // Sign in function
@@ -85,13 +114,58 @@ export const AuthProvider = ({ children }) => {
   // Get user profile from Firestore
   const getUserProfile = async (userId) => {
     try {
+      console.log('Fetching user profile for:', userId);
       const userDoc = await getDoc(doc(db, 'users', userId));
       if (userDoc.exists()) {
-        return userDoc.data();
+        const userData = userDoc.data();
+        console.log('User profile fetched successfully:', userData);
+        return userData;
+      } else {
+        console.log('No user profile found in Firestore for:', userId);
+        return null;
       }
-      return null;
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      return null;
+    }
+  };
+
+  // Create or update user profile if missing
+  const createUserProfile = async (userData = {}) => {
+    if (!currentUser) return null;
+    
+    try {
+      const userProfileData = {
+        uid: currentUser.uid,
+        displayName: userData.displayName || currentUser.displayName || 'مستخدم جديد',
+        email: currentUser.email,
+        createdAt: userData.createdAt || new Date().toISOString(),
+        role: userData.role || 'student',
+        progress: userData.progress || {},
+        enrolledCourses: userData.enrolledCourses || [],
+        completedCourses: userData.completedCourses || [],
+        lastLogin: new Date().toISOString(),
+        // Additional profile fields
+        profilePicture: userData.profilePicture || null,
+        bio: userData.bio || '',
+        phoneNumber: userData.phoneNumber || '',
+        dateOfBirth: userData.dateOfBirth || '',
+        preferences: {
+          language: 'ar',
+          notifications: true,
+          darkMode: true,
+          ...userData.preferences
+        }
+      };
+      
+      console.log('Creating/updating user profile:', userProfileData);
+      await setDoc(doc(db, 'users', currentUser.uid), userProfileData, { merge: true });
+      setUserProfile(userProfileData);
+      console.log('User profile created/updated successfully');
+      
+      return userProfileData;
+    } catch (error) {
+      console.error('Error creating user profile:', error);
       return null;
     }
   };
@@ -141,13 +215,23 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('Auth state changed:', user?.uid || 'No user');
       if (user) {
         setCurrentUser(user);
+        console.log('Getting user profile for authenticated user...');
         const profile = await getUserProfile(user.uid);
-        setUserProfile(profile);
+        
+        if (profile) {
+          setUserProfile(profile);
+          console.log('Auth state updated with profile:', profile);
+        } else {
+          console.log('No profile found, will need to create one manually');
+          setUserProfile(null);
+        }
       } else {
         setCurrentUser(null);
         setUserProfile(null);
+        console.log('User logged out, cleared auth state');
       }
       setLoading(false);
     });
@@ -164,7 +248,8 @@ export const AuthProvider = ({ children }) => {
     resetPassword,
     updateUserProgress,
     enrollInCourse,
-    getUserProfile
+    getUserProfile,
+    createUserProfile
   };
 
   return (

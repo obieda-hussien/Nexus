@@ -18,7 +18,7 @@ import { collection, query, where, getDocs, orderBy, limit } from 'firebase/fire
 import { db } from '../../config/firebase';
 
 const UserDashboard = ({ isOpen, onClose }) => {
-  const { currentUser, userProfile, logout } = useAuth();
+  const { currentUser, userProfile, logout, createUserProfile } = useAuth();
   const [stats, setStats] = useState({
     enrolledCourses: 0,
     completedCourses: 0,
@@ -31,7 +31,14 @@ const UserDashboard = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen && currentUser && userProfile) {
+      console.log('Dashboard opened with user:', currentUser.uid, 'profile:', userProfile);
       loadDashboardData();
+    } else if (isOpen && currentUser && !userProfile) {
+      console.log('Dashboard opened but no profile data available for user:', currentUser.uid);
+      setLoading(false); // Stop loading if we don't have profile data
+    } else if (isOpen) {
+      console.log('Dashboard opened but no user authenticated');
+      setLoading(false);
     }
   }, [isOpen, currentUser, userProfile]);
 
@@ -121,6 +128,18 @@ const UserDashboard = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleCreateProfile = async () => {
+    try {
+      setLoading(true);
+      await createUserProfile();
+      // Reload dashboard data
+      await loadDashboardData();
+    } catch (error) {
+      console.error('Error creating profile:', error);
+    }
+    setLoading(false);
+  };
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -171,9 +190,43 @@ const UserDashboard = ({ isOpen, onClose }) => {
 
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)] bg-secondary-bg/50">
           {loading ? (
-            <div className="flex items-center justify-center h-64">
+            <div className="flex flex-col items-center justify-center h-64 space-y-4">
               <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
-              <span className="ml-3 text-gray-300">جاري تحميل البيانات...</span>
+              <span className="text-gray-300">جاري تحميل البيانات...</span>
+              {!userProfile && currentUser && (
+                <div className="text-center">
+                  <p className="text-yellow-400 text-sm">لا توجد بيانات ملف شخصي</p>
+                  <p className="text-gray-400 text-xs">يتم إنشاء الملف الشخصي...</p>
+                </div>
+              )}
+            </div>
+          ) : !userProfile ? (
+            <div className="flex flex-col items-center justify-center h-64 space-y-4">
+              <div className="text-red-400 text-lg font-semibold">خطأ في تحميل البيانات</div>
+              <p className="text-gray-400 text-center">
+                لم يتم العثور على بيانات الملف الشخصي.<br/>
+                قد تحتاج لتحديث قواعد الأمان في Firebase أو إنشاء الملف الشخصي يدوياً.
+              </p>
+              <div className="bg-yellow-900/20 border border-yellow-400/30 p-3 rounded-lg max-w-md">
+                <p className="text-yellow-400 text-sm">
+                  💡 <strong>نصيحة:</strong> تحقق من قواعد الأمان في Firestore Console
+                </p>
+              </div>
+              <div className="flex space-x-4">
+                <button
+                  onClick={handleCreateProfile}
+                  disabled={loading}
+                  className="glass-hover bg-green-500/20 border border-green-400/30 hover:bg-green-500/30 px-4 py-2 rounded-lg transition-all duration-200 text-green-300 hover:text-green-200 disabled:opacity-50"
+                >
+                  {loading ? 'جاري الإنشاء...' : 'إنشاء ملف شخصي'}
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="glass-hover bg-red-500/20 border border-red-400/30 hover:bg-red-500/30 px-4 py-2 rounded-lg transition-all duration-200 text-red-300 hover:text-red-200"
+                >
+                  تسجيل الخروج
+                </button>
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
