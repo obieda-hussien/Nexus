@@ -157,7 +157,7 @@ const Pricing = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-bg px-4 py-1 rounded-full text-sm font-bold flex items-center">
-                    <Star className="w-4 h-4 mr-1" />
+                    <Star className="w-4 h-4 mr-1" aria-hidden="true" />
                     {isRTL ? 'الأكثر شعبية' : 'Most Popular'}
                   </div>
                 </motion.div>
@@ -167,7 +167,7 @@ const Pricing = () => {
                 {/* Plan Header */}
                 <div className="text-center mb-8">
                   <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${plan.color} flex items-center justify-center`}>
-                    <BookOpen className="w-8 h-8 text-white" />
+                    <BookOpen className="w-8 h-8 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
                   <p className="text-text-secondary text-sm">{plan.description}</p>
@@ -192,7 +192,7 @@ const Pricing = () => {
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-green-400 flex-shrink-0" aria-hidden="true" />
                       <span className="text-text-secondary">{feature}</span>
                     </motion.div>
                   ))}
@@ -205,7 +205,7 @@ const Pricing = () => {
                       transition={{ delay: (plan.features.length + index) * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <X className="w-5 h-5 text-red-400 flex-shrink-0" />
+                      <X className="w-5 h-5 text-red-400 flex-shrink-0" aria-hidden="true" />
                       <span className="text-text-secondary line-through">{feature}</span>
                     </motion.div>
                   ))}
@@ -220,6 +220,7 @@ const Pricing = () => {
                     setFormData(prev => ({ ...prev, plan: plan.name }));
                     setShowRegistration(true);
                   }}
+                  aria-label={`${isRTL ? 'اختر باقة' : 'Choose'} ${plan.name}`}
                 >
                   {isRTL ? 'اختر هذه الباقة' : 'Choose Plan'}
                 </Button>

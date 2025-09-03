@@ -102,8 +102,9 @@ const Navigation = () => {
                   className="flex items-center space-x-2 text-text-secondary hover:text-white transition-colors duration-300"
                   whileHover={{ scale: 1.05, color: '#00d4ff' }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label={`${item.label} - ${isRTL ? 'اذهب إلى قسم' : 'Go to'} ${item.label}`}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                   <span>{item.label}</span>
                 </motion.a>
               );
@@ -115,6 +116,7 @@ const Navigation = () => {
               size="sm"
               onClick={toggleLanguage}
               className="ml-4"
+              aria-label={isRTL ? 'تبديل إلى الإنجليزية' : 'Switch to Arabic'}
             >
               {isRTL ? 'EN' : 'عربي'}
             </Button>
@@ -131,6 +133,8 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:text-neon-blue transition-colors duration-300"
               whileTap={{ scale: 0.95 }}
+              aria-label={isOpen ? (isRTL ? 'إغلاق القائمة' : 'Close menu') : (isRTL ? 'فتح القائمة' : 'Open menu')}
+              aria-expanded={isOpen}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -157,8 +161,9 @@ const Navigation = () => {
                       className="flex items-center space-x-2 text-text-secondary hover:text-white transition-colors duration-300 py-2"
                       onClick={() => setIsOpen(false)}
                       whileHover={{ x: 5 }}
+                      aria-label={`${item.label} - ${isRTL ? 'اذهب إلى قسم' : 'Go to'} ${item.label}`}
                     >
-                      <Icon size={16} />
+                      <Icon size={16} aria-hidden="true" />
                       <span>{item.label}</span>
                     </motion.a>
                   );
@@ -170,6 +175,7 @@ const Navigation = () => {
                     size="sm"
                     onClick={toggleLanguage}
                     className="flex-1"
+                    aria-label={isRTL ? 'تبديل إلى الإنجليزية' : 'Switch to Arabic'}
                   >
                     {isRTL ? 'EN' : 'عربي'}
                   </Button>

@@ -97,11 +97,11 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', color: 'hover:text-blue-500' },
-    { icon: Twitter, href: '#', color: 'hover:text-blue-400' },
-    { icon: Instagram, href: '#', color: 'hover:text-pink-500' },
-    { icon: Linkedin, href: '#', color: 'hover:text-blue-600' },
-    { icon: Youtube, href: '#', color: 'hover:text-red-500' }
+    { icon: Facebook, href: '#', color: 'hover:text-blue-500', name: isRTL ? 'فيسبوك' : 'Facebook' },
+    { icon: Twitter, href: '#', color: 'hover:text-blue-400', name: isRTL ? 'تويتر' : 'Twitter' },
+    { icon: Instagram, href: '#', color: 'hover:text-pink-500', name: isRTL ? 'إنستغرام' : 'Instagram' },
+    { icon: Linkedin, href: '#', color: 'hover:text-blue-600', name: isRTL ? 'لينكد إن' : 'LinkedIn' },
+    { icon: Youtube, href: '#', color: 'hover:text-red-500', name: isRTL ? 'يوتيوب' : 'YouTube' }
   ];
 
   const stats = [
@@ -166,8 +166,13 @@ const Footer = () => {
                 placeholder={isRTL ? 'أدخل بريدك الإلكتروني' : 'Enter your email'}
                 className="flex-1 bg-transparent text-white placeholder-text-secondary px-4 py-2 focus:outline-none"
                 dir={isRTL ? 'rtl' : 'ltr'}
+                aria-label={isRTL ? 'عنوان البريد الإلكتروني للاشتراك في النشرة الإخبارية' : 'Email address for newsletter subscription'}
               />
-              <Button variant="gradient" size="sm">
+              <Button 
+                variant="gradient" 
+                size="sm"
+                aria-label={isRTL ? 'اشترك في النشرة الإخبارية' : 'Subscribe to newsletter'}
+              >
                 {isRTL ? 'اشتراك' : 'Subscribe'}
               </Button>
             </div>
@@ -256,8 +261,9 @@ const Footer = () => {
                     href={contact.href}
                     className="flex items-start space-x-3 text-text-secondary hover:text-white transition-colors duration-300"
                     whileHover={{ x: 2 }}
+                    aria-label={`${contact.title}: ${contact.value}`}
                   >
-                    <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
                     <div>
                       <div className="font-medium text-sm">{contact.title}</div>
                       <div className="text-sm">{contact.value}</div>
@@ -282,8 +288,9 @@ const Footer = () => {
                       className={`w-10 h-10 glass rounded-lg flex items-center justify-center text-text-secondary transition-all duration-300 ${social.color}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
+                      aria-label={`${isRTL ? 'تابعنا على' : 'Follow us on'} ${social.name}`}
                     >
-                      <Icon size={18} />
+                      <Icon size={18} aria-hidden="true" />
                     </motion.a>
                   );
                 })}
@@ -326,8 +333,9 @@ const Footer = () => {
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: showScrollTop ? 1 : 0 }}
+        aria-label={isRTL ? 'العودة إلى أعلى الصفحة' : 'Scroll to top of page'}
       >
-        <ArrowUp size={20} />
+        <ArrowUp size={20} aria-hidden="true" />
       </motion.button>
     </footer>
   );
