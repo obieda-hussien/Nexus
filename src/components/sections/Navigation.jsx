@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, BookOpen, Users, Award, Phone } from 'lucide-react';
+import { Menu, X, BookOpen, Users, Award, Phone, User, LogIn, UserCircle } from 'lucide-react';
 import Button from '../ui/Button';
+import { useAuth } from '../../contexts/AuthContext';
+import AuthModal from '../auth/AuthModal';
+import UserDashboard from '../auth/UserDashboard';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isRTL, setIsRTL] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('login');
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +55,19 @@ const Navigation = () => {
   const toggleLanguage = () => {
     setIsRTL(!isRTL);
     document.documentElement.setAttribute('dir', !isRTL ? 'rtl' : 'ltr');
+  };
+
+  const handleAuthAction = (mode) => {
+    setAuthMode(mode);
+    setShowAuthModal(true);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   const navVariants = {
@@ -121,10 +142,46 @@ const Navigation = () => {
               {isRTL ? 'EN' : 'عربي'}
             </Button>
             
-            {/* CTA Button */}
-            <Button variant="gradient" size="sm">
-              {isRTL ? 'ابدأ الآن' : 'Get Started'}
-            </Button>
+            {/* Authentication Section */}
+            {currentUser ? (
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowDashboard(true)}
+                  className="flex items-center space-x-2"
+                >
+                  <UserCircle size={16} />
+                  <span>{currentUser.displayName || 'المستخدم'}</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLogout}
+                >
+                  {isRTL ? 'تسجيل خروج' : 'Logout'}
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleAuthAction('login')}
+                  className="flex items-center space-x-2"
+                >
+                  <LogIn size={16} />
+                  <span>{isRTL ? 'دخول' : 'Login'}</span>
+                </Button>
+                <Button 
+                  variant="gradient" 
+                  size="sm"
+                  onClick={() => handleAuthAction('register')}
+                >
+                  {isRTL ? 'انضم الآن' : 'Join Now'}
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -179,15 +236,78 @@ const Navigation = () => {
                   >
                     {isRTL ? 'EN' : 'عربي'}
                   </Button>
-                  <Button variant="gradient" size="sm" className="flex-1">
-                    {isRTL ? 'ابدأ الآن' : 'Get Started'}
-                  </Button>
+                  
+                  {currentUser ? (
+                    <div className="flex space-x-2 flex-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setShowDashboard(true);
+                          setIsOpen(false);
+                        }}
+                        className="flex-1"
+                      >
+                        <UserCircle size={16} className="ml-1" />
+                        {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                        }}
+                        className="flex-1"
+                      >
+                        {isRTL ? 'خروج' : 'Logout'}
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex space-x-2 flex-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          handleAuthAction('login');
+                          setIsOpen(false);
+                        }}
+                        className="flex-1"
+                      >
+                        {isRTL ? 'دخول' : 'Login'}
+                      </Button>
+                      <Button 
+                        variant="gradient" 
+                        size="sm"
+                        onClick={() => {
+                          handleAuthAction('register');
+                          setIsOpen(false);
+                        }}
+                        className="flex-1"
+                      >
+                        {isRTL ? 'انضم' : 'Join'}
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        mode={authMode}
+      />
+
+      {/* User Dashboard */}
+      <UserDashboard
+        isOpen={showDashboard}
+        onClose={() => setShowDashboard(false)}
+      />
     </motion.nav>
   );
 };
