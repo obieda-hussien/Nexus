@@ -23,11 +23,11 @@ export const AuthProvider = ({ children }) => {
   const signup = async (email, password, displayName) => {
     const { user } = await createUserWithEmailAndPassword(auth, email, password);
     
-    // Update user profile
+    // Update user profile in Firebase Auth
     await updateProfile(user, { displayName });
     
     // Create user document in Firestore
-    await setDoc(doc(db, 'users', user.uid), {
+    const userProfileData = {
       displayName,
       email,
       createdAt: new Date().toISOString(),
@@ -35,8 +35,23 @@ export const AuthProvider = ({ children }) => {
       progress: {},
       enrolledCourses: [],
       completedCourses: [],
-      lastLogin: new Date().toISOString()
-    });
+      lastLogin: new Date().toISOString(),
+      // Additional profile fields
+      profilePicture: null,
+      bio: '',
+      phoneNumber: '',
+      dateOfBirth: '',
+      preferences: {
+        language: 'ar',
+        notifications: true,
+        darkMode: true
+      }
+    };
+    
+    await setDoc(doc(db, 'users', user.uid), userProfileData);
+    
+    // Update the local userProfile state immediately
+    setUserProfile(userProfileData);
     
     return user;
   };
@@ -49,6 +64,10 @@ export const AuthProvider = ({ children }) => {
     await setDoc(doc(db, 'users', user.uid), {
       lastLogin: new Date().toISOString()
     }, { merge: true });
+    
+    // Refresh user profile
+    const profile = await getUserProfile(user.uid);
+    setUserProfile(profile);
     
     return user;
   };

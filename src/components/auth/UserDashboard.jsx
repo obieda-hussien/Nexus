@@ -133,35 +133,35 @@ const UserDashboard = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden"
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        className="glass rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden border border-glass-border"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-400 to-secondary-400 p-6 text-white">
+        <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 p-6 text-white border-b border-glass-border">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                <User className="h-6 w-6" />
+              <div className="w-12 h-12 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center">
+                <User className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold">مرحباً، {userProfile?.displayName}</h2>
-                <p className="text-white text-opacity-90">لوحة التحكم الشخصية</p>
+                <h2 className="text-2xl font-bold text-white">مرحباً، {userProfile?.displayName || 'المستخدم'}</h2>
+                <p className="text-gray-300">لوحة التحكم الشخصية</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleLogout}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-colors"
+                className="glass-hover bg-red-500/20 border border-red-400/30 hover:bg-red-500/30 px-4 py-2 rounded-lg transition-all duration-200 text-red-300 hover:text-red-200"
               >
                 تسجيل الخروج
               </button>
               <button
                 onClick={onClose}
-                className="text-white hover:text-gray-200 text-2xl"
+                className="text-white hover:text-neon-blue text-2xl transition-colors duration-200"
               >
                 ×
               </button>
@@ -169,81 +169,81 @@ const UserDashboard = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)] bg-secondary-bg/50">
           {loading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="w-8 h-8 border-2 border-primary-400 border-t-transparent rounded-full animate-spin"></div>
-              <span className="ml-3 text-gray-600">جاري تحميل البيانات...</span>
+              <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
+              <span className="ml-3 text-gray-300">جاري تحميل البيانات...</span>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Stats Cards */}
               <div className="lg:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+                <div className="glass glass-hover p-6 rounded-xl border border-blue-400/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-600 text-sm font-medium">الكورسات المسجلة</p>
-                      <p className="text-2xl font-bold text-blue-700">{stats.enrolledCourses}</p>
+                      <p className="text-blue-300 text-sm font-medium">الكورسات المسجلة</p>
+                      <p className="text-2xl font-bold text-white">{stats.enrolledCourses}</p>
                     </div>
-                    <BookOpen className="h-8 w-8 text-blue-500" />
+                    <BookOpen className="h-8 w-8 text-neon-blue" />
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+                <div className="glass glass-hover p-6 rounded-xl border border-green-400/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-600 text-sm font-medium">الكورسات المكتملة</p>
-                      <p className="text-2xl font-bold text-green-700">{stats.completedCourses}</p>
+                      <p className="text-green-300 text-sm font-medium">الكورسات المكتملة</p>
+                      <p className="text-2xl font-bold text-white">{stats.completedCourses}</p>
                     </div>
-                    <Trophy className="h-8 w-8 text-green-500" />
+                    <Trophy className="h-8 w-8 text-neon-green" />
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+                <div className="glass glass-hover p-6 rounded-xl border border-purple-400/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-600 text-sm font-medium">ساعات الدراسة</p>
-                      <p className="text-2xl font-bold text-purple-700">{stats.totalStudyTime}</p>
+                      <p className="text-purple-300 text-sm font-medium">ساعات الدراسة</p>
+                      <p className="text-2xl font-bold text-white">{stats.totalStudyTime}</p>
                     </div>
-                    <Clock className="h-8 w-8 text-purple-500" />
+                    <Clock className="h-8 w-8 text-neon-purple" />
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl">
+                <div className="glass glass-hover p-6 rounded-xl border border-orange-400/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-orange-600 text-sm font-medium">أيام متتالية</p>
-                      <p className="text-2xl font-bold text-orange-700">{stats.streakDays}</p>
+                      <p className="text-orange-300 text-sm font-medium">أيام متتالية</p>
+                      <p className="text-2xl font-bold text-white">{stats.streakDays}</p>
                     </div>
-                    <TrendingUp className="h-8 w-8 text-orange-500" />
+                    <TrendingUp className="h-8 w-8 text-orange-400" />
                   </div>
                 </div>
               </div>
 
               {/* Course Progress */}
               <div className="lg:col-span-2">
-                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                  <Target className="h-5 w-5 ml-2 text-primary-400" />
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                  <Target className="h-5 w-5 ml-2 text-neon-blue" />
                   تقدم الكورسات
                 </h3>
                 <div className="space-y-4">
                   {courseProgress.map((course) => (
-                    <div key={course.id} className="bg-gray-50 p-4 rounded-xl">
+                    <div key={course.id} className="glass glass-hover p-4 rounded-xl border border-glass-border">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-800">{course.title}</h4>
-                          <p className="text-sm text-gray-600">
+                          <h4 className="font-semibold text-white">{course.title}</h4>
+                          <p className="text-sm text-gray-400">
                             {course.completedLessons} من {course.totalLessons} دروس
                           </p>
                         </div>
-                        <span className="text-sm font-medium text-primary-400">
+                        <span className="text-sm font-medium text-neon-blue">
                           {course.progress}%
                         </span>
                       </div>
                       
-                      <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
+                      <div className="w-full bg-secondary-bg rounded-full h-2 mb-3">
                         <div 
-                          className="bg-gradient-to-r from-primary-400 to-secondary-400 h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full transition-all duration-300 neon-glow"
                           style={{ width: `${course.progress}%` }}
                         ></div>
                       </div>
@@ -252,7 +252,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                         <span className="text-xs text-gray-500">
                           آخر دخول: {new Date(course.lastAccessed).toLocaleDateString('ar-EG')}
                         </span>
-                        <button className="text-primary-400 hover:text-primary-500 text-sm font-medium flex items-center">
+                        <button className="text-neon-blue hover:text-neon-blue/80 text-sm font-medium flex items-center transition-colors duration-200 glass-hover px-3 py-1 rounded-lg">
                           <PlayCircle className="h-4 w-4 ml-1" />
                           متابعة
                         </button>
@@ -264,33 +264,33 @@ const UserDashboard = ({ isOpen, onClose }) => {
 
               {/* Recent Activity */}
               <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                  <Calendar className="h-5 w-5 ml-2 text-primary-400" />
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                  <Calendar className="h-5 w-5 ml-2 text-neon-purple" />
                   النشاط الأخير
                 </h3>
                 <div className="space-y-3">
                   {recentActivity.map((activity, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded-lg">
+                    <div key={index} className="glass glass-hover p-3 rounded-lg border border-glass-border">
                       <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0 mt-1">
                           {activity.type === 'lesson_completed' && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
+                            <CheckCircle className="h-4 w-4 text-neon-green" />
                           )}
                           {activity.type === 'quiz_passed' && (
-                            <Star className="h-4 w-4 text-yellow-500" />
+                            <Star className="h-4 w-4 text-yellow-400" />
                           )}
                           {activity.type === 'course_enrolled' && (
-                            <Award className="h-4 w-4 text-blue-500" />
+                            <Award className="h-4 w-4 text-neon-blue" />
                           )}
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-800">
+                          <p className="text-sm font-medium text-white">
                             {activity.title}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-400">
                             {activity.course}
                           </p>
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-gray-500">
                             {new Date(activity.time).toLocaleString('ar-EG')}
                           </p>
                         </div>

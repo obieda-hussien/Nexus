@@ -88,17 +88,17 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        className="glass rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-glass-border"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-400 to-secondary-400 p-6 text-white">
+        <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 p-6 text-white border-b border-glass-border">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold text-white">
               {authMode === 'login' && 'تسجيل الدخول'}
               {authMode === 'register' && 'إنشاء حساب جديد'}
               {authMode === 'reset' && 'إعادة تعيين كلمة المرور'}
@@ -108,7 +108,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                 onClose();
                 resetForm();
               }}
-              className="text-white hover:text-gray-200 text-2xl"
+              className="text-white hover:text-neon-blue text-2xl transition-colors duration-200"
             >
               ×
             </button>
@@ -116,11 +116,11 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 bg-secondary-bg/50">
           {/* Display Name (Register only) */}
           {authMode === 'register' && (
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label className="block text-gray-300 text-sm font-bold mb-2">
                 الاسم الكامل
               </label>
               <div className="relative">
@@ -129,7 +129,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   type="text"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent text-gray-900"
+                  className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
                   placeholder="أدخل اسمك الكامل"
                   required
                 />
@@ -139,7 +139,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-300 text-sm font-bold mb-2">
               البريد الإلكتروني
             </label>
             <div className="relative">
@@ -148,7 +148,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent text-gray-900"
+                className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
                 placeholder="أدخل بريدك الإلكتروني"
                 required
               />
@@ -158,7 +158,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {/* Password (Login and Register) */}
           {authMode !== 'reset' && (
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label className="block text-gray-300 text-sm font-bold mb-2">
                 كلمة المرور
               </label>
               <div className="relative">
@@ -167,14 +167,14 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent text-gray-900"
+                  className="w-full pl-10 pr-12 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
                   placeholder="أدخل كلمة المرور"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-3 text-gray-400 hover:text-neon-blue transition-colors duration-200"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -185,7 +185,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {/* Confirm Password (Register only) */}
           {authMode === 'register' && (
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label className="block text-gray-300 text-sm font-bold mb-2">
                 تأكيد كلمة المرور
               </label>
               <div className="relative">
@@ -194,7 +194,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   type={showPassword ? 'text' : 'password'}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent text-gray-900"
+                  className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
                   placeholder="أعد كتابة كلمة المرور"
                   required
                 />
@@ -204,7 +204,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
 
           {/* Error Message */}
           {error && (
-            <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
+            <div className="flex items-center space-x-2 text-red-400 bg-red-900/20 border border-red-400/30 p-3 rounded-lg backdrop-blur-sm">
               <AlertCircle className="h-5 w-5 flex-shrink-0" />
               <span className="text-sm">{error}</span>
             </div>
@@ -212,7 +212,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
 
           {/* Success Message */}
           {success && (
-            <div className="flex items-center space-x-2 text-green-600 bg-green-50 p-3 rounded-lg">
+            <div className="flex items-center space-x-2 text-green-400 bg-green-900/20 border border-green-400/30 p-3 rounded-lg backdrop-blur-sm">
               <CheckCircle className="h-5 w-5 flex-shrink-0" />
               <span className="text-sm">{success}</span>
             </div>
@@ -222,7 +222,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-primary-400 to-secondary-400 text-white py-3 rounded-lg font-bold hover:from-primary-500 hover:to-secondary-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-neon-blue to-neon-purple text-white py-3 rounded-lg font-bold hover:from-neon-blue/80 hover:to-neon-purple/80 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed neon-glow"
           >
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
@@ -242,7 +242,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           <div className="text-center space-y-2">
             {authMode === 'login' && (
               <>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                   ليس لديك حساب؟{' '}
                   <button
                     type="button"
@@ -250,12 +250,12 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                       setAuthMode('register');
                       resetForm();
                     }}
-                    className="text-primary-400 hover:text-primary-500 font-bold"
+                    className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                   >
                     إنشاء حساب جديد
                   </button>
                 </p>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                   نسيت كلمة المرور؟{' '}
                   <button
                     type="button"
@@ -263,7 +263,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                       setAuthMode('reset');
                       resetForm();
                     }}
-                    className="text-primary-400 hover:text-primary-500 font-bold"
+                    className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                   >
                     إعادة تعيين
                   </button>
@@ -271,7 +271,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
               </>
             )}
             {authMode === 'register' && (
-              <p className="text-gray-600">
+              <p className="text-gray-400">
                 لديك حساب بالفعل؟{' '}
                 <button
                   type="button"
@@ -279,14 +279,14 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                     setAuthMode('login');
                     resetForm();
                   }}
-                  className="text-primary-400 hover:text-primary-500 font-bold"
+                  className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                 >
                   تسجيل الدخول
                 </button>
               </p>
             )}
             {authMode === 'reset' && (
-              <p className="text-gray-600">
+              <p className="text-gray-400">
                 تذكرت كلمة المرور؟{' '}
                 <button
                   type="button"
@@ -294,7 +294,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                     setAuthMode('login');
                     resetForm();
                   }}
-                  className="text-primary-400 hover:text-primary-500 font-bold"
+                  className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                 >
                   تسجيل الدخول
                 </button>
