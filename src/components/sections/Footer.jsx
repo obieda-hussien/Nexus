@@ -85,13 +85,13 @@ const Footer = () => {
     {
       icon: Phone,
       title: isRTL ? 'الهاتف' : 'Phone',
-      value: isRTL ? '+966 11 123 4567' : '+1 (555) 123-4567',
-      href: 'tel:+15551234567'
+      value: isRTL ? '+20 2 123 4567' : '+20 2 123 4567',
+      href: 'tel:+20212340567'
     },
     {
       icon: MapPin,
       title: isRTL ? 'العنوان' : 'Address',
-      value: isRTL ? 'الرياض، المملكة العربية السعودية' : 'New York, NY, USA',
+      value: isRTL ? 'القاهرة، جمهورية مصر العربية' : 'Cairo, Egypt',
       href: '#'
     }
   ];
@@ -309,7 +309,7 @@ const Footer = () => {
               </span>
               <span className="text-red-500">❤️</span>
               <span className="text-text-secondary text-sm">
-                {isRTL ? 'في السعودية' : 'in Saudi Arabia'}
+                {isRTL ? 'في مصر' : 'in Egypt'}
               </span>
             </div>
           </div>
