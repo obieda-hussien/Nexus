@@ -1,17 +1,16 @@
 // Firebase configuration for Nexus Educational Platform
+// Using CLOUD FIRESTORE ONLY (not Realtime Database)
 // Configured for free plan: Authentication + Cloud Firestore (no Storage)
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getAnalytics } from 'firebase/analytics';
 
-// Firebase configuration using the provided config
+// Firebase configuration - CLOUD FIRESTORE ONLY
 const firebaseConfig = {
   apiKey: "AIzaSyDjl-tbsDaqx_9vpZaCqn45eT06kKPVU6A",
   authDomain: "nexus-012.firebaseapp.com",
-  // Note: databaseURL is for Realtime Database, but we're using Cloud Firestore
-  // databaseURL: "https://nexus-012-default-rtdb.firebaseio.com",
-  projectId: "nexus-012",
+  projectId: "nexus-012", // This is what Firestore uses
   storageBucket: "nexus-012.firebasestorage.app", // Storage not used in free plan
   messagingSenderId: "272428886699",
   appId: "1:272428886699:web:f2ca98a2855ef56ee7a5ee",

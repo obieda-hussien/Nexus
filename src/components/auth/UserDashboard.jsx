@@ -11,11 +11,13 @@ import {
   CheckCircle,
   Target,
   Calendar,
-  Award
+  Award,
+  Settings
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { db } from '../../config/firebase';
+import FirebaseDiagnostic from '../FirebaseDiagnostic';
 
 const UserDashboard = ({ isOpen, onClose }) => {
   const { currentUser, userProfile, logout, createUserProfile } = useAuth();
@@ -28,6 +30,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
   const [recentActivity, setRecentActivity] = useState([]);
   const [courseProgress, setCourseProgress] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDiagnostic, setShowDiagnostic] = useState(false);
 
   useEffect(() => {
     if (isOpen && currentUser && userProfile) {
@@ -149,6 +152,14 @@ const UserDashboard = ({ isOpen, onClose }) => {
     }
   };
 
+  const openDiagnostic = () => {
+    setShowDiagnostic(true);
+  };
+
+  const closeDiagnostic = () => {
+    setShowDiagnostic(false);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -172,6 +183,13 @@ const UserDashboard = ({ isOpen, onClose }) => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <button
+                onClick={openDiagnostic}
+                className="glass-hover p-2 rounded-lg border border-blue-400/30 hover:bg-blue-500/20 transition-all duration-200 group"
+                title="أداة التشخيص"
+              >
+                <Settings className="h-5 w-5 text-blue-400 group-hover:text-blue-300" />
+              </button>
               <button
                 onClick={handleLogout}
                 className="glass-hover bg-red-500/20 border border-red-400/30 hover:bg-red-500/30 px-4 py-2 rounded-lg transition-all duration-200 text-red-300 hover:text-red-200"
@@ -212,7 +230,13 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   💡 <strong>نصيحة:</strong> تحقق من قواعد الأمان في Firestore Console
                 </p>
               </div>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 flex-wrap justify-center gap-2">
+                <button
+                  onClick={openDiagnostic}
+                  className="glass-hover bg-blue-500/20 border border-blue-400/30 hover:bg-blue-500/30 px-4 py-2 rounded-lg transition-all duration-200 text-blue-300 hover:text-blue-200"
+                >
+                  🔍 تشخيص المشكلة
+                </button>
                 <button
                   onClick={handleCreateProfile}
                   disabled={loading}
@@ -356,6 +380,11 @@ const UserDashboard = ({ isOpen, onClose }) => {
           )}
         </div>
       </motion.div>
+      
+      {/* Firebase Diagnostic Tool */}
+      {showDiagnostic && (
+        <FirebaseDiagnostic onClose={closeDiagnostic} />
+      )}
     </div>
   );
 };
