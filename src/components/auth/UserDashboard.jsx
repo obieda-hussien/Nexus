@@ -15,7 +15,7 @@ import {
   Settings
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+import { ref, query, orderByChild, equalTo, get, limitToLast } from 'firebase/database';
 import { db } from '../../config/firebase';
 import FirebaseDiagnostic from '../FirebaseDiagnostic';
 

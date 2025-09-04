@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
       await updateProfile(user, { displayName });
       console.log('✅ Profile updated in Firebase Auth');
       
-      // Create comprehensive user document in Firestore
+      // Create comprehensive user document in Realtime Database
       const userProfileData = {
         uid: user.uid,
         displayName: displayName || 'مستخدم جديد',

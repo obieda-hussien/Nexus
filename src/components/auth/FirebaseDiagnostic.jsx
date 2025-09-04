@@ -11,12 +11,12 @@ import {
   ExternalLink 
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { checkFirestoreConnection } from '../../config/firebase';
-import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
+import { checkDatabaseConnection } from '../../config/firebase';
+import { ref, set, get, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 
 const FirebaseDiagnostic = ({ isOpen, onClose }) => {
-  const { currentUser, userProfile, firestoreConnected } = useAuth();
+  const { currentUser, userProfile, databaseConnected } = useAuth();
   const [diagnostics, setDiagnostics] = useState({
     firebaseInit: false,
     authStatus: false,
