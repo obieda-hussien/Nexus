@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Change Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .profile-text h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .profile-text p {
+            margin: 5px 0 0 0;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fecaca;
+        }
+        
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+        
+        .close-btn-enhanced {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .close-btn-enhanced:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fecaca;
+            transform: scale(1.05);
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .change-highlight {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .change-highlight h4 {
+            color: #4ade80;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .change-highlight p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>تحديث لوحة التحكم - إزالة زر تسجيل الخروج</h1>
+        
+        <div class="comparison">
+            <div class="panel">
+                <span class="badge">قبل التغيير</span>
+                <h3>النسخة السابقة</h3>
+                <div class="header">
+                    <div class="profile-section">
+                        <div class="profile-info">
+                            <div class="avatar">👤</div>
+                            <div class="profile-text">
+                                <h2>مرحباً، أحمد المستخدم</h2>
+                                <p>لوحة التحكم الشخصية</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="logout-btn">تسجيل الخروج</button>
+                            <button class="close-btn">×</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="change-highlight">
+                    <h4>المشكلة:</h4>
+                    <p>يوجد زر تسجيل الخروج وزر إغلاق منفصلين، مما يسبب تشويش في التصميم</p>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <span class="badge">بعد التغيير</span>
+                <h3>النسخة الجديدة</h3>
+                <div class="header">
+                    <div class="profile-section">
+                        <div class="profile-info">
+                            <div class="avatar">👤</div>
+                            <div class="profile-text">
+                                <h2>مرحباً، أحمد المستخدم</h2>
+                                <p>لوحة التحكم الشخصية</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="close-btn-enhanced">×</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="change-highlight">
+                    <h4>✅ التحسين:</h4>
+                    <p>تم إزالة زر تسجيل الخروج والاكتفاء بزر الإغلاق المحسن فقط، مما يجعل التصميم أكثر نظافة وبساطة</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 15px;">
+            <h3 style="color: #60a5fa; margin-top: 0;">ملخص التغييرات:</h3>
+            <ul style="margin: 0; padding-right: 20px;">
+                <li style="margin-bottom: 10px;">تم إزالة زر "تسجيل الخروج" من رأسية لوحة التحكم</li>
+                <li style="margin-bottom: 10px;">تم تحسين زر الإغلاق (×) ليكون أكبر وأكثر وضوحاً</li>
+                <li style="margin-bottom: 10px;">أصبح التصميم أكثر نظافة وبساطة</li>
+                <li>المستخدم يمكنه إغلاق لوحة التحكم باستخدام زر الإغلاق المحسن</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
