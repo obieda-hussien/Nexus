@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, BookOpen, Users, Award, Phone, User, LogIn, UserCircle } from 'lucide-react';
+import { Menu, X, BookOpen, Users, Award, Phone, User, LogIn, UserCircle, Settings } from 'lucide-react';
 import Button from '../ui/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import AuthModal from '../auth/AuthModal';
 import UserDashboard from '../auth/UserDashboard';
+import FirebaseDiagnostic from '../auth/FirebaseDiagnostic';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,7 @@ const Navigation = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState('login');
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showDiagnostic, setShowDiagnostic] = useState(false);
 
   const { currentUser, logout } = useAuth();
 
@@ -154,6 +156,18 @@ const Navigation = () => {
                   <UserCircle size={16} />
                   <span>{currentUser.displayName || 'المستخدم'}</span>
                 </Button>
+                
+                {/* Firebase Diagnostic Button - Show if there are issues */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowDiagnostic(true)}
+                  className="flex items-center space-x-2 text-orange-400 hover:text-orange-300"
+                  title="تشخيص Firebase"
+                >
+                  <Settings size={16} />
+                </Button>
+                
                 <Button
                   variant="outline"
                   size="sm"
@@ -164,6 +178,17 @@ const Navigation = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-2">
+                {/* Firebase Diagnostic Button for troubleshooting login issues */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowDiagnostic(true)}
+                  className="flex items-center space-x-2 text-orange-400 hover:text-orange-300"
+                  title="تشخيص Firebase"
+                >
+                  <Settings size={16} />
+                </Button>
+                
                 <Button
                   variant="ghost"
                   size="sm"
@@ -307,6 +332,12 @@ const Navigation = () => {
       <UserDashboard
         isOpen={showDashboard}
         onClose={() => setShowDashboard(false)}
+      />
+
+      {/* Firebase Diagnostic Modal */}
+      <FirebaseDiagnostic
+        isOpen={showDiagnostic}
+        onClose={() => setShowDiagnostic(false)}
       />
     </motion.nav>
   );
