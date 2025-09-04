@@ -186,16 +186,10 @@ const UserDashboard = ({ isOpen, onClose }) => {
                 <p className="text-sm text-neon-blue/80 mt-1">جاهز للتعلم اليوم؟</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={handleLogout}
-                className="glass-hover bg-red-500/20 border border-red-400/30 hover:bg-red-500/30 px-6 py-3 rounded-xl transition-all duration-200 text-red-300 hover:text-red-200 font-medium"
-              >
-                تسجيل الخروج
-              </button>
+            <div className="flex items-center">
               <button
                 onClick={onClose}
-                className="text-white hover:text-neon-blue text-3xl transition-colors duration-200 w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10"
+                className="text-white hover:text-red-400 text-3xl transition-colors duration-200 w-12 h-12 flex items-center justify-center rounded-full hover:bg-red-500/20 border border-transparent hover:border-red-400/30"
               >
                 ×
               </button>
