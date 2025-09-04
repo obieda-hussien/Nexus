@@ -1,18 +1,15 @@
 import { 
-  collection, 
-  doc, 
-  getDocs, 
-  getDoc, 
-  setDoc, 
-  updateDoc, 
-  addDoc, 
+  ref, 
+  get, 
+  set, 
+  update, 
+  push, 
   query, 
-  where, 
-  orderBy, 
-  limit,
-  serverTimestamp,
-  increment
-} from 'firebase/firestore';
+  orderByChild,
+  equalTo,
+  limitToLast,
+  serverTimestamp
+} from 'firebase/database';
 import { db } from '../config/firebase';
 import AnalyticsService from './AnalyticsService';
 
@@ -21,27 +18,35 @@ class LMSService {
   // Course Management
   static async getCourses(filters = {}) {
     try {
-      let q = collection(db, 'courses');
+      const coursesRef = ref(db, 'courses');
+      let snapshot;
       
+      // Apply filters with queries
       if (filters.subject) {
-        q = query(q, where('subject', '==', filters.subject));
+        const q = query(coursesRef, orderByChild('subject'), equalTo(filters.subject));
+        snapshot = await get(q);
+      } else if (filters.level) {
+        const q = query(coursesRef, orderByChild('level'), equalTo(filters.level));
+        snapshot = await get(q);
+      } else {
+        // Get all courses
+        snapshot = await get(coursesRef);
       }
       
-      if (filters.level) {
-        q = query(q, where('level', '==', filters.level));
-      }
-      
-      q = query(q, orderBy('created_at', 'desc'));
-      
-      const querySnapshot = await getDocs(q);
       const courses = [];
       
-      querySnapshot.forEach((doc) => {
-        courses.push({
-          id: doc.id,
-          ...doc.data()
+      if (snapshot.exists()) {
+        const coursesData = snapshot.val();
+        Object.keys(coursesData).forEach((courseId) => {
+          courses.push({
+            id: courseId,
+            ...coursesData[courseId]
+          });
         });
-      });
+        
+        // Sort by created_at desc (manual sorting for Realtime Database)
+        courses.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      }
       
       return courses;
     } catch (error) {
@@ -52,11 +57,13 @@ class LMSService {
 
   static async getCourse(courseId) {
     try {
-      const courseDoc = await getDoc(doc(db, 'courses', courseId));
-      if (courseDoc.exists()) {
+      const courseRef = ref(db, `courses/${courseId}`);
+      const snapshot = await get(courseRef);
+      
+      if (snapshot.exists()) {
         return {
-          id: courseDoc.id,
-          ...courseDoc.data()
+          id: courseId,
+          ...snapshot.val()
         };
       }
       return null;
@@ -79,15 +86,17 @@ class LMSService {
         status: 'active'
       };
       
-      const docRef = await addDoc(collection(db, 'courses'), course);
+      const coursesRef = ref(db, 'courses');
+      const newCourseRef = push(coursesRef);
+      await set(newCourseRef, course);
       
       AnalyticsService.storeEvent('course_created', {
-        course_id: docRef.id,
+        course_id: newCourseRef.key,
         instructor_id: instructorId,
         course_name: courseData.title
       });
       
-      return docRef.id;
+      return newCourseRef.key;
     } catch (error) {
       console.error('Error creating course:', error);
       throw new Error('فشل في إنشاء الكورس');
@@ -97,21 +106,26 @@ class LMSService {
   // Lesson Management
   static async getCourseLessons(courseId) {
     try {
-      const q = query(
-        collection(db, 'lessons'),
-        where('course_id', '==', courseId),
-        orderBy('order', 'asc')
-      );
+      const lessonsRef = ref(db, 'lessons');
+      const q = query(lessonsRef, orderByChild('course_id'), equalTo(courseId));
       
-      const querySnapshot = await getDocs(q);
+      const snapshot = await get(q);
       const lessons = [];
       
-      querySnapshot.forEach((doc) => {
-        lessons.push({
-          id: doc.id,
-          ...doc.data()
+      if (snapshot.exists()) {
+        const lessonsData = snapshot.val();
+        Object.keys(lessonsData).forEach((lessonId) => {
+          if (lessonsData[lessonId].course_id === courseId) {
+            lessons.push({
+              id: lessonId,
+              ...lessonsData[lessonId]
+            });
+          }
         });
-      });
+        
+        // Sort by order
+        lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
       
       return lessons;
     } catch (error) {
@@ -122,11 +136,13 @@ class LMSService {
 
   static async getLesson(lessonId) {
     try {
-      const lessonDoc = await getDoc(doc(db, 'lessons', lessonId));
-      if (lessonDoc.exists()) {
+      const lessonRef = ref(db, `lessons/${lessonId}`);
+      const snapshot = await get(lessonRef);
+      
+      if (snapshot.exists()) {
         return {
-          id: lessonDoc.id,
-          ...lessonDoc.data()
+          id: lessonId,
+          ...snapshot.val()
         };
       }
       return null;

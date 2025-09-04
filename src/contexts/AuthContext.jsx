@@ -7,8 +7,8 @@ import {
   updateProfile,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, db, checkFirestoreConnection } from '../config/firebase';
+import { ref, set, get, update } from 'firebase/database';
+import { auth, db, checkDatabaseConnection } from '../config/firebase';
 
 // Create Authentication Context
 const AuthContext = createContext();
@@ -18,16 +18,16 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
-  const [firestoreConnected, setFirestoreConnected] = useState(false);
+  const [databaseConnected, setDatabaseConnected] = useState(false);
 
-  // Test Firestore connection on app load
+  // Test Realtime Database connection on app load
   useEffect(() => {
     const testConnection = async () => {
-      const connected = await checkFirestoreConnection();
-      setFirestoreConnected(connected);
+      const connected = await checkDatabaseConnection();
+      setDatabaseConnected(connected);
       
       if (!connected) {
-        console.warn('⚠️ Firestore connection failed. Check Firebase configuration and security rules.');
+        console.warn('⚠️ Realtime Database connection failed. Check Firebase configuration and security rules.');
       }
     };
     
@@ -76,56 +76,49 @@ export const AuthProvider = ({ children }) => {
         learningStreak: 0
       };
       
-      console.log('📝 Attempting to save user profile to Firestore...', userProfileData);
+      console.log('📝 Attempting to save user profile to Realtime Database...', userProfileData);
       
-      // Enhanced Firestore save with multiple fallback strategies
+      // Enhanced Realtime Database save with multiple fallback strategies
       let saveSuccess = false;
       
       try {
         // Primary save attempt
-        await setDoc(doc(db, 'users', user.uid), userProfileData);
-        console.log('✅ User profile saved to Firestore successfully');
+        const userRef = ref(db, `users/${user.uid}`);
+        await set(userRef, userProfileData);
+        console.log('✅ User profile saved to Realtime Database successfully');
         saveSuccess = true;
-      } catch (firestoreError) {
-        console.error('❌ Primary Firestore save failed:', firestoreError);
+      } catch (databaseError) {
+        console.error('❌ Primary Realtime Database save failed:', databaseError);
         
-        // Fallback 1: Try with merge option
+        // Fallback 1: Try saving minimal profile
         try {
-          await setDoc(doc(db, 'users', user.uid), userProfileData, { merge: true });
-          console.log('✅ User profile saved to Firestore with merge option');
-          saveSuccess = true;
-        } catch (mergeError) {
-          console.error('❌ Firestore merge save failed:', mergeError);
+          const minimalProfile = {
+            uid: user.uid,
+            displayName: displayName || 'مستخدم جديد',
+            email,
+            createdAt: new Date().toISOString(),
+            role: 'student'
+          };
           
-          // Fallback 2: Save minimal profile
-          try {
-            const minimalProfile = {
-              uid: user.uid,
-              displayName: displayName || 'مستخدم جديد',
-              email,
-              createdAt: new Date().toISOString(),
-              role: 'student'
-            };
-            
-            await setDoc(doc(db, 'users', user.uid), minimalProfile);
-            console.log('✅ Minimal user profile saved to Firestore');
-            saveSuccess = true;
-          } catch (minimalError) {
-            console.error('❌ All Firestore save attempts failed:', minimalError);
-            
-            // Provide user guidance
-            console.error('🛠️ Troubleshooting tips:');
-            console.error('1. Check Firebase Console → Firestore → Rules');
-            console.error('2. Ensure rules allow authenticated users to write');
-            console.error('3. Verify project configuration in Firebase Console');
-            
-            // Don't throw error - user is still authenticated
-            saveSuccess = false;
-          }
+          const userRef = ref(db, `users/${user.uid}`);
+          await set(userRef, minimalProfile);
+          console.log('✅ Minimal user profile saved to Realtime Database');
+          saveSuccess = true;
+        } catch (minimalError) {
+          console.error('❌ All Realtime Database save attempts failed:', minimalError);
+          
+          // Provide user guidance
+          console.error('🛠️ Troubleshooting tips:');
+          console.error('1. Check Firebase Console → Realtime Database → Rules');
+          console.error('2. Ensure rules allow authenticated users to write');
+          console.error('3. Verify project configuration in Firebase Console');
+          
+          // Don't throw error - user is still authenticated
+          saveSuccess = false;
         }
       }
       
-      // Update local state regardless of Firestore save result
+      // Update local state regardless of Realtime Database save result
       if (saveSuccess) {
         setUserProfile(userProfileData);
         console.log('🎉 Registration completed successfully with data persistence');
@@ -159,9 +152,10 @@ export const AuthProvider = ({ children }) => {
       
       // Update last login if possible
       try {
-        await setDoc(doc(db, 'users', user.uid), {
+        const userRef = ref(db, `users/${user.uid}`);
+        await update(userRef, {
           lastLogin: new Date().toISOString()
-        }, { merge: true });
+        });
         console.log('✅ Last login time updated');
       } catch (error) {
         console.warn('⚠️ Could not update last login time:', error);
@@ -198,25 +192,26 @@ export const AuthProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   };
 
-  // Get user profile from Firestore with enhanced error handling
+  // Get user profile from Realtime Database with enhanced error handling
   const getUserProfile = async (userId) => {
     try {
       console.log('📖 Fetching user profile for:', userId);
-      const userDoc = await getDoc(doc(db, 'users', userId));
+      const userRef = ref(db, `users/${userId}`);
+      const snapshot = await get(userRef);
       
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
         console.log('✅ User profile fetched successfully:', userData.displayName);
         return userData;
       } else {
-        console.log('📭 No user profile found in Firestore for:', userId);
+        console.log('📭 No user profile found in Realtime Database for:', userId);
         return null;
       }
     } catch (error) {
       console.error('❌ Error fetching user profile:', error);
       
       if (error.code === 'permission-denied') {
-        console.error('🔒 Permission denied - check Firestore security rules');
+        console.error('🔒 Permission denied - check Realtime Database security rules');
       }
       
       return null;
@@ -261,7 +256,8 @@ export const AuthProvider = ({ children }) => {
       };
       
       console.log('📝 Creating/updating user profile:', userProfileData.displayName);
-      await setDoc(doc(db, 'users', currentUser.uid), userProfileData, { merge: true });
+      const userRef = ref(db, `users/${currentUser.uid}`);
+      await update(userRef, userProfileData);
       setUserProfile(userProfileData);
       console.log('✅ User profile created/updated successfully');
       
@@ -270,8 +266,8 @@ export const AuthProvider = ({ children }) => {
       console.error('❌ Error creating user profile:', error);
       
       if (error.code === 'permission-denied') {
-        console.error('🔒 Permission denied - check Firestore security rules');
-        console.error('📋 Required rule: allow read, write: if request.auth != null && request.auth.uid == userId;');
+        console.error('🔒 Permission denied - check Realtime Database security rules');
+        console.error('📋 Required rule: allow read, write: if auth != null && auth.uid == $uid;');
       }
       
       return null;
@@ -283,14 +279,12 @@ export const AuthProvider = ({ children }) => {
     if (!currentUser) return;
     
     try {
-      const progressPath = `progress.${courseId}.${lessonId}`;
-      await setDoc(doc(db, 'users', currentUser.uid), {
-        [progressPath]: {
-          completed: progress.completed,
-          completedAt: progress.completed ? new Date().toISOString() : null,
-          timeSpent: progress.timeSpent || 0
-        }
-      }, { merge: true });
+      const progressRef = ref(db, `users/${currentUser.uid}/progress/${courseId}/${lessonId}`);
+      await set(progressRef, {
+        completed: progress.completed,
+        completedAt: progress.completed ? new Date().toISOString() : null,
+        timeSpent: progress.timeSpent || 0
+      });
       
       console.log('✅ Progress updated for lesson:', lessonId);
     } catch (error) {
@@ -303,21 +297,20 @@ export const AuthProvider = ({ children }) => {
     if (!currentUser) return;
     
     try {
-      const userRef = doc(db, 'users', currentUser.uid);
-      const userDoc = await getDoc(userRef);
-      const userData = userDoc.data();
+      const userRef = ref(db, `users/${currentUser.uid}`);
+      const snapshot = await get(userRef);
+      const userData = snapshot.val() || {};
       
       const enrolledCourses = userData?.enrolledCourses || [];
       if (!enrolledCourses.includes(courseId)) {
         enrolledCourses.push(courseId);
-        await setDoc(userRef, {
-          enrolledCourses,
-          enrolledAt: {
-            ...userData?.enrolledAt,
-            [courseId]: new Date().toISOString()
-          }
-        }, { merge: true });
         
+        const updates = {
+          enrolledCourses,
+          [`enrolledAt/${courseId}`]: new Date().toISOString()
+        };
+        
+        await update(userRef, updates);
         console.log('✅ Enrolled in course:', courseId);
       }
     } catch (error) {
@@ -365,7 +358,7 @@ export const AuthProvider = ({ children }) => {
     enrollInCourse,
     getUserProfile,
     createUserProfile,
-    firestoreConnected
+    databaseConnected
   };
 
   return (

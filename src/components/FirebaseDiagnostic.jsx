@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../config/firebase';
-import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
+import { ref, get, set } from 'firebase/database';
 import { useAuth } from '../contexts/AuthContext';
 
 const FirebaseDiagnostic = ({ onClose }) => {
   const [diagnostics, setDiagnostics] = useState({
     firebaseInit: 'testing',
     authStatus: 'testing',
-    firestoreConnection: 'testing',
-    firestoreRules: 'testing',
+    databaseConnection: 'testing',
+    databaseRules: 'testing',
     userProfile: 'testing'
   });
   const [detailedResults, setDetailedResults] = useState({});
-  const { currentUser, firestoreConnected } = useAuth();
+  const { currentUser, databaseConnected } = useAuth();
 
   useEffect(() => {
     runDiagnostics();
@@ -57,18 +57,18 @@ const FirebaseDiagnostic = ({ onClose }) => {
       results.authStatus = { status: 'error', message: error.message };
     }
 
-    // Test 3: Firestore Connection
+    // Test 3: Realtime Database Connection
     try {
       // Simple connection test
-      const testDoc = doc(db, 'test', 'connection');
-      await getDoc(testDoc);
-      setDiagnostics(prev => ({ ...prev, firestoreConnection: 'success' }));
-      results.firestoreConnection = { status: 'success', message: 'Firestore connection successful' };
+      const testRef = ref(db, 'test/connection');
+      await get(testRef);
+      setDiagnostics(prev => ({ ...prev, databaseConnection: 'success' }));
+      results.databaseConnection = { status: 'success', message: 'Realtime Database connection successful' };
     } catch (error) {
-      setDiagnostics(prev => ({ ...prev, firestoreConnection: 'error' }));
-      results.firestoreConnection = { 
+      setDiagnostics(prev => ({ ...prev, databaseConnection: 'error' }));
+      results.databaseConnection = { 
         status: 'error', 
-        message: 'Firestore connection failed',
+        message: 'Realtime Database connection failed',
         error: error.code,
         solution: 'Check Firebase project configuration'
       };

@@ -6,17 +6,16 @@ import {
   deleteUser 
 } from 'firebase/auth';
 import { 
-  doc, 
-  updateDoc, 
-  serverTimestamp, 
-  addDoc, 
-  collection,
+  ref, 
+  update, 
+  push, 
+  set,
   query,
-  where,
-  getDocs,
-  orderBy,
-  limit
-} from 'firebase/firestore';
+  orderByChild,
+  equalTo,
+  get,
+  limitToLast
+} from 'firebase/database';
 
 // Security Service for Nexus Educational Platform
 class SecurityService {
@@ -94,14 +93,16 @@ class SecurityService {
   // Monitor login attempts
   static async logLoginAttempt(email, success, errorCode = null) {
     try {
-      await addDoc(collection(db, 'security_logs'), {
+      const logsRef = ref(db, 'security_logs');
+      const newLogRef = push(logsRef);
+      await set(newLogRef, {
         event_type: 'login_attempt',
         email: email,
         success: success,
         error_code: errorCode,
         ip_address: await this.getClientIP(),
         user_agent: navigator.userAgent,
-        timestamp: serverTimestamp(),
+        timestamp: new Date().toISOString(),
         created_at: new Date().toISOString()
       });
 

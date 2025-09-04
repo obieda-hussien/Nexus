@@ -1,16 +1,17 @@
 // Firebase configuration for Nexus Educational Platform
-// Using CLOUD FIRESTORE ONLY (not Realtime Database)
-// Configured for free plan: Authentication + Cloud Firestore (no Storage)
+// Using REALTIME DATABASE (free plan compatible)
+// Configured for free plan: Authentication + Realtime Database (no Storage, no Firestore)
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
 
-// Firebase configuration - CLOUD FIRESTORE ONLY
+// Firebase configuration - REALTIME DATABASE ONLY
 const firebaseConfig = {
   apiKey: "AIzaSyDjl-tbsDaqx_9vpZaCqn45eT06kKPVU6A",
   authDomain: "nexus-012.firebaseapp.com",
-  projectId: "nexus-012", // This is what Firestore uses
+  databaseURL: "https://nexus-012-default-rtdb.firebaseio.com", // Realtime Database URL
+  projectId: "nexus-012", 
   storageBucket: "nexus-012.firebasestorage.app", // Storage not used in free plan
   messagingSenderId: "272428886699",
   appId: "1:272428886699:web:f2ca98a2855ef56ee7a5ee",
@@ -23,23 +24,23 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
 
-// Initialize Cloud Firestore Database
-export const db = getFirestore(app);
+// Initialize Realtime Database
+export const db = getDatabase(app);
 
 // Initialize Analytics (only in production)
 export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
 
-// Helper function to check if Firestore is accessible
-export const checkFirestoreConnection = async () => {
+// Helper function to check if Realtime Database is accessible
+export const checkDatabaseConnection = async () => {
   try {
-    // This will test if we can access Firestore
-    const { doc, getDoc } = await import('firebase/firestore');
-    const testDoc = doc(db, 'test', 'connection');
-    await getDoc(testDoc);
-    console.log('✅ Firestore connection successful');
+    // This will test if we can access Realtime Database
+    const { ref, get } = await import('firebase/database');
+    const testRef = ref(db, 'test/connection');
+    await get(testRef);
+    console.log('✅ Realtime Database connection successful');
     return true;
   } catch (error) {
-    console.error('❌ Firestore connection failed:', error);
+    console.error('❌ Realtime Database connection failed:', error);
     console.error('Error details:', {
       code: error.code,
       message: error.message
@@ -47,6 +48,9 @@ export const checkFirestoreConnection = async () => {
     return false;
   }
 };
+
+// Legacy alias for backward compatibility during migration
+export const checkFirestoreConnection = checkDatabaseConnection;
 
 // Export the app instance
 export default app;

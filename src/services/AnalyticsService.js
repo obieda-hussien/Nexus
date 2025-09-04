@@ -1,6 +1,6 @@
 import { analytics } from '../config/firebase';
 import { logEvent, setUserProperties, setUserId } from 'firebase/analytics';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { ref, push, set } from 'firebase/database';
 import { db } from '../config/firebase';
 
 // Analytics Service for Nexus Educational Platform
@@ -27,7 +27,7 @@ class AnalyticsService {
       });
     }
     
-    // Also store in Firestore for detailed analytics
+    // Also store in Realtime Database for detailed analytics
     this.storeEvent('page_view', {
       page_name: pageName,
       page_title: pageTitle
@@ -258,13 +258,15 @@ class AnalyticsService {
     });
   }
 
-  // Store detailed events in Firestore for custom analytics
+  // Store detailed events in Realtime Database for custom analytics
   static async storeEvent(eventType, eventData) {
     try {
-      await addDoc(collection(db, 'analytics_events'), {
+      const eventsRef = ref(db, 'analytics_events');
+      const newEventRef = push(eventsRef);
+      await set(newEventRef, {
         event_type: eventType,
         event_data: eventData,
-        timestamp: serverTimestamp(),
+        timestamp: new Date().toISOString(),
         created_at: new Date().toISOString(),
         user_agent: navigator.userAgent,
         url: window.location.href,
