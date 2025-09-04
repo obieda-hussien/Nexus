@@ -27,11 +27,11 @@ class AnalyticsService {
       });
     }
     
-    // Also store in Realtime Database for detailed analytics
-    this.storeEvent('page_view', {
-      page_name: pageName,
-      page_title: pageTitle
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('page_view', {
+    //   page_name: pageName,
+    //   page_title: pageTitle
+    // });
   }
 
   // Track course interactions
@@ -44,10 +44,11 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('course_view', {
-      course_id: courseId,
-      course_name: courseName
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('course_view', {
+    //   course_id: courseId,
+    //   course_name: courseName
+    // });
   }
 
   static trackCourseEnrollment(courseId, courseName, userId) {
@@ -60,11 +61,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('course_enrollment', {
-      course_id: courseId,
-      course_name: courseName,
-      user_id: userId
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('course_enrollment', {
+    //   course_id: courseId,
+    //   course_name: courseName,
+    //   user_id: userId
+    // });
   }
 
   static trackLessonStart(courseId, lessonId, lessonName, userId) {
@@ -78,12 +80,13 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('lesson_start', {
-      course_id: courseId,
-      lesson_id: lessonId,
-      lesson_name: lessonName,
-      user_id: userId
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('lesson_start', {
+    //   course_id: courseId,
+    //   lesson_id: lessonId,
+    //   lesson_name: lessonName,
+    //   user_id: userId
+    // });
   }
 
   static trackLessonComplete(courseId, lessonId, lessonName, userId, timeSpent) {
@@ -98,13 +101,14 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('lesson_complete', {
-      course_id: courseId,
-      lesson_id: lessonId,
-      lesson_name: lessonName,
-      user_id: userId,
-      time_spent: timeSpent
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('lesson_complete', {
+    //   course_id: courseId,
+    //   lesson_id: lessonId,
+    //   lesson_name: lessonName,
+    //   user_id: userId,
+    //   time_spent: timeSpent
+    // });
   }
 
   // Track quiz and assessment interactions
@@ -119,12 +123,13 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('quiz_start', {
-      quiz_id: quizId,
-      quiz_name: quizName,
-      course_id: courseId,
-      user_id: userId
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('quiz_start', {
+    //   quiz_id: quizId,
+    //   quiz_name: quizName,
+    //   course_id: courseId,
+    //   user_id: userId
+    // });
   }
 
   static trackQuizComplete(quizId, quizName, courseId, userId, score, totalQuestions, timeSpent) {
@@ -142,16 +147,17 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('quiz_complete', {
-      quiz_id: quizId,
-      quiz_name: quizName,
-      course_id: courseId,
-      user_id: userId,
-      score: score,
-      total_questions: totalQuestions,
-      success_rate: (score / totalQuestions) * 100,
-      time_spent: timeSpent
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('quiz_complete', {
+    //   quiz_id: quizId,
+    //   quiz_name: quizName,
+    //   course_id: courseId,
+    //   user_id: userId,
+    //   score: score,
+    //   total_questions: totalQuestions,
+    //   success_rate: (score / totalQuestions) * 100,
+    //   time_spent: timeSpent
+    // });
   }
 
   // Track user authentication events
@@ -164,10 +170,11 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('user_signup', {
-      user_id: userId,
-      method: method
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('user_signup', {
+    //   user_id: userId,
+    //   method: method
+    // });
   }
 
   static trackUserLogin(userId, method = 'email') {
@@ -179,10 +186,11 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('user_login', {
-      user_id: userId,
-      method: method
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('user_login', {
+    //   user_id: userId,
+    //   method: method
+    // });
   }
 
   // Track live session interactions
@@ -196,11 +204,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('live_session_join', {
-      session_id: sessionId,
-      session_name: sessionName,
-      user_id: userId
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('live_session_join', {
+    //   session_id: sessionId,
+    //   session_name: sessionName,
+    //   user_id: userId
+    // });
   }
 
   static trackLiveSessionLeave(sessionId, sessionName, userId, timeSpent) {
@@ -214,12 +223,13 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('live_session_leave', {
-      session_id: sessionId,
-      session_name: sessionName,
-      user_id: userId,
-      time_spent: timeSpent
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('live_session_leave', {
+    //   session_id: sessionId,
+    //   session_name: sessionName,
+    //   user_id: userId,
+    //   time_spent: timeSpent
+    // });
   }
 
   // Track search and discovery
@@ -233,11 +243,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('search', {
-      search_term: searchTerm,
-      results_count: resultsCount,
-      user_id: userId
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('search', {
+    //   search_term: searchTerm,
+    //   results_count: resultsCount,
+    //   user_id: userId
+    // });
   }
 
   // Track errors and issues
@@ -251,15 +262,20 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('error', {
-      error_type: errorType,
-      error_message: errorMessage,
-      context: context
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('error', {
+    //   error_type: errorType,
+    //   error_message: errorMessage,
+    //   context: context
+    // });
   }
 
   // Store detailed events in Realtime Database for custom analytics
+  // DISABLED: Database storage disabled to save storage space on free plan
   static async storeEvent(eventType, eventData) {
+    // Database storage is disabled to conserve Firebase free plan storage
+    // Uncomment the code below if you want to re-enable database analytics storage
+    /*
     try {
       const eventsRef = ref(db, 'analytics_events');
       const newEventRef = push(eventsRef);
@@ -275,6 +291,7 @@ class AnalyticsService {
     } catch (error) {
       console.error('Error storing analytics event:', error);
     }
+    */
   }
 
   // Track custom conversion events
@@ -288,11 +305,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('conversion', {
-      conversion_type: conversionType,
-      value: value,
-      currency: currency
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('conversion', {
+    //   conversion_type: conversionType,
+    //   value: value,
+    //   currency: currency
+    // });
   }
 
   // Track engagement metrics
@@ -306,11 +324,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('engagement', {
-      engagement_type: engagementType,
-      duration: duration,
-      content: content
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('engagement', {
+    //   engagement_type: engagementType,
+    //   duration: duration,
+    //   content: content
+    // });
   }
 
   // Performance tracking
@@ -324,11 +343,12 @@ class AnalyticsService {
       });
     }
     
-    this.storeEvent('performance', {
-      metric_name: metricName,
-      value: value,
-      context: context
-    });
+    // Database storage disabled to save storage space
+    // this.storeEvent('performance', {
+    //   metric_name: metricName,
+    //   value: value,
+    //   context: context
+    // });
   }
 }
 
