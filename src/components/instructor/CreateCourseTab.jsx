@@ -32,14 +32,28 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       // Validate authentication
       if (!currentUser) {
         toast.error('يجب تسجيل الدخول أولاً لإنشاء كورس');
+        console.error('❌ No authenticated user found');
+        return;
+      }
+
+      // Validate required fields
+      if (!courseData.title || !courseData.description || !courseData.category) {
+        toast.error('يرجى ملء جميع الحقول المطلوبة');
+        console.error('❌ Missing required fields:', {
+          title: !!courseData.title,
+          description: !!courseData.description,
+          category: !!courseData.category
+        });
         return;
       }
 
       // Log the data being submitted for debugging
       console.log('🚀 Creating course with data:', {
-        ...courseData,
+        title: courseData.title,
+        category: courseData.category,
         instructorId: currentUser.uid,
-        instructorName: currentUser.displayName
+        instructorName: currentUser.displayName,
+        sectionsCount: courseData.curriculum?.sections?.length || 0
       });
 
       const courseRef = push(ref(db, 'courses'));
@@ -61,7 +75,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         isActive: false
       };
 
-      console.log('💾 Saving to Firebase:', courseDataToSave);
+      console.log('💾 Saving to Firebase with ID:', courseRef.key);
       
       await set(courseRef, courseDataToSave);
 
@@ -76,17 +90,21 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       
       if (error.code === 'permission-denied') {
         errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تحقق من إعدادات قاعدة البيانات';
+        console.error('💡 Troubleshooting: Check Firebase Realtime Database security rules');
       } else if (error.code === 'network-request-failed') {
         errorMessage = 'خطأ في الشبكة. تحقق من اتصالك بالإنترنت';
+      } else if (error.code === 'auth/requires-recent-login') {
+        errorMessage = 'يجب إعادة تسجيل الدخول للمتابعة';
       } else if (error.message) {
         errorMessage = `خطأ: ${error.message}`;
       }
       
       toast.error(errorMessage);
-      console.error('Error details:', {
+      console.error('📋 Error details:', {
         code: error.code,
         message: error.message,
-        stack: error.stack
+        authUser: !!currentUser,
+        userId: currentUser?.uid
       });
     }
   };
