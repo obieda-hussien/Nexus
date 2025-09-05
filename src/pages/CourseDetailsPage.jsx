@@ -249,7 +249,7 @@ const CourseDetailsPage = () => {
             <BookOpen className="w-16 h-16 text-gray-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-white mb-2">الكورس غير موجود</h1>
             <p className="text-gray-400 mb-6">لم يتم العثور على الكورس المطلوب</p>
-            <Link to="/courses" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+            <Link to="/Nexus/courses" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
               العودة إلى الكورسات
             </Link>
           </div>
@@ -266,9 +266,9 @@ const CourseDetailsPage = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-            <Link to="/" className="hover:text-white">الرئيسية</Link>
+            <Link to="/Nexus/" className="hover:text-white">الرئيسية</Link>
             <span>/</span>
-            <Link to="/courses" className="hover:text-white">الكورسات</Link>
+            <Link to="/Nexus/courses" className="hover:text-white">الكورسات</Link>
             <span>/</span>
             <span className="text-white">{course.title}</span>
           </nav>
