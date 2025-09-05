@@ -1,171 +1,139 @@
-import React, { useState } from 'react';
-import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp } from 'lucide-react';
-import { ref, push, set } from 'firebase/database';
+import React, { useState, useEffect } from 'react';
+import { X, Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move } from 'lucide-react';
+import { ref, update, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
-const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
-  const [step, setStep] = useState(1);
-  const [courseData, setCourseData] = useState({
-    title: '',
-    description: '',
-    shortDescription: '',
-    category: '',
-    subcategory: '',
-    level: 'beginner',
-    language: 'ar',
-    price: 0,
-    isFree: true,
-    thumbnail: '',
-    tags: [],
-    requirements: [],
-    whatYouWillLearn: [],
-    curriculum: {}
-  });
-
+const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
+  const [activeTab, setActiveTab] = useState('basic');
+  const [courseData, setCourseData] = useState(course);
+  const [sections, setSections] = useState(course?.curriculum?.sections || []);
+  const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useAuth();
 
-  const handleSubmit = async () => {
-    try {
-      const courseRef = push(ref(db, 'courses'));
-      
-      await set(courseRef, {
-        ...courseData,
-        id: courseRef.key,
-        instructorId: currentUser.uid,
-        instructorName: currentUser.displayName,
-        instructorAvatar: currentUser.photoURL || '',
-        status: 'draft',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        studentsCount: 0,
-        rating: 0,
-        reviewsCount: 0,
-        salesCount: 0,
-        totalRevenue: 0,
-        isActive: false
-      });
+  useEffect(() => {
+    if (course) {
+      setCourseData(course);
+      setSections(course?.curriculum?.sections || []);
+    }
+  }, [course]);
 
-      toast.success('تم إنشاء الكورس بنجاح!');
-      onCourseCreated();
+  const handleSave = async () => {
+    setIsLoading(true);
+    try {
+      const updatedCourse = {
+        ...courseData,
+        curriculum: { sections },
+        updatedAt: new Date().toISOString()
+      };
+
+      await update(ref(db, `courses/${course.id}`), updatedCourse);
+      toast.success('تم تحديث الكورس بنجاح');
+      onUpdate(updatedCourse);
+      onClose();
     } catch (error) {
-      toast.error('حدث خطأ في إنشاء الكورس');
+      toast.error('حدث خطأ في تحديث الكورس');
       console.error(error);
     }
+    setIsLoading(false);
   };
 
+  const updateCourseField = (field, value) => {
+    setCourseData(prev => ({ ...prev, [field]: value }));
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-white">إنشاء كورس جديد</h2>
-        <div className="flex space-x-3 space-x-reverse">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-gray-800 rounded-2xl border border-gray-700 w-full max-w-6xl max-h-[90vh] overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white">تعديل الكورس: {course?.title}</h2>
           <button
-            onClick={onCancel}
-            className="px-4 py-2 text-purple-200 hover:text-white transition-colors"
+            onClick={onClose}
+            className="text-white hover:text-gray-300 p-2 rounded-lg transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Tabs */}
+        <div className="border-b border-gray-700">
+          <div className="flex space-x-0 space-x-reverse">
+            {[
+              { id: 'basic', label: 'المعلومات الأساسية' },
+              { id: 'curriculum', label: 'المنهج والوحدات' },
+              { id: 'settings', label: 'الإعدادات' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-6 py-3 font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? 'text-blue-400 border-b-2 border-blue-400'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+          {activeTab === 'basic' && (
+            <BasicInfoTab 
+              data={courseData} 
+              onChange={updateCourseField} 
+            />
+          )}
+          
+          {activeTab === 'curriculum' && (
+            <CurriculumTab
+              sections={sections}
+              setSections={setSections}
+              courseId={course?.id}
+            />
+          )}
+          
+          {activeTab === 'settings' && (
+            <SettingsTab 
+              data={courseData} 
+              onChange={updateCourseField} 
+            />
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-gray-700 p-6 flex justify-between">
+          <button
+            onClick={onClose}
+            className="px-6 py-3 text-gray-300 hover:text-white transition-colors"
           >
             إلغاء
           </button>
+          <button
+            onClick={handleSave}
+            disabled={isLoading}
+            className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 space-x-reverse"
+          >
+            <Save className="w-5 h-5" />
+            <span>{isLoading ? 'جاري الحفظ...' : 'حفظ التغييرات'}</span>
+          </button>
         </div>
       </div>
-
-      {/* Progress Steps */}
-      <CourseCreationSteps currentStep={step} />
-
-      {/* Step Content */}
-      <div className="mt-8">
-        {step === 1 && (
-          <BasicInfoStep 
-            data={courseData}
-            onChange={setCourseData}
-            onNext={() => setStep(2)}
-          />
-        )}
-        
-        {step === 2 && (
-          <CurriculumStep
-            curriculum={courseData.curriculum}
-            onChange={(curriculum) => setCourseData(prev => ({...prev, curriculum}))}
-            onNext={() => setStep(3)}
-            onBack={() => setStep(1)}
-          />
-        )}
-        
-        {step === 3 && (
-          <PricingStep
-            data={courseData}
-            onChange={setCourseData}
-            onNext={() => setStep(4)}
-            onBack={() => setStep(2)}
-          />
-        )}
-        
-        {step === 4 && (
-          <ReviewStep
-            data={courseData}
-            onSubmit={handleSubmit}
-            onBack={() => setStep(3)}
-          />
-        )}
-      </div>
     </div>
   );
 };
 
-const CourseCreationSteps = ({ currentStep }) => {
-  const steps = [
-    { id: 1, title: 'المعلومات الأساسية' },
-    { id: 2, title: 'المنهج' },
-    { id: 3, title: 'التسعير' },
-    { id: 4, title: 'المراجعة والنشر' }
-  ];
-
-  return (
-    <div className="flex items-center justify-between mb-8">
-      {steps.map((step, index) => (
-        <React.Fragment key={step.id}>
-          <div className="flex items-center">
-            <div className={`
-              w-10 h-10 rounded-full flex items-center justify-center font-semibold
-              ${currentStep >= step.id 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-gray-600 text-gray-300'
-              }
-            `}>
-              {step.id}
-            </div>
-            <span className={`mr-3 ${currentStep >= step.id ? 'text-white' : 'text-gray-400'}`}>
-              {step.title}
-            </span>
-          </div>
-          {index < steps.length - 1 && (
-            <ChevronRight className="text-gray-400 w-5 h-5" />
-          )}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-};
-
-// Basic Info Step Component
-const BasicInfoStep = ({ data, onChange, onNext }) => {
-  const [formData, setFormData] = useState(data);
-
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({...prev, [field]: value}));
-    onChange({...formData, [field]: value});
-  };
-
-  const handleNext = () => {
-    if (!formData.title || !formData.description || !formData.category) {
-      toast.error('يرجى ملء جميع الحقول المطلوبة');
-      return;
-    }
-    onNext();
-  };
-
+const BasicInfoTab = ({ data, onChange }) => {
   return (
     <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-white mb-4">المعلومات الأساسية</h3>
+      
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-purple-200 text-sm font-semibold mb-2">
@@ -173,10 +141,9 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           </label>
           <input
             type="text"
-            value={formData.title}
-            onChange={(e) => handleInputChange('title', e.target.value)}
+            value={data.title || ''}
+            onChange={(e) => onChange('title', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-            placeholder="مثال: أساسيات الفيزياء الحديثة"
           />
         </div>
 
@@ -185,8 +152,8 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             التصنيف *
           </label>
           <select
-            value={formData.category}
-            onChange={(e) => handleInputChange('category', e.target.value)}
+            value={data.category || ''}
+            onChange={(e) => onChange('category', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
             <option value="">اختر التصنيف</option>
@@ -205,10 +172,9 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
         </label>
         <input
           type="text"
-          value={formData.shortDescription}
-          onChange={(e) => handleInputChange('shortDescription', e.target.value)}
+          value={data.shortDescription || ''}
+          onChange={(e) => onChange('shortDescription', e.target.value)}
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="وصف قصير يلخص محتوى الكورس في سطر واحد"
           maxLength="120"
         />
       </div>
@@ -218,22 +184,21 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           الوصف التفصيلي *
         </label>
         <textarea
-          value={formData.description}
-          onChange={(e) => handleInputChange('description', e.target.value)}
+          value={data.description || ''}
+          onChange={(e) => onChange('description', e.target.value)}
           rows="6"
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه الطلاب، والفوائد المتوقعة..."
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         <div>
           <label className="block text-purple-200 text-sm font-semibold mb-2">
             المستوى
           </label>
           <select
-            value={formData.level}
-            onChange={(e) => handleInputChange('level', e.target.value)}
+            value={data.level || 'beginner'}
+            onChange={(e) => onChange('level', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
             <option value="beginner">مبتدئ</option>
@@ -247,33 +212,36 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             اللغة
           </label>
           <select
-            value={formData.language}
-            onChange={(e) => handleInputChange('language', e.target.value)}
+            value={data.language || 'ar'}
+            onChange={(e) => onChange('language', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
             <option value="ar">العربية</option>
             <option value="en">الإنجليزية</option>
           </select>
         </div>
-      </div>
 
-      <div className="flex justify-end">
-        <button
-          onClick={handleNext}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
-        >
-          التالي: المنهج
-        </button>
+        <div>
+          <label className="block text-purple-200 text-sm font-semibold mb-2">
+            الحالة
+          </label>
+          <select
+            value={data.status || 'draft'}
+            onChange={(e) => onChange('status', e.target.value)}
+            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
+          >
+            <option value="draft">مسودة</option>
+            <option value="pending">في المراجعة</option>
+            <option value="published">منشور</option>
+          </select>
+        </div>
       </div>
     </div>
   );
 };
 
-// Enhanced Curriculum Step with proper module and lesson management
-const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
-  const [sections, setSections] = useState(curriculum?.sections || []);
+const CurriculumTab = ({ sections, setSections, courseId }) => {
   const [showAddSection, setShowAddSection] = useState(false);
-  const [editingSection, setEditingSection] = useState(null);
   const [newSectionTitle, setNewSectionTitle] = useState('');
 
   const addSection = () => {
@@ -290,28 +258,22 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
       isExpanded: true
     };
 
-    const updatedSections = [...sections, newSection];
-    setSections(updatedSections);
-    onChange({ sections: updatedSections });
+    setSections([...sections, newSection]);
     setNewSectionTitle('');
     setShowAddSection(false);
     toast.success('تم إضافة الوحدة بنجاح');
   };
 
   const updateSection = (sectionId, updates) => {
-    const updatedSections = sections.map(section =>
+    setSections(sections.map(section =>
       section.id === sectionId ? { ...section, ...updates } : section
-    );
-    setSections(updatedSections);
-    onChange({ sections: updatedSections });
+    ));
   };
 
   const deleteSection = (sectionId) => {
     if (!window.confirm('هل أنت متأكد من حذف هذه الوحدة؟')) return;
     
-    const updatedSections = sections.filter(section => section.id !== sectionId);
-    setSections(updatedSections);
-    onChange({ sections: updatedSections });
+    setSections(sections.filter(section => section.id !== sectionId));
     toast.success('تم حذف الوحدة');
   };
 
@@ -319,7 +281,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     const newLesson = {
       id: Date.now().toString(),
       title: '',
-      type: 'article', // article, video, quiz
+      type: 'article',
       content: '',
       videoUrl: '',
       duration: 0,
@@ -360,24 +322,6 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     });
   };
 
-  const handleNext = () => {
-    if (sections.length === 0) {
-      toast.error('يرجى إضافة وحدة واحدة على الأقل');
-      return;
-    }
-
-    const hasEmptyLessons = sections.some(section => 
-      section.lessons.some(lesson => !lesson.title.trim())
-    );
-
-    if (hasEmptyLessons) {
-      toast.error('يرجى إكمال جميع عناوين الدروس');
-      return;
-    }
-
-    onNext();
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -389,6 +333,29 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
           <Plus className="w-4 h-4" />
           <span>إضافة وحدة</span>
         </button>
+      </div>
+
+      {/* Course Stats */}
+      <div className="grid md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-white/5 rounded-lg p-4 text-center">
+          <p className="text-2xl font-bold text-white">{sections.length}</p>
+          <p className="text-purple-200">وحدة</p>
+        </div>
+        <div className="bg-white/5 rounded-lg p-4 text-center">
+          <p className="text-2xl font-bold text-white">
+            {sections.reduce((total, section) => total + (section.lessons?.length || 0), 0)}
+          </p>
+          <p className="text-purple-200">درس</p>
+        </div>
+        <div className="bg-white/5 rounded-lg p-4 text-center">
+          <p className="text-2xl font-bold text-white">
+            {sections.reduce((total, section) => 
+              total + (section.lessons?.reduce((lessonTotal, lesson) => 
+                lessonTotal + (lesson.duration || 0), 0) || 0), 0
+            )}
+          </p>
+          <p className="text-purple-200">دقيقة</p>
+        </div>
       </div>
 
       {/* Add Section Form */}
@@ -424,15 +391,15 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
 
       {/* Sections List */}
       {sections.length === 0 ? (
-        <div className="text-center py-12">
-          <BookOpen className="w-16 h-16 text-purple-300 mx-auto mb-4" />
+        <div className="text-center py-12 bg-white/5 rounded-xl">
+          <FileText className="w-16 h-16 text-purple-300 mx-auto mb-4" />
           <p className="text-purple-200">لم تقم بإضافة أي وحدات بعد</p>
           <p className="text-purple-300 text-sm">ابدأ بإضافة الوحدة الأولى لكورسك</p>
         </div>
       ) : (
         <div className="space-y-4">
           {sections.map((section, sectionIndex) => (
-            <SectionCard
+            <EditableSectionCard
               key={section.id}
               section={section}
               sectionIndex={sectionIndex}
@@ -446,27 +413,88 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
 
-      <div className="flex justify-between">
-        <button
-          onClick={onBack}
-          className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
-        >
-          السابق
-        </button>
-        <button
-          onClick={handleNext}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
-        >
-          التالي: التسعير
-        </button>
+const SettingsTab = ({ data, onChange }) => {
+  return (
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-white mb-4">إعدادات الكورس</h3>
+      
+      {/* Pricing */}
+      <div className="bg-white/5 rounded-xl p-6">
+        <h4 className="text-lg font-semibold text-white mb-4">التسعير</h4>
+        
+        <div className="space-y-4">
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <input
+              type="checkbox"
+              id="isFree"
+              checked={data.isFree || false}
+              onChange={(e) => onChange('isFree', e.target.checked)}
+              className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+            />
+            <label htmlFor="isFree" className="text-white font-medium">
+              كورس مجاني
+            </label>
+          </div>
+
+          {!data.isFree && (
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                السعر (بالجنيه المصري)
+              </label>
+              <input
+                type="number"
+                value={data.price || 0}
+                onChange={(e) => onChange('price', Number(e.target.value))}
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
+                min="0"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Visibility */}
+      <div className="bg-white/5 rounded-xl p-6">
+        <h4 className="text-lg font-semibold text-white mb-4">إعدادات العرض</h4>
+        
+        <div className="space-y-4">
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <input
+              type="checkbox"
+              id="isActive"
+              checked={data.isActive || false}
+              onChange={(e) => onChange('isActive', e.target.checked)}
+              className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+            />
+            <label htmlFor="isActive" className="text-white font-medium">
+              كورس نشط ومتاح للتسجيل
+            </label>
+          </div>
+
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <input
+              type="checkbox"
+              id="allowPreview"
+              checked={data.allowPreview || false}
+              onChange={(e) => onChange('allowPreview', e.target.checked)}
+              className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+            />
+            <label htmlFor="allowPreview" className="text-white font-medium">
+              السماح بمعاينة بعض الدروس مجاناً
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-// Section Card Component
-const SectionCard = ({ 
+// Reuse the SectionCard and LessonCard components from CreateCourseTab with some modifications
+const EditableSectionCard = ({ 
   section, 
   sectionIndex, 
   onUpdate, 
@@ -559,7 +587,7 @@ const SectionCard = ({
         <div className="space-y-3">
           {/* Lessons */}
           {section.lessons?.map((lesson, lessonIndex) => (
-            <LessonCard
+            <EditableLessonCard
               key={lesson.id}
               lesson={lesson}
               lessonIndex={lessonIndex}
@@ -582,15 +610,15 @@ const SectionCard = ({
   );
 };
 
-// Lesson Card Component  
-const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
-  const [isEditing, setIsEditing] = useState(!lesson.title); // Auto-edit for new lessons
+const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(!lesson.title);
   const [formData, setFormData] = useState({
     title: lesson.title,
     type: lesson.type || 'article',
     content: lesson.content || '',
     videoUrl: lesson.videoUrl || '',
-    duration: lesson.duration || 0
+    duration: lesson.duration || 0,
+    isPublished: lesson.isPublished || false
   });
 
   const handleSave = () => {
@@ -611,14 +639,15 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
   const handleCancel = () => {
     if (!lesson.title) {
-      onDelete(); // Delete if it's a new lesson that was cancelled
+      onDelete();
     } else {
       setFormData({
         title: lesson.title,
         type: lesson.type || 'article',
         content: lesson.content || '',
         videoUrl: lesson.videoUrl || '',
-        duration: lesson.duration || 0
+        duration: lesson.duration || 0,
+        isPublished: lesson.isPublished || false
       });
       setIsEditing(false);
     }
@@ -671,13 +700,18 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
           {/* Content based on type */}
           {formData.type === 'article' ? (
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-              placeholder="محتوى المقال..."
-              rows="4"
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-            />
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                محتوى المقال
+              </label>
+              <textarea
+                value={formData.content}
+                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                placeholder="اكتب محتوى المقال هنا..."
+                rows="6"
+                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
+              />
+            </div>
           ) : (
             <div className="space-y-2">
               <input
@@ -696,6 +730,20 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               />
             </div>
           )}
+
+          {/* Published Status */}
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <input
+              type="checkbox"
+              id={`published-${lesson.id}`}
+              checked={formData.isPublished}
+              onChange={(e) => setFormData(prev => ({ ...prev, isPublished: e.target.checked }))}
+              className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+            />
+            <label htmlFor={`published-${lesson.id}`} className="text-purple-200 text-sm">
+              منشور ومتاح للطلاب
+            </label>
+          </div>
 
           {/* Save/Cancel Buttons */}
           <div className="flex space-x-2 space-x-reverse justify-end">
@@ -724,10 +772,15 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
             </div>
             <div>
               <h5 className="text-white font-medium">{lesson.title}</h5>
-              <p className="text-purple-300 text-sm">
-                {getTypeLabel(lesson.type)}
-                {lesson.type === 'video' && lesson.duration > 0 && ` • ${lesson.duration} دقيقة`}
-              </p>
+              <div className="flex items-center space-x-2 space-x-reverse text-purple-300 text-sm">
+                <span>{getTypeLabel(lesson.type)}</span>
+                {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} دقيقة</span>}
+                {lesson.isPublished ? (
+                  <span className="text-green-400">• منشور</span>
+                ) : (
+                  <span className="text-yellow-400">• مسودة</span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -761,114 +814,4 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
   );
 };
 
-// Pricing Step
-const PricingStep = ({ data, onChange, onNext, onBack }) => {
-  const handlePriceChange = (field, value) => {
-    onChange(prev => ({...prev, [field]: value}));
-  };
-
-  return (
-    <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white">تسعير الكورس</h3>
-      
-      <div className="space-y-4">
-        <div className="flex items-center space-x-3 space-x-reverse">
-          <input
-            type="checkbox"
-            id="isFree"
-            checked={data.isFree}
-            onChange={(e) => handlePriceChange('isFree', e.target.checked)}
-            className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
-          />
-          <label htmlFor="isFree" className="text-white font-medium">
-            كورس مجاني
-          </label>
-        </div>
-
-        {!data.isFree && (
-          <div>
-            <label className="block text-purple-200 text-sm font-semibold mb-2">
-              السعر (بالجنيه المصري)
-            </label>
-            <input
-              type="number"
-              value={data.price}
-              onChange={(e) => handlePriceChange('price', Number(e.target.value))}
-              className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-              placeholder="مثال: 500"
-              min="0"
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="flex justify-between">
-        <button
-          onClick={onBack}
-          className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
-        >
-          السابق
-        </button>
-        <button
-          onClick={onNext}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
-        >
-          التالي: المراجعة
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// Review Step
-const ReviewStep = ({ data, onSubmit, onBack }) => {
-  return (
-    <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white">مراجعة معلومات الكورس</h3>
-      
-      <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
-        <div>
-          <h4 className="text-purple-200 text-sm">عنوان الكورس</h4>
-          <p className="text-white font-medium">{data.title}</p>
-        </div>
-        
-        <div>
-          <h4 className="text-purple-200 text-sm">التصنيف</h4>
-          <p className="text-white">{data.category}</p>
-        </div>
-        
-        <div>
-          <h4 className="text-purple-200 text-sm">المستوى</h4>
-          <p className="text-white">
-            {data.level === 'beginner' ? 'مبتدئ' : 
-             data.level === 'intermediate' ? 'متوسط' : 'متقدم'}
-          </p>
-        </div>
-        
-        <div>
-          <h4 className="text-purple-200 text-sm">السعر</h4>
-          <p className="text-white">
-            {data.isFree ? 'مجاني' : `${data.price} جنيه`}
-          </p>
-        </div>
-      </div>
-
-      <div className="flex justify-between">
-        <button
-          onClick={onBack}
-          className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
-        >
-          السابق
-        </button>
-        <button
-          onClick={onSubmit}
-          className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
-        >
-          إنشاء الكورس
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default CreateCourseTab;
+export default EditCourseModal;

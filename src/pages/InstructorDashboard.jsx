@@ -109,13 +109,22 @@ const InstructorDashboard = () => {
   };
 
   const handleEditCourse = (course) => {
-    // TODO: Implement course editing
+    // Course editing is now handled within CoursesTab via EditCourseModal
     console.log('Edit course:', course);
   };
 
+  const handleUpdateCourse = (updatedCourse) => {
+    // Update the course in local state when edited
+    setCourses(prevCourses => 
+      prevCourses.map(course => 
+        course.id === updatedCourse.id ? updatedCourse : course
+      )
+    );
+  };
+
   const handleDeleteCourse = async (courseId) => {
-    // TODO: Implement course deletion with confirmation
-    console.log('Delete course:', courseId);
+    // Update local state when course is deleted
+    setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId));
   };
 
   const handleMarkNotificationAsRead = async (notificationId) => {
@@ -180,6 +189,7 @@ const InstructorDashboard = () => {
                 courses={courses}
                 onEditCourse={handleEditCourse}
                 onDeleteCourse={handleDeleteCourse}
+                onUpdateCourse={handleUpdateCourse}
               />
             )}
             

@@ -1,10 +1,46 @@
 import React, { useState } from 'react';
-import { Edit3, Eye, Trash2, Users, Star, DollarSign, MoreVertical } from 'lucide-react';
+import { Edit3, Eye, Trash2, Users, Star, DollarSign, MoreVertical, Settings, BookOpen } from 'lucide-react';
+import { ref, remove } from 'firebase/database';
+import { db } from '../../config/firebase';
+import toast from 'react-hot-toast';
+import EditCourseModal from './EditCourseModal';
 
-const CoursesTab = ({ courses, onEditCourse, onDeleteCourse }) => {
+const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [sortBy, setSortBy] = useState('recent');
+  const [editingCourse, setEditingCourse] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleEditCourse = (course) => {
+    setEditingCourse(course);
+    setShowEditModal(true);
+  };
+
+  const handleUpdateCourse = (updatedCourse) => {
+    if (onUpdateCourse) {
+      onUpdateCourse(updatedCourse);
+    }
+    setShowEditModal(false);
+    setEditingCourse(null);
+  };
+
+  const handleDeleteCourse = async (courseId) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا الكورس نهائياً؟ لا يمكن التراجع عن هذا الإجراء.')) {
+      return;
+    }
+
+    try {
+      await remove(ref(db, `courses/${courseId}`));
+      toast.success('تم حذف الكورس بنجاح');
+      if (onDeleteCourse) {
+        onDeleteCourse(courseId);
+      }
+    } catch (error) {
+      toast.error('حدث خطأ في حذف الكورس');
+      console.error(error);
+    }
+  };
 
   const filteredCourses = courses
     ?.filter(course => {
@@ -128,8 +164,8 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse }) => {
             <CourseCard
               key={course.id}
               course={course}
-              onEdit={() => onEditCourse(course)}
-              onDelete={() => onDeleteCourse(course.id)}
+              onEdit={() => handleEditCourse(course)}
+              onDelete={() => handleDeleteCourse(course.id)}
               getStatusColor={getStatusColor}
               getStatusText={getStatusText}
             />
@@ -146,6 +182,17 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse }) => {
           </div>
         )}
       </div>
+
+      {/* Edit Course Modal */}
+      <EditCourseModal
+        course={editingCourse}
+        isOpen={showEditModal}
+        onClose={() => {
+          setShowEditModal(false);
+          setEditingCourse(null);
+        }}
+        onUpdate={handleUpdateCourse}
+      />
     </div>
   );
 };
@@ -153,8 +200,20 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse }) => {
 const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText }) => {
   const [showMenu, setShowMenu] = useState(false);
 
+  const getCurriculumStats = () => {
+    const sections = course.curriculum?.sections || [];
+    const totalLessons = sections.reduce((total, section) => total + (section.lessons?.length || 0), 0);
+    const totalDuration = sections.reduce((total, section) => 
+      total + (section.lessons?.reduce((lessonTotal, lesson) => 
+        lessonTotal + (lesson.duration || 0), 0) || 0), 0
+    );
+    return { sections: sections.length, lessons: totalLessons, duration: totalDuration };
+  };
+
+  const stats = getCurriculumStats();
+
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 hover:bg-white/15 transition-colors">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-center space-x-3 space-x-reverse mb-2">
@@ -163,13 +222,31 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
               {getStatusText(course.status)}
             </span>
           </div>
-          <p className="text-purple-200 text-sm line-clamp-2">{course.shortDescription || course.description}</p>
+          <p className="text-purple-200 text-sm line-clamp-2 mb-3">{course.shortDescription || course.description}</p>
+          
+          {/* Curriculum Overview */}
+          <div className="flex items-center space-x-4 space-x-reverse text-sm text-purple-300 mb-2">
+            <div className="flex items-center space-x-1 space-x-reverse">
+              <BookOpen className="w-4 h-4" />
+              <span>{stats.sections} وحدة</span>
+            </div>
+            <div className="flex items-center space-x-1 space-x-reverse">
+              <span>•</span>
+              <span>{stats.lessons} درس</span>
+            </div>
+            {stats.duration > 0 && (
+              <div className="flex items-center space-x-1 space-x-reverse">
+                <span>•</span>
+                <span>{stats.duration} دقيقة</span>
+              </div>
+            )}
+          </div>
         </div>
         
         <div className="relative">
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="text-purple-200 hover:text-white p-2"
+            className="text-purple-200 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
           >
             <MoreVertical className="w-5 h-5" />
           </button>
@@ -181,30 +258,43 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
                   onEdit();
                   setShowMenu(false);
                 }}
-                className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse"
+                className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Edit3 className="w-4 h-4" />
-                <span>تعديل</span>
+                <span>تعديل المحتوى</span>
               </button>
               <button
                 onClick={() => {
-                  // View course logic here
+                  // View course logic here - could navigate to course preview
+                  console.log('Viewing course:', course.id);
                   setShowMenu(false);
                 }}
-                className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse"
+                className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Eye className="w-4 h-4" />
                 <span>معاينة</span>
               </button>
               <button
                 onClick={() => {
+                  // Course settings logic
+                  console.log('Course settings:', course.id);
+                  setShowMenu(false);
+                }}
+                className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
+              >
+                <Settings className="w-4 h-4" />
+                <span>إعدادات</span>
+              </button>
+              <hr className="border-gray-700" />
+              <button
+                onClick={() => {
                   onDelete();
                   setShowMenu(false);
                 }}
-                className="w-full text-right px-4 py-2 text-red-400 hover:bg-gray-700 flex items-center space-x-2 space-x-reverse"
+                className="w-full text-right px-4 py-2 text-red-400 hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
-                <span>حذف</span>
+                <span>حذف نهائياً</span>
               </button>
             </div>
           )}
@@ -234,11 +324,30 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
       {course.progress !== undefined && (
         <div className="w-full bg-gray-600 rounded-full h-2 mb-2">
           <div 
-            className="bg-blue-600 h-2 rounded-full" 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
             style={{ width: `${course.progress}%` }}
           ></div>
         </div>
       )}
+
+      {/* Quick Actions */}
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
+        <div className="flex items-center space-x-2 space-x-reverse">
+          <span className={`w-2 h-2 rounded-full ${
+            course.isActive ? 'bg-green-400' : 'bg-gray-400'
+          }`}></span>
+          <span className="text-sm text-purple-200">
+            {course.isActive ? 'نشط' : 'غير نشط'}
+          </span>
+        </div>
+        
+        <button
+          onClick={onEdit}
+          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:scale-105 transition-transform"
+        >
+          إدارة المحتوى
+        </button>
+      </div>
     </div>
   );
 };
