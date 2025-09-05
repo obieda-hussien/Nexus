@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp, UserCheck, ArrowRight, HelpCircle } from 'lucide-react';
 import { ref, push, set } from 'firebase/database';
 import { db } from '../../config/firebase';
@@ -729,6 +729,11 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     }
   });
 
+  // Memoized callback for quiz data changes to prevent unnecessary re-renders
+  const handleQuizDataChange = useCallback((quizData) => {
+    setFormData(prev => ({ ...prev, quizData }));
+  }, []);
+
   const handleSave = () => {
     if (!formData.title.trim()) {
       toast.error('عنوان الدرس مطلوب');
@@ -884,7 +889,7 @@ console.log('مرحباً بالعالم');
               </label>
               <QuizEditor
                 quizData={formData.quizData}
-                onChange={(quizData) => setFormData(prev => ({ ...prev, quizData }))}
+                onChange={handleQuizDataChange}
                 placeholder="إنشاء كويز تفاعلي..."
               />
             </div>

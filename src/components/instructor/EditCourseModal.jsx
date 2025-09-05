@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move, HelpCircle } from 'lucide-react';
 import { ref, update, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
@@ -673,6 +673,11 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     }
   });
 
+  // Memoized callback for quiz data changes to prevent unnecessary re-renders
+  const handleQuizChange = useCallback((quiz) => {
+    setFormData(prev => ({ ...prev, quiz }));
+  }, []);
+
   // Reset form data when lesson changes
   useEffect(() => {
     setFormData({
@@ -755,9 +760,9 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     }
   };
 
-  const updateFormField = (field, value) => {
+  const updateFormField = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   const getTypeIcon = (type) => {
     switch (type) {
@@ -848,7 +853,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <ErrorBoundary>
                 <QuizEditor
                   quizData={formData.quiz}
-                  onChange={(quiz) => updateFormField('quiz', quiz)}
+                  onChange={handleQuizChange}
                   placeholder="إنشاء كويز تفاعلي..."
                 />
               </ErrorBoundary>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Plus, Trash2, Save, Eye, Settings, Clock, Trophy, HelpCircle, CheckCircle, X, ChevronUp, ChevronDown, Edit3 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -23,16 +23,47 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
 
   const [activeTab, setActiveTab] = useState('questions');
   const [showPreview, setShowPreview] = useState(false);
+  const isInitialMount = useRef(true);
+  const changeTimeoutRef = useRef(null);
 
+  // Memoized onChange callback to prevent unnecessary calls
+  const debouncedOnChange = useCallback((newQuiz) => {
+    if (changeTimeoutRef.current) {
+      clearTimeout(changeTimeoutRef.current);
+    }
+    
+    changeTimeoutRef.current = setTimeout(() => {
+      if (onChange && typeof onChange === 'function') {
+        onChange(newQuiz);
+      }
+    }, 100);
+  }, [onChange]);
+
+  // Initialize quiz data only once when quizData prop changes
   useEffect(() => {
-    if (quizData) {
-      setQuiz({ ...quiz, ...quizData });
+    if (quizData && JSON.stringify(quizData) !== JSON.stringify(quiz)) {
+      setQuiz(prevQuiz => ({
+        ...prevQuiz,
+        ...quizData
+      }));
     }
   }, [quizData]);
 
+  // Call onChange when quiz changes, but skip initial mount and debounce updates
   useEffect(() => {
-    onChange(quiz);
-  }, [quiz, onChange]);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    
+    debouncedOnChange(quiz);
+    
+    return () => {
+      if (changeTimeoutRef.current) {
+        clearTimeout(changeTimeoutRef.current);
+      }
+    };
+  }, [quiz, debouncedOnChange]);
 
   const addQuestion = (type = 'multiple_choice') => {
     const newQuestion = {
