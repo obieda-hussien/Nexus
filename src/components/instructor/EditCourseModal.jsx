@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move } from 'lucide-react';
+import { Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move } from 'lucide-react';
 import { ref, update, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import MarkdownEditor from './MarkdownEditor';
+import Modal from '../ui/Modal';
+import ErrorBoundary from '../ui/ErrorBoundary';
 
 const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
   const [activeTab, setActiveTab] = useState('basic');
@@ -13,41 +15,19 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useAuth();
 
+  // Reset state when course changes or modal opens
   useEffect(() => {
-    if (course) {
+    if (isOpen && course) {
       setCourseData(course);
       setSections(course?.curriculum?.sections || []);
+      setActiveTab('basic');
+      setIsLoading(false);
     }
-  }, [course]);
-
-  // Close modal on ESC key
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === 'Escape' && isOpen) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscKey);
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen, onClose]);
-
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+  }, [course, isOpen]);
 
   const handleSave = async () => {
+    if (isLoading) return;
+    
     setIsLoading(true);
     try {
       const updatedCourse = {
@@ -63,103 +43,99 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
     } catch (error) {
       toast.error('حدث خطأ في تحديث الكورس');
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const updateCourseField = (field, value) => {
     setCourseData(prev => ({ ...prev, [field]: value }));
   };
 
-  if (!isOpen) return null;
+  if (!course) return null;
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 overflow-y-auto"
-      onClick={handleBackdropClick}
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={`تعديل الكورس: ${course?.title || ''}`}
+      size="2xl"
+      className="bg-gray-900 text-white"
     >
-      <div 
-        className="bg-gray-900 rounded-2xl border border-gray-600 w-full max-w-6xl max-h-[95vh] overflow-hidden shadow-2xl my-4"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 flex items-center justify-between sticky top-0 z-10">
-          <h2 className="text-2xl font-bold text-white">تعديل الكورس: {course?.title}</h2>
-          <button
-            onClick={onClose}
-            className="text-white hover:text-gray-300 p-2 rounded-lg transition-colors hover:bg-white/10"
-          >
-            <X className="w-6 h-6" />
-          </button>
+      {/* Tabs */}
+      <div className="border-b border-gray-600 bg-gray-800">
+        <div className="flex space-x-0 space-x-reverse">
+          {[
+            { id: 'basic', label: 'المعلومات الأساسية' },
+            { id: 'curriculum', label: 'المنهج والوحدات' },
+            { id: 'settings', label: 'الإعدادات' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              type="button"
+              className={`px-6 py-3 font-medium transition-colors relative ${
+                activeTab === tab.id
+                  ? 'text-blue-400 border-b-2 border-blue-400 bg-gray-700'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-700'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
+      </div>
 
-        {/* Tabs */}
-        <div className="border-b border-gray-600 bg-gray-800">
-          <div className="flex space-x-0 space-x-reverse">
-            {[
-              { id: 'basic', label: 'المعلومات الأساسية' },
-              { id: 'curriculum', label: 'المنهج والوحدات' },
-              { id: 'settings', label: 'الإعدادات' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 font-medium transition-colors relative ${
-                  activeTab === tab.id
-                    ? 'text-blue-400 border-b-2 border-blue-400 bg-gray-700'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(95vh-200px)] bg-gray-800">
-          {activeTab === 'basic' && (
-            <BasicInfoTab 
-              data={courseData} 
-              onChange={updateCourseField} 
-            />
-          )}
-          
-          {activeTab === 'curriculum' && (
-            <CurriculumTab
-              sections={sections}
-              setSections={setSections}
-              courseId={course?.id}
-            />
-          )}
-          
-          {activeTab === 'settings' && (
-            <SettingsTab 
-              data={courseData} 
-              onChange={updateCourseField} 
-            />
-          )}
+      {/* Content */}
+      <div className="flex flex-col h-full">
+        <div className="flex-1 p-6 overflow-y-auto bg-gray-800">
+          <ErrorBoundary>
+            {activeTab === 'basic' && (
+              <BasicInfoTab 
+                data={courseData} 
+                onChange={updateCourseField} 
+              />
+            )}
+            
+            {activeTab === 'curriculum' && (
+              <CurriculumTab
+                sections={sections}
+                setSections={setSections}
+                courseId={course?.id}
+              />
+            )}
+            
+            {activeTab === 'settings' && (
+              <SettingsTab 
+                data={courseData} 
+                onChange={updateCourseField} 
+              />
+            )}
+          </ErrorBoundary>
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-600 p-6 flex justify-between bg-gray-800 sticky bottom-0">
+        <div className="border-t border-gray-600 p-6 flex justify-between bg-gray-800">
           <button
             onClick={onClose}
-            className="px-6 py-3 text-gray-300 hover:text-white transition-colors hover:bg-gray-700 rounded-lg"
+            type="button"
+            disabled={isLoading}
+            className="px-6 py-3 text-gray-300 hover:text-white transition-colors hover:bg-gray-700 rounded-lg disabled:opacity-50"
           >
             إلغاء
           </button>
           <button
             onClick={handleSave}
             disabled={isLoading}
-            className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 space-x-reverse"
+            type="button"
+            className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center space-x-2 space-x-reverse"
           >
             <Save className="w-5 h-5" />
             <span>{isLoading ? 'جاري الحفظ...' : 'حفظ التغييرات'}</span>
           </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
@@ -647,13 +623,25 @@ const EditableSectionCard = ({
 const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(!lesson.title);
   const [formData, setFormData] = useState({
-    title: lesson.title,
+    title: lesson.title || '',
     type: lesson.type || 'article',
     content: lesson.content || '',
     videoUrl: lesson.videoUrl || '',
     duration: lesson.duration || 0,
     isPublished: lesson.isPublished || false
   });
+
+  // Reset form data when lesson changes
+  useEffect(() => {
+    setFormData({
+      title: lesson.title || '',
+      type: lesson.type || 'article',
+      content: lesson.content || '',
+      videoUrl: lesson.videoUrl || '',
+      duration: lesson.duration || 0,
+      isPublished: lesson.isPublished || false
+    });
+  }, [lesson]);
 
   const handleSave = () => {
     if (!formData.title.trim()) {
@@ -675,8 +663,9 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     if (!lesson.title) {
       onDelete();
     } else {
+      // Reset to original values
       setFormData({
-        title: lesson.title,
+        title: lesson.title || '',
         type: lesson.type || 'article',
         content: lesson.content || '',
         videoUrl: lesson.videoUrl || '',
@@ -685,6 +674,10 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
       });
       setIsEditing(false);
     }
+  };
+
+  const updateFormField = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const getTypeIcon = (type) => {
@@ -717,7 +710,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           <input
             type="text"
             value={formData.title}
-            onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+            onChange={(e) => updateFormField('title', e.target.value)}
             placeholder="عنوان الدرس"
             className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
           />
@@ -725,7 +718,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           {/* Lesson Type */}
           <select
             value={formData.type}
-            onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
+            onChange={(e) => updateFormField('type', e.target.value)}
             className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-400"
           >
             <option value="article">مقال</option>
@@ -738,25 +731,27 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <label className="block text-gray-300 text-sm font-semibold mb-2">
                 محتوى المقال (يدعم Markdown)
               </label>
-              <MarkdownEditor
-                value={formData.content}
-                onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
-                placeholder="اكتب محتوى المقال باستخدام Markdown..."
-              />
+              <ErrorBoundary>
+                <MarkdownEditor
+                  value={formData.content}
+                  onChange={(value) => updateFormField('content', value)}
+                  placeholder="اكتب محتوى المقال باستخدام Markdown..."
+                />
+              </ErrorBoundary>
             </div>
           ) : (
             <div className="space-y-2">
               <input
                 type="url"
                 value={formData.videoUrl}
-                onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                onChange={(e) => updateFormField('videoUrl', e.target.value)}
                 placeholder="رابط الفيديو (YouTube أو رابط مباشر)"
                 className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
               <input
                 type="number"
                 value={formData.duration}
-                onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
+                onChange={(e) => updateFormField('duration', parseInt(e.target.value) || 0)}
                 placeholder="مدة الفيديو (بالدقائق)"
                 className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
@@ -769,7 +764,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               type="checkbox"
               id={`published-${lesson.id}`}
               checked={formData.isPublished}
-              onChange={(e) => setFormData(prev => ({ ...prev, isPublished: e.target.checked }))}
+              onChange={(e) => updateFormField('isPublished', e.target.checked)}
               className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor={`published-${lesson.id}`} className="text-gray-300 text-sm">
@@ -781,13 +776,15 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           <div className="flex space-x-2 space-x-reverse justify-end">
             <button
               onClick={handleSave}
-              className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
+              type="button"
+              className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition-colors"
             >
               حفظ
             </button>
             <button
               onClick={handleCancel}
-              className="text-gray-300 hover:text-white px-3 py-1"
+              type="button"
+              className="text-gray-300 hover:text-white px-3 py-1 transition-colors"
             >
               إلغاء
             </button>

@@ -20,6 +20,14 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
     { syntax: '> اقتباس', description: 'نص مقتبس' },
   ];
 
+  const handlePreviewToggle = () => {
+    setIsPreview(!isPreview);
+  };
+
+  const handleHelpToggle = () => {
+    setShowHelp(!showHelp);
+  };
+
   return (
     <div className="space-y-3 bg-gray-900 p-4 rounded-lg border border-gray-600">
       {/* Toolbar */}
@@ -27,7 +35,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
         <div className="flex items-center space-x-2 space-x-reverse">
           <button
             type="button"
-            onClick={() => setIsPreview(!isPreview)}
+            onClick={handlePreviewToggle}
             className={`flex items-center space-x-1 space-x-reverse px-3 py-2 rounded-lg text-sm transition-colors ${
               isPreview 
                 ? 'bg-blue-500 text-white shadow-md' 
@@ -40,7 +48,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
           
           <button
             type="button"
-            onClick={() => setShowHelp(!showHelp)}
+            onClick={handleHelpToggle}
             className={`flex items-center space-x-1 space-x-reverse px-3 py-2 rounded-lg text-sm transition-colors ${
               showHelp 
                 ? 'bg-purple-500 text-white shadow-md'
@@ -75,37 +83,38 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
       )}
 
       {/* Editor/Preview Area */}
-      <div className="border border-gray-600 rounded-lg overflow-hidden bg-gray-800 min-h-[250px]">
+      <div className="border border-gray-600 rounded-lg overflow-hidden min-h-[250px]">
         {isPreview ? (
-          <div className="p-4 min-h-[250px] bg-white text-gray-900">
+          <div className="p-4 min-h-[250px] bg-white">
             {value ? (
               <div className="prose prose-lg max-w-none">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   className="text-gray-900"
                   components={{
-                    // Style markdown elements for better readability
-                    h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mb-4 border-b pb-2">{children}</h1>,
-                    h2: ({children}) => <h2 className="text-2xl font-bold text-gray-800 mb-3">{children}</h2>,
-                    h3: ({children}) => <h3 className="text-xl font-bold text-gray-800 mb-2">{children}</h3>,
-                    p: ({children}) => <p className="text-gray-700 mb-3 leading-relaxed">{children}</p>,
+                    // Enhanced styling for better readability
+                    h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mb-4 border-b border-gray-300 pb-2">{children}</h1>,
+                    h2: ({children}) => <h2 className="text-2xl font-bold text-gray-800 mb-3 mt-6">{children}</h2>,
+                    h3: ({children}) => <h3 className="text-xl font-bold text-gray-800 mb-2 mt-4">{children}</h3>,
+                    h4: ({children}) => <h4 className="text-lg font-semibold text-gray-800 mb-2 mt-3">{children}</h4>,
+                    p: ({children}) => <p className="text-gray-700 mb-4 leading-relaxed text-base">{children}</p>,
                     strong: ({children}) => <strong className="text-gray-900 font-bold">{children}</strong>,
                     em: ({children}) => <em className="text-gray-700 italic">{children}</em>,
-                    ul: ({children}) => <ul className="text-gray-700 mb-3 mr-6 list-disc">{children}</ul>,
-                    ol: ({children}) => <ol className="text-gray-700 mb-3 mr-6 list-decimal">{children}</ol>,
-                    li: ({children}) => <li className="mb-1">{children}</li>,
+                    ul: ({children}) => <ul className="text-gray-700 mb-4 mr-6 list-disc space-y-1">{children}</ul>,
+                    ol: ({children}) => <ol className="text-gray-700 mb-4 mr-6 list-decimal space-y-1">{children}</ol>,
+                    li: ({children}) => <li className="text-gray-700">{children}</li>,
                     blockquote: ({children}) => (
-                      <blockquote className="border-r-4 border-blue-500 pr-4 my-4 bg-gray-50 py-2 italic">
+                      <blockquote className="border-r-4 border-blue-500 pr-4 my-4 bg-gray-50 py-3 italic text-gray-600">
                         {children}
                       </blockquote>
                     ),
                     code: ({children}) => (
-                      <code className="bg-gray-200 text-red-600 px-1 py-0.5 rounded text-sm font-mono">
+                      <code className="bg-gray-200 text-red-600 px-2 py-1 rounded text-sm font-mono">
                         {children}
                       </code>
                     ),
                     pre: ({children}) => (
-                      <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto my-3 font-mono">
+                      <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto my-4 font-mono text-sm">
                         {children}
                       </pre>
                     ),
@@ -120,17 +129,19 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
                       </a>
                     ),
                     table: ({children}) => (
-                      <table className="border-collapse border border-gray-400 my-4 w-full">
-                        {children}
-                      </table>
+                      <div className="overflow-x-auto my-4">
+                        <table className="border-collapse border border-gray-400 w-full">
+                          {children}
+                        </table>
+                      </div>
                     ),
                     th: ({children}) => (
-                      <th className="border border-gray-400 bg-gray-100 px-4 py-2 text-left font-semibold">
+                      <th className="border border-gray-400 bg-gray-100 px-4 py-2 text-right font-semibold text-gray-900">
                         {children}
                       </th>
                     ),
                     td: ({children}) => (
-                      <td className="border border-gray-400 px-4 py-2">
+                      <td className="border border-gray-400 px-4 py-2 text-gray-700">
                         {children}
                       </td>
                     ),
@@ -140,19 +151,21 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
                 </ReactMarkdown>
               </div>
             ) : (
-              <div className="text-gray-500 text-center py-12">
+              <div className="text-gray-500 text-center py-12 flex flex-col items-center justify-center">
                 <Eye className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>اكتب شيئاً لرؤية المعاينة هنا</p>
+                <p className="text-lg">اكتب شيئاً لرؤية المعاينة هنا</p>
+                <p className="text-sm mt-1 opacity-70">استخدم صيغة Markdown للتنسيق</p>
               </div>
             )}
           </div>
         ) : (
           <textarea
-            value={value}
+            value={value || ''}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full h-[250px] p-4 bg-gray-800 text-white placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-[250px] p-4 bg-gray-800 text-white placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             dir="rtl"
+            style={{ minHeight: '250px' }}
           />
         )}
       </div>
