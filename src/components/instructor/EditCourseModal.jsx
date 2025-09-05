@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move } from 'lucide-react';
+import { Save, Plus, Edit3, Trash2, Youtube, FileText, ExternalLink, ChevronDown, ChevronUp, Move, HelpCircle } from 'lucide-react';
 import { ref, update, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import MarkdownEditor from './MarkdownEditor';
+import QuizEditor from './QuizEditor';
+import QuizAnalytics from './QuizAnalytics';
 import Modal from '../ui/Modal';
 import ErrorBoundary from '../ui/ErrorBoundary';
 
@@ -68,6 +70,7 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
           {[
             { id: 'basic', label: 'المعلومات الأساسية' },
             { id: 'curriculum', label: 'المنهج والوحدات' },
+            { id: 'analytics', label: 'تحليلات الكويز' },
             { id: 'settings', label: 'الإعدادات' }
           ].map(tab => (
             <button
@@ -102,6 +105,13 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
                 sections={sections}
                 setSections={setSections}
                 courseId={course?.id}
+              />
+            )}
+            
+            {activeTab === 'analytics' && (
+              <AnalyticsTab 
+                course={course}
+                sections={sections}
               />
             )}
             
@@ -296,7 +306,23 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
       videoUrl: '',
       duration: 0,
       order: 0,
-      isPublished: false
+      isPublished: false,
+      quiz: {
+        questions: [],
+        timeLimit: 30,
+        maxAttempts: 3,
+        passingScore: 70,
+        showCorrectAnswers: true,
+        allowReview: true,
+        randomizeQuestions: false,
+        settings: {
+          description: '',
+          instructions: '',
+          showProgress: true,
+          requirePassword: false,
+          password: ''
+        }
+      }
     };
 
     updateSection(sectionId, {
@@ -628,7 +654,23 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     content: lesson.content || '',
     videoUrl: lesson.videoUrl || '',
     duration: lesson.duration || 0,
-    isPublished: lesson.isPublished || false
+    isPublished: lesson.isPublished || false,
+    quiz: lesson.quiz || {
+      questions: [],
+      timeLimit: 30,
+      maxAttempts: 3,
+      passingScore: 70,
+      showCorrectAnswers: true,
+      allowReview: true,
+      randomizeQuestions: false,
+      settings: {
+        description: '',
+        instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+        showProgress: true,
+        requirePassword: false,
+        password: ''
+      }
+    }
   });
 
   // Reset form data when lesson changes
@@ -639,7 +681,23 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
       content: lesson.content || '',
       videoUrl: lesson.videoUrl || '',
       duration: lesson.duration || 0,
-      isPublished: lesson.isPublished || false
+      isPublished: lesson.isPublished || false,
+      quiz: lesson.quiz || {
+        questions: [],
+        timeLimit: 30,
+        maxAttempts: 3,
+        passingScore: 70,
+        showCorrectAnswers: true,
+        allowReview: true,
+        randomizeQuestions: false,
+        settings: {
+          description: '',
+          instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+          showProgress: true,
+          requirePassword: false,
+          password: ''
+        }
+      }
     });
   }, [lesson]);
 
@@ -651,6 +709,11 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
       toast.error('رابط الفيديو مطلوب');
+      return;
+    }
+
+    if (formData.type === 'quiz' && formData.quiz.questions.length === 0) {
+      toast.error('يجب إضافة سؤال واحد على الأقل للكويز');
       return;
     }
 
@@ -670,7 +733,23 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         content: lesson.content || '',
         videoUrl: lesson.videoUrl || '',
         duration: lesson.duration || 0,
-        isPublished: lesson.isPublished || false
+        isPublished: lesson.isPublished || false,
+        quiz: lesson.quiz || {
+          questions: [],
+          timeLimit: 30,
+          maxAttempts: 3,
+          passingScore: 70,
+          showCorrectAnswers: true,
+          allowReview: true,
+          randomizeQuestions: false,
+          settings: {
+            description: '',
+            instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+            showProgress: true,
+            requirePassword: false,
+            password: ''
+          }
+        }
       });
       setIsEditing(false);
     }
@@ -686,6 +765,8 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         return <Youtube className="w-4 h-4" />;
       case 'article':
         return <FileText className="w-4 h-4" />;
+      case 'quiz':
+        return <HelpCircle className="w-4 h-4" />;
       default:
         return <FileText className="w-4 h-4" />;
     }
@@ -697,6 +778,8 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         return 'فيديو';
       case 'article':
         return 'مقال';
+      case 'quiz':
+        return 'كويز';
       default:
         return 'مقال';
     }
@@ -723,6 +806,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           >
             <option value="article">مقال</option>
             <option value="video">فيديو</option>
+            <option value="quiz">كويز</option>
           </select>
 
           {/* Content based on type */}
@@ -739,7 +823,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
                 />
               </ErrorBoundary>
             </div>
-          ) : (
+          ) : formData.type === 'video' ? (
             <div className="space-y-2">
               <input
                 type="url"
@@ -756,7 +840,20 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
                 className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
             </div>
-          )}
+          ) : formData.type === 'quiz' ? (
+            <div>
+              <label className="block text-gray-300 text-sm font-semibold mb-2">
+                محتوى الكويز
+              </label>
+              <ErrorBoundary>
+                <QuizEditor
+                  quizData={formData.quiz}
+                  onChange={(quiz) => updateFormField('quiz', quiz)}
+                  placeholder="إنشاء كويز تفاعلي..."
+                />
+              </ErrorBoundary>
+            </div>
+          ) : null}
 
           {/* Published Status */}
           <div className="flex items-center space-x-3 space-x-reverse">
@@ -804,6 +901,9 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <div className="flex items-center space-x-2 space-x-reverse text-gray-400 text-sm">
                 <span>{getTypeLabel(lesson.type)}</span>
                 {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} دقيقة</span>}
+                {lesson.type === 'quiz' && lesson.quiz?.questions?.length > 0 && (
+                  <span>• {lesson.quiz.questions.length} سؤال</span>
+                )}
                 {lesson.isPublished ? (
                   <span className="text-green-400">• منشور</span>
                 ) : (
@@ -839,6 +939,86 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const AnalyticsTab = ({ course, sections }) => {
+  // Get all quiz lessons from all sections
+  const quizLessons = sections.flatMap(section => 
+    section.lessons?.filter(lesson => lesson.type === 'quiz') || []
+  );
+
+  if (quizLessons.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <HelpCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+        <h3 className="text-xl font-semibold text-white mb-2">لا توجد كويزات في هذا الكورس</h3>
+        <p className="text-gray-400">قم بإضافة كويزات في تبويب "المنهج والوحدات" لعرض التحليلات</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-white mb-4">تحليلات الكويزات</h3>
+      
+      {/* Overview Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
+          <p className="text-2xl font-bold text-white">{quizLessons.length}</p>
+          <p className="text-gray-300">إجمالي الكويزات</p>
+        </div>
+        <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
+          <p className="text-2xl font-bold text-white">
+            {quizLessons.reduce((total, lesson) => total + (lesson.quiz?.questions?.length || 0), 0)}
+          </p>
+          <p className="text-gray-300">إجمالي الأسئلة</p>
+        </div>
+        <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
+          <p className="text-2xl font-bold text-white">
+            {quizLessons.filter(lesson => lesson.isPublished).length}
+          </p>
+          <p className="text-gray-300">كويزات منشورة</p>
+        </div>
+      </div>
+
+      {/* Quiz Analytics for each quiz */}
+      <div className="space-y-6">
+        {quizLessons.map((lesson, index) => (
+          <div key={lesson.id} className="bg-gray-800 border border-gray-600 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <HelpCircle className="w-5 h-5 text-blue-400" />
+                <h4 className="text-lg font-semibold text-white">{lesson.title}</h4>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  lesson.isPublished 
+                    ? 'bg-green-500 text-white' 
+                    : 'bg-yellow-500 text-black'
+                }`}>
+                  {lesson.isPublished ? 'منشور' : 'مسودة'}
+                </span>
+              </div>
+              <div className="text-gray-400 text-sm">
+                {lesson.quiz?.questions?.length || 0} سؤال • 
+                {lesson.quiz?.timeLimit || 30} دقيقة
+              </div>
+            </div>
+            
+            {lesson.isPublished ? (
+              <QuizAnalytics 
+                courseId={course.id}
+                lessonId={lesson.id}
+                quizTitle={lesson.title}
+              />
+            ) : (
+              <div className="text-center py-8 text-gray-400">
+                <p>يجب نشر الكويز أولاً لعرض التحليلات</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
