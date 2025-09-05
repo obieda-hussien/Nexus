@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, onValue, push, set, query, orderByChild, equalTo } from 'firebase/database';
+import { ref, onValue, push, set, query, orderByChild, equalTo, get } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { 
@@ -16,7 +16,10 @@ import {
   BarChart3,
   FileText,
   Users,
-  Eye
+  Eye,
+  AlertTriangle,
+  RefreshCw,
+  Database
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -24,6 +27,9 @@ const ReviewsTab = ({ courses = [] }) => {
   const { currentUser } = useAuth();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+  const [databaseInitialized, setDatabaseInitialized] = useState(false);
   const [filterCourse, setFilterCourse] = useState('all');
   const [filterRating, setFilterRating] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,50 +42,142 @@ const ReviewsTab = ({ courses = [] }) => {
   });
 
   useEffect(() => {
-    if (currentUser?.uid && courses.length > 0) {
+    if (currentUser?.uid) {
+      initializeDatabase();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser?.uid && courses.length > 0 && databaseInitialized) {
       loadReviews();
     }
-  }, [currentUser, courses]);
+  }, [currentUser, courses, databaseInitialized]);
 
   useEffect(() => {
     calculateStats();
   }, [reviews]);
 
-  const loadReviews = () => {
-    setLoading(true);
-    const allReviews = [];
-    let coursesProcessed = 0;
-
-    if (courses.length === 0) {
-      setLoading(false);
-      return;
-    }
-
-    courses.forEach((course) => {
-      const reviewsRef = ref(db, `course_reviews/${course.id}`);
-      onValue(reviewsRef, (snapshot) => {
-        const courseReviews = [];
-        snapshot.forEach((childSnapshot) => {
-          const review = childSnapshot.val();
-          courseReviews.push({
-            id: childSnapshot.key,
-            ...review,
-            courseId: course.id,
-            courseTitle: course.title
-          });
+  // Initialize database structure if it doesn't exist
+  const initializeDatabase = async () => {
+    try {
+      setError(null);
+      
+      // Check if the course_reviews path exists
+      const reviewsRef = ref(db, 'course_reviews');
+      const snapshot = await get(reviewsRef);
+      
+      if (!snapshot.exists()) {
+        // Initialize the course_reviews structure
+        await set(reviewsRef, {
+          initialized: true,
+          created_at: new Date().toISOString(),
+          description: "Reviews and ratings for courses"
         });
         
-        // Remove old reviews for this course and add new ones
-        const filteredReviews = allReviews.filter(r => r.courseId !== course.id);
-        allReviews.push(...filteredReviews, ...courseReviews);
-        
-        coursesProcessed++;
-        if (coursesProcessed === courses.length) {
-          setReviews(allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-          setLoading(false);
-        }
+        console.log('تم تهيئة قاعدة بيانات المراجعات بنجاح');
+      }
+      
+      setDatabaseInitialized(true);
+    } catch (error) {
+      console.error('خطأ في تهيئة قاعدة البيانات:', error);
+      setError({
+        type: 'initialization',
+        message: 'فشل في تهيئة قاعدة بيانات المراجعات',
+        details: error.message
       });
-    });
+      setLoading(false);
+    }
+  };
+
+  const loadReviews = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const allReviews = [];
+      let coursesProcessed = 0;
+      let hasError = false;
+
+      if (courses.length === 0) {
+        setLoading(false);
+        return;
+      }
+
+      const coursePromises = courses.map((course) => {
+        return new Promise((resolve, reject) => {
+          const reviewsRef = ref(db, `course_reviews/${course.id}`);
+          
+          const unsubscribe = onValue(
+            reviewsRef, 
+            (snapshot) => {
+              try {
+                const courseReviews = [];
+                
+                if (snapshot.exists()) {
+                  snapshot.forEach((childSnapshot) => {
+                    const review = childSnapshot.val();
+                    
+                    // Skip the initialization marker
+                    if (childSnapshot.key !== 'initialized' && childSnapshot.key !== 'created_at' && childSnapshot.key !== 'description') {
+                      courseReviews.push({
+                        id: childSnapshot.key,
+                        ...review,
+                        courseId: course.id,
+                        courseTitle: course.title
+                      });
+                    }
+                  });
+                }
+                
+                // Remove old reviews for this course and add new ones
+                const filteredReviews = allReviews.filter(r => r.courseId !== course.id);
+                allReviews.length = 0;
+                allReviews.push(...filteredReviews, ...courseReviews);
+                
+                coursesProcessed++;
+                if (coursesProcessed === courses.length && !hasError) {
+                  setReviews(allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+                  setLoading(false);
+                  setRetryCount(0); // Reset retry count on success
+                }
+                
+                resolve();
+              } catch (err) {
+                hasError = true;
+                reject(err);
+              }
+            },
+            (error) => {
+              hasError = true;
+              console.error(`خطأ في جلب مراجعات الكورس ${course.title}:`, error);
+              reject(error);
+            }
+          );
+        });
+      });
+
+      await Promise.allSettled(coursePromises);
+      
+    } catch (error) {
+      console.error('خطأ في جلب المراجعات:', error);
+      setError({
+        type: 'fetch',
+        message: 'حدث خطأ في جلب المراجعات',
+        details: error.message
+      });
+      setLoading(false);
+    }
+  };
+
+  const retryOperation = () => {
+    setRetryCount(prev => prev + 1);
+    setError(null);
+    
+    if (error?.type === 'initialization') {
+      initializeDatabase();
+    } else {
+      loadReviews();
+    }
   };
 
   const calculateStats = () => {
@@ -140,9 +238,58 @@ const ReviewsTab = ({ courses = [] }) => {
       toast.success('تم إرسال الرد بنجاح');
     } catch (error) {
       console.error('Error sending reply:', error);
-      toast.error('حدث خطأ في إرسال الرد');
+      toast.error('حدث خطأ في إرسال الرد. يرجى المحاولة مرة أخرى.');
     }
   };
+
+  // Error component
+  const ErrorDisplay = ({ error, onRetry }) => (
+    <div className="bg-red-500/10 backdrop-blur-lg rounded-2xl border border-red-500/20 p-8 text-center">
+      <div className="w-16 h-16 bg-gradient-to-r from-red-500/20 to-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <AlertTriangle className="w-8 h-8 text-red-400" />
+      </div>
+      <h3 className="text-xl font-semibold text-white mb-2">حدث خطأ</h3>
+      <p className="text-red-300 mb-4">{error.message}</p>
+      {error.details && (
+        <p className="text-red-400 text-sm mb-4 opacity-75">{error.details}</p>
+      )}
+      <div className="flex justify-center space-x-4 space-x-reverse">
+        <button
+          onClick={onRetry}
+          className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300"
+        >
+          <RefreshCw className="w-4 h-4" />
+          <span>إعادة المحاولة</span>
+        </button>
+        {error.type === 'initialization' && (
+          <button
+            onClick={() => window.location.reload()}
+            className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span>إعادة تحميل الصفحة</span>
+          </button>
+        )}
+      </div>
+      {retryCount > 0 && (
+        <p className="text-gray-400 text-sm mt-4">
+          عدد المحاولات: {retryCount}
+        </p>
+      )}
+    </div>
+  );
+
+  // Database initialization display
+  const InitializationDisplay = () => (
+    <div className="bg-blue-500/10 backdrop-blur-lg rounded-2xl border border-blue-500/20 p-8 text-center">
+      <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Database className="w-8 h-8 text-blue-400" />
+      </div>
+      <h3 className="text-xl font-semibold text-white mb-2">جاري تهيئة قاعدة البيانات</h3>
+      <p className="text-blue-300 mb-4">يتم إعداد نظام المراجعات لأول مرة...</p>
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto"></div>
+    </div>
+  );
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -161,10 +308,25 @@ const ReviewsTab = ({ courses = [] }) => {
     return 'text-red-400';
   };
 
-  if (loading) {
+  if (error) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400"></div>
+      <div className="space-y-6">
+        <ErrorDisplay error={error} onRetry={retryOperation} />
+      </div>
+    );
+  }
+
+  if (loading || !databaseInitialized) {
+    return (
+      <div className="space-y-6">
+        {!databaseInitialized ? <InitializationDisplay /> : (
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400 mx-auto mb-4"></div>
+              <p className="text-white">جاري تحميل المراجعات...</p>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
