@@ -5,13 +5,13 @@ import emailjs from '@emailjs/browser';
 
 // EmailJS Configuration
 const EMAILJS_CONFIG = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_nexus_edu',
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_nexus',
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'BBqS7PbBcr94CcNso',
   templates: {
-    payoutNotification: import.meta.env.VITE_EMAILJS_PAYOUT_TEMPLATE || 'template_payout_notification',
-    coursePayment: import.meta.env.VITE_EMAILJS_COURSE_PAYMENT_TEMPLATE || 'template_course_payment',
-    monthlyReport: import.meta.env.VITE_EMAILJS_MONTHLY_TEMPLATE || 'template_monthly_report',
-    welcomeInstructor: import.meta.env.VITE_EMAILJS_WELCOME_TEMPLATE || 'template_welcome_instructor'
+    payoutNotification: import.meta.env.VITE_EMAILJS_PAYOUT_TEMPLATE || 'template_kqq1yn5',
+    coursePayment: import.meta.env.VITE_EMAILJS_COURSE_PAYMENT_TEMPLATE || 'template_kqq1yn5',
+    monthlyReport: import.meta.env.VITE_EMAILJS_MONTHLY_TEMPLATE || 'template_kqq1yn5',
+    welcomeInstructor: import.meta.env.VITE_EMAILJS_WELCOME_TEMPLATE || 'template_kqq1yn5'
   }
 };
 
