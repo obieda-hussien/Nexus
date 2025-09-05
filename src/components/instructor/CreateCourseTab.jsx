@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp, UserCheck, ArrowRight } from 'lucide-react';
 import { ref, push, set } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -25,7 +25,12 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
     curriculum: {}
   });
 
-  const { currentUser } = useAuth();
+  const { currentUser, userProfile, canCreateCourses, becomeInstructor } = useAuth();
+
+  // Check if user can access instructor features
+  if (!canCreateCourses()) {
+    return <InstructorUpgradePrompt />;
+  }
 
   const handleSubmit = async () => {
     try {
@@ -33,6 +38,17 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       if (!currentUser) {
         toast.error('يجب تسجيل الدخول أولاً لإنشاء كورس');
         console.error('❌ No authenticated user found');
+        return;
+      }
+
+      // Check if user has instructor permissions
+      if (!canCreateCourses()) {
+        toast.error('ليس لديك صلاحية إنشاء كورسات. يجب أن تكون مدرساً أولاً');
+        console.error('❌ User does not have instructor role:', {
+          userId: currentUser.uid,
+          userRole: userProfile?.role,
+          canCreate: canCreateCourses()
+        });
         return;
       }
 
@@ -53,6 +69,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         category: courseData.category,
         instructorId: currentUser.uid,
         instructorName: currentUser.displayName,
+        instructorRole: userProfile?.role,
         sectionsCount: courseData.curriculum?.sections?.length || 0
       });
 
@@ -89,8 +106,10 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       let errorMessage = 'حدث خطأ في إنشاء الكورس';
       
       if (error.code === 'permission-denied') {
-        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تحقق من إعدادات قاعدة البيانات';
-        console.error('💡 Troubleshooting: Check Firebase Realtime Database security rules');
+        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تأكد من أن دورك "مدرس" في النظام';
+        console.error('💡 Troubleshooting: Check user role in Firebase Realtime Database');
+        console.error('📋 Current user role:', userProfile?.role);
+        console.error('📋 Required role: instructor or admin');
       } else if (error.code === 'network-request-failed') {
         errorMessage = 'خطأ في الشبكة. تحقق من اتصالك بالإنترنت';
       } else if (error.code === 'auth/requires-recent-login') {
@@ -104,7 +123,9 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         code: error.code,
         message: error.message,
         authUser: !!currentUser,
-        userId: currentUser?.uid
+        userId: currentUser?.uid,
+        userRole: userProfile?.role,
+        canCreateCourses: canCreateCourses()
       });
     }
   };
@@ -940,6 +961,98 @@ const ReviewStep = ({ data, onSubmit, onBack }) => {
         >
           إنشاء الكورس
         </button>
+      </div>
+    </div>
+  );
+};
+
+// Instructor Upgrade Prompt Component
+const InstructorUpgradePrompt = () => {
+  const [isUpgrading, setIsUpgrading] = useState(false);
+  const { becomeInstructor, userProfile } = useAuth();
+
+  const handleBecomeInstructor = async () => {
+    try {
+      setIsUpgrading(true);
+      await becomeInstructor();
+      toast.success('🎉 تم ترقية حسابك لمدرس بنجاح! يمكنك الآن إنشاء الكورسات');
+      // The page will automatically update due to role change
+    } catch (error) {
+      console.error('❌ Error becoming instructor:', error);
+      toast.error(error.message || 'فشل في ترقية الحساب. يرجى المحاولة مرة أخرى');
+    } finally {
+      setIsUpgrading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-8">
+      <div className="text-center">
+        <div className="bg-blue-500/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+          <UserCheck className="w-12 h-12 text-blue-400" />
+        </div>
+        
+        <h2 className="text-2xl font-bold text-white mb-4">
+          ترقية الحساب إلى مدرس
+        </h2>
+        
+        <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
+          <p className="text-purple-200 mb-4">
+            حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'طالب'}</span>
+          </p>
+          <p className="text-purple-200 mb-4">
+            لإنشاء وإدارة الكورسات، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">مدرس</span>
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/30 rounded-xl p-6 mb-6">
+          <h3 className="text-lg font-semibold text-white mb-4">مزايا حساب المدرس</h3>
+          <div className="grid md:grid-cols-2 gap-4 text-right">
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span className="text-purple-200">إنشاء كورسات غير محدودة</span>
+            </div>
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span className="text-purple-200">إدارة محتوى الدروس</span>
+            </div>
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span className="text-purple-200">متابعة تقدم الطلاب</span>
+            </div>
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span className="text-purple-200">إحصائيات مفصلة</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={handleBecomeInstructor}
+          disabled={isUpgrading}
+          className={`
+            bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold 
+            hover:scale-105 transition-transform flex items-center justify-center space-x-3 space-x-reverse mx-auto
+            ${isUpgrading ? 'opacity-50 cursor-not-allowed' : ''}
+          `}
+        >
+          {isUpgrading ? (
+            <>
+              <div className="animate-spin w-5 h-5 border-2 border-white/30 border-t-white rounded-full"></div>
+              <span>جاري الترقية...</span>
+            </>
+          ) : (
+            <>
+              <UserCheck className="w-5 h-5" />
+              <span>ترقية إلى مدرس</span>
+              <ArrowRight className="w-5 h-5" />
+            </>
+          )}
+        </button>
+
+        <p className="text-purple-300 text-sm mt-4">
+          الترقية مجانية وفورية - لا توجد رسوم إضافية
+        </p>
       </div>
     </div>
   );

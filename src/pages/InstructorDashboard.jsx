@@ -17,13 +17,28 @@ import NotificationsTab from '../components/instructor/NotificationsTab';
 import SettingsTab from '../components/instructor/SettingsTab';
 
 const InstructorDashboard = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, canCreateCourses, userProfile } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [instructorData, setInstructorData] = useState({});
   const [courses, setCourses] = useState([]);
   const [students, setStudents] = useState([]);
   const [earnings, setEarnings] = useState(0);
   const [notifications, setNotifications] = useState([]);
+
+  // Redirect non-instructors to upgrade page
+  if (!canCreateCourses()) {
+    return (
+      <>
+        <Navigation />
+        <main className="pt-20 min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
+          <div className="container mx-auto px-4 py-8">
+            <CreateCourseTab onCourseCreated={() => {}} onCancel={() => {}} />
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   useEffect(() => {
     if (currentUser?.uid) {
