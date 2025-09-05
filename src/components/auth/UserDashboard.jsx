@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { 
   User, 
   BookOpen, 
@@ -16,7 +15,7 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { ref, query, orderByChild, equalTo, get, limitToLast } from 'firebase/database';
+import { get } from 'firebase/database';
 import { db } from '../../config/firebase';
 
 const UserDashboard = ({ isOpen, onClose }) => {

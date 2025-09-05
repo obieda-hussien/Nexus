@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../config/firebase';
-import { ref, get, set } from 'firebase/database';
+import { ref, get } from 'firebase/database';
 import { useAuth } from '../contexts/AuthContext';
 
 const FirebaseDiagnostic = ({ onClose }) => {
   const [diagnostics, setDiagnostics] = useState({
     firebaseInit: 'testing',
     authStatus: 'testing',
-    databaseConnection: 'testing',
-    databaseRules: 'testing',
-    userProfile: 'testing'
+    databaseConnection: 'testing'
   });
   const [detailedResults, setDetailedResults] = useState({});
-  const { currentUser, databaseConnected } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     runDiagnostics();
@@ -72,63 +70,6 @@ const FirebaseDiagnostic = ({ onClose }) => {
         error: error.code,
         solution: 'Check Firebase project configuration'
       };
-    }
-
-    // Test 4: Firestore Rules Testing
-    if (currentUser) {
-      try {
-        // Test read permission
-        const userDoc = doc(db, 'users', currentUser.uid);
-        await getDoc(userDoc);
-        
-        // Test write permission
-        await setDoc(doc(db, 'test', currentUser.uid), {
-          timestamp: new Date().toISOString(),
-          test: true
-        });
-        
-        setDiagnostics(prev => ({ ...prev, firestoreRules: 'success' }));
-        results.firestoreRules = { 
-          status: 'success', 
-          message: 'Read/Write permissions working correctly'
-        };
-      } catch (error) {
-        setDiagnostics(prev => ({ ...prev, firestoreRules: 'error' }));
-        results.firestoreRules = { 
-          status: 'error', 
-          message: 'Permission denied - Firestore rules issue',
-          error: error.code,
-          solution: 'Update Firestore security rules'
-        };
-      }
-    }
-
-    // Test 5: User Profile
-    if (currentUser) {
-      try {
-        const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-        if (userDoc.exists()) {
-          setDiagnostics(prev => ({ ...prev, userProfile: 'success' }));
-          results.userProfile = { 
-            status: 'success', 
-            message: 'User profile exists in Firestore',
-            data: userDoc.data()
-          };
-        } else {
-          setDiagnostics(prev => ({ ...prev, userProfile: 'warning' }));
-          results.userProfile = { 
-            status: 'warning', 
-            message: 'User profile not found - needs to be created'
-          };
-        }
-      } catch (error) {
-        setDiagnostics(prev => ({ ...prev, userProfile: 'error' }));
-        results.userProfile = { 
-          status: 'error', 
-          message: 'Cannot access user profile',
-          error: error.code
-        };
-      }
     }
 
     setDetailedResults(results);
@@ -204,57 +145,16 @@ const FirebaseDiagnostic = ({ onClose }) => {
 
             <div className="bg-gray-800/50 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{getStatusIcon(diagnostics.firestoreConnection)}</span>
-                <h3 className={`font-semibold ${getStatusColor(diagnostics.firestoreConnection)}`}>
-                  Firestore Connection
+                <span className="text-2xl">{getStatusIcon(diagnostics.databaseConnection)}</span>
+                <h3 className={`font-semibold ${getStatusColor(diagnostics.databaseConnection)}`}>
+                  Realtime Database Connection
                 </h3>
               </div>
-              {detailedResults.firestoreConnection && (
+              {detailedResults.databaseConnection && (
                 <div className="text-gray-300 text-sm">
-                  <p>{detailedResults.firestoreConnection.message}</p>
-                  {detailedResults.firestoreConnection.error && (
-                    <p className="text-red-400 mt-1">Error: {detailedResults.firestoreConnection.error}</p>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div className="bg-gray-800/50 rounded-xl p-4">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{getStatusIcon(diagnostics.firestoreRules)}</span>
-                <h3 className={`font-semibold ${getStatusColor(diagnostics.firestoreRules)}`}>
-                  Firestore Security Rules
-                </h3>
-              </div>
-              {detailedResults.firestoreRules && (
-                <div className="text-gray-300 text-sm">
-                  <p>{detailedResults.firestoreRules.message}</p>
-                  {detailedResults.firestoreRules.error && (
-                    <div className="mt-2">
-                      <p className="text-red-400">Error: {detailedResults.firestoreRules.error}</p>
-                      <p className="text-yellow-400">Solution: {detailedResults.firestoreRules.solution}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div className="bg-gray-800/50 rounded-xl p-4">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{getStatusIcon(diagnostics.userProfile)}</span>
-                <h3 className={`font-semibold ${getStatusColor(diagnostics.userProfile)}`}>
-                  User Profile Data
-                </h3>
-              </div>
-              {detailedResults.userProfile && (
-                <div className="text-gray-300 text-sm">
-                  <p>{detailedResults.userProfile.message}</p>
-                  {detailedResults.userProfile.data && (
-                    <div className="mt-2 text-xs text-gray-400">
-                      <p>Name: {detailedResults.userProfile.data.displayName}</p>
-                      <p>Role: {detailedResults.userProfile.data.role}</p>
-                      <p>Created: {new Date(detailedResults.userProfile.data.createdAt).toLocaleDateString('ar-EG')}</p>
-                    </div>
+                  <p>{detailedResults.databaseConnection.message}</p>
+                  {detailedResults.databaseConnection.error && (
+                    <p className="text-red-400 mt-1">Error: {detailedResults.databaseConnection.error}</p>
                   )}
                 </div>
               )}
@@ -268,8 +168,8 @@ const FirebaseDiagnostic = ({ onClose }) => {
               <div className="flex items-start gap-2">
                 <span className="text-red-400">❌</span>
                 <div>
-                  <p className="font-medium">If Firestore connection fails:</p>
-                  <p className="text-gray-400">1. Check if Cloud Firestore is enabled in Firebase Console</p>
+                  <p className="font-medium">If Database connection fails:</p>
+                  <p className="text-gray-400">1. Check if Realtime Database is enabled in Firebase Console</p>
                   <p className="text-gray-400">2. Verify project ID in configuration</p>
                 </div>
               </div>
@@ -278,17 +178,8 @@ const FirebaseDiagnostic = ({ onClose }) => {
                 <span className="text-red-400">❌</span>
                 <div>
                   <p className="font-medium">If permission denied errors:</p>
-                  <p className="text-gray-400">1. Update Firestore Rules in Firebase Console</p>
+                  <p className="text-gray-400">1. Update Database Rules in Firebase Console</p>
                   <p className="text-gray-400">2. Use the recommended rules in documentation</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <span className="text-yellow-400">⚠️</span>
-                <div>
-                  <p className="font-medium">If user profile missing:</p>
-                  <p className="text-gray-400">1. Click "Create Profile" button in dashboard</p>
-                  <p className="text-gray-400">2. Or re-register with a new account</p>
                 </div>
               </div>
             </div>
@@ -299,20 +190,20 @@ const FirebaseDiagnostic = ({ onClose }) => {
             <h3 className="text-purple-400 font-semibold mb-3">🔗 Firebase Console Links</h3>
             <div className="space-y-2">
               <a 
-                href="https://console.firebase.google.com/project/nexus-012/firestore/rules"
+                href="https://console.firebase.google.com/project/nexus-012/database/rules"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-blue-400 hover:text-blue-300 transition-colors"
               >
-                📋 Firestore Security Rules
+                📋 Realtime Database Security Rules
               </a>
               <a 
-                href="https://console.firebase.google.com/project/nexus-012/firestore/data"
+                href="https://console.firebase.google.com/project/nexus-012/database/data"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-blue-400 hover:text-blue-300 transition-colors"
               >
-                📊 Firestore Data Viewer
+                📊 Realtime Database Data Viewer
               </a>
               <a 
                 href="https://console.firebase.google.com/project/nexus-012/authentication/users"

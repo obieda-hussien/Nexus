@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Components
-import Navigation from './components/sections/Navigation';
-import Hero from './components/sections/Hero';
-import Courses from './components/sections/Courses';
-import Stats from './components/sections/Stats';
-import CompetitiveAdvantages from './components/sections/CompetitiveAdvantages';
-import LiveSessions from './components/sections/LiveSessions';
-import Instructor from './components/sections/Instructor';
-import TestimonialsReviews from './components/sections/TestimonialsReviews';
-import Pricing from './components/sections/Pricing';
-import Footer from './components/sections/Footer';
+import HomePage from './pages/HomePage';
+import CoursesPage from './pages/CoursesPage';
+import CourseDetailsPage from './pages/CourseDetailsPage';
+import StudentDashboard from './pages/StudentDashboard';
+import InstructorDashboard from './pages/InstructorDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import BecomeInstructorPage from './pages/BecomeInstructorPage';
 
 // Contexts
 import { AuthProvider } from './contexts/AuthContext';
@@ -44,20 +43,51 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-primary-bg text-white">
-        <Navigation />
-        <main>
-          <Hero />
-          <Courses />
-          <Stats />
-          <CompetitiveAdvantages />
-          <LiveSessions />
-          <Instructor />
-          <TestimonialsReviews />
-          <Pricing />
-        </main>
-        <Footer />
-      </div>
+      <Router>
+        <div className="min-h-screen bg-primary-bg text-white">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/courses/:id" element={<CourseDetailsPage />} />
+            <Route path="/become-instructor" element={<BecomeInstructorPage />} />
+            
+            {/* Student Routes */}
+            <Route path="/dashboard" element={<StudentDashboard />} />
+            
+            {/* Instructor Routes */}
+            <Route path="/instructor/*" element={<InstructorDashboard />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/*" element={<AdminDashboard />} />
+          </Routes>
+          
+          {/* Toast Notifications */}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#1f2937',
+                color: '#fff',
+                border: '1px solid #374151',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#10b981',
+                  secondary: '#fff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#fff',
+                },
+              },
+            }}
+          />
+        </div>
+      </Router>
     </AuthProvider>
   );
 }
