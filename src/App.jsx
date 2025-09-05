@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -43,25 +43,28 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router basename="/Nexus">
+      <Router>
         <div className="min-h-screen bg-primary-bg text-white">
           <Routes>
+            {/* Root redirect */}
+            <Route path="/" element={<Navigate to="/Nexus/" replace />} />
+            
             {/* Public Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/courses/:id" element={<CourseDetailsPage />} />
-            <Route path="/become-instructor" element={<BecomeInstructorPage />} />
+            <Route path="/Nexus/" element={<HomePage />} />
+            <Route path="/Nexus/courses" element={<CoursesPage />} />
+            <Route path="/Nexus/courses/:id" element={<CourseDetailsPage />} />
+            <Route path="/Nexus/become-instructor" element={<BecomeInstructorPage />} />
             
             {/* Student Routes */}
-            <Route path="/dashboard" element={<StudentDashboard />} />
+            <Route path="/Nexus/dashboard" element={<StudentDashboard />} />
             
             {/* Instructor Routes */}
-            <Route path="/instructor" element={<InstructorDashboard />} />
-            <Route path="/instructor/*" element={<InstructorDashboard />} />
+            <Route path="/Nexus/instructor" element={<InstructorDashboard />} />
+            <Route path="/Nexus/instructor/*" element={<InstructorDashboard />} />
             
             {/* Admin Routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="/Nexus/admin" element={<AdminDashboard />} />
+            <Route path="/Nexus/admin/*" element={<AdminDashboard />} />
           </Routes>
           
           {/* Toast Notifications */}
