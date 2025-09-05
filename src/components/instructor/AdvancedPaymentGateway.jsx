@@ -21,7 +21,7 @@ import { ref, get, set, update, push } from 'firebase/database';
 import { db } from '../../config/firebase';
 import toast from 'react-hot-toast';
 import PaymentGatewayService from '../../services/paymentGateways';
-import EmailNotificationService from '../../services/emailNotifications';
+import FreeEmailService from '../../services/freeEmailService';
 import TaxReportingService from '../../services/taxReporting';
 
 const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
@@ -50,7 +50,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
       setPaymentGateways(gateways);
       
       // Check email service configuration
-      const emailStatus = EmailNotificationService.checkConfiguration();
+      const emailStatus = FreeEmailService.checkConfiguration();
       setEmailConfig(emailStatus);
       
       // Load tax settings
@@ -105,7 +105,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
       // Send email notification for withdrawal request
       if (emailConfig?.hasEmailService) {
         try {
-          await EmailNotificationService.sendWithdrawalRequestNotification(
+          await FreeEmailService.sendWithdrawalRequestNotification(
             instructorData,
             withdrawalData
           );
@@ -143,13 +143,13 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
       if (emailConfig?.hasEmailService) {
         try {
           if (paymentResult.success) {
-            await EmailNotificationService.sendWithdrawalCompletedNotification(
+            await FreeEmailService.sendWithdrawalCompletedNotification(
               instructorData,
               withdrawalData,
               paymentResult
             );
           } else {
-            await EmailNotificationService.sendWithdrawalFailedNotification(
+            await FreeEmailService.sendWithdrawalFailedNotification(
               instructorData,
               withdrawalData,
               paymentResult.error
@@ -235,7 +235,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
       // Send email notification with report
       if (emailConfig?.hasEmailService) {
         try {
-          await EmailNotificationService.sendTaxReportNotification(instructorData, {
+          await FreeEmailService.sendTaxReportNotification(instructorData, {
             ...taxReport,
             downloadLink: `تم تحميل التقرير محلياً`,
             attachments: {
@@ -264,7 +264,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
       setIsLoading(true);
       toast.loading('جاري اختبار خدمة البريد الإلكتروني...');
 
-      await EmailNotificationService.sendTestEmail(instructorData.email || currentUser.email);
+      await FreeEmailService.sendTestEmail(instructorData.email || currentUser.email);
       
       toast.dismiss();
       toast.success('تم إرسال رسالة الاختبار بنجاح');
@@ -397,23 +397,23 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     {emailConfig && (
                       <>
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">SendGrid</span>
+                          <span className="text-sm">EmailJS (مجاني)</span>
                           <span className={`text-xs px-2 py-1 rounded-full ${
-                            emailConfig.services.sendgrid.configured 
+                            emailConfig.services.emailjs?.configured 
                               ? 'bg-green-100 text-green-700' 
                               : 'bg-yellow-100 text-yellow-700'
                           }`}>
-                            {emailConfig.services.sendgrid.status}
+                            {emailConfig.services.emailjs?.status || 'غير مُعد'}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">SMTP</span>
+                          <span className="text-sm">إشعارات المتصفح</span>
                           <span className={`text-xs px-2 py-1 rounded-full ${
-                            emailConfig.services.smtp.configured 
+                            emailConfig.services.fallback?.configured 
                               ? 'bg-green-100 text-green-700' 
                               : 'bg-yellow-100 text-yellow-700'
                           }`}>
-                            {emailConfig.services.smtp.status}
+                            {emailConfig.services.fallback?.status || 'جاهز'}
                           </span>
                         </div>
                         <p className="text-xs text-gray-600 mt-2">
@@ -750,17 +750,39 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
               
               <div className="space-y-6">
                 {/* Cost Analysis */}
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-6 border border-orange-200">
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 border border-green-200">
                   <h4 className="font-semibold text-gray-800 mb-4 flex items-center">
                     <Calculator className="w-5 h-5 ml-2" />
-                    تحليل التكاليف والرسوم
+                    تحليل التكاليف - الحلول المجانية
                   </h4>
                   
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <h5 className="font-medium text-gray-700 mb-2">رسوم بوابات الدفع</h5>
+                      <h5 className="font-medium text-gray-700 mb-2">الخدمات المجانية 100%</h5>
                       <div className="space-y-2 text-sm">
-                        {paymentGateways.map(gateway => (
+                        <div className="flex justify-between">
+                          <span>تحويل بنكي:</span>
+                          <span className="font-medium text-green-600">مجاني تماماً</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>إشعارات المتصفح:</span>
+                          <span className="font-medium text-green-600">مجاني تماماً</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>تقارير PDF/Excel:</span>
+                          <span className="font-medium text-green-600">مجاني تماماً</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>النظام الأساسي:</span>
+                          <span className="font-medium text-green-600">مجاني تماماً</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-medium text-gray-700 mb-2">رسوم بوابات الدفع (على المستخدم)</h5>
+                      <div className="space-y-2 text-sm">
+                        {paymentGateways.filter(g => g.type !== 'bank').map(gateway => (
                           <div key={gateway.type} className="flex justify-between">
                             <span>{gateway.name}:</span>
                             <span className="font-medium">
@@ -769,30 +791,20 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                             </span>
                           </div>
                         ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-medium text-gray-700 mb-2">رسوم الخدمات الإضافية</h5>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span>SendGrid (إشعارات):</span>
-                          <span className="font-medium">$14.95/شهر</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>تقارير PDF:</span>
-                          <span className="font-medium">مجاناً</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>تقارير Excel:</span>
-                          <span className="font-medium">مجاناً</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>API Calls:</span>
-                          <span className="font-medium">وفقاً للاستخدام</span>
+                        <div className="border-t pt-2 mt-2">
+                          <div className="flex justify-between font-medium">
+                            <span>تكلفة المنصة الشهرية:</span>
+                            <span className="text-green-600">0 جنيه</span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-green-100 rounded-lg">
+                    <p className="text-sm text-green-800 font-medium">
+                      💡 النظام يعتمد على الحلول المجانية بنسبة 90% - الرسوم فقط على المعاملات التي يدفعها المستخدم
+                    </p>
                   </div>
                 </div>
 
@@ -802,53 +814,53 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                   
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <h5 className="font-medium text-gray-700 mb-2">متغيرات البيئة المطلوبة</h5>
+                      <h5 className="font-medium text-gray-700 mb-2">متغيرات البيئة (اختيارية للحلول المجانية)</h5>
                       <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-xs font-mono">
-                        <div># Payment Gateways</div>
+                        <div># Free Email Service (اختياري)</div>
+                        <div>VITE_EMAILJS_SERVICE_ID=your_service_id</div>
+                        <div>VITE_EMAILJS_TEMPLATE_ID=your_template_id</div>
+                        <div>VITE_EMAILJS_PUBLIC_KEY=your_public_key</div>
+                        <div className="mt-2"># Payment Gateways (للرسوم على المستخدم)</div>
                         <div>VITE_STRIPE_PUBLIC_KEY=pk_...</div>
-                        <div>VITE_STRIPE_SECRET_KEY=sk_...</div>
                         <div>VITE_PAYPAL_CLIENT_ID=...</div>
-                        <div>VITE_PAYPAL_CLIENT_SECRET=...</div>
                         <div>VITE_FAWRY_MERCHANT_CODE=...</div>
                         <div>VITE_VODAFONE_MERCHANT_ID=...</div>
-                        <div className="mt-2"># Email Service</div>
-                        <div>VITE_SENDGRID_API_KEY=SG....</div>
-                        <div>VITE_FROM_EMAIL=noreply@...</div>
+                        <div className="mt-2 text-yellow-400"># Bank transfer works without any keys!</div>
                       </div>
                     </div>
                     
                     <div>
-                      <h5 className="font-medium text-gray-700 mb-2">الخطوات التالية</h5>
+                      <h5 className="font-medium text-gray-700 mb-2">الخطوات التالية (حلول مجانية متاحة)</h5>
                       <div className="space-y-3">
+                        <div className="flex items-start space-x-2 space-x-reverse">
+                          <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold">✓</div>
+                          <div>
+                            <p className="font-medium text-gray-800">النظام الأساسي جاهز</p>
+                            <p className="text-sm text-gray-600">تحويل بنكي وإشعارات مجانية تعمل الآن</p>
+                          </div>
+                        </div>
+                        
                         <div className="flex items-start space-x-2 space-x-reverse">
                           <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
                           <div>
-                            <p className="font-medium text-gray-800">إعداد حسابات بوابات الدفع</p>
-                            <p className="text-sm text-gray-600">Stripe, PayPal, Fawry, Vodafone Cash</p>
+                            <p className="font-medium text-gray-800">إعداد EmailJS (اختياري - مجاني)</p>
+                            <p className="text-sm text-gray-600">200 رسالة شهرياً مجاناً للإشعارات</p>
                           </div>
                         </div>
                         
                         <div className="flex items-start space-x-2 space-x-reverse">
                           <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</div>
                           <div>
-                            <p className="font-medium text-gray-800">إعداد خدمة البريد الإلكتروني</p>
-                            <p className="text-sm text-gray-600">SendGrid للإشعارات الاحترافية</p>
+                            <p className="font-medium text-gray-800">إعداد بوابات دفع (اختياري)</p>
+                            <p className="text-sm text-gray-600">الرسوم على المستخدمين النهائيين فقط</p>
                           </div>
                         </div>
                         
                         <div className="flex items-start space-x-2 space-x-reverse">
-                          <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">3</div>
-                          <div>
-                            <p className="font-medium text-gray-800">اختبار النظام</p>
-                            <p className="text-sm text-gray-600">تجربة جميع العمليات في البيئة التجريبية</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start space-x-2 space-x-reverse">
-                          <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold">4</div>
+                          <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold">✓</div>
                           <div>
                             <p className="font-medium text-gray-800">التشغيل المباشر</p>
-                            <p className="text-sm text-gray-600">تفعيل النظام للمدرسين</p>
+                            <p className="text-sm text-gray-600">النظام جاهز للاستخدام دون تكاليف</p>
                           </div>
                         </div>
                       </div>

@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import * as XLSX from 'xlsx';
+import FreeExportService from './freeExportService';
 import { ref, get, query, orderByChild, startAt, endAt } from 'firebase/database';
 import { db } from '../config/firebase';
 
@@ -487,72 +487,115 @@ export class TaxReportingService {
     }
   }
   
-  // Generate Excel tax report
+  // Generate Excel tax report using free export service
   static generateExcelReport(reportData) {
     try {
-      const workbook = XLSX.utils.book_new();
+      // Convert report data to a flat structure for CSV/Excel export
+      const exportData = [];
       
-      // Summary sheet
-      const summaryData = [
-        ['تقرير الضرائب السنوي', '', '', reportData.year],
-        ['', '', '', ''],
-        ['ملخص الدخل', '', '', ''],
-        ['إجمالي الدخل', reportData.income.totalGrossIncome, reportData.currency, ''],
-        ['مبيعات الكورسات', reportData.income.coursesSales, reportData.currency, ''],
-        ['', '', '', ''],
-        ['الخصومات', '', '', ''],
-        ['عمولة المنصة', reportData.deductions.platformCommission, reportData.currency, ''],
-        ['رسوم الدفع', reportData.deductions.paymentFees || 0, reportData.currency, ''],
-        ['الخصم النمطي', reportData.deductions.standardDeduction, reportData.currency, ''],
-        ['إجمالي الخصومات', reportData.deductions.totalDeductions, reportData.currency, ''],
-        ['', '', '', ''],
-        ['حساب الضريبة', '', '', ''],
-        ['الدخل الخاضع للضريبة', reportData.tax.taxableIncome, reportData.currency, ''],
-        ['الضريبة المقدرة', reportData.tax.estimatedTax, reportData.currency, ''],
-        ['الدفع الربع سنوي', reportData.tax.quarterlyPayments, reportData.currency, '']
-      ];
+      // Summary information
+      exportData.push({
+        'فئة البيان': 'ملخص الدخل',
+        'نوع البيان': 'إجمالي الدخل',
+        'المبلغ': reportData.income.totalGrossIncome,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'الدخل الإجمالي من جميع المصادر'
+      });
       
-      const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
-      XLSX.utils.book_append_sheet(workbook, summarySheet, 'الملخص');
+      exportData.push({
+        'فئة البيان': 'ملخص الدخل',
+        'نوع البيان': 'مبيعات الكورسات',
+        'المبلغ': reportData.income.coursesSales,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'الدخل من مبيعات الكورسات'
+      });
       
-      // Monthly breakdown sheet
+      // Deductions
+      exportData.push({
+        'فئة البيان': 'الخصومات',
+        'نوع البيان': 'عمولة المنصة',
+        'المبلغ': reportData.deductions.platformCommission,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'عمولة المنصة (10%)'
+      });
+      
+      exportData.push({
+        'فئة البيان': 'الخصومات',
+        'نوع البيان': 'الخصم النمطي',
+        'المبلغ': reportData.deductions.standardDeduction,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'الخصم النمطي المسموح قانونياً'
+      });
+      
+      exportData.push({
+        'فئة البيان': 'الخصومات',
+        'نوع البيان': 'إجمالي الخصومات',
+        'المبلغ': reportData.deductions.totalDeductions,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'مجموع جميع الخصومات'
+      });
+      
+      // Tax calculations
+      exportData.push({
+        'فئة البيان': 'حساب الضريبة',
+        'نوع البيان': 'الدخل الخاضع للضريبة',
+        'المبلغ': reportData.tax.taxableIncome,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'الدخل بعد الخصومات'
+      });
+      
+      exportData.push({
+        'فئة البيان': 'حساب الضريبة',
+        'نوع البيان': 'الضريبة المقدرة',
+        'المبلغ': reportData.tax.estimatedTax,
+        'العملة': reportData.currency,
+        'السنة': reportData.year,
+        'ملاحظات': 'الضريبة المحسوبة وفقاً للقانون المصري'
+      });
+      
+      // Add monthly breakdown if available
       if (reportData.income.monthlyBreakdown) {
-        const monthlyData = [
-          ['الشهر', 'الدخل', 'العملة', 'عدد المبيعات']
-        ];
-        
         Object.entries(reportData.income.monthlyBreakdown).forEach(([month, data]) => {
-          monthlyData.push([month, data.revenue, reportData.currency, data.enrollments]);
+          exportData.push({
+            'فئة البيان': 'التقسيم الشهري',
+            'نوع البيان': `الشهر ${month}`,
+            'المبلغ': data.revenue,
+            'العملة': reportData.currency,
+            'السنة': reportData.year,
+            'ملاحظات': `عدد المبيعات: ${data.enrollments}`
+          });
         });
-        
-        const monthlySheet = XLSX.utils.aoa_to_sheet(monthlyData);
-        XLSX.utils.book_append_sheet(workbook, monthlySheet, 'التقسيم الشهري');
       }
       
-      // Quarterly sheet
+      // Add quarterly data if available
       if (reportData.quarterly) {
-        const quarterlyData = [
-          ['الربع', 'الدخل', 'المصروفات', 'الدخل الخاضع للضريبة', 'الضريبة المقدرة', 'الموعد النهائي']
-        ];
-        
         reportData.quarterly.forEach(quarter => {
-          quarterlyData.push([
-            quarter.quarter,
-            quarter.income,
-            quarter.expenses,
-            quarter.taxableIncome,
-            quarter.estimatedTax,
-            quarter.deadline
-          ]);
+          exportData.push({
+            'فئة البيان': 'التقارير الربع سنوية',
+            'نوع البيان': quarter.quarter,
+            'المبلغ': quarter.taxableIncome,
+            'العملة': reportData.currency,
+            'السنة': reportData.year,
+            'ملاحظات': `ضريبة مقدرة: ${quarter.estimatedTax} - موعد نهائي: ${quarter.deadline}`
+          });
         });
-        
-        const quarterlySheet = XLSX.utils.aoa_to_sheet(quarterlyData);
-        XLSX.utils.book_append_sheet(workbook, quarterlySheet, 'التقارير الربع سنوية');
       }
       
-      // Generate buffer
-      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      return new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      // Use our free export service to generate the Excel file
+      const filename = `tax-report-${reportData.year}.xlsx`;
+      const result = FreeExportService.exportToExcel(exportData, filename, `التقرير الضريبي ${reportData.year}`);
+      
+      if (result.success) {
+        return { success: true, filename: result.filename };
+      } else {
+        throw new Error(result.error);
+      }
       
     } catch (error) {
       console.error('Error generating Excel report:', error);

@@ -1,15 +1,29 @@
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
-// Payment Gateway Configuration
+// Payment Gateway Configuration - Free and Paid Options
 const PAYMENT_CONFIG = {
+  // FREE OPTIONS (No monthly fees - only transaction fees paid by users)
+  bank: {
+    name: 'تحويل بنكي',
+    type: 'manual',
+    free: true,
+    fees: {
+      rate: 0, // No fees
+      fixedFee: 0,
+      description: 'مجاني تماماً - تحويل مباشر'
+    }
+  },
+  
+  // LOW-COST OPTIONS (User pays transaction fees)
   stripe: {
     publicKey: import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_test_...',
     secretKey: import.meta.env.VITE_STRIPE_SECRET_KEY || 'sk_test_...',
     fees: {
       international: 0.029, // 2.9% + 30¢
       domestic: 0.025, // 2.5%
-      fixedFee: 0.30 // $0.30
+      fixedFee: 0.30, // $0.30
+      description: 'رسوم على المستخدم - لا توجد رسوم شهرية'
     }
   },
   paypal: {
@@ -18,7 +32,8 @@ const PAYMENT_CONFIG = {
     sandbox: import.meta.env.VITE_PAYPAL_SANDBOX === 'true',
     fees: {
       rate: 0.035, // 3.5%
-      fixedFee: 0.15 // $0.15
+      fixedFee: 0.15, // $0.15
+      description: 'رسوم على المستخدم - حساب مجاني'
     }
   },
   fawry: {
@@ -27,7 +42,8 @@ const PAYMENT_CONFIG = {
     baseUrl: import.meta.env.VITE_FAWRY_BASE_URL || 'https://atfawry.fawrystaging.com',
     fees: {
       rate: 0.02, // 2%
-      fixedFee: 1.0 // 1 EGP
+      fixedFee: 1.0, // 1 EGP
+      description: 'أقل الرسوم في مصر - رسوم على المستخدم'
     }
   },
   vodafone: {
@@ -36,7 +52,8 @@ const PAYMENT_CONFIG = {
     baseUrl: import.meta.env.VITE_VODAFONE_BASE_URL || 'https://api.vodafone.com.eg',
     fees: {
       rate: 0.015, // 1.5%
-      maxFee: 20.0 // Max 20 EGP
+      maxFee: 20.0, // Max 20 EGP
+      description: 'رسوم منخفضة - رسوم على المستخدم'
     }
   }
 };
@@ -363,37 +380,64 @@ export class PaymentGatewayService {
     };
   }
 
-  // Get supported payment methods with their current fees
+  // Get supported payment methods with their current fees (free options first)
   static getSupportedPaymentMethods() {
-    return Object.keys(PAYMENT_CONFIG).map(method => ({
+    const methods = Object.keys(PAYMENT_CONFIG).map(method => ({
       type: method,
       name: this.getPaymentMethodName(method),
       fees: PAYMENT_CONFIG[method].fees,
       supported: this.isPaymentMethodConfigured(method),
-      description: this.getPaymentMethodDescription(method)
+      description: this.getPaymentMethodDescription(method),
+      free: PAYMENT_CONFIG[method].free || false,
+      cost: this.getPaymentMethodCost(method)
     }));
+
+    // Sort by free status (free first), then by fees
+    return methods.sort((a, b) => {
+      if (a.free && !b.free) return -1;
+      if (!a.free && b.free) return 1;
+      return (a.fees.rate || 0) - (b.fees.rate || 0);
+    });
   }
 
   static getPaymentMethodName(type) {
     const names = {
-      stripe: 'Stripe (بطاقات ائتمان دولية)',
-      paypal: 'PayPal',
+      bank: '🆓 تحويل بنكي (مجاني تماماً)',
+      vodafone: 'فودافون كاش (أقل الرسوم)',
       fawry: 'فوري',
-      vodafone: 'فودافون كاش',
-      bank: 'تحويل بنكي'
+      stripe: 'Stripe (بطاقات ائتمان دولية)',
+      paypal: 'PayPal'
     };
     return names[type] || type;
   }
 
   static getPaymentMethodDescription(type) {
     const descriptions = {
-      stripe: 'دفع فوري عبر بطاقات الائتمان الدولية',
-      paypal: 'دفع فوري عبر PayPal',
-      fawry: 'دفع عبر محافظ فوري الرقمية',
-      vodafone: 'دفع عبر محفظة فودافون كاش',
-      bank: 'تحويل بنكي تقليدي (يتطلب 3-5 أيام عمل)'
+      bank: 'تحويل بنكي مجاني تماماً - بدون أي رسوم (3-5 أيام عمل)',
+      vodafone: 'أقل رسوم في السوق - 1.5% فقط (حد أقصى 20 ج.م)',
+      fawry: 'دفع عبر نقاط فوري - رسوم منخفضة 2% + 1 ج.م',
+      stripe: 'دفع فوري عبر بطاقات الائتمان الدولية - رسوم 2.9%',
+      paypal: 'دفع فوري عبر PayPal - رسوم 3.5%'
     };
     return descriptions[type] || '';
+  }
+
+  static getPaymentMethodCost(type) {
+    const config = PAYMENT_CONFIG[type];
+    if (config.free) return 'مجاني تماماً';
+    
+    if (config.fees.rate) {
+      const percentage = (config.fees.rate * 100).toFixed(1) + '%';
+      if (config.fees.fixedFee) {
+        return `${percentage} + ${config.fees.fixedFee} ${type === 'fawry' ? 'ج.م' : '$'}`;
+      }
+      if (config.fees.maxFee) {
+        return `${percentage} (حد أقصى ${config.fees.maxFee} ج.م)`;
+      }
+      return percentage;
+    }
+    
+    return 'متغيرة';
   }
 
   static isPaymentMethodConfigured(type) {
