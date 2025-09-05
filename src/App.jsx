@@ -56,9 +56,11 @@ function App() {
             <Route path="/dashboard" element={<StudentDashboard />} />
             
             {/* Instructor Routes */}
+            <Route path="/instructor" element={<InstructorDashboard />} />
             <Route path="/instructor/*" element={<InstructorDashboard />} />
             
             {/* Admin Routes */}
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/*" element={<AdminDashboard />} />
           </Routes>
           
