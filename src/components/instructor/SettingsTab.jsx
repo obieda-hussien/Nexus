@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { User, Mail, Phone, MapPin, Calendar, Edit3, Save, X, CreditCard, DollarSign, Plus, Trash2, Clock, CheckCircle, AlertCircle, Building } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Calendar, Edit3, Save, X, CreditCard, DollarSign, Plus, Trash2, Clock, CheckCircle, AlertCircle, Building, Zap } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { ref, update, push, get, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 import toast from 'react-hot-toast';
+import AdvancedPaymentGateway from './AdvancedPaymentGateway';
 
 const SettingsTab = ({ instructorData, onUpdateProfile }) => {
   const { currentUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
+  const [showAdvancedPayment, setShowAdvancedPayment] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [withdrawalHistory, setWithdrawalHistory] = useState([]);
   const [availableBalance, setAvailableBalance] = useState(0);
@@ -573,6 +575,33 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           )}
         </div>
 
+        {/* Advanced Payment Gateway */}
+        <div className="bg-gradient-to-r from-purple-600/30 to-blue-600/30 border border-purple-400/50 rounded-xl p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-white font-semibold text-lg flex items-center">
+                <Zap className="w-5 h-5 ml-2 text-yellow-400" />
+                نظام الدفع المتطور
+              </h4>
+              <p className="text-purple-200 text-sm mt-1">
+                بوابات دفع حقيقية • تقارير ضريبية تلقائية • إشعارات البريد الإلكتروني
+              </p>
+              <div className="flex items-center space-x-4 space-x-reverse mt-3 text-xs">
+                <span className="bg-green-500/20 text-green-300 px-2 py-1 rounded-full">✓ Stripe & PayPal</span>
+                <span className="bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">✓ فوري وفودافون كاش</span>
+                <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">✓ تقارير PDF & Excel</span>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowAdvancedPayment(true)}
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2 space-x-reverse shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Zap className="w-5 h-5" />
+              <span>فتح النظام المتطور</span>
+            </button>
+          </div>
+        </div>
+
         {/* Withdrawal Settings */}
         <div className="space-y-4">
           <h4 className="text-white font-medium">إعدادات السحب</h4>
@@ -761,6 +790,14 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Advanced Payment Gateway Modal */}
+      {showAdvancedPayment && (
+        <AdvancedPaymentGateway
+          instructorData={instructorData}
+          onClose={() => setShowAdvancedPayment(false)}
+        />
       )}
     </div>
   );
