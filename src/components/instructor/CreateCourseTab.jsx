@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp, UserCheck, ArrowRight } from 'lucide-react';
+import { Plus, ChevronRight, BookOpen, Edit3, Trash2, Move, Youtube, ExternalLink, FileText, ChevronDown, ChevronUp, UserCheck, ArrowRight, HelpCircle } from 'lucide-react';
 import { ref, push, set } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import MarkdownEditor from './MarkdownEditor';
+import QuizEditor from './QuizEditor';
 
 const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
   const [step, setStep] = useState(1);
@@ -407,6 +408,38 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     });
   };
 
+  const addQuiz = (sectionId) => {
+    const newQuiz = {
+      id: Date.now().toString(),
+      title: '',
+      type: 'quiz',
+      content: '',
+      quizData: {
+        questions: [],
+        timeLimit: 30,
+        maxAttempts: 3,
+        passingScore: 70,
+        showCorrectAnswers: true,
+        allowReview: true,
+        randomizeQuestions: false,
+        settings: {
+          description: '',
+          instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+          showProgress: true,
+          requirePassword: false,
+          password: ''
+        }
+      },
+      duration: 0,
+      order: 0,
+      isPublished: false
+    };
+
+    updateSection(sectionId, {
+      lessons: [...(sections.find(s => s.id === sectionId)?.lessons || []), newQuiz]
+    });
+  };
+
   const updateLesson = (sectionId, lessonId, updates) => {
     const section = sections.find(s => s.id === sectionId);
     if (!section) return;
@@ -515,6 +548,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
               onDelete={() => deleteSection(section.id)}
               onToggleExpansion={() => toggleSectionExpansion(section.id)}
               onAddLesson={() => addLesson(section.id)}
+              onAddQuiz={() => addQuiz(section.id)}
               onUpdateLesson={(lessonId, updates) => updateLesson(section.id, lessonId, updates)}
               onDeleteLesson={(lessonId) => deleteLesson(section.id, lessonId)}
             />
@@ -548,6 +582,7 @@ const SectionCard = ({
   onDelete, 
   onToggleExpansion, 
   onAddLesson, 
+  onAddQuiz,
   onUpdateLesson, 
   onDeleteLesson 
 }) => {
@@ -643,14 +678,24 @@ const SectionCard = ({
             />
           ))}
 
-          {/* Add Lesson Button */}
-          <button
-            onClick={onAddLesson}
-            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-purple-200 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
-          >
-            <Plus className="w-4 h-4" />
-            <span>إضافة درس جديد</span>
-          </button>
+          {/* Add Lesson and Quiz Buttons */}
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={onAddLesson}
+              className="bg-white/5 border border-white/10 rounded-lg p-3 text-purple-200 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
+            >
+              <Plus className="w-4 h-4" />
+              <span>إضافة درس جديد</span>
+            </button>
+            
+            <button
+              onClick={onAddQuiz}
+              className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-3 text-blue-200 hover:text-white hover:bg-blue-500/30 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>إضافة كويز</span>
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -665,7 +710,23 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     type: lesson.type || 'article',
     content: lesson.content || '',
     videoUrl: lesson.videoUrl || '',
-    duration: lesson.duration || 0
+    duration: lesson.duration || 0,
+    quizData: lesson.quizData || {
+      questions: [],
+      timeLimit: 30,
+      maxAttempts: 3,
+      passingScore: 70,
+      showCorrectAnswers: true,
+      allowReview: true,
+      randomizeQuestions: false,
+      settings: {
+        description: '',
+        instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+        showProgress: true,
+        requirePassword: false,
+        password: ''
+      }
+    }
   });
 
   const handleSave = () => {
@@ -676,6 +737,11 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
       toast.error('رابط الفيديو مطلوب');
+      return;
+    }
+
+    if (formData.type === 'quiz' && (!formData.quizData.questions || formData.quizData.questions.length === 0)) {
+      toast.error('يجب إضافة سؤال واحد على الأقل للكويز');
       return;
     }
 
@@ -693,7 +759,23 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         type: lesson.type || 'article',
         content: lesson.content || '',
         videoUrl: lesson.videoUrl || '',
-        duration: lesson.duration || 0
+        duration: lesson.duration || 0,
+        quizData: lesson.quizData || {
+          questions: [],
+          timeLimit: 30,
+          maxAttempts: 3,
+          passingScore: 70,
+          showCorrectAnswers: true,
+          allowReview: true,
+          randomizeQuestions: false,
+          settings: {
+            description: '',
+            instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+            showProgress: true,
+            requirePassword: false,
+            password: ''
+          }
+        }
       });
       setIsEditing(false);
     }
@@ -705,6 +787,8 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         return <Youtube className="w-4 h-4" />;
       case 'article':
         return <FileText className="w-4 h-4" />;
+      case 'quiz':
+        return <HelpCircle className="w-4 h-4" />;
       default:
         return <FileText className="w-4 h-4" />;
     }
@@ -716,6 +800,8 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         return 'فيديو';
       case 'article':
         return 'مقال';
+      case 'quiz':
+        return 'كويز';
       default:
         return 'مقال';
     }
@@ -742,6 +828,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           >
             <option value="article">مقال</option>
             <option value="video">فيديو</option>
+            <option value="quiz">كويز</option>
           </select>
 
           {/* Content based on type */}
@@ -773,7 +860,7 @@ console.log('مرحباً بالعالم');
 [رابط مفيد](https://example.com)"
               />
             </div>
-          ) : (
+          ) : formData.type === 'video' ? (
             <div className="space-y-2">
               <input
                 type="url"
@@ -790,7 +877,18 @@ console.log('مرحباً بالعالم');
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               />
             </div>
-          )}
+          ) : formData.type === 'quiz' ? (
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                إعداد الكويز
+              </label>
+              <QuizEditor
+                quizData={formData.quizData}
+                onChange={(quizData) => setFormData(prev => ({ ...prev, quizData }))}
+                placeholder="إنشاء كويز تفاعلي..."
+              />
+            </div>
+          ) : null}
 
           {/* Save/Cancel Buttons */}
           <div className="flex space-x-2 space-x-reverse justify-end">
@@ -822,6 +920,7 @@ console.log('مرحباً بالعالم');
               <p className="text-purple-300 text-sm">
                 {getTypeLabel(lesson.type)}
                 {lesson.type === 'video' && lesson.duration > 0 && ` • ${lesson.duration} دقيقة`}
+                {lesson.type === 'quiz' && lesson.quizData?.questions?.length > 0 && ` • ${lesson.quizData.questions.length} سؤال`}
               </p>
             </div>
           </div>
