@@ -43,7 +43,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/Nexus">
         <div className="min-h-screen bg-primary-bg text-white">
           <Routes>
             {/* Public Routes */}
