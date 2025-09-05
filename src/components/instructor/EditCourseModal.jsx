@@ -4,6 +4,7 @@ import { ref, update, remove } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import MarkdownEditor from './MarkdownEditor';
 
 const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
   const [activeTab, setActiveTab] = useState('basic');
@@ -702,14 +703,12 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           {formData.type === 'article' ? (
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                محتوى المقال
+                محتوى المقال (يدعم Markdown)
               </label>
-              <textarea
+              <MarkdownEditor
                 value={formData.content}
-                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                placeholder="اكتب محتوى المقال هنا..."
-                rows="6"
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
+                onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
+                placeholder="اكتب محتوى المقال باستخدام Markdown..."
               />
             </div>
           ) : (

@@ -4,6 +4,7 @@ import { ref, push, set } from 'firebase/database';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import MarkdownEditor from './MarkdownEditor';
 
 const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
   const [step, setStep] = useState(1);
@@ -28,13 +29,26 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
 
   const handleSubmit = async () => {
     try {
+      // Validate authentication
+      if (!currentUser) {
+        toast.error('يجب تسجيل الدخول أولاً لإنشاء كورس');
+        return;
+      }
+
+      // Log the data being submitted for debugging
+      console.log('🚀 Creating course with data:', {
+        ...courseData,
+        instructorId: currentUser.uid,
+        instructorName: currentUser.displayName
+      });
+
       const courseRef = push(ref(db, 'courses'));
       
-      await set(courseRef, {
+      const courseDataToSave = {
         ...courseData,
         id: courseRef.key,
         instructorId: currentUser.uid,
-        instructorName: currentUser.displayName,
+        instructorName: currentUser.displayName || 'مدرس',
         instructorAvatar: currentUser.photoURL || '',
         status: 'draft',
         createdAt: new Date().toISOString(),
@@ -45,13 +59,35 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         salesCount: 0,
         totalRevenue: 0,
         isActive: false
-      });
+      };
 
+      console.log('💾 Saving to Firebase:', courseDataToSave);
+      
+      await set(courseRef, courseDataToSave);
+
+      console.log('✅ Course created successfully with ID:', courseRef.key);
       toast.success('تم إنشاء الكورس بنجاح!');
       onCourseCreated();
     } catch (error) {
-      toast.error('حدث خطأ في إنشاء الكورس');
-      console.error(error);
+      console.error('❌ Error creating course:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = 'حدث خطأ في إنشاء الكورس';
+      
+      if (error.code === 'permission-denied') {
+        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تحقق من إعدادات قاعدة البيانات';
+      } else if (error.code === 'network-request-failed') {
+        errorMessage = 'خطأ في الشبكة. تحقق من اتصالك بالإنترنت';
+      } else if (error.message) {
+        errorMessage = `خطأ: ${error.message}`;
+      }
+      
+      toast.error(errorMessage);
+      console.error('Error details:', {
+        code: error.code,
+        message: error.message,
+        stack: error.stack
+      });
     }
   };
 
@@ -671,13 +707,33 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
           {/* Content based on type */}
           {formData.type === 'article' ? (
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-              placeholder="محتوى المقال..."
-              rows="4"
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-            />
+            <div>
+              <label className="block text-purple-200 text-sm font-semibold mb-2">
+                محتوى المقال (يدعم Markdown)
+              </label>
+              <MarkdownEditor
+                value={formData.content}
+                onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
+                placeholder="اكتب محتوى المقال باستخدام Markdown...
+
+مثال:
+# عنوان رئيسي
+## عنوان فرعي
+
+هذا **نص مهم** وهذا *نص مائل*.
+
+- النقطة الأولى
+- النقطة الثانية
+
+> هذا اقتباس مهم
+
+```javascript
+console.log('مرحباً بالعالم');
+```
+
+[رابط مفيد](https://example.com)"
+              />
+            </div>
           ) : (
             <div className="space-y-2">
               <input
