@@ -1,8 +1,50 @@
-import React, { useState } from 'react';
-import { DollarSign, TrendingUp, Calendar, BarChart3 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { DollarSign, TrendingUp, Calendar, BarChart3, ArrowDown, Settings } from 'lucide-react';
+import { ref, get } from 'firebase/database';
+import { db } from '../../config/firebase';
+import { useAuth } from '../../contexts/AuthContext';
 
-const EarningsTab = ({ earnings, courses }) => {
+const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
+  const { currentUser } = useAuth();
   const [timeRange, setTimeRange] = useState('thisMonth');
+  const [availableBalance, setAvailableBalance] = useState(0);
+  const [totalWithdrawn, setTotalWithdrawn] = useState(0);
+  const [pendingWithdrawals, setPendingWithdrawals] = useState(0);
+
+  useEffect(() => {
+    loadWithdrawalData();
+  }, [currentUser]);
+
+  const loadWithdrawalData = async () => {
+    if (!currentUser?.uid) return;
+    
+    try {
+      // Load withdrawal history
+      const withdrawalsRef = ref(db, `users/${currentUser.uid}/withdrawalHistory`);
+      const withdrawalsSnapshot = await get(withdrawalsRef);
+      
+      if (withdrawalsSnapshot.exists()) {
+        const withdrawals = Object.values(withdrawalsSnapshot.val());
+        const withdrawn = withdrawals
+          .filter(w => w.status === 'completed' || w.status === 'approved')
+          .reduce((sum, w) => sum + (w.amount || 0), 0);
+        
+        const pending = withdrawals
+          .filter(w => w.status === 'pending')
+          .reduce((sum, w) => sum + (w.amount || 0), 0);
+          
+        setTotalWithdrawn(withdrawn);
+        setPendingWithdrawals(pending);
+      }
+
+      // Calculate available balance
+      const netEarnings = earnings * 0.85; // After 10% platform fee + 5% tax
+      const available = Math.max(0, netEarnings - totalWithdrawn - pendingWithdrawals);
+      setAvailableBalance(available);
+    } catch (error) {
+      console.error('Error loading withdrawal data:', error);
+    }
+  };
 
   // Calculate earnings statistics
   const totalEarnings = earnings || 0;
@@ -49,27 +91,47 @@ const EarningsTab = ({ earnings, courses }) => {
             trend="+12%"
           />
           <EarningsCard
-            title="أرباح هذا الشهر"
-            value={`${(totalEarnings * 0.3).toLocaleString()} ج.م`}
-            icon={<Calendar className="w-6 h-6" />}
+            title="الرصيد المتاح للسحب"
+            value={`${availableBalance.toLocaleString()} ج.م`}
+            icon={<ArrowDown className="w-6 h-6" />}
             color="from-blue-500 to-blue-600"
             trend="+8%"
           />
           <EarningsCard
-            title="متوسط أرباح الكورس"
-            value={`${averagePerCourse.toLocaleString()} ج.م`}
+            title="إجمالي المسحوب"
+            value={`${totalWithdrawn.toLocaleString()} ج.م`}
             icon={<BarChart3 className="w-6 h-6" />}
             color="from-purple-500 to-purple-600"
             trend="+15%"
           />
           <EarningsCard
-            title="معدل النمو"
-            value="18.5%"
-            icon={<TrendingUp className="w-6 h-6" />}
+            title="طلبات معلقة"
+            value={`${pendingWithdrawals.toLocaleString()} ج.م`}
+            icon={<Calendar className="w-6 h-6" />}
             color="from-orange-500 to-orange-600"
             trend="+3%"
           />
         </div>
+
+        {/* Quick Actions */}
+        {availableBalance > 0 && (
+          <div className="mt-6 flex gap-4">
+            <button
+              onClick={() => onSwitchToSettings && onSwitchToSettings()}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 space-x-reverse transition-all"
+            >
+              <ArrowDown className="w-5 h-5" />
+              <span>طلب سحب أرباح</span>
+            </button>
+            <button
+              onClick={() => onSwitchToSettings && onSwitchToSettings()}
+              className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 space-x-reverse transition-all border border-white/20"
+            >
+              <Settings className="w-5 h-5" />
+              <span>إدارة طرق الدفع</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Earnings Chart */}
@@ -134,11 +196,19 @@ const EarningsTab = ({ earnings, courses }) => {
               <span className="text-purple-200">الضرائب (5%)</span>
               <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} ج.م</span>
             </div>
+            <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+              <span className="text-purple-200">إجمالي المسحوب</span>
+              <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} ج.م</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+              <span className="text-purple-200">طلبات معلقة</span>
+              <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} ج.م</span>
+            </div>
             <div className="border-t border-white/20 pt-3">
               <div className="flex justify-between items-center p-3 bg-green-600/20 rounded-lg">
-                <span className="text-white font-semibold">صافي الأرباح</span>
+                <span className="text-white font-semibold">الرصيد المتاح للسحب</span>
                 <span className="text-green-400 font-bold text-lg">
-                  {(totalEarnings * 0.85).toLocaleString()} ج.م
+                  {availableBalance.toLocaleString()} ج.م
                 </span>
               </div>
             </div>
@@ -153,15 +223,24 @@ const EarningsTab = ({ earnings, courses }) => {
           <div>
             <h4 className="text-purple-200 mb-3">الدفع القادم</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-semibold text-lg">{(totalEarnings * 0.25).toLocaleString()} ج.م</p>
-              <p className="text-purple-200 text-sm">متوقع في 15 من الشهر القادم</p>
+              <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} ج.م</p>
+              <p className="text-purple-200 text-sm">
+                {availableBalance >= 100 ? 'متاح للسحب الآن' : `الحد الأدنى للسحب 100 ج.م`}
+              </p>
             </div>
           </div>
           <div>
-            <h4 className="text-purple-200 mb-3">طريقة الدفع</h4>
+            <h4 className="text-purple-200 mb-3">طرق الدفع</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-medium">حوالة بنكية</p>
-              <p className="text-purple-200 text-sm">البنك الأهلي - ****1234</p>
+              <p className="text-white font-medium">حساب بنكي، PayPal، فودافون كاش</p>
+              <p className="text-purple-200 text-sm">
+                <button 
+                  onClick={() => onSwitchToSettings && onSwitchToSettings()}
+                  className="text-blue-400 hover:text-blue-300 underline"
+                >
+                  إدارة طرق الدفع
+                </button>
+              </p>
             </div>
           </div>
         </div>

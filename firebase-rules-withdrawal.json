@@ -1,0 +1,59 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid",
+        "paymentMethods": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        },
+        "withdrawalHistory": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        },
+        "earnings": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        }
+      }
+    },
+    "courses": {
+      ".read": "auth != null",
+      "$courseId": {
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() == 'instructor' || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    },
+    "lessons": {
+      ".read": "auth != null",
+      "$lessonId": {
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() == 'instructor' || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    },
+    "user_progress": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "analytics_events": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null"
+    },
+    "security_logs": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    },
+    "test": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "withdrawalRequests": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      "$requestId": {
+        ".read": "auth != null && (data.child('instructorId').val() == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin')",
+        ".write": "auth != null && (data.child('instructorId').val() == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    }
+  }
+}

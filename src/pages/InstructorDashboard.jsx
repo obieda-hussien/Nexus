@@ -233,6 +233,7 @@ const InstructorDashboard = () => {
               <EarningsTab 
                 earnings={earnings}
                 courses={courses}
+                onSwitchToSettings={() => setActiveTab('settings')}
               />
             )}
             
