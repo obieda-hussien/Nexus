@@ -23,7 +23,8 @@ const ReviewsDisplay = ({ courseId }) => {
   }, [reviews]);
 
   const loadReviews = () => {
-    const reviewsRef = ref(db, `course_reviews/${courseId}`);
+    // Use courses/{courseId}/reviews path instead of course_reviews/{courseId}
+    const reviewsRef = ref(db, `courses/${courseId}/reviews`);
     onValue(reviewsRef, (snapshot) => {
       const reviewsData = [];
       snapshot.forEach((childSnapshot) => {

@@ -62,20 +62,10 @@ const ReviewsTab = ({ courses = [] }) => {
     try {
       setError(null);
       
-      // Check if the course_reviews path exists
-      const reviewsRef = ref(db, 'course_reviews');
-      const snapshot = await get(reviewsRef);
-      
-      if (!snapshot.exists()) {
-        // Initialize the course_reviews structure
-        await set(reviewsRef, {
-          initialized: true,
-          created_at: new Date().toISOString(),
-          description: "Reviews and ratings for courses"
-        });
-        
-        console.log('تم تهيئة قاعدة بيانات المراجعات بنجاح');
-      }
+      // No need to initialize a separate course_reviews path
+      // We'll use the existing courses structure: courses/{courseId}/reviews/{reviewId}
+      // This leverages existing Firebase rules for courses
+      console.log('استخدام هيكل الكورسات الموجود للمراجعات');
       
       setDatabaseInitialized(true);
     } catch (error) {
@@ -105,7 +95,8 @@ const ReviewsTab = ({ courses = [] }) => {
 
       const coursePromises = courses.map((course) => {
         return new Promise((resolve, reject) => {
-          const reviewsRef = ref(db, `course_reviews/${course.id}`);
+          // Use courses/{courseId}/reviews path instead of course_reviews/{courseId}
+          const reviewsRef = ref(db, `courses/${course.id}/reviews`);
           
           const unsubscribe = onValue(
             reviewsRef, 
@@ -117,15 +108,12 @@ const ReviewsTab = ({ courses = [] }) => {
                   snapshot.forEach((childSnapshot) => {
                     const review = childSnapshot.val();
                     
-                    // Skip the initialization marker
-                    if (childSnapshot.key !== 'initialized' && childSnapshot.key !== 'created_at' && childSnapshot.key !== 'description') {
-                      courseReviews.push({
-                        id: childSnapshot.key,
-                        ...review,
-                        courseId: course.id,
-                        courseTitle: course.title
-                      });
-                    }
+                    courseReviews.push({
+                      id: childSnapshot.key,
+                      ...review,
+                      courseId: course.id,
+                      courseTitle: course.title
+                    });
                   });
                 }
                 
@@ -224,7 +212,8 @@ const ReviewsTab = ({ courses = [] }) => {
 
     try {
       const review = reviews.find(r => r.id === reviewId);
-      const replyRef = ref(db, `course_reviews/${review.courseId}/${reviewId}/instructorReply`);
+      // Use courses/{courseId}/reviews/{reviewId}/instructorReply path
+      const replyRef = ref(db, `courses/${review.courseId}/reviews/${reviewId}/instructorReply`);
       
       await set(replyRef, {
         message: replyText,

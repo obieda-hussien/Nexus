@@ -20,7 +20,8 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
   }, [currentUser, courseId]);
 
   const checkExistingReview = () => {
-    const reviewsRef = ref(db, `course_reviews/${courseId}`);
+    // Use courses/{courseId}/reviews path instead of course_reviews/{courseId}
+    const reviewsRef = ref(db, `courses/${courseId}/reviews`);
     onValue(reviewsRef, (snapshot) => {
       let foundReview = null;
       snapshot.forEach((childSnapshot) => {
@@ -60,16 +61,16 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
       };
 
       if (hasReviewed && userReview) {
-        // Update existing review
-        const reviewRef = ref(db, `course_reviews/${courseId}/${userReview.id}`);
+        // Update existing review - use courses/{courseId}/reviews/{reviewId} path
+        const reviewRef = ref(db, `courses/${courseId}/reviews/${userReview.id}`);
         await set(reviewRef, {
           ...reviewData,
           updatedAt: new Date().toISOString()
         });
         toast.success('تم تحديث تقييمك بنجاح');
       } else {
-        // Create new review
-        const reviewsRef = ref(db, `course_reviews/${courseId}`);
+        // Create new review - use courses/{courseId}/reviews path
+        const reviewsRef = ref(db, `courses/${courseId}/reviews`);
         await push(reviewsRef, reviewData);
         toast.success('تم إرسال تقييمك بنجاح');
         setHasReviewed(true);
