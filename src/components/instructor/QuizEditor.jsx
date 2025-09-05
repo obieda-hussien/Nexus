@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Plus, Trash2, Save, Eye, Settings, Clock, Trophy, HelpCircle, CheckCircle, X, ChevronUp, ChevronDown, Edit3 } from 'lucide-react';
+import { Plus, Trash2, Save, Eye, Settings, Clock, Trophy, HelpCircle, CheckCircle, X, ChevronUp, ChevronDown, Edit3, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز تفاعلي..." }) => {
@@ -685,43 +685,80 @@ const QuizPreview = ({ quiz, onClose }) => {
   if (showResults) {
     const score = calculateScore();
     return (
-      <div className="bg-white rounded-lg p-6 max-h-96 overflow-y-auto">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-600 rounded-xl p-8 max-h-96 overflow-y-auto">
         <div className="text-center">
-          <div className="mb-4">
-            <Trophy className={`w-16 h-16 mx-auto ${score.percentage >= quiz.passingScore ? 'text-green-500' : 'text-red-500'}`} />
+          {/* Trophy Icon with Glow Effect */}
+          <div className="mb-6">
+            <div className={`relative inline-block p-4 rounded-full ${
+              score.percentage >= quiz.passingScore 
+                ? 'bg-gradient-to-br from-green-400 to-emerald-600 shadow-lg shadow-green-500/30' 
+                : 'bg-gradient-to-br from-red-400 to-red-600 shadow-lg shadow-red-500/30'
+            }`}>
+              <Trophy className="w-12 h-12 text-white" />
+            </div>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">نتائج الكويز</h3>
-          <div className="text-4xl font-bold mb-2 text-gray-900">
-            {score.percentage}%
+          
+          {/* Results Title */}
+          <h3 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            نتائج الكويز
+          </h3>
+          
+          {/* Score Display */}
+          <div className="relative mb-6">
+            <div className="text-5xl font-bold mb-2 text-white">
+              {score.percentage}%
+            </div>
+            <div className={`w-24 h-1 mx-auto rounded-full ${
+              score.percentage >= quiz.passingScore 
+                ? 'bg-gradient-to-r from-green-400 to-emerald-500' 
+                : 'bg-gradient-to-r from-red-400 to-red-500'
+            }`} />
           </div>
-          <p className="text-gray-600 mb-4">
-            أجبت على {score.correct} من {score.total} أسئلة بشكل صحيح
+          
+          {/* Score Details */}
+          <p className="text-gray-300 mb-6 text-lg">
+            أجبت على <span className="text-blue-400 font-semibold">{score.correct}</span> من <span className="text-blue-400 font-semibold">{score.total}</span> أسئلة بشكل صحيح
           </p>
-          <div className={`inline-block px-4 py-2 rounded-full font-medium ${
+          
+          {/* Pass/Fail Badge */}
+          <div className={`inline-flex items-center px-6 py-3 rounded-full font-semibold text-white shadow-lg ${
             score.percentage >= quiz.passingScore
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
+              ? 'bg-gradient-to-r from-green-500 to-emerald-600 shadow-green-500/30'
+              : 'bg-gradient-to-r from-red-500 to-red-600 shadow-red-500/30'
           }`}>
-            {score.percentage >= quiz.passingScore ? 'نجح' : 'راسب'}
+            {score.percentage >= quiz.passingScore ? (
+              <>
+                <CheckCircle className="w-5 h-5 ml-2" />
+                نجح
+              </>
+            ) : (
+              <>
+                <X className="w-5 h-5 ml-2" />
+                راسب
+              </>
+            )}
           </div>
         </div>
         
-        <div className="mt-6 flex justify-center space-x-2 space-x-reverse">
+        {/* Action Buttons */}
+        <div className="mt-8 flex justify-center space-x-3 space-x-reverse">
           <button
             onClick={() => {
               setShowResults(false);
               setCurrentQuestion(0);
               setAnswers({});
             }}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="flex items-center space-x-2 space-x-reverse px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:scale-105"
           >
-            إعادة المحاولة
+            <Edit3 className="w-4 h-4" />
+            <span>إعادة المحاولة</span>
           </button>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+            className="flex items-center space-x-2 space-x-reverse px-6 py-3 bg-gray-700 text-gray-300 rounded-xl font-semibold hover:bg-gray-600 hover:text-white transition-all duration-200 border border-gray-600"
           >
-            إغلاق المعاينة
+            <X className="w-4 h-4" />
+            <span>إغلاق المعاينة</span>
           </button>
         </div>
       </div>
@@ -729,118 +766,169 @@ const QuizPreview = ({ quiz, onClose }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 max-h-96 overflow-y-auto">
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold text-gray-900">معاينة الكويز</h3>
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-600 rounded-xl p-6 max-h-96 overflow-y-auto">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <h3 className="text-xl font-bold text-white">معاينة الكويز</h3>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-all duration-200"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
         
+        {/* Progress Section */}
         {quiz.settings.showProgress && (
-          <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
-            <div 
-              className="bg-blue-500 h-2 rounded-full transition-all"
-              style={{ width: `${((currentQuestion + 1) / quiz.questions.length) * 100}%` }}
-            />
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-300 text-sm font-medium">
+                السؤال {currentQuestion + 1} من {quiz.questions.length}
+              </span>
+              <span className="text-blue-400 text-sm font-semibold">
+                {Math.round(((currentQuestion + 1) / quiz.questions.length) * 100)}%
+              </span>
+            </div>
+            <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+              <div 
+                className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-300 ease-out shadow-lg"
+                style={{ width: `${((currentQuestion + 1) / quiz.questions.length) * 100}%` }}
+              />
+            </div>
           </div>
         )}
-        
-        <p className="text-gray-600 text-sm">
-          السؤال {currentQuestion + 1} من {quiz.questions.length}
-        </p>
       </div>
 
+      {/* Question Content */}
       {currentQ && (
-        <div className="space-y-4">
-          <h4 className="text-lg font-medium text-gray-900">{currentQ.question}</h4>
+        <div className="space-y-6">
+          {/* Question Text */}
+          <div className="bg-gray-700 border border-gray-600 rounded-xl p-4">
+            <h4 className="text-lg font-semibold text-white leading-relaxed">{currentQ.question}</h4>
+          </div>
           
+          {/* Multiple Choice Options */}
           {currentQ.type === 'multiple_choice' && (
-            <div className="space-y-2">
-              {currentQ.options.map((option) => (
+            <div className="space-y-3">
+              {currentQ.options.map((option, index) => (
                 <label
                   key={option.id}
-                  className="flex items-center space-x-2 space-x-reverse p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                  className={`flex items-center space-x-3 space-x-reverse p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                    answers[currentQ.id] === option.id
+                      ? 'border-blue-500 bg-blue-500/10 text-white shadow-lg shadow-blue-500/20'
+                      : 'border-gray-600 bg-gray-700/50 text-gray-300 hover:border-gray-500 hover:bg-gray-600/50'
+                  }`}
                 >
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    answers[currentQ.id] === option.id
+                      ? 'border-blue-500 bg-blue-500'
+                      : 'border-gray-500'
+                  }`}>
+                    {answers[currentQ.id] === option.id && (
+                      <div className="w-2 h-2 bg-white rounded-full" />
+                    )}
+                  </div>
                   <input
                     type="radio"
                     name={`question-${currentQ.id}`}
                     value={option.id}
                     checked={answers[currentQ.id] === option.id}
                     onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
-                    className="w-4 h-4 text-blue-600"
+                    className="sr-only"
                   />
-                  <span className="text-gray-700">{option.text}</span>
+                  <span className="flex-1 font-medium">{option.text}</span>
+                  <span className="text-xs font-semibold px-2 py-1 bg-gray-600 text-gray-300 rounded-full">
+                    {String.fromCharCode(65 + index)}
+                  </span>
                 </label>
               ))}
             </div>
           )}
 
+          {/* True/False Options */}
           {currentQ.type === 'true_false' && (
-            <div className="space-y-2">
-              <label className="flex items-center space-x-2 space-x-reverse p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+            <div className="grid grid-cols-2 gap-4">
+              <label className={`flex items-center justify-center space-x-2 space-x-reverse p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                answers[currentQ.id] === true
+                  ? 'border-green-500 bg-green-500/10 text-white shadow-lg shadow-green-500/20'
+                  : 'border-gray-600 bg-gray-700/50 text-gray-300 hover:border-gray-500 hover:bg-gray-600/50'
+              }`}>
                 <input
                   type="radio"
                   name={`question-${currentQ.id}`}
                   value="true"
                   checked={answers[currentQ.id] === true}
                   onChange={() => handleAnswerChange(currentQ.id, true)}
-                  className="w-4 h-4 text-blue-600"
+                  className="sr-only"
                 />
-                <span className="text-gray-700">صح</span>
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-semibold">صح</span>
               </label>
-              <label className="flex items-center space-x-2 space-x-reverse p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+              
+              <label className={`flex items-center justify-center space-x-2 space-x-reverse p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                answers[currentQ.id] === false
+                  ? 'border-red-500 bg-red-500/10 text-white shadow-lg shadow-red-500/20'
+                  : 'border-gray-600 bg-gray-700/50 text-gray-300 hover:border-gray-500 hover:bg-gray-600/50'
+              }`}>
                 <input
                   type="radio"
                   name={`question-${currentQ.id}`}
                   value="false"
                   checked={answers[currentQ.id] === false}
                   onChange={() => handleAnswerChange(currentQ.id, false)}
-                  className="w-4 h-4 text-blue-600"
+                  className="sr-only"
                 />
-                <span className="text-gray-700">خطأ</span>
+                <X className="w-5 h-5" />
+                <span className="font-semibold">خطأ</span>
               </label>
             </div>
           )}
 
+          {/* Short Answer Input */}
           {currentQ.type === 'short_answer' && (
-            <input
-              type="text"
-              value={answers[currentQ.id] || ''}
-              onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
-              placeholder="اكتب إجابتك هنا..."
-              className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
-            />
+            <div>
+              <input
+                type="text"
+                value={answers[currentQ.id] || ''}
+                onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
+                placeholder="اكتب إجابتك هنا..."
+                className="w-full p-4 bg-gray-700 border-2 border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors duration-200"
+              />
+            </div>
           )}
         </div>
       )}
 
-      <div className="flex justify-between mt-6">
+      {/* Navigation Footer */}
+      <div className="flex justify-between items-center mt-8 pt-4 border-t border-gray-600">
         <button
           onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
           disabled={currentQuestion === 0}
-          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-600"
         >
-          السابق
+          <ChevronRight className="w-4 h-4 rotate-180" />
+          <span>السابق</span>
         </button>
         
         {currentQuestion === quiz.questions.length - 1 ? (
           <button
             onClick={() => setShowResults(true)}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg shadow-green-500/30 hover:scale-105"
           >
-            إنهاء الكويز
+            <Trophy className="w-4 h-4" />
+            <span>إنهاء الكويز</span>
           </button>
         ) : (
           <button
             onClick={() => setCurrentQuestion(Math.min(quiz.questions.length - 1, currentQuestion + 1))}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:scale-105"
           >
-            التالي
+            <span>التالي</span>
+            <ChevronRight className="w-4 h-4" />
           </button>
         )}
       </div>
