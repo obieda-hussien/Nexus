@@ -16,6 +16,11 @@ import {
   get,
   limitToLast
 } from 'firebase/database';
+import { 
+  collection,
+  addDoc,
+  serverTimestamp
+} from 'firebase/firestore';
 
 // Security Service for Nexus Educational Platform
 class SecurityService {
