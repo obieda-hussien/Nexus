@@ -31,6 +31,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // GitHub Pages SPA routing fix
+      // Handle redirect from 404.html for direct URL access
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
