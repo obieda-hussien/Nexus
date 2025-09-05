@@ -21,11 +21,29 @@
     <meta name="twitter:title" content="Nexus - Modern Educational Platform" />
     <meta name="twitter:description" content="Discover the world of physics and mathematics with our cutting-edge educational platform" />
     
-    <!-- Preload important fonts -->
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
     
-    <!-- Google AdSense -->
+    <!-- Critical CSS inline for faster loading -->
+    <style>
+      /* Critical above-the-fold styles */
+      #root { min-height: 100vh; }
+      .min-h-screen { min-height: 100vh; }
+      .bg-primary-bg { background-color: #0f172a; }
+      .text-white { color: #ffffff; }
+      /* Loading spinner styles */
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
+    
+    <!-- Google AdSense - load async to not block rendering -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2807035108453262"
      crossorigin="anonymous"></script>
   </head>
