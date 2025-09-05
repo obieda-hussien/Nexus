@@ -4,9 +4,11 @@ import Navigation from '../components/sections/Navigation';
 import Footer from '../components/sections/Footer';
 import ReviewSubmission from '../components/common/ReviewSubmission';
 import ReviewsDisplay from '../components/common/ReviewsDisplay';
+import PayPalPaymentButton from '../components/ui/PayPalPaymentButton';
 import { useAuth } from '../contexts/AuthContext';
 import CourseService from '../services/CourseService';
 import PaymentService from '../services/PaymentService';
+import EmailJSNotificationService from '../services/EmailJSNotificationService';
 import toast from 'react-hot-toast';
 import {
   BookOpen,
@@ -31,6 +33,8 @@ const CourseDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showPayPalPayment, setShowPayPalPayment] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('vodafone');
   const [paymentData, setPaymentData] = useState({
     vodafoneNumber: '',
     transactionId: ''
@@ -104,6 +108,11 @@ const CourseDetailsPage = () => {
   const handlePayment = async (e) => {
     e.preventDefault();
     
+    if (paymentMethod === 'paypal') {
+      setShowPayPalPayment(true);
+      return;
+    }
+    
     if (!paymentData.vodafoneNumber || !paymentData.transactionId) {
       toast.error('يرجى ملء جميع البيانات المطلوبة');
       return;
@@ -145,6 +154,47 @@ const CourseDetailsPage = () => {
       console.error('Error processing payment:', error);
       toast.error('حدث خطأ أثناء معالجة الدفع');
     }
+  };
+
+  const handlePayPalSuccess = async (result) => {
+    try {
+      setShowPaymentModal(false);
+      setShowPayPalPayment(false);
+      setIsEnrolled(true);
+      
+      // Send notification to instructor
+      if (course.instructorId) {
+        try {
+          const instructorData = { 
+            email: course.instructorEmail || 'instructor@example.com',
+            displayName: course.instructorName || 'المدرس'
+          };
+          
+          await EmailJSNotificationService.sendCoursePaymentNotification(
+            instructorData,
+            course,
+            currentUser,
+            {
+              transactionId: result.transactionId,
+              amount: course.price,
+              paymentMethod: 'paypal'
+            }
+          );
+        } catch (emailError) {
+          console.log('Email notification failed, but payment successful');
+        }
+      }
+      
+      toast.success('🎉 تم الدفع بنجاح! مرحباً بك في الكورس');
+    } catch (error) {
+      console.error('Error handling PayPal success:', error);
+      toast.error('تم الدفع لكن حدث خطأ في التسجيل. يرجى التواصل مع الدعم الفني.');
+    }
+  };
+
+  const handlePayPalError = (error) => {
+    console.error('PayPal payment error:', error);
+    toast.error('فشل في الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
   };
 
   const getPlaceholderCourse = () => ({
@@ -520,62 +570,168 @@ const CourseDetailsPage = () => {
         {/* Payment Modal */}
         {showPaymentModal && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 max-w-md w-full">
+            <div className="bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <CreditCard className="w-6 h-6" />
-                إتمام الدفع
+                إتمام الدفع - {course.price} جنيه
               </h2>
 
-              <div className="bg-blue-900/20 border border-blue-700/30 rounded-xl p-4 mb-6">
-                <h3 className="text-blue-400 font-semibold mb-2">تعليمات الدفع:</h3>
-                <ol className="text-sm text-gray-300 space-y-1">
-                  <li>1. حول {course.price} جنيه إلى رقم فودافون كاش: <strong>01234567890</strong></li>
-                  <li>2. اكتب رقم فودافون كاش الخاص بك أدناه</li>
-                  <li>3. اكتب رقم العملية (Transaction ID)</li>
-                </ol>
-              </div>
+              {!showPayPalPayment ? (
+                <>
+                  {/* Payment Method Selection */}
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-3">اختر طريقة الدفع:</h3>
+                    <div className="space-y-3">
+                      <label className="flex items-center gap-3 p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="paypal"
+                          checked={paymentMethod === 'paypal'}
+                          onChange={(e) => setPaymentMethod(e.target.value)}
+                          className="text-blue-600"
+                        />
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+                            <CreditCard className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">PayPal</p>
+                            <p className="text-gray-400 text-sm">دفع فوري آمن - بطاقات ائتمان دولية</p>
+                          </div>
+                        </div>
+                        <span className="text-green-400 text-xs bg-green-900/20 px-2 py-1 rounded">موصى به</span>
+                      </label>
 
-              <form onSubmit={handlePayment} className="space-y-4">
-                <div>
-                  <label className="block text-white font-medium mb-2">رقم فودافون كاش الخاص بك</label>
-                  <input
-                    type="tel"
-                    value={paymentData.vodafoneNumber}
-                    onChange={(e) => setPaymentData(prev => ({ ...prev, vodafoneNumber: e.target.value }))}
-                    className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    placeholder="01xxxxxxxxx"
-                    required
-                  />
-                </div>
+                      <label className="flex items-center gap-3 p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="vodafone"
+                          checked={paymentMethod === 'vodafone'}
+                          onChange={(e) => setPaymentMethod(e.target.value)}
+                          className="text-blue-600"
+                        />
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">VC</span>
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">فودافون كاش</p>
+                            <p className="text-gray-400 text-sm">تحويل عبر فودافون كاش (يتطلب مراجعة يدوية)</p>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="block text-white font-medium mb-2">رقم العملية (Transaction ID)</label>
-                  <input
-                    type="text"
-                    value={paymentData.transactionId}
-                    onChange={(e) => setPaymentData(prev => ({ ...prev, transactionId: e.target.value }))}
-                    className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    placeholder="MP240123456789"
-                    required
-                  />
-                </div>
+                  {paymentMethod === 'paypal' ? (
+                    <div className="space-y-4">
+                      <div className="bg-blue-900/20 border border-blue-700/30 rounded-xl p-4">
+                        <h3 className="text-blue-400 font-semibold mb-2">دفع آمن عبر PayPal:</h3>
+                        <ul className="text-sm text-gray-300 space-y-1">
+                          <li>• دفع فوري وآمن</li>
+                          <li>• حماية المشتري</li>
+                          <li>• يقبل بطاقات ائتمان دولية</li>
+                          <li>• وصول فوري للكورس بعد الدفع</li>
+                        </ul>
+                      </div>
 
-                <div className="flex gap-3">
-                  <button
-                    type="submit"
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors"
-                  >
-                    تأكيد الدفع
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowPaymentModal(false)}
-                    className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg transition-colors"
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              </form>
+                      <button
+                        onClick={() => setShowPayPalPayment(true)}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors font-medium"
+                      >
+                        الدفع عبر PayPal
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-4 mb-6">
+                        <h3 className="text-red-400 font-semibold mb-2">تعليمات فودافون كاش:</h3>
+                        <ol className="text-sm text-gray-300 space-y-1">
+                          <li>1. حول {course.price} جنيه إلى رقم فودافون كاش: <strong>01234567890</strong></li>
+                          <li>2. اكتب رقم فودافون كاش الخاص بك أدناه</li>
+                          <li>3. اكتب رقم العملية (Transaction ID)</li>
+                          <li>4. سيتم تأكيد الدفع خلال 24 ساعة</li>
+                        </ol>
+                      </div>
+
+                      <form onSubmit={handlePayment} className="space-y-4">
+                        <div>
+                          <label className="block text-white font-medium mb-2">رقم فودافون كاش الخاص بك</label>
+                          <input
+                            type="tel"
+                            value={paymentData.vodafoneNumber}
+                            onChange={(e) => setPaymentData(prev => ({ ...prev, vodafoneNumber: e.target.value }))}
+                            className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                            placeholder="01xxxxxxxxx"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-white font-medium mb-2">رقم العملية (Transaction ID)</label>
+                          <input
+                            type="text"
+                            value={paymentData.transactionId}
+                            onChange={(e) => setPaymentData(prev => ({ ...prev, transactionId: e.target.value }))}
+                            className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                            placeholder="MP240123456789"
+                            required
+                          />
+                        </div>
+
+                        <div className="flex gap-3">
+                          <button
+                            type="submit"
+                            className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg transition-colors"
+                          >
+                            تأكيد الدفع
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowPaymentModal(false)}
+                            className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg transition-colors"
+                          >
+                            إلغاء
+                          </button>
+                        </div>
+                      </form>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {/* PayPal Payment Section */}
+                  <div className="space-y-4">
+                    <button
+                      onClick={() => setShowPayPalPayment(false)}
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-4"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      العودة لخيارات الدفع
+                    </button>
+
+                    <PayPalPaymentButton
+                      courseData={course}
+                      userData={currentUser}
+                      onSuccess={handlePayPalSuccess}
+                      onError={handlePayPalError}
+                      className="w-full"
+                    />
+
+                    <button
+                      onClick={() => {
+                        setShowPaymentModal(false);
+                        setShowPayPalPayment(false);
+                      }}
+                      className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors text-sm"
+                    >
+                      إلغاء
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}
