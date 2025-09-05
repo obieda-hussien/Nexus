@@ -13,7 +13,10 @@ import {
   Reply,
   Send,
   TrendingUp,
-  BarChart3
+  BarChart3,
+  FileText,
+  Users,
+  Eye
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -275,19 +278,97 @@ const ReviewsTab = ({ courses = [] }) => {
 
       {/* Reviews List */}
       <div className="space-y-4">
-        {filteredReviews.length === 0 ? (
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-8 text-center">
-            <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">لا توجد مراجعات</h3>
-            <p className="text-gray-400">
-              {reviews.length === 0 
-                ? 'لم يقم أي طالب بكتابة مراجعة حتى الآن' 
-                : 'لا توجد مراجعات تطابق المرشحات المحددة'
-              }
-            </p>
-          </div>
-        ) : (
-          filteredReviews.map((review) => (
+        {(() => {
+          // Helper function to render empty state
+          const renderEmptyState = () => {
+            // Check if there are no published courses
+            const publishedCourses = courses.filter(course => course.published !== false);
+            
+            if (publishedCourses.length === 0) {
+              return (
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-12 text-center">
+                  <div className="w-24 h-24 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Eye className="w-12 h-12 text-purple-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد كورسات منشورة</h3>
+                  <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
+                    يجب نشر الكورسات أولاً حتى يتمكن الطلاب من تقييمها وكتابة المراجعات
+                  </p>
+                  <div className="flex items-center justify-center space-x-6 space-x-reverse text-sm text-gray-500">
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <BookOpen className="w-4 h-4" />
+                      <span>انشر كورساتك</span>
+                    </div>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Users className="w-4 h-4" />
+                      <span>جذب الطلاب</span>
+                    </div>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Star className="w-4 h-4" />
+                      <span>احصل على التقييمات</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // Check if there are published courses but no reviews yet
+            if (reviews.length === 0) {
+              return (
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-12 text-center">
+                  <div className="w-24 h-24 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <MessageSquare className="w-12 h-12 text-yellow-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد مراجعات حتى الآن</h3>
+                  <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
+                    لم يقم أي طالب بكتابة مراجعة أو تقييم لكورساتك بعد. عندما يبدأ الطلاب في التفاعل مع المحتوى ستظهر مراجعاتهم هنا.
+                  </p>
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 max-w-lg mx-auto">
+                    <div className="flex items-start space-x-3 space-x-reverse">
+                      <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-4 h-4 text-blue-400" />
+                      </div>
+                      <div className="text-right">
+                        <h4 className="text-blue-300 font-semibold mb-1">نصيحة</h4>
+                        <p className="text-blue-200 text-sm">
+                          تفاعل مع طلابك وقدم محتوى عالي الجودة لتشجيعهم على ترك تقييمات إيجابية
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // If there are reviews but none match the filters
+            return (
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-gray-500/20 to-gray-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Filter className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">لا توجد نتائج</h3>
+                <p className="text-gray-400 mb-4">
+                  لا توجد مراجعات تطابق المرشحات المحددة
+                </p>
+                <button
+                  onClick={() => {
+                    setFilterCourse('all');
+                    setFilterRating('all');
+                    setSearchTerm('');
+                  }}
+                  className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+                >
+                  إعادة تعيين المرشحات
+                </button>
+              </div>
+            );
+          };
+
+          if (filteredReviews.length === 0) {
+            return renderEmptyState();
+          }
+
+          return filteredReviews.map((review) => (
             <div key={review.id} className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
               {/* Review Header */}
               <div className="flex items-start justify-between mb-4">
@@ -379,7 +460,7 @@ const ReviewsTab = ({ courses = [] }) => {
               )}
             </div>
           ))
-        )}
+        })()} 
       </div>
     </div>
   );
