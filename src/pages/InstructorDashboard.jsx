@@ -12,6 +12,7 @@ import OverviewTab from '../components/instructor/OverviewTab';
 import CoursesTab from '../components/instructor/CoursesTab';
 import CreateCourseTab from '../components/instructor/CreateCourseTab';
 import StudentsTab from '../components/instructor/StudentsTab';
+import ReviewsTab from '../components/instructor/ReviewsTab';
 import EarningsTab from '../components/instructor/EarningsTab';
 import NotificationsTab from '../components/instructor/NotificationsTab';
 import SettingsTab from '../components/instructor/SettingsTab';
@@ -218,6 +219,12 @@ const InstructorDashboard = () => {
             {activeTab === 'students' && (
               <StudentsTab 
                 students={students}
+                courses={courses}
+              />
+            )}
+            
+            {activeTab === 'reviews' && (
+              <ReviewsTab 
                 courses={courses}
               />
             )}

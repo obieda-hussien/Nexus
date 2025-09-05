@@ -6,7 +6,8 @@ import {
   DollarSign, 
   Bell, 
   Settings,
-  Plus
+  Plus,
+  MessageSquare
 } from 'lucide-react';
 
 const InstructorNavigation = ({ activeTab, setActiveTab, notificationCount = 0 }) => {
@@ -14,6 +15,7 @@ const InstructorNavigation = ({ activeTab, setActiveTab, notificationCount = 0 }
     { id: 'overview', label: 'نظرة عامة', icon: BarChart3 },
     { id: 'courses', label: 'الكورسات', icon: BookOpen },
     { id: 'students', label: 'الطلاب', icon: Users },
+    { id: 'reviews', label: 'المراجعات', icon: MessageSquare },
     { id: 'earnings', label: 'الأرباح', icon: DollarSign },
     { id: 'notifications', label: 'الإشعارات', icon: Bell, badge: notificationCount },
     { id: 'settings', label: 'الإعدادات', icon: Settings }

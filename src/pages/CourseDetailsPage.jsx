@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navigation from '../components/sections/Navigation';
 import Footer from '../components/sections/Footer';
+import ReviewSubmission from '../components/common/ReviewSubmission';
+import ReviewsDisplay from '../components/common/ReviewsDisplay';
 import { useAuth } from '../contexts/AuthContext';
 import CourseService from '../services/CourseService';
 import PaymentService from '../services/PaymentService';
@@ -500,6 +502,17 @@ const CourseDetailsPage = () => {
                 </div>
                 <p className="text-gray-300 text-sm">مدرس متخصص في {course.category === 'programming' ? 'البرمجة' : course.category} مع سنوات من الخبرة في التدريس.</p>
               </div>
+
+              {/* Student Review Submission (only for enrolled students) */}
+              {isEnrolled && (
+                <ReviewSubmission 
+                  courseId={id}
+                  courseTitle={course.title}
+                />
+              )}
+
+              {/* Course Reviews Display */}
+              <ReviewsDisplay courseId={id} />
             </div>
           </div>
         </div>
