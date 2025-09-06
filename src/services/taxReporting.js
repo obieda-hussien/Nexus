@@ -116,6 +116,12 @@ export class TaxReportingService {
       
     } catch (error) {
       console.error('Error generating annual tax report:', error);
+      
+      // Provide specific guidance for Firebase indexing errors
+      if (error.message && error.message.includes('قاعدة البيانات تحتاج إلى فهرسة')) {
+        throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب إلى Firebase Console\n2. افتح Realtime Database → Rules\n3. انسخ المحتوى من ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 دقائق لبناء الفهارس\n5. أعد المحاولة`);
+      }
+      
       throw new Error(`فشل في إنتاج التقرير الضريبي السنوي: ${error.message}`);
     }
   }
@@ -131,41 +137,49 @@ export class TaxReportingService {
       const earningsSnapshot = await get(earningsRef);
       const earnings = earningsSnapshot.val() || {};
       
-      // Get withdrawal history
-      const withdrawalsQuery = query(
-        ref(db, `users/${instructorId}/withdrawalHistory`),
-        orderByChild('requestedAt'),
-        startAt(startDate),
-        endAt(endDate)
-      );
-      const withdrawalsSnapshot = await get(withdrawalsQuery);
-      const withdrawals = withdrawalsSnapshot.val() || {};
-      
-      // Get course sales data
-      const salesData = await this.getCourseSalesData(instructorId, year);
-      
-      // Calculate totals
-      const totalIncome = Object.values(salesData.monthlySales).reduce((sum, month) => sum + month.revenue, 0);
-      const platformCommission = totalIncome * 0.10; // 10% platform commission
-      const totalWithdrawn = Object.values(withdrawals).reduce((sum, w) => sum + (w.amount || 0), 0);
-      const withdrawalFees = Object.values(withdrawals).reduce((sum, w) => sum + (w.fees?.fee || 0), 0);
-      
-      return {
-        totalIncome,
-        coursesSales: salesData.totalSales,
-        otherIncome: 0, // Can be expanded for other income sources
-        monthlyIncome: salesData.monthlySales,
-        platformCommission,
-        paymentFees: withdrawalFees,
-        businessExpenses: this.calculateBusinessExpenses(totalIncome),
-        totalWithdrawn,
-        withdrawalMethods: this.summarizeWithdrawalMethods(withdrawals),
-        withdrawalFees,
-        pendingWithdrawals: Object.values(withdrawals).filter(w => w.status === 'pending').length,
-        invoices: [], // To be implemented based on requirements
-        receipts: [], // To be implemented
-        bankStatements: [] // To be implemented
-      };
+      // Get withdrawal history with proper error handling for missing indexes
+      try {
+        const withdrawalsQuery = query(
+          ref(db, `users/${instructorId}/withdrawalHistory`),
+          orderByChild('requestedAt'),
+          startAt(startDate),
+          endAt(endDate)
+        );
+        const withdrawalsSnapshot = await get(withdrawalsQuery);
+        const withdrawals = withdrawalsSnapshot.val() || {};
+        
+        // Get course sales data
+        const salesData = await this.getCourseSalesData(instructorId, year);
+        
+        // Calculate totals
+        const totalIncome = Object.values(salesData.monthlySales).reduce((sum, month) => sum + month.revenue, 0);
+        const platformCommission = totalIncome * 0.10; // 10% platform commission
+        const totalWithdrawn = Object.values(withdrawals).reduce((sum, w) => sum + (w.amount || 0), 0);
+        const withdrawalFees = Object.values(withdrawals).reduce((sum, w) => sum + (w.fees?.fee || 0), 0);
+        
+        return {
+          totalIncome,
+          coursesSales: salesData.totalSales,
+          otherIncome: 0, // Can be expanded for other income sources
+          monthlyIncome: salesData.monthlySales,
+          platformCommission,
+          paymentFees: withdrawalFees,
+          businessExpenses: this.calculateBusinessExpenses(totalIncome),
+          totalWithdrawn,
+          withdrawalMethods: this.summarizeWithdrawalMethods(withdrawals),
+          withdrawalFees,
+          pendingWithdrawals: Object.values(withdrawals).filter(w => w.status === 'pending').length,
+          invoices: [], // To be implemented based on requirements
+          receipts: [], // To be implemented
+          bankStatements: [] // To be implemented
+        };
+        
+      } catch (error) {
+        if (error.message && error.message.includes('Index not defined')) {
+          throw new Error(`قاعدة البيانات تحتاج إلى فهرسة. يرجى تحديث قواعد Firebase وإضافة الفهرس للحقل "requestedAt" في مسار withdrawalHistory. راجع ملف FIREBASE_SETUP.md للتفاصيل.`);
+        }
+        throw error;
+      }
       
     } catch (error) {
       console.error('Error collecting financial data:', error);

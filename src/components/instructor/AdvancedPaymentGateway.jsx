@@ -253,7 +253,26 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
     } catch (error) {
       console.error('Tax report generation error:', error);
       toast.dismiss();
-      toast.error(`فشل في إنتاج التقرير: ${error.message}`);
+      
+      // Show detailed error message for Firebase indexing issues
+      if (error.message && error.message.includes('قاعدة البيانات تحتاج إلى فهرسة')) {
+        toast.error(
+          'خطأ في إعداد قاعدة البيانات: تحتاج Firebase إلى فهرسة الحقول. راجع ملف FIREBASE_SETUP.md للحلول',
+          {
+            duration: 8000,
+            style: {
+              background: '#ef4444',
+              color: 'white',
+              padding: '16px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              direction: 'rtl'
+            }
+          }
+        );
+      } else {
+        toast.error(`فشل في إنتاج التقرير: ${error.message}`);
+      }
     } finally {
       setIsLoading(false);
     }
