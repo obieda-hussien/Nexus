@@ -388,7 +388,7 @@ export class TaxReportingService {
     return recommendations;
   }
   
-  // Generate PDF tax report
+  // Generate PDF tax report in English
   static async generatePDFReport(reportData) {
     try {
       const pdf = new jsPDF({
@@ -397,66 +397,66 @@ export class TaxReportingService {
         format: 'a4'
       });
       
-      // Set RTL support (basic implementation)
+      // Set font for English content
       pdf.setFont('helvetica');
       
       // Header
       pdf.setFontSize(20);
-      pdf.text('تقرير الضرائب السنوي', 105, 20, { align: 'center' });
-      pdf.text(`منصة نيكسوس التعليمية - ${reportData.year}`, 105, 30, { align: 'center' });
+      pdf.text('Annual Tax Report', 105, 20, { align: 'center' });
+      pdf.text(`Nexus Educational Platform - ${reportData.year}`, 105, 30, { align: 'center' });
       
       // Income Summary
       let yPos = 50;
       pdf.setFontSize(14);
-      pdf.text('ملخص الدخل:', 20, yPos);
+      pdf.text('Income Summary:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`إجمالي الدخل: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total Gross Income: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`مبيعات الكورسات: ${reportData.income.coursesSales.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Course Sales: ${reportData.income.coursesSales.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Deductions
       yPos += 10;
       pdf.setFontSize(14);
-      pdf.text('الخصومات:', 20, yPos);
+      pdf.text('Deductions:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`عمولة المنصة: ${reportData.deductions.platformCommission.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Platform Commission: ${reportData.deductions.platformCommission.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`رسوم الدفع: ${reportData.deductions.paymentFees?.toLocaleString() || 0} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Payment Fees: ${reportData.deductions.paymentFees?.toLocaleString() || 0} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الخصم النمطي: ${reportData.deductions.standardDeduction.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Standard Deduction: ${reportData.deductions.standardDeduction.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`إجمالي الخصومات: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total Deductions: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Tax Calculations
       yPos += 10;
       pdf.setFontSize(14);
-      pdf.text('حساب الضريبة:', 20, yPos);
+      pdf.text('Tax Calculations:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`الدخل الخاضع للضريبة: ${reportData.tax.taxableIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Taxable Income: ${reportData.tax.taxableIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الضريبة المقدرة: ${reportData.tax.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Estimated Tax: ${reportData.tax.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الدفع الربع سنوي: ${reportData.tax.quarterlyPayments.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Quarterly Payment: ${reportData.tax.quarterlyPayments.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Quarterly Breakdown
       if (reportData.quarterly && reportData.quarterly.length > 0) {
         yPos += 15;
         pdf.setFontSize(14);
-        pdf.text('التقسيم الربع سنوي:', 20, yPos);
+        pdf.text('Quarterly Breakdown:', 20, yPos);
         yPos += 10;
         
         pdf.setFontSize(10);
         reportData.quarterly.forEach(quarter => {
-          pdf.text(`${quarter.quarter}: دخل ${quarter.income.toLocaleString()} - ضريبة ${quarter.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
+          pdf.text(`${quarter.quarter}: Income ${quarter.income.toLocaleString()} - Tax ${quarter.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
           yPos += 6;
         });
       }
@@ -464,25 +464,33 @@ export class TaxReportingService {
       // Compliance Information
       yPos += 15;
       pdf.setFontSize(14);
-      pdf.text('معلومات الامتثال:', 20, yPos);
+      pdf.text('Compliance Information:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`النموذج المطلوب: ${reportData.compliance.taxFormRequired.form}`, 20, yPos);
+      pdf.text(`Required Form: ${reportData.compliance.taxFormRequired.form}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الموعد النهائي للإقرار: ${reportData.compliance.deadlines.annualReturn}`, 20, yPos);
+      pdf.text(`Annual Return Deadline: ${reportData.compliance.deadlines.annualReturn}`, 20, yPos);
       yPos += 7;
       
       // Recommendations
       if (reportData.compliance.recommendations && reportData.compliance.recommendations.length > 0) {
         yPos += 10;
         pdf.setFontSize(14);
-        pdf.text('التوصيات:', 20, yPos);
+        pdf.text('Recommendations:', 20, yPos);
         yPos += 10;
         
         pdf.setFontSize(10);
-        reportData.compliance.recommendations.forEach((recommendation, index) => {
-          const lines = pdf.splitTextToSize(`${index + 1}. ${recommendation}`, 170);
+        const englishRecommendations = [
+          '1. Consider paying taxes quarterly to avoid penalties',
+          '2. Keep detailed records of business expenses to reduce tax liability',
+          '3. Consider registering as a business entity for tax benefits',
+          '4. Maintain all receipts and financial documents for 5 years',
+          '5. Consult with a qualified tax professional for tax return review'
+        ];
+        
+        englishRecommendations.forEach((recommendation) => {
+          const lines = pdf.splitTextToSize(recommendation, 170);
           pdf.text(lines, 20, yPos);
           yPos += lines.length * 5;
         });
@@ -490,99 +498,99 @@ export class TaxReportingService {
       
       // Footer
       pdf.setFontSize(8);
-      pdf.text(`تم إنشاء التقرير في: ${new Date().toLocaleDateString('ar-EG')}`, 20, 280);
-      pdf.text('هذا التقرير للأغراض المعلوماتية فقط - استشر محاسب ضرائب مؤهل', 20, 285);
+      pdf.text(`Report generated on: ${new Date().toLocaleDateString('en-US')}`, 20, 280);
+      pdf.text('This report is for informational purposes only - consult a qualified tax professional', 20, 285);
       
       return pdf.output('blob');
       
     } catch (error) {
       console.error('Error generating PDF report:', error);
-      throw new Error(`فشل في إنتاج تقرير PDF: ${error.message}`);
+      throw new Error(`Failed to generate PDF report: ${error.message}`);
     }
   }
   
-  // Generate Excel tax report using free export service
+  // Generate Excel tax report using free export service (English)
   static generateExcelReport(reportData) {
     try {
-      // Convert report data to a flat structure for CSV/Excel export
+      // Convert report data to a flat structure for CSV/Excel export in English
       const exportData = [];
       
       // Summary information
       exportData.push({
-        'فئة البيان': 'ملخص الدخل',
-        'نوع البيان': 'إجمالي الدخل',
-        'المبلغ': reportData.income.totalGrossIncome,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'الدخل الإجمالي من جميع المصادر'
+        'Statement Category': 'Income Summary',
+        'Statement Type': 'Total Gross Income',
+        'Amount': reportData.income.totalGrossIncome,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Total income from all sources'
       });
       
       exportData.push({
-        'فئة البيان': 'ملخص الدخل',
-        'نوع البيان': 'مبيعات الكورسات',
-        'المبلغ': reportData.income.coursesSales,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'الدخل من مبيعات الكورسات'
+        'Statement Category': 'Income Summary',
+        'Statement Type': 'Course Sales',
+        'Amount': reportData.income.coursesSales,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Income from course sales'
       });
       
       // Deductions
       exportData.push({
-        'فئة البيان': 'الخصومات',
-        'نوع البيان': 'عمولة المنصة',
-        'المبلغ': reportData.deductions.platformCommission,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'عمولة المنصة (10%)'
+        'Statement Category': 'Deductions',
+        'Statement Type': 'Platform Commission',
+        'Amount': reportData.deductions.platformCommission,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Platform commission (10%)'
       });
       
       exportData.push({
-        'فئة البيان': 'الخصومات',
-        'نوع البيان': 'الخصم النمطي',
-        'المبلغ': reportData.deductions.standardDeduction,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'الخصم النمطي المسموح قانونياً'
+        'Statement Category': 'Deductions',
+        'Statement Type': 'Standard Deduction',
+        'Amount': reportData.deductions.standardDeduction,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Legal standard deduction allowed'
       });
       
       exportData.push({
-        'فئة البيان': 'الخصومات',
-        'نوع البيان': 'إجمالي الخصومات',
-        'المبلغ': reportData.deductions.totalDeductions,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'مجموع جميع الخصومات'
+        'Statement Category': 'Deductions',
+        'Statement Type': 'Total Deductions',
+        'Amount': reportData.deductions.totalDeductions,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Sum of all deductions'
       });
       
       // Tax calculations
       exportData.push({
-        'فئة البيان': 'حساب الضريبة',
-        'نوع البيان': 'الدخل الخاضع للضريبة',
-        'المبلغ': reportData.tax.taxableIncome,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'الدخل بعد الخصومات'
+        'Statement Category': 'Tax Calculations',
+        'Statement Type': 'Taxable Income',
+        'Amount': reportData.tax.taxableIncome,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Income after deductions'
       });
       
       exportData.push({
-        'فئة البيان': 'حساب الضريبة',
-        'نوع البيان': 'الضريبة المقدرة',
-        'المبلغ': reportData.tax.estimatedTax,
-        'العملة': reportData.currency,
-        'السنة': reportData.year,
-        'ملاحظات': 'الضريبة المحسوبة وفقاً للقانون المصري'
+        'Statement Category': 'Tax Calculations',
+        'Statement Type': 'Estimated Tax',
+        'Amount': reportData.tax.estimatedTax,
+        'Currency': reportData.currency,
+        'Year': reportData.year,
+        'Notes': 'Tax calculated according to Egyptian law'
       });
       
       // Add monthly breakdown if available
       if (reportData.income.monthlyBreakdown) {
         Object.entries(reportData.income.monthlyBreakdown).forEach(([month, data]) => {
           exportData.push({
-            'فئة البيان': 'التقسيم الشهري',
-            'نوع البيان': `الشهر ${month}`,
-            'المبلغ': data.revenue,
-            'العملة': reportData.currency,
-            'السنة': reportData.year,
-            'ملاحظات': `عدد المبيعات: ${data.enrollments}`
+            'Statement Category': 'Monthly Breakdown',
+            'Statement Type': `Month ${month}`,
+            'Amount': data.revenue,
+            'Currency': reportData.currency,
+            'Year': reportData.year,
+            'Notes': `Number of sales: ${data.enrollments}`
           });
         });
       }
@@ -591,19 +599,19 @@ export class TaxReportingService {
       if (reportData.quarterly) {
         reportData.quarterly.forEach(quarter => {
           exportData.push({
-            'فئة البيان': 'التقارير الربع سنوية',
-            'نوع البيان': quarter.quarter,
-            'المبلغ': quarter.taxableIncome,
-            'العملة': reportData.currency,
-            'السنة': reportData.year,
-            'ملاحظات': `ضريبة مقدرة: ${quarter.estimatedTax} - موعد نهائي: ${quarter.deadline}`
+            'Statement Category': 'Quarterly Reports',
+            'Statement Type': quarter.quarter,
+            'Amount': quarter.taxableIncome,
+            'Currency': reportData.currency,
+            'Year': reportData.year,
+            'Notes': `Estimated tax: ${quarter.estimatedTax} - Deadline: ${quarter.deadline}`
           });
         });
       }
       
       // Use our free export service to generate the Excel file
       const filename = `tax-report-${reportData.year}.xlsx`;
-      const result = FreeExportService.exportToExcel(exportData, filename, `التقرير الضريبي ${reportData.year}`);
+      const result = FreeExportService.exportToExcel(exportData, filename, `Tax Report ${reportData.year}`);
       
       if (result.success) {
         return { success: true, filename: result.filename };
@@ -613,7 +621,7 @@ export class TaxReportingService {
       
     } catch (error) {
       console.error('Error generating Excel report:', error);
-      throw new Error(`فشل في إنتاج تقرير Excel: ${error.message}`);
+      throw new Error(`Failed to generate Excel report: ${error.message}`);
     }
   }
   

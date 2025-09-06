@@ -43,24 +43,24 @@ export class FreeExportService {
   }
 
   // Export data to Excel format using HTML table method (free)
-  static exportToExcel(data, filename = 'export.xlsx', sheetName = 'البيانات') {
+  static exportToExcel(data, filename = 'export.xlsx', sheetName = 'Data') {
     try {
       if (!data || data.length === 0) {
-        throw new Error('لا توجد بيانات للتصدير');
+        throw new Error('No data to export');
       }
 
       // Create HTML table structure for Excel
       const headers = Object.keys(data[0]);
       
       let htmlContent = `
-        <html dir="rtl">
+        <html>
         <head>
           <meta charset="utf-8">
           <style>
             table { border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
             th { background-color: #f2f2f2; font-weight: bold; }
-            .number { text-align: center; }
+            .number { text-align: right; }
           </style>
         </head>
         <body>
@@ -80,7 +80,7 @@ export class FreeExportService {
         htmlContent += '<tr>';
         headers.forEach(header => {
           const value = row[header] || '';
-          const isNumber = !isNaN(value) && value !== '';
+          const isNumber = !isNaN(value) && value !== '' && value !== null;
           htmlContent += `<td class="${isNumber ? 'number' : ''}">${this.escapeHTML(value)}</td>`;
         });
         htmlContent += '</tr>';
@@ -88,110 +88,110 @@ export class FreeExportService {
       
       htmlContent += `</tbody></table></body></html>`;
 
-      // Download as Excel file
-      this.downloadFile(htmlContent, filename, 'application/vnd.ms-excel;charset=utf-8;');
+      // Use proper content type for Excel compatibility
+      this.downloadFile(htmlContent, filename, 'application/vnd.ms-excel');
       
       return { success: true, format: 'Excel', filename };
     } catch (error) {
-      console.error('خطأ في تصدير Excel:', error);
+      console.error('Excel export error:', error);
       return { success: false, error: error.message };
     }
   }
 
-  // Export tax report data
+  // Export tax report data in English
   static exportTaxReport(taxData, year, format = 'csv') {
     try {
       const filename = `tax-report-${year}.${format}`;
       
-      // Prepare tax data for export
+      // Prepare tax data for export in English
       const exportData = [];
       
-      // Add summary information
+      // Add summary information in English
       exportData.push({
-        'نوع البيان': 'إجمالي الأرباح',
-        'المبلغ (جنيه)': taxData.totalEarnings || 0,
-        'النسبة': '100%',
-        'ملاحظات': 'إجمالي الأرباح من منصة نيكسوس'
+        'Category': 'Total Earnings',
+        'Amount (EGP)': taxData.totalEarnings || 0,
+        'Percentage': '100%',
+        'Notes': 'Total earnings from Nexus platform'
       });
       
       exportData.push({
-        'نوع البيان': 'عمولة المنصة',
-        'المبلغ (جنيه)': taxData.platformFees || 0,
-        'النسبة': '10%',
-        'ملاحظات': 'خصم عمولة المنصة'
+        'Category': 'Platform Commission',
+        'Amount (EGP)': taxData.platformFees || 0,
+        'Percentage': '10%',
+        'Notes': 'Platform commission deduction'
       });
       
       exportData.push({
-        'نوع البيان': 'الضرائب المستحقة',
-        'المبلغ (جنيه)': taxData.totalTax || 0,
-        'النسبة': this.calculateTaxRate(taxData.totalEarnings) + '%',
-        'ملاحظات': 'وفقاً لقانون الضرائب المصري'
+        'Category': 'Tax Due',
+        'Amount (EGP)': taxData.totalTax || 0,
+        'Percentage': this.calculateTaxRate(taxData.totalEarnings) + '%',
+        'Notes': 'According to Egyptian tax law'
       });
       
       exportData.push({
-        'نوع البيان': 'صافي الأرباح',
-        'المبلغ (جنيه)': taxData.netEarnings || 0,
-        'النسبة': ((taxData.netEarnings / taxData.totalEarnings) * 100).toFixed(1) + '%',
-        'ملاحظات': 'الأرباح بعد خصم العمولة والضرائب'
+        'Category': 'Net Earnings',
+        'Amount (EGP)': taxData.netEarnings || 0,
+        'Percentage': ((taxData.netEarnings / taxData.totalEarnings) * 100).toFixed(1) + '%',
+        'Notes': 'Earnings after commission and taxes'
       });
 
       // Add monthly breakdown if available
       if (taxData.monthlyBreakdown) {
         exportData.push({
-          'نوع البيان': '--- التفاصيل الشهرية ---',
-          'المبلغ (جنيه)': '',
-          'النسبة': '',
-          'ملاحظات': ''
+          'Category': '--- Monthly Details ---',
+          'Amount (EGP)': '',
+          'Percentage': '',
+          'Notes': ''
         });
         
         taxData.monthlyBreakdown.forEach((month, index) => {
           exportData.push({
-            'نوع البيان': `الشهر ${index + 1}`,
-            'المبلغ (جنيه)': month.earnings || 0,
-            'النسبة': ((month.earnings / taxData.totalEarnings) * 100).toFixed(1) + '%',
-            'ملاحظات': this.getMonthName(index + 1)
+            'Category': `Month ${index + 1}`,
+            'Amount (EGP)': month.earnings || 0,
+            'Percentage': ((month.earnings / taxData.totalEarnings) * 100).toFixed(1) + '%',
+            'Notes': this.getMonthNameEnglish(index + 1)
           });
         });
       }
 
       if (format === 'excel' || format === 'xlsx') {
-        return this.exportToExcel(exportData, filename, `التقرير الضريبي ${year}`);
+        return this.exportToExcel(exportData, filename, `Tax Report ${year}`);
       } else {
         return this.exportToCSV(exportData, filename.replace('.xlsx', '.csv'));
       }
     } catch (error) {
-      console.error('خطأ في تصدير التقرير الضريبي:', error);
+      console.error('Tax report export error:', error);
       return { success: false, error: error.message };
     }
   }
 
-  // Export withdrawal history
+  // Export withdrawal history in English
   static exportWithdrawalHistory(withdrawals, format = 'csv') {
     try {
       const filename = `withdrawal-history-${new Date().getFullYear()}.${format}`;
       
       const exportData = withdrawals.map(withdrawal => ({
-        'رقم العملية': withdrawal.id,
-        'التاريخ': new Date(withdrawal.requestedAt).toLocaleDateString('ar-EG'),
-        'المبلغ المطلوب': withdrawal.amount,
-        'المبلغ الصافي': withdrawal.netAmount,
-        'العملة': withdrawal.currency,
-        'طريقة الدفع': this.getPaymentMethodNameAr(withdrawal.paymentMethod?.type),
-        'الحالة': this.getStatusNameAr(withdrawal.status),
-        'رقم المعاملة': withdrawal.transactionId || 'غير متاح',
-        'وقت الإتمام': withdrawal.completedAt ? new Date(withdrawal.completedAt).toLocaleDateString('ar-EG') : 'لم يتم',
-        'رسوم المعالجة': withdrawal.fees?.total || 0,
-        'عمولة المنصة': withdrawal.platformFee || 0,
-        'الضرائب': withdrawal.taxAmount || 0
+        'Transaction ID': withdrawal.id,
+        'Date': new Date(withdrawal.requestedAt).toLocaleDateString('en-US'),
+        'Requested Amount': withdrawal.amount,
+        'Net Amount': withdrawal.netAmount,
+        'Currency': withdrawal.currency,
+        'Payment Method': this.getPaymentMethodNameEn(withdrawal.paymentMethod?.type),
+        'Status': this.getStatusNameEn(withdrawal.status),
+        'Transaction Reference': withdrawal.transactionId || 'Not available',
+        'Completion Date': withdrawal.completedAt ? new Date(withdrawal.completedAt).toLocaleDateString('en-US') : 'Not completed',
+        'Processing Fees': withdrawal.fees?.total || 0,
+        'Platform Commission': withdrawal.platformFee || 0,
+        'Tax Amount': withdrawal.taxAmount || 0
       }));
 
       if (format === 'excel' || format === 'xlsx') {
-        return this.exportToExcel(exportData, filename, 'سجل السحوبات');
+        return this.exportToExcel(exportData, filename, 'Withdrawal History');
       } else {
         return this.exportToCSV(exportData, filename.replace('.xlsx', '.csv'));
       }
     } catch (error) {
-      console.error('خطأ في تصدير سجل السحوبات:', error);
+      console.error('Withdrawal history export error:', error);
       return { success: false, error: error.message };
     }
   }
@@ -222,22 +222,35 @@ export class FreeExportService {
   }
 
   static downloadFile(content, filename, contentType) {
-    // Create blob
-    const blob = new Blob(['\ufeff' + content], { type: contentType }); // \ufeff for UTF-8 BOM
-    
-    // Create download link
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Clean up
-    window.URL.revokeObjectURL(url);
+    try {
+      // Create blob with proper parameters
+      const blob = new Blob([content], { type: contentType });
+      
+      // Check if blob was created successfully
+      if (!blob || blob.size === 0) {
+        throw new Error('Failed to create file blob');
+      }
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+      }, 100);
+      
+    } catch (error) {
+      console.error('File download error:', error);
+      throw new Error(`Failed to download file: ${error.message}`);
+    }
   }
 
   static calculateTaxRate(annualIncome) {
@@ -259,6 +272,14 @@ export class FreeExportService {
     return months[monthNumber - 1] || `الشهر ${monthNumber}`;
   }
 
+  static getMonthNameEnglish(monthNumber) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[monthNumber - 1] || `Month ${monthNumber}`;
+  }
+
   static getPaymentMethodNameAr(type) {
     const names = {
       stripe: 'بطاقة ائتمانية',
@@ -270,6 +291,17 @@ export class FreeExportService {
     return names[type] || type;
   }
 
+  static getPaymentMethodNameEn(type) {
+    const names = {
+      stripe: 'Credit Card',
+      paypal: 'PayPal',
+      fawry: 'Fawry',
+      vodafone: 'Vodafone Cash',
+      bank: 'Bank Transfer'
+    };
+    return names[type] || type;
+  }
+
   static getStatusNameAr(status) {
     const names = {
       pending: 'معلق',
@@ -277,6 +309,17 @@ export class FreeExportService {
       completed: 'مكتمل',
       failed: 'فاشل',
       cancelled: 'ملغي'
+    };
+    return names[status] || status;
+  }
+
+  static getStatusNameEn(status) {
+    const names = {
+      pending: 'Pending',
+      processing: 'Processing',
+      completed: 'Completed',
+      failed: 'Failed',
+      cancelled: 'Cancelled'
     };
     return names[status] || status;
   }
