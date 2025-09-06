@@ -49,18 +49,60 @@ export class FreeExportService {
         throw new Error('No data to export');
       }
 
-      // Create HTML table structure for Excel
+      // Create HTML table structure for Excel with enhanced compatibility
       const headers = Object.keys(data[0]);
       
-      let htmlContent = `
-        <html>
+      let htmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+              xmlns:x="urn:schemas-microsoft-com:office:excel" 
+              xmlns="http://www.w3.org/TR/REC-html40">
         <head>
           <meta charset="utf-8">
+          <meta name="ProgId" content="Excel.Sheet">
+          <meta name="Generator" content="Nexus LMS Export">
+          <!--[if gte mso 9]>
+          <xml>
+            <x:ExcelWorkbook>
+              <x:ExcelWorksheets>
+                <x:ExcelWorksheet>
+                  <x:Name>${sheetName}</x:Name>
+                  <x:WorksheetOptions>
+                    <x:DisplayGridlines/>
+                  </x:WorksheetOptions>
+                </x:ExcelWorksheet>
+              </x:ExcelWorksheets>
+            </x:ExcelWorkbook>
+          </xml>
+          <![endif]-->
           <style>
-            table { border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #f2f2f2; font-weight: bold; }
-            .number { text-align: right; }
+            table { 
+              border-collapse: collapse; 
+              width: 100%; 
+              font-family: Arial, sans-serif; 
+              font-size: 11pt;
+            }
+            th, td { 
+              border: 1px solid #000; 
+              padding: 6px 8px; 
+              text-align: left; 
+              vertical-align: top;
+              white-space: nowrap;
+            }
+            th { 
+              background-color: #f2f2f2; 
+              font-weight: bold; 
+              text-align: center;
+            }
+            .number { 
+              text-align: right; 
+              mso-number-format: "#,##0.00";
+            }
+            .date { 
+              mso-number-format: "mm/dd/yyyy";
+            }
+            .text {
+              mso-number-format: "@";
+            }
           </style>
         </head>
         <body>
@@ -68,27 +110,45 @@ export class FreeExportService {
             <thead>
               <tr>`;
       
-      // Add headers
+      // Add headers with proper styling
       headers.forEach(header => {
-        htmlContent += `<th>${this.escapeHTML(header)}</th>`;
+        htmlContent += `<th class="text">${this.escapeHTML(header)}</th>`;
       });
       
       htmlContent += `</tr></thead><tbody>`;
       
-      // Add data rows
+      // Add data rows with enhanced type detection
       data.forEach(row => {
         htmlContent += '<tr>';
         headers.forEach(header => {
-          const value = row[header] || '';
-          const isNumber = !isNaN(value) && value !== '' && value !== null;
-          htmlContent += `<td class="${isNumber ? 'number' : ''}">${this.escapeHTML(value)}</td>`;
+          const value = row[header];
+          let cellValue = '';
+          let cellClass = 'text';
+          
+          if (value === null || value === undefined) {
+            cellValue = '';
+          } else if (typeof value === 'number') {
+            cellValue = value.toString();
+            cellClass = 'number';
+          } else if (this.isDate(value)) {
+            cellValue = new Date(value).toLocaleDateString('en-US');
+            cellClass = 'date';
+          } else if (!isNaN(value) && value !== '' && value !== null) {
+            cellValue = parseFloat(value).toString();
+            cellClass = 'number';
+          } else {
+            cellValue = this.escapeHTML(value.toString());
+            cellClass = 'text';
+          }
+          
+          htmlContent += `<td class="${cellClass}">${cellValue}</td>`;
         });
         htmlContent += '</tr>';
       });
       
       htmlContent += `</tbody></table></body></html>`;
 
-      // Use proper content type for Excel compatibility
+      // Use proper Excel MIME type for better compatibility
       this.downloadFile(htmlContent, filename, 'application/vnd.ms-excel');
       
       return { success: true, format: 'Excel', filename };
@@ -221,35 +281,100 @@ export class FreeExportService {
       .replace(/'/g, '&#39;');
   }
 
+  static isDate(value) {
+    if (!value) return false;
+    const date = new Date(value);
+    return date instanceof Date && !isNaN(date.getTime());
+  }
+
   static downloadFile(content, filename, contentType) {
     try {
-      // Create blob with proper parameters
-      const blob = new Blob([content], { type: contentType });
-      
-      // Check if blob was created successfully
-      if (!blob || blob.size === 0) {
-        throw new Error('Failed to create file blob');
+      // Validate input parameters
+      if (!content) {
+        throw new Error('Content is required for file download');
       }
       
-      // Create download link
-      const url = window.URL.createObjectURL(blob);
+      if (!filename) {
+        throw new Error('Filename is required for file download');
+      }
+      
+      // Ensure content is properly encoded for the content type
+      let blobContent = content;
+      let blobOptions = { type: contentType };
+      
+      // Handle different content types properly
+      if (contentType.includes('text/csv')) {
+        // For CSV, add UTF-8 BOM for proper encoding
+        blobContent = '\ufeff' + content;
+        blobOptions = { type: 'text/csv;charset=utf-8' };
+      } else if (contentType.includes('application/vnd.ms-excel')) {
+        // For Excel, ensure proper HTML encoding
+        blobOptions = { type: 'application/vnd.ms-excel;charset=utf-8' };
+      }
+      
+      // Create blob with enhanced error handling
+      let blob;
+      try {
+        blob = new Blob([blobContent], blobOptions);
+      } catch (blobError) {
+        console.error('Blob creation failed:', blobError);
+        throw new Error(`Failed to create file blob: ${blobError.message}`);
+      }
+      
+      // Validate blob creation
+      if (!blob || blob.size === 0) {
+        throw new Error('Created blob is empty or invalid');
+      }
+      
+      // Create object URL with error handling
+      let url;
+      try {
+        url = window.URL.createObjectURL(blob);
+      } catch (urlError) {
+        console.error('createObjectURL failed:', urlError);
+        throw new Error(`Failed to create object URL: ${urlError.message}`);
+      }
+      
+      // Validate URL creation
+      if (!url) {
+        throw new Error('Failed to create download URL');
+      }
+      
+      // Create and configure download link
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;
+      link.style.display = 'none'; // Ensure link is hidden
       
-      // Trigger download
+      // Add to DOM temporarily for download
       document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
       
-      // Clean up
-      setTimeout(() => {
-        window.URL.revokeObjectURL(url);
-      }, 100);
+      try {
+        // Trigger download
+        link.click();
+      } catch (clickError) {
+        console.error('Download click failed:', clickError);
+        throw new Error(`Failed to trigger download: ${clickError.message}`);
+      } finally {
+        // Clean up DOM
+        if (document.body.contains(link)) {
+          document.body.removeChild(link);
+        }
+      }
+      
+      // Clean up object URL with proper error handling
+      try {
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 1000); // Increased timeout for better stability
+      } catch (revokeError) {
+        console.warn('Failed to revoke object URL:', revokeError);
+        // Not critical, continue execution
+      }
       
     } catch (error) {
       console.error('File download error:', error);
-      throw new Error(`Failed to download file: ${error.message}`);
+      throw new Error(`فشل في تحميل الملف: ${error.message}`);
     }
   }
 
