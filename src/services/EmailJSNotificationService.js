@@ -303,17 +303,40 @@ export class EmailJSNotificationService {
   static async sendTestEmail(recipientEmail, recipientName = 'المختبر') {
     try {
       if (!this.isConfigured()) {
-        throw new Error('EmailJS not configured');
+        throw new Error('خدمة EmailJS غير مُعدّة بشكل صحيح. تحقق من متغيرات البيئة.');
       }
 
+      // Validate inputs
+      if (!recipientEmail || !recipientEmail.includes('@')) {
+        throw new Error('بريد إلكتروني غير صحيح');
+      }
+
+      // Test template parameters with all required fields
       const templateParams = {
         to_email: recipientEmail,
-        to_name: recipientName,
-        instructor_name: recipientName,
+        to_name: recipientName || 'مختبر النظام',
+        instructor_name: recipientName || 'مختبر النظام',
+        // Payout notification fields (since we're using that template)
+        payout_amount: '0.00',
+        currency: 'EGP',
+        payment_method: 'اختبار',
+        payout_date: new Date().toLocaleDateString('ar-EG'),
+        transaction_id: `test_${Date.now()}`,
+        net_amount: '0.00',
+        platform_fee: '0.00',
+        tax_amount: '0.00',
+        available_balance: '0.00',
+        total_earnings: '0.00',
+        account_details: 'حساب اختبار',
+        payout_status: 'test',
+        estimated_arrival: 'فوري',
+        // Generic fields
         test_message: 'هذه رسالة اختبار للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
         platform_name: 'منصة نيكسوس التعليمية',
         support_email: 'support@nexus-edu.com',
         test_date: new Date().toLocaleDateString('ar-EG'),
+        year: new Date().getFullYear(),
+        month: new Date().toLocaleDateString('ar-EG', { month: 'long' }),
         formatted_date: new Date().toLocaleDateString('ar-EG', { 
           weekday: 'long', 
           year: 'numeric', 
@@ -321,6 +344,12 @@ export class EmailJSNotificationService {
           day: 'numeric' 
         })
       };
+
+      console.log('📧 Sending test email with config:', {
+        serviceId: EMAILJS_CONFIG.serviceId,
+        templateId: EMAILJS_CONFIG.templates.payoutNotification,
+        recipient: recipientEmail
+      });
 
       const response = await emailjs.send(
         EMAILJS_CONFIG.serviceId,
@@ -332,12 +361,30 @@ export class EmailJSNotificationService {
       return { 
         success: true, 
         messageId: response.text,
-        message: 'تم إرسال رسالة الاختبار بنجاح'
+        message: 'تم إرسال رسالة الاختبار بنجاح! تحقق من صندوق الوارد.'
       };
 
     } catch (error) {
       console.error('❌ Test email error:', error);
-      throw new Error(`فشل في إرسال رسالة الاختبار: ${error.message}`);
+      
+      // Provide more specific error messages
+      let errorMessage = 'فشل في إرسال رسالة الاختبار';
+      
+      if (error.text) {
+        if (error.text.includes('Invalid')) {
+          errorMessage = 'معرف الخدمة أو القالب غير صحيح';
+        } else if (error.text.includes('Forbidden')) {
+          errorMessage = 'المفتاح العام غير مصرح له بالوصول';
+        } else if (error.text.includes('Limit')) {
+          errorMessage = 'تم تجاوز الحد المسموح من الرسائل الشهرية';
+        } else {
+          errorMessage = `خطأ في الخدمة: ${error.text}`;
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      throw new Error(errorMessage);
     }
   }
 

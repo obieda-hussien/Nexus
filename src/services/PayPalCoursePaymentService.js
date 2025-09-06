@@ -8,9 +8,10 @@ import { db } from '../config/firebase';
 // PayPal Configuration
 const PAYPAL_CONFIG = {
   clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
-  sandbox: import.meta.env.VITE_PAYPAL_SANDBOX === 'true',
+  clientSecret: import.meta.env.VITE_PAYPAL_CLIENT_SECRET,
+  sandbox: import.meta.env.VITE_PAYPAL_SANDBOX === 'true' || import.meta.env.VITE_PAYPAL_ENVIRONMENT === 'sandbox',
   currency: 'USD', // PayPal works best with USD for international payments
-  environment: import.meta.env.VITE_PAYPAL_SANDBOX === 'true' ? 'sandbox' : 'production'
+  environment: (import.meta.env.VITE_PAYPAL_SANDBOX === 'true' || import.meta.env.VITE_PAYPAL_ENVIRONMENT === 'sandbox') ? 'sandbox' : 'production'
 };
 
 class PayPalCoursePaymentService {
@@ -296,18 +297,22 @@ class PayPalCoursePaymentService {
 
   // Check if PayPal is configured
   static isConfigured() {
-    return !!(PAYPAL_CONFIG.clientId && PAYPAL_CONFIG.clientId !== '');
+    const clientId = PAYPAL_CONFIG.clientId;
+    return !!(clientId && clientId !== '' && clientId !== 'undefined' && clientId.length > 10);
   }
 
   // Get PayPal configuration status
   static getConfigurationStatus() {
     const isConfigured = this.isConfigured();
+    const hasClientId = !!(PAYPAL_CONFIG.clientId && PAYPAL_CONFIG.clientId !== '' && PAYPAL_CONFIG.clientId !== 'undefined');
+    
     return {
       configured: isConfigured,
       environment: PAYPAL_CONFIG.environment,
       currency: PAYPAL_CONFIG.currency,
-      clientIdPresent: !!PAYPAL_CONFIG.clientId,
-      note: isConfigured ? 'Ready for production use' : 'Missing configuration'
+      clientIdPresent: hasClientId,
+      sandbox: PAYPAL_CONFIG.sandbox,
+      note: isConfigured ? 'Configured correctly' : hasClientId ? 'Missing configuration' : 'Client ID not found'
     };
   }
 
