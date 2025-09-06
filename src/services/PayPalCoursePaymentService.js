@@ -301,11 +301,13 @@ class PayPalCoursePaymentService {
 
   // Get PayPal configuration status
   static getConfigurationStatus() {
+    const isConfigured = this.isConfigured();
     return {
-      configured: this.isConfigured(),
+      configured: isConfigured,
       environment: PAYPAL_CONFIG.environment,
       currency: PAYPAL_CONFIG.currency,
-      clientIdPresent: !!PAYPAL_CONFIG.clientId
+      clientIdPresent: !!PAYPAL_CONFIG.clientId,
+      note: isConfigured ? 'Ready for production use' : 'Missing configuration'
     };
   }
 

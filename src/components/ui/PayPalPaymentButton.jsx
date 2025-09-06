@@ -2,7 +2,7 @@
 // Integrates PayPal Smart Payment Buttons with course enrollment system
 
 import React, { useState, useEffect, useRef } from 'react';
-import { CreditCard, Shield, Clock, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { CreditCard, Shield, Clock, CheckCircle, AlertTriangle, Loader2, Mail } from 'lucide-react';
 import PayPalCoursePaymentService from '../../services/PayPalCoursePaymentService';
 import toast from 'react-hot-toast';
 
@@ -108,15 +108,17 @@ const PayPalPaymentButton = ({
   if (error) {
     return (
       <div className={`paypal-payment-container ${className}`}>
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <AlertTriangle className="w-5 h-5 text-red-600" />
-            <h3 className="font-semibold text-red-800">خطأ في PayPal</h3>
+        <div className="glass border border-red-500/30 bg-red-500/10 rounded-xl p-6 backdrop-blur-xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-red-500/20 rounded-lg">
+              <AlertTriangle className="w-5 h-5 text-red-400" />
+            </div>
+            <h3 className="font-semibold text-red-400 text-lg">خطأ في PayPal</h3>
           </div>
-          <p className="text-red-700 text-sm mb-3">{error}</p>
+          <p className="text-text-secondary mb-4">{error}</p>
           <button
             onClick={retryInitialization}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition-colors"
+            className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-medium hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25"
           >
             إعادة المحاولة
           </button>
@@ -129,37 +131,39 @@ const PayPalPaymentButton = ({
     <div className={`paypal-payment-container ${className}`}>
       {/* Payment Summary */}
       {paymentSummary && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <div className="flex items-center gap-2 mb-3">
-            <CreditCard className="w-5 h-5 text-blue-600" />
-            <h3 className="font-semibold text-blue-800">ملخص الدفع</h3>
+        <div className="glass border border-neon-blue/30 bg-neon-blue/5 rounded-xl p-6 mb-6 backdrop-blur-xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-neon-blue/20 rounded-lg">
+              <CreditCard className="w-5 h-5 text-neon-blue" />
+            </div>
+            <h3 className="font-semibold text-white text-lg">ملخص الدفع</h3>
           </div>
           
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-600">سعر الكورس:</span>
-              <span className="font-medium">{paymentSummary.originalPrice} ج.م</span>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center py-2">
+              <span className="text-text-secondary">سعر الكورس:</span>
+              <span className="text-white font-medium">{paymentSummary.originalPrice} ج.م</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">المبلغ بالدولار:</span>
-              <span className="font-medium">${paymentSummary.usdAmount}</span>
+            <div className="flex justify-between items-center py-2">
+              <span className="text-text-secondary">المبلغ بالدولار:</span>
+              <span className="text-white font-medium">${paymentSummary.usdAmount}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">رسوم PayPal:</span>
-              <span className="font-medium">${paymentSummary.paypalFee}</span>
+            <div className="flex justify-between items-center py-2">
+              <span className="text-text-secondary">رسوم PayPal:</span>
+              <span className="text-yellow-400 font-medium">${paymentSummary.paypalFee}</span>
             </div>
-            <div className="border-t pt-2">
-              <div className="flex justify-between font-semibold">
-                <span>الإجمالي:</span>
-                <span className="text-blue-600">${paymentSummary.totalUSD}</span>
+            <div className="border-t border-glass-border pt-3">
+              <div className="flex justify-between items-center">
+                <span className="text-white font-semibold">الإجمالي:</span>
+                <span className="text-neon-blue font-bold text-lg">${paymentSummary.totalUSD}</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-3 p-2 bg-blue-100 rounded text-xs text-blue-700">
-            <div className="flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              <span>الرسوم يدفعها الطالب - لا توجد رسوم على المنصة</span>
+          <div className="mt-4 p-3 glass rounded-lg border border-neon-blue/20">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-neon-blue" />
+              <span className="text-sm text-neon-blue">الرسوم يدفعها الطالب - لا توجد رسوم على المنصة</span>
             </div>
           </div>
         </div>
@@ -168,50 +172,65 @@ const PayPalPaymentButton = ({
       {/* PayPal Button Container */}
       <div className="relative">
         {isLoading && (
-          <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10 rounded-lg">
-            <div className="flex items-center gap-2 text-blue-600">
-              <Loader2 className="w-5 h-5 animate-spin" />
-              <span className="text-sm">جاري تحميل PayPal...</span>
+          <div className="absolute inset-0 glass backdrop-blur-xl flex items-center justify-center z-10 rounded-xl border border-glass-border">
+            <div className="flex items-center gap-3 text-neon-blue">
+              <Loader2 className="w-6 h-6 animate-spin" />
+              <span className="font-medium">جاري تحميل PayPal...</span>
             </div>
           </div>
         )}
 
         <div 
           ref={buttonContainerRef}
-          className={`paypal-button-container min-h-[50px] ${disabled || isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+          className={`paypal-button-container min-h-[50px] rounded-xl overflow-hidden ${disabled || isLoading ? 'opacity-50 pointer-events-none' : ''}`}
         />
 
         {!paypalReady && !isLoading && !error && (
-          <div className="flex items-center justify-center py-4 text-gray-500 text-sm">
-            <Clock className="w-4 h-4 mr-2" />
+          <div className="flex items-center justify-center py-6 text-text-secondary">
+            <Clock className="w-5 h-5 mr-3" />
             تحضير خيارات الدفع...
           </div>
         )}
       </div>
 
       {/* Security Notice */}
-      <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-        <div className="flex items-start gap-2">
-          <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-          <div className="text-xs text-gray-600">
-            <p className="font-medium text-gray-800 mb-1">دفع آمن عبر PayPal</p>
-            <ul className="space-y-1">
-              <li>• حماية المشتري من PayPal</li>
-              <li>• تشفير SSL للبيانات</li>
-              <li>• بيئة اختبار آمنة (Sandbox)</li>
-              <li>• لا نحتفظ ببيانات البطاقات</li>
-            </ul>
+      <div className="mt-6 glass rounded-xl p-6 border border-glass-border backdrop-blur-xl">
+        <div className="flex items-start gap-3">
+          <div className="p-2 bg-neon-green/20 rounded-lg mt-1">
+            <CheckCircle className="w-5 h-5 text-neon-green" />
+          </div>
+          <div>
+            <h4 className="text-white font-semibold mb-3">دفع آمن عبر PayPal</h4>
+            <div className="grid sm:grid-cols-2 gap-3 text-sm">
+              <div className="flex items-center gap-2 text-text-secondary">
+                <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
+                حماية المشتري من PayPal
+              </div>
+              <div className="flex items-center gap-2 text-text-secondary">
+                <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
+                تشفير SSL للبيانات
+              </div>
+              <div className="flex items-center gap-2 text-text-secondary">
+                <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
+                بيئة اختبار آمنة (Sandbox)
+              </div>
+              <div className="flex items-center gap-2 text-text-secondary">
+                <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
+                لا نحتفظ ببيانات البطاقات
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Support Info */}
-      <div className="mt-3 text-center text-xs text-gray-500">
-        <p>في حالة واجهت مشاكل في الدفع، تواصل معنا على</p>
+      <div className="mt-4 text-center">
+        <p className="text-text-secondary text-sm mb-2">في حالة واجهت مشاكل في الدفع، تواصل معنا على</p>
         <a 
           href="mailto:support@nexus-edu.com" 
-          className="text-blue-600 hover:underline"
+          className="inline-flex items-center gap-2 text-neon-blue hover:text-neon-purple transition-colors font-medium"
         >
+          <Mail className="w-4 h-4" />
           support@nexus-edu.com
         </a>
       </div>
