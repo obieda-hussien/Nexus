@@ -318,6 +318,88 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Update user role (for becoming instructor)
+  const updateUserRole = async (newRole) => {
+    if (!currentUser) {
+      console.error('❌ No authenticated user to update role for');
+      return false;
+    }
+    
+    try {
+      console.log('🔄 Updating user role to:', newRole);
+      const userRef = ref(db, `users/${currentUser.uid}`);
+      
+      const updates = {
+        role: newRole,
+        roleUpdatedAt: new Date().toISOString(),
+        // Add instructor-specific fields if becoming instructor
+        ...(newRole === 'instructor' && {
+          instructorProfile: {
+            bio: '',
+            specialization: '',
+            experience: '',
+            coursesCreated: 0,
+            totalStudents: 0,
+            rating: 0,
+            joinedAsInstructorAt: new Date().toISOString()
+          }
+        })
+      };
+      
+      await update(userRef, updates);
+      
+      // Update local profile state
+      if (userProfile) {
+        setUserProfile(prev => ({
+          ...prev,
+          role: newRole,
+          roleUpdatedAt: new Date().toISOString(),
+          ...(newRole === 'instructor' && { instructorProfile: updates.instructorProfile })
+        }));
+      }
+      
+      console.log('✅ User role updated successfully to:', newRole);
+      return true;
+    } catch (error) {
+      console.error('❌ Error updating user role:', error);
+      
+      if (error.code === 'permission-denied') {
+        console.error('🔒 Permission denied - user may not have access to update their role');
+      }
+      
+      return false;
+    }
+  };
+
+  // Check if user has specific role
+  const hasRole = (requiredRole) => {
+    return userProfile?.role === requiredRole;
+  };
+
+  // Check if user can perform instructor actions
+  const canCreateCourses = () => {
+    return hasRole('instructor') || hasRole('admin');
+  };
+
+  // Become instructor function
+  const becomeInstructor = async () => {
+    if (!currentUser) {
+      throw new Error('يجب تسجيل الدخول أولاً');
+    }
+
+    if (hasRole('instructor') || hasRole('admin')) {
+      throw new Error('أنت مدرس بالفعل');
+    }
+
+    const success = await updateUserRole('instructor');
+    if (success) {
+      console.log('🎉 Successfully became instructor');
+      return true;
+    } else {
+      throw new Error('فشل في ترقية الحساب لمدرس. يرجى المحاولة مرة أخرى');
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log('🔄 Auth state changed:', user?.uid || 'No user');
@@ -358,6 +440,10 @@ export const AuthProvider = ({ children }) => {
     enrollInCourse,
     getUserProfile,
     createUserProfile,
+    updateUserRole,
+    hasRole,
+    canCreateCourses,
+    becomeInstructor,
     databaseConnected
   };
 

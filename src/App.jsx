@@ -12,6 +12,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import InstructorDashboard from './pages/InstructorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import BecomeInstructorPage from './pages/BecomeInstructorPage';
+import PaymentIntegrationTest from './components/common/PaymentIntegrationTest';
 
 // Contexts
 import { AuthProvider } from './contexts/AuthContext';
@@ -54,6 +55,7 @@ function App() {
             <Route path="/Nexus/courses" element={<CoursesPage />} />
             <Route path="/Nexus/courses/:id" element={<CourseDetailsPage />} />
             <Route path="/Nexus/become-instructor" element={<BecomeInstructorPage />} />
+            <Route path="/Nexus/test-payment" element={<PaymentIntegrationTest />} />
             
             {/* Student Routes */}
             <Route path="/Nexus/dashboard" element={<StudentDashboard />} />
