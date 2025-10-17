@@ -5,54 +5,47 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 
 const Instructor = () => {
-  const [isRTL, setIsRTL] = useState(false);
-
-  useEffect(() => {
-    const dir = document.documentElement.getAttribute('dir');
-    setIsRTL(dir === 'rtl');
-  }, []);
-
   const achievements = [
     {
       icon: Award,
       value: '15+',
-      label: isRTL ? 'سنة خبرة' : 'Years Experience',
+      label: 'Years Experience',
       color: 'text-yellow-400'
     },
     {
       icon: BookOpen,
       value: '50+',
-      label: isRTL ? 'دورة منشورة' : 'Courses Published',
+      label: 'Courses Published',
       color: 'text-blue-400'
     },
     {
       icon: Users,
       value: '10K+',
-      label: isRTL ? 'طالب مدرب' : 'Students Taught',
+      label: 'Students Taught',
       color: 'text-green-400'
     },
     {
       icon: Star,
       value: '4.9',
-      label: isRTL ? 'تقييم المدرس' : 'Instructor Rating',
+      label: 'Instructor Rating',
       color: 'text-purple-400'
     }
   ];
 
   const expertise = [
-    isRTL ? 'الفيزياء النظرية' : 'Theoretical Physics',
-    isRTL ? 'الفيزياء التطبيقية' : 'Applied Physics',
-    isRTL ? 'الرياضيات المتقدمة' : 'Advanced Mathematics',
-    isRTL ? 'ميكانيكا الكم' : 'Quantum Mechanics',
-    isRTL ? 'النسبية العامة' : 'General Relativity',
-    isRTL ? 'الفيزياء الحاسوبية' : 'Computational Physics'
+    'Theoretical Physics',
+    'Applied Physics',
+    'Advanced Mathematics',
+    'Quantum Mechanics',
+    'General Relativity',
+    'Computational Physics'
   ];
 
   const socialLinks = [
-    { icon: Mail, href: 'mailto:instructor@nexus.edu', label: isRTL ? 'راسل المدرس' : 'Email instructor' },
-    { icon: Linkedin, href: '#', label: isRTL ? 'لينكد إن' : 'LinkedIn profile' },
-    { icon: Twitter, href: '#', label: isRTL ? 'تويتر' : 'Twitter profile' },
-    { icon: Globe, href: '#', label: isRTL ? 'الموقع الشخصي' : 'Personal website' }
+    { icon: Mail, href: 'mailto:instructor@nexus.edu', label: 'Email instructor' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn profile' },
+    { icon: Twitter, href: '#', label: 'Twitter profile' },
+    { icon: Globe, href: '#', label: 'Personal website' }
   ];
 
   const containerVariants = {
@@ -87,14 +80,11 @@ const Instructor = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">
-              {isRTL ? 'تعرف على مدرسك' : 'Meet Your Instructor'}
+              Meet Your Instructor
             </span>
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
-            {isRTL 
-              ? 'تعلم من خبير في مجال الفيزياء والرياضيات مع سنوات من التجربة في التدريس والبحث'
-              : 'Learn from an expert in physics and mathematics with years of experience in teaching and research'
-            }
+            Learn from an expert in physics and mathematics with years of experience in teaching and research
           </p>
         </motion.div>
 
@@ -131,23 +121,20 @@ const Instructor = () => {
               {/* Profile Info */}
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  {isRTL ? 'د. أحمد محمد' : 'Dr. Ahmed Mohamed'}
+                  Dr. Ahmed Mohamed
                 </h3>
                 <p className="text-neon-blue font-medium mb-2">
-                  {isRTL ? 'دكتوراه في الفيزياء النظرية' : 'PhD in Theoretical Physics'}
+                  PhD in Theoretical Physics
                 </p>
                 <p className="text-text-secondary">
-                  {isRTL ? 'جامعة القاهرة - مصر' : 'Cairo University - Egypt'}
+                  Cairo University - Egypt
                 </p>
               </div>
 
               {/* Bio */}
               <div className="mb-6">
                 <p className="text-text-secondary leading-relaxed">
-                  {isRTL 
-                    ? 'خبير في الفيزياء النظرية والتطبيقية مع أكثر من 15 عامًا من الخبرة في التدريس والبحث. حاصل على الدكتوراه من جامعة القاهرة ولديه العديد من الأبحاث المنشورة في المجلات العلمية المحكمة.'
-                    : 'Expert in theoretical and applied physics with over 15 years of experience in teaching and research. PhD holder from Cairo University with numerous published research papers in peer-reviewed scientific journals.'
-                  }
+                  Expert in theoretical and applied physics with over 15 years of experience in teaching and research. PhD holder from Cairo University with numerous published research papers in peer-reviewed scientific journals.
                 </p>
               </div>
 
@@ -172,7 +159,7 @@ const Instructor = () => {
 
               {/* CTA */}
               <Button variant="gradient" className="w-full lg:w-auto">
-                {isRTL ? 'تواصل مع المدرس' : 'Contact Instructor'}
+                Contact Instructor
               </Button>
             </Card>
           </motion.div>
@@ -182,7 +169,7 @@ const Instructor = () => {
             {/* Achievements */}
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">
-                {isRTL ? 'الإنجازات' : 'Achievements'}
+                Achievements
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {achievements.map((achievement, index) => {
@@ -210,7 +197,7 @@ const Instructor = () => {
             {/* Expertise */}
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">
-                {isRTL ? 'مجالات الخبرة' : 'Areas of Expertise'}
+                Areas of Expertise
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {expertise.map((skill, index) => (
@@ -237,13 +224,10 @@ const Instructor = () => {
                 </div>
                 <div className="flex-1">
                   <p className="text-text-secondary italic mb-2">
-                    "{isRTL 
-                      ? 'التعليم ليس مجرد نقل المعلومات، بل إشعال شغف التعلم وإلهام الطلاب لاكتشاف عجائب الكون'
-                      : 'Education is not just about transferring information, but igniting the passion for learning and inspiring students to discover the wonders of the universe'
-                    }"
+                    "Education is not just about transferring information, but igniting the passion for learning and inspiring students to discover the wonders of the universe"
                   </p>
                   <p className="text-neon-blue font-medium">
-                    {isRTL ? '- د. أحمد محمد' : '- Dr. Ahmed Mohamed'}
+                    - Dr. Ahmed Mohamed
                   </p>
                 </div>
               </div>
