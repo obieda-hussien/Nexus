@@ -72,7 +72,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
       const mockCourseProgress = [
         {
           id: 'physics-101',
-          title: 'أساسيات الفيزياء',
+          title: 'Physics Basics',
           progress: 75,
           totalLessons: 20,
           completedLessons: 15,
@@ -80,7 +80,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'math-201',
-          title: 'الرياضيات المتقدمة',
+          title: 'Advanced Mathematics',
           progress: 45,
           totalLessons: 25,
           completedLessons: 11,
@@ -88,7 +88,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'chemistry-101',
-          title: 'الكيمياء العامة',
+          title: 'Chemistry الyearة',
           progress: 30,
           totalLessons: 18,
           completedLessons: 5,
@@ -102,21 +102,21 @@ const UserDashboard = ({ isOpen, onClose }) => {
       const mockActivity = [
         {
           type: 'lesson_completed',
-          title: 'أكمل درس: قوانين نيوتن',
+          title: 'أكمل درس: قوانين Newton',
           time: '2024-12-29T10:30:00',
-          course: 'أساسيات الفيزياء'
+          course: 'Physics Basics'
         },
         {
           type: 'quiz_passed',
-          title: 'نجح في اختبار: الحركة الدائرية',
+          title: 'Passed in Quiz: Motion الدائرية',
           time: '2024-12-29T09:15:00',
-          course: 'أساسيات الفيزياء'
+          course: 'Physics Basics'
         },
         {
           type: 'course_enrolled',
-          title: 'انضم إلى: الرياضيات المتقدمة',
+          title: 'انضم to: Advanced Mathematics',
           time: '2024-12-28T14:20:00',
-          course: 'الرياضيات المتقدمة'
+          course: 'Advanced Mathematics'
         }
       ];
       
@@ -177,12 +177,12 @@ const UserDashboard = ({ isOpen, onClose }) => {
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1">مرحباً، {userProfile?.displayName || 'المستخدم'}</h2>
+                <h2 className="text-3xl font-bold text-white mb-1">مرحباً، {userProfile?.displayName || 'User'}</h2>
                 <p className="text-gray-300 flex items-center">
                   <GraduationCap className="h-4 w-4 ml-1" />
-                  لوحة التحكم الشخصية
+                  Dashboard الشخصية
                 </p>
-                <p className="text-sm text-neon-blue/80 mt-1">جاهز للتعلم اليوم؟</p>
+                <p className="text-sm text-neon-blue/80 mt-1">Ready للتعلم الday؟</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -200,25 +200,25 @@ const UserDashboard = ({ isOpen, onClose }) => {
           {loading ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-4">
               <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-gray-300">جاري تحميل البيانات...</span>
+              <span className="text-gray-300">جاري تحميل Data...</span>
               {!userProfile && currentUser && (
                 <div className="text-center">
-                  <p className="text-yellow-400 text-sm">لا توجد بيانات ملف شخصي</p>
-                  <p className="text-gray-400 text-xs">يتم إنشاء الملف الشخصي...</p>
+                  <p className="text-yellow-400 text-sm">No data available ملف شخصي</p>
+                  <p className="text-gray-400 text-xs">يتم إنشاء Profile...</p>
                 </div>
               )}
             </div>
           ) : !userProfile ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-6">
-              <div className="text-red-400 text-xl font-semibold">خطأ في تحميل البيانات</div>
+              <div className="text-red-400 text-xl font-semibold">Error in تحميل Data</div>
               <div className="text-center max-w-md">
                 <p className="text-gray-400 mb-4">
-                  لم يتم العثور على بيانات الملف الشخصي.<br/>
-                  قد تحتاج لإنشاء الملف الشخصي أو التحقق من الاتصال.
+                  لم يتم العثور on بيانات Profile.<br/>
+                  قد تحتاج لإنشاء Profile أو الVerify from الاتصال.
                 </p>
                 <div className="bg-blue-900/20 border border-blue-400/30 p-4 rounded-xl">
                   <p className="text-blue-400 text-sm">
-                    💡 <strong>نصيحة:</strong> استخدم الزر أدناه لإنشاء ملف شخصي جديد
+                    💡 <strong>نصيحة:</strong> استخدم الزر أدناه لإنشاء ملف شخصي New
                   </p>
                 </div>
               </div>
@@ -251,9 +251,9 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-blue/10 rounded-full blur-xl group-hover:bg-neon-blue/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-blue-300 text-sm font-medium mb-1">الكورسات المسجلة</p>
+                      <p className="text-blue-300 text-sm font-medium mb-1">Courses المسجلة</p>
                       <p className="text-3xl font-bold text-white">{stats.enrolledCourses}</p>
-                      <p className="text-xs text-blue-200/60 mt-1">كورس نشط</p>
+                      <p className="text-xs text-blue-200/60 mt-1">كورس Active</p>
                     </div>
                     <div className="bg-neon-blue/20 p-3 rounded-xl">
                       <BookOpen className="h-8 w-8 text-neon-blue" />
@@ -270,7 +270,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-green/10 rounded-full blur-xl group-hover:bg-neon-green/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-green-300 text-sm font-medium mb-1">الكورسات المكتملة</p>
+                      <p className="text-green-300 text-sm font-medium mb-1">Courses الCompletedة</p>
                       <p className="text-3xl font-bold text-white">{stats.completedCourses}</p>
                       <p className="text-xs text-green-200/60 mt-1">تم إنجازها</p>
                     </div>
@@ -289,9 +289,9 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-purple/10 rounded-full blur-xl group-hover:bg-neon-purple/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-purple-300 text-sm font-medium mb-1">ساعات الدراسة</p>
+                      <p className="text-purple-300 text-sm font-medium mb-1">hours الStudy</p>
                       <p className="text-3xl font-bold text-white">{stats.totalStudyTime}</p>
-                      <p className="text-xs text-purple-200/60 mt-1">دقيقة إجمالي</p>
+                      <p className="text-xs text-purple-200/60 mt-1">minute Total</p>
                     </div>
                     <div className="bg-neon-purple/20 p-3 rounded-xl">
                       <Clock className="h-8 w-8 text-neon-purple" />
@@ -308,9 +308,9 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-orange-400/10 rounded-full blur-xl group-hover:bg-orange-400/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-orange-300 text-sm font-medium mb-1">أيام متتالية</p>
+                      <p className="text-orange-300 text-sm font-medium mb-1">days متتالية</p>
                       <p className="text-3xl font-bold text-white">{stats.streakDays}</p>
-                      <p className="text-xs text-orange-200/60 mt-1">🔥 سلسلة نشطة</p>
+                      <p className="text-xs text-orange-200/60 mt-1">🔥 سلسلة Activeة</p>
                     </div>
                     <div className="bg-orange-400/20 p-3 rounded-xl">
                       <TrendingUp className="h-8 w-8 text-orange-400" />
@@ -330,7 +330,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                     <div className="bg-neon-blue/20 p-2 rounded-lg ml-3">
                       <Target className="h-6 w-6 text-neon-blue" />
                     </div>
-                    تقدم الكورسات
+                    تقدم Courses
                   </h3>
                   <div className="space-y-6">
                     {courseProgress.map((course, index) => (
@@ -351,7 +351,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                               <div className="flex items-center space-x-4 text-sm text-gray-400">
                                 <span className="flex items-center">
                                   <CheckCircle className="h-4 w-4 ml-1 text-neon-green" />
-                                  {course.completedLessons} من {course.totalLessons} دروس
+                                  {course.completedLessons} from {course.totalLessons} دروس
                                 </span>
                                 <span className="flex items-center">
                                   <Calendar className="h-4 w-4 ml-1 text-neon-blue" />
@@ -380,7 +380,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                           <div className="flex justify-end">
                             <button className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 hover:from-neon-blue/30 hover:to-neon-purple/30 border border-neon-blue/30 text-neon-blue hover:text-white px-6 py-2 rounded-xl font-medium flex items-center transition-all duration-200 group">
                               <PlayCircle className="h-5 w-5 ml-2 group-hover:scale-110 transition-transform duration-200" />
-                              متابعة التعلم
+                              مFollowة التعلم
                             </button>
                           </div>
                         </div>
@@ -455,7 +455,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                       className="text-center mt-6"
                     >
                       <button className="glass-hover bg-gradient-to-r from-neon-blue/10 to-neon-purple/10 border border-glass-border hover:from-neon-blue/20 hover:to-neon-purple/20 px-6 py-3 rounded-xl text-gray-400 hover:text-white transition-all duration-200 font-medium">
-                        عرض المزيد من النشاطات
+                        View More from النشاطات
                       </button>
                     </motion.div>
                   </div>

@@ -125,7 +125,7 @@ const Modal = ({
               <button
                 onClick={onClose}
                 className="text-white hover:text-gray-300 p-2 rounded-lg transition-colors hover:bg-white/10"
-                aria-label="إغلاق"
+                aria-label="Close"
                 type="button"
               >
                 <X className="w-6 h-6" />

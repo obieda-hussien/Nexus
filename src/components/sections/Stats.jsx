@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useInView as useIntersectionObserver } from 'react-intersection-observer';
 
@@ -57,7 +57,7 @@ const Stats = () => {
       id: 'students',
       value: counters.students,
       suffix: '+',
-      label: 'Registered Students',
+      label: 'Registered students',
       icon: '👥',
       color: 'from-blue-500 to-purple-600'
     },
@@ -230,4 +230,4 @@ const Stats = () => {
   );
 };
 
-export default Stats;
+export default memo(Stats);

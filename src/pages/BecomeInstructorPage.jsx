@@ -88,12 +88,12 @@ const BecomeInstructorPage = () => {
     e.preventDefault();
     
     if (!currentUser) {
-      toast.error('يرجى تسجيل الدخول أولاً');
+      toast.error('Please Login first');
       return;
     }
 
     if (!canApply) {
-      toast.error('لا يمكنك التقديم في الوقت الحالي');
+      toast.error('لا يمكنك التOld in Time الحالي');
       return;
     }
 
@@ -103,21 +103,21 @@ const BecomeInstructorPage = () => {
       const applicationData = {
         ...formData,
         userEmail: currentUser.email,
-        userName: currentUser.displayName || 'مستخدم جديد'
+        userName: currentUser.displayName || 'New User'
       };
 
       const result = await InstructorService.submitApplication(applicationData, currentUser.uid);
       
       if (result.success) {
-        toast.success('تم إرسال طلبك بنجاح! سيتم مراجعته خلال 48 ساعة');
+        toast.success('تم Submit طلبك successfully! سيتم مReviewته خلال 48 hour');
         setApplicationStatus(result.application);
         setCanApply(false);
       } else {
-        toast.error('حدث خطأ أثناء إرسال الطلب: ' + result.error);
+        toast.error('An error occurred أثناء Submit Request: ' + result.error);
       }
     } catch (error) {
       console.error('Error submitting application:', error);
-      toast.error('حدث خطأ أثناء إرسال الطلب');
+      toast.error('An error occurred أثناء Submit Request');
     }
 
     setLoading(false);
@@ -130,8 +130,8 @@ const BecomeInstructorPage = () => {
         <main className="pt-20 min-h-screen">
           <div className="container mx-auto px-4 py-8 text-center">
             <GraduationCap className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-2">يرجى تسجيل الدخول</h1>
-            <p className="text-gray-400 mb-6">يجب تسجيل الدخول للتقديم كمدرس</p>
+            <h1 className="text-2xl font-bold text-white mb-2">Please Login</h1>
+            <p className="text-gray-400 mb-6">يجب Login للتOld كInstructor</p>
           </div>
         </main>
         <Footer />
@@ -147,10 +147,10 @@ const BecomeInstructorPage = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              كن مدرساً في نيكسوس
+              كن Instructorاً in Nexus
             </h1>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              انضم إلى فريق المدرسين المعتمدين وشارك خبرتك مع آلاف الطلاب حول العالم
+              انضم to فريق Instructorين الwithتمدين وShare خبرتك with آلاف students حول العالم
             </p>
           </div>
 
@@ -177,27 +177,27 @@ const BecomeInstructorPage = () => {
                     applicationStatus.status === 'approved' ? 'text-green-400' :
                     'text-red-400'
                   }`}>
-                    {applicationStatus.status === 'pending' ? 'طلبك قيد المراجعة' :
-                     applicationStatus.status === 'approved' ? 'تم قبول طلبك!' :
+                    {applicationStatus.status === 'pending' ? 'طلبك قيد الReview' :
+                     applicationStatus.status === 'approved' ? 'Your request has been accepted!' :
                      'تم رفض طلبك'}
                   </h3>
                 </div>
                 <p className="text-gray-300">
                   {applicationStatus.status === 'pending' 
-                    ? 'تم استلام طلبك وهو قيد المراجعة من قبل فريقنا. سيتم الرد عليك خلال 48 ساعة.'
+                    ? 'تم استلام طلبك وهو قيد الReview from قبل فريقنا. سيتم Reply عليك خلال 48 hour.'
                     : applicationStatus.status === 'approved'
-                    ? 'مبروك! تم قبولك كمدرس في منصة نيكسوس. يمكنك الآن إنشاء كورساتك الأولى.'
-                    : 'عذراً، لم يتم قبول طلبك في هذا الوقت. يمكنك التقديم مرة أخرى لاحقاً.'}
+                    ? 'Congratulations! You have been accepted as an Instructor on Nexus Platform. You can now create coursesك الأولى.'
+                    : 'عذراً، لم يتم قبول طلبك in this Time. يمكنك التOld مرة أخرى Later.'}
                 </p>
                 {applicationStatus.reviewNotes && (
                   <div className="mt-3 p-3 bg-gray-800/50 rounded-lg">
                     <p className="text-sm text-gray-400">
-                      <strong>ملاحظات المراجع:</strong> {applicationStatus.reviewNotes}
+                      <strong>Feedback المReview:</strong> {applicationStatus.reviewNotes}
                     </p>
                   </div>
                 )}
                 <p className="text-sm text-gray-500 mt-2">
-                  تاريخ التقديم: {new Date(applicationStatus.applicationDate).toLocaleDateString('ar-EG')}
+                  تاريخ التOld: {new Date(applicationStatus.applicationDate).toLocaleDateString('ar-EG')}
                 </p>
               </div>
             </div>
@@ -209,9 +209,9 @@ const BecomeInstructorPage = () => {
               <div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <GraduationCap className="w-6 h-6 text-blue-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">شارك معرفتك</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Share withرفتك</h3>
               <p className="text-gray-400 text-sm">
-                علم آلاف الطلاب وساعدهم في تحقيق أهدافهم التعليمية
+                علم آلاف students وساعدهم in تحقيق أهدافهم التعليمية
               </p>
             </div>
 
@@ -221,7 +221,7 @@ const BecomeInstructorPage = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">اكسب المال</h3>
               <p className="text-gray-400 text-sm">
-                احصل على 70% من أرباح كورساتك مع دعم تسويقي كامل
+                احصل on 70% from أرباح كورساتك with دعم تسويقي كامل
               </p>
             </div>
 
@@ -229,9 +229,9 @@ const BecomeInstructorPage = () => {
               <div className="w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BookOpen className="w-6 h-6 text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">أدوات احترافية</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">أدوات احتراinة</h3>
               <p className="text-gray-400 text-sm">
-                استخدم منصة متطورة لإنشاء وإدارة كورساتك بسهولة
+                استخدم fromصة متطورة لإنشاء وإدارة كورساتك بسهولة
               </p>
             </div>
           </div>
@@ -240,14 +240,14 @@ const BecomeInstructorPage = () => {
           {canApply && !applicationStatus && (
             <div className="max-w-2xl mx-auto">
               <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8">
-                <h2 className="text-2xl font-bold text-white mb-6">طلب أن تصبح مدرس</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">طلب أن تصبح Instructor</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Personal Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                       <User className="w-5 h-5" />
-                      المعلومات الشخصية
+                      المScienceات الشخصية
                     </h3>
                     
                     <div className="grid md:grid-cols-2 gap-4">
@@ -260,18 +260,18 @@ const BecomeInstructorPage = () => {
                           className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
                           required
                         >
-                          <option value="">اختر التخصص</option>
-                          <option value="programming">البرمجة وعلوم الحاسوب</option>
-                          <option value="physics">الفيزياء</option>
-                          <option value="math">الرياضيات</option>
-                          <option value="chemistry">الكيمياء</option>
-                          <option value="biology">الأحياء</option>
+                          <option value="">Choose التخصص</option>
+                          <option value="programming">Programming وComputer Science</option>
+                          <option value="physics">Physics</option>
+                          <option value="math">Mathematics</option>
+                          <option value="chemistry">Chemistry</option>
+                          <option value="biology">Biology</option>
                           <option value="other">أخرى</option>
                         </select>
                       </div>
 
                       <div>
-                        <label className="block text-white font-medium mb-2">رقم فودافون كاش *</label>
+                        <label className="block text-white font-medium mb-2">رقم Vodafone Cash *</label>
                         <input
                           type="tel"
                           name="vodafoneCashNumber"
@@ -292,7 +292,7 @@ const BecomeInstructorPage = () => {
                         value={formData.nationalId}
                         onChange={handleChange}
                         className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        placeholder="الرقم القومي"
+                        placeholder="Number القومي"
                         required
                       />
                     </div>
@@ -302,18 +302,18 @@ const BecomeInstructorPage = () => {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                       <FileText className="w-5 h-5" />
-                      المعلومات المهنية
+                      المScienceات المهنية
                     </h3>
 
                     <div>
-                      <label className="block text-white font-medium mb-2">الخبرة العملية *</label>
+                      <label className="block text-white font-medium mb-2">الExperience الprocess *</label>
                       <textarea
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
                         rows={4}
                         className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        placeholder="اكتب عن خبرتك العملية والمهنية في مجال التخصص..."
+                        placeholder="Write about خبرتك الprocess والمهنية in مجال التخصص..."
                         required
                       />
                     </div>
@@ -326,13 +326,13 @@ const BecomeInstructorPage = () => {
                         onChange={handleChange}
                         rows={3}
                         className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        placeholder="اكتب عن مؤهلاتك الدراسية والشهادات الحاصل عليها..."
+                        placeholder="Write about مؤهلاتك الدراسية وCertificates الحاصل عليها..."
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-white font-medium mb-2">رابط أعمالك السابقة</label>
+                      <label className="block text-white font-medium mb-2">رابط أعمالك Previousة</label>
                       <input
                         type="url"
                         name="portfolio"
@@ -392,14 +392,14 @@ const BecomeInstructorPage = () => {
 
                   {/* Motivation */}
                   <div>
-                    <label className="block text-white font-medium mb-2">لماذا تريد أن تصبح مدرس في نيكسوس؟ *</label>
+                    <label className="block text-white font-medium mb-2">why تريد أن تصبح Instructor in Nexus؟ *</label>
                     <textarea
                       name="motivation"
                       value={formData.motivation}
                       onChange={handleChange}
                       rows={4}
                       className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                      placeholder="اكتب عن دوافعك للتدريس وكيف ستساهم في تطوير المنصة..."
+                      placeholder="Write about دوافعك للتدريس وhow ستساهم in تطوير platform..."
                       required
                     />
                   </div>
@@ -411,7 +411,7 @@ const BecomeInstructorPage = () => {
                       disabled={loading}
                       className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white px-8 py-3 rounded-lg transition-colors font-semibold"
                     >
-                      {loading ? 'جاري الإرسال...' : 'إرسال الطلب'}
+                      {loading ? 'Sending...' : 'Submit Request'}
                     </button>
                   </div>
                 </form>
@@ -424,23 +424,23 @@ const BecomeInstructorPage = () => {
             <h2 className="text-2xl font-bold text-white text-center mb-8">متطلبات القبول</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">المتطلبات الأساسية</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Requirements Basicة</h3>
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>خبرة لا تقل عن سنتين في مجال التخصص</span>
+                    <span>Experience لا تقل about سنتين in مجال التخصص</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>مؤهل تعليمي مناسب للتخصص</span>
+                    <span>مؤهل تعليمي fromاسب للتخصص</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>إجادة اللغة العربية والتواصل الفعال</span>
+                    <span>إجادة Language Arabic والتواصل الفعال</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>الالتزام بمعايير الجودة التعليمية</span>
+                    <span>الالتزام بwithايير الجودة التعليمية</span>
                   </li>
                 </ul>
               </div>
@@ -450,19 +450,19 @@ const BecomeInstructorPage = () => {
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>70% من عوائد بيع الكورسات</span>
+                    <span>70% from عوائد بيع Courses</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>دعم تسويقي ومتابعة مبيعات</span>
+                    <span>دعم تسويقي ومFollowة مبيعات</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>أدوات إنشاء المحتوى المتطورة</span>
+                    <span>أدوات إنشاء Content Advancedة</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>تدريب مجاني على التدريس الإلكتروني</span>
+                    <span>تدريب free on التدريس الإلكتروني</span>
                   </li>
                 </ul>
               </div>

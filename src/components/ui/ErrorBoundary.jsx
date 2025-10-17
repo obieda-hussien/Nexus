@@ -24,9 +24,9 @@ class ErrorBoundary extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">حدث خطأ غير متوقع</h3>
+            <h3 className="text-lg font-semibold mb-2">An error occurred غير متوقع</h3>
             <p className="text-gray-300 text-sm mb-4">
-              يرجى المحاولة مرة أخرى أو تحديث الصفحة
+              Please المحاولة مرة أخرى أو Update الصفحة
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: null })}

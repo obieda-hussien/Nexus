@@ -64,7 +64,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
   }, [quizStarted, quizCompleted, timeRemaining]);
 
   const handleTimeUp = () => {
-    toast.error('انتهى الوقت المحدد للكويز');
+    toast.error('انتهى Time المSelect للQuiz');
     submitQuiz();
   };
 
@@ -76,7 +76,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
         return;
       }
       if (passwordInput !== quiz.settings.password) {
-        toast.error('كلمة المرور غير صحيحة');
+        toast.error('Incorrect password');
         return;
       }
     }
@@ -109,7 +109,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
 
   const submitQuiz = async () => {
     if (!currentUser) {
-      toast.error('يجب تسجيل الدخول لحفظ النتائج');
+      toast.error('يجب Login لSave النتائج');
       return;
     }
 
@@ -178,7 +178,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
 
     } catch (error) {
       console.error('Error saving quiz results:', error);
-      toast.error('حدث خطأ في حفظ النتائج');
+      toast.error('An error occurred in Save النتائج');
     }
   };
 
@@ -227,15 +227,15 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
     return (
       <div className="bg-white rounded-lg p-8 max-w-md mx-auto text-center">
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-gray-900 mb-2">لقد تجاوزت العدد المسموح من المحاولات</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">لقد تجاوزت العدد المسموح from المحاولات</h3>
         <p className="text-gray-600 mb-4">
-          لقد قمت بـ {previousAttempts.length} محاولة من أصل {quiz.maxAttempts} محاولة مسموحة.
+          لقد قمت بـ {previousAttempts.length} محاولة from أصل {quiz.maxAttempts} محاولة مسموحة.
         </p>
         <button
           onClick={onClose}
           className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إغلاق
+          Close
         </button>
       </div>
     );
@@ -245,13 +245,13 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
     return (
       <div className="bg-white rounded-lg p-8 max-w-md mx-auto text-center">
         <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-gray-900 mb-4">كلمة مرور مطلوبة</h3>
-        <p className="text-gray-600 mb-4">يتطلب هذا الكويز كلمة مرور للمتابعة</p>
+        <h3 className="text-xl font-bold text-gray-900 mb-4">allمة مرور مطلوبة</h3>
+        <p className="text-gray-600 mb-4">يتطلب this الQuiz allمة مرور للمFollowة</p>
         <input
           type="password"
           value={passwordInput}
           onChange={(e) => setPasswordInput(e.target.value)}
-          placeholder="أدخل كلمة المرور"
+          placeholder="Enter your password"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-blue-400"
         />
         <div className="flex space-x-2 space-x-reverse">
@@ -259,13 +259,13 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
             onClick={startQuiz}
             className="flex-1 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
           >
-            بدء الكويز
+            بدء الQuiz
           </button>
           <button
             onClick={onClose}
             className="flex-1 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
           >
-            إلغاء
+            Cancel
           </button>
         </div>
       </div>
@@ -317,9 +317,9 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">الكويز</h2>
+          <h2 className="text-xl font-bold text-gray-900">الQuiz</h2>
           <p className="text-gray-600 text-sm">
-            السؤال {currentQuestion + 1} من {quiz.questions.length}
+            الQuestion {currentQuestion + 1} from {quiz.questions.length}
           </p>
         </div>
         
@@ -350,7 +350,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           </div>
           <div className="flex justify-between text-sm text-gray-500 mt-2">
             <span>التقدم: {Math.round(getQuestionProgress())}%</span>
-            <span>تم الإجابة على {quiz.questions.filter(q => answers[q.id] !== undefined).length} من {quiz.questions.length}</span>
+            <span>تم الAnswer on {quiz.questions.filter(q => answers[q.id] !== undefined).length} from {quiz.questions.length}</span>
           </div>
         </div>
       )}
@@ -406,7 +406,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
                   onChange={() => handleAnswerChange(currentQ.id, false)}
                   className="w-4 h-4 text-blue-600"
                 />
-                <span className="text-gray-700 flex-1">خطأ</span>
+                <span className="text-gray-700 flex-1">Error</span>
               </label>
             </div>
           )}
@@ -415,7 +415,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
             <textarea
               value={answers[currentQ.id] || ''}
               onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
-              placeholder="اكتب إجابتك هنا..."
+              placeholder="Write your answer here..."
               rows="4"
               className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
             />
@@ -431,7 +431,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>السابق</span>
+          <span>Previous</span>
         </button>
 
         <div className="flex space-x-2 space-x-reverse">
@@ -441,14 +441,14 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
               className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               <Trophy className="w-4 h-4" />
-              <span>إنهاء الكويز</span>
+              <span>Finish الQuiz</span>
             </button>
           ) : (
             <button
               onClick={goToNext}
               className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
-              <span>التالي</span>
+              <span>Next</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -463,7 +463,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
     <div className="bg-white rounded-lg max-w-2xl mx-auto p-8">
       <div className="text-center mb-8">
         <Trophy className="w-16 h-16 text-blue-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">مرحباً بك في الكويز</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">مرحباً بك in الQuiz</h2>
         {quiz.settings?.description && (
           <p className="text-gray-600">{quiz.settings.description}</p>
         )}
@@ -477,11 +477,11 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{quiz.timeLimit}</div>
-          <div className="text-gray-600 text-sm">دقيقة</div>
+          <div className="text-gray-600 text-sm">minute</div>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{quiz.passingScore}%</div>
-          <div className="text-gray-600 text-sm">درجة النجاح</div>
+          <div className="text-gray-600 text-sm">Score الSuccess</div>
         </div>
       </div>
 
@@ -494,19 +494,19 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
       {/* Attempt Info */}
       {previousAttempts.length > 0 && (
         <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <h4 className="font-semibold text-yellow-900 mb-2">محاولاتك السابقة:</h4>
+          <h4 className="font-semibold text-yellow-900 mb-2">محاولاتك Previousة:</h4>
           <div className="space-y-2">
             {previousAttempts.slice(-3).map((attempt, index) => (
               <div key={index} className="flex justify-between text-sm text-yellow-800">
                 <span>المحاولة {previousAttempts.length - index}</span>
                 <span className={attempt.passed ? 'text-green-600' : 'text-red-600'}>
-                  {attempt.score}% {attempt.passed ? '(نجح)' : '(راسب)'}
+                  {attempt.score}% {attempt.passed ? '(Passed)' : '(راسب)'}
                 </span>
               </div>
             ))}
           </div>
           <p className="text-yellow-700 text-sm mt-2">
-            المحاولة {previousAttempts.length + 1} من {maxAttempts}
+            المحاولة {previousAttempts.length + 1} from {maxAttempts}
           </p>
         </div>
       )}
@@ -518,13 +518,13 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
           className="flex items-center space-x-2 space-x-reverse px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold"
         >
           <Play className="w-5 h-5" />
-          <span>بدء الكويز</span>
+          <span>بدء الQuiz</span>
         </button>
         <button
           onClick={onClose}
           className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إلغاء
+          Cancel
         </button>
       </div>
     </div>
@@ -540,7 +540,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
         <div className="mb-4">
           <Trophy className={`w-20 h-20 mx-auto ${passed ? 'text-green-500' : 'text-red-500'}`} />
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">نتائج الكويز</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">نتائج الQuiz</h2>
         <div className="text-6xl font-bold mb-4 text-gray-900">
           {score}%
         </div>
@@ -549,7 +549,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
             ? 'bg-green-100 text-green-800' 
             : 'bg-red-100 text-red-800'
         }`}>
-          {passed ? 'مبروك! لقد نجحت' : 'للأسف لم تنجح'}
+          {passed ? 'Congratulations! لقد Passedت' : 'للأسف لم تPassed'}
         </div>
       </div>
 
@@ -559,11 +559,11 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
           <div className="text-2xl font-bold text-gray-900">
             {Math.round((score / 100) * quiz.questions.length)}
           </div>
-          <div className="text-gray-600 text-sm">إجابات صحيحة من {quiz.questions.length}</div>
+          <div className="text-gray-600 text-sm">إجابات صحيحة from {quiz.questions.length}</div>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{attemptNumber}</div>
-          <div className="text-gray-600 text-sm">من {maxAttempts} محاولة</div>
+          <div className="text-gray-600 text-sm">from {maxAttempts} محاولة</div>
         </div>
       </div>
 
@@ -581,13 +581,13 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
           onClick={onClose}
           className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إغلاق
+          Close
         </button>
       </div>
 
       {!canRetry && !passed && (
         <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-center">
-          <p className="text-red-800">لقد استنفدت جميع المحاولات المتاحة لهذا الكويز</p>
+          <p className="text-red-800">لقد استنفدت جميع المحاولات الAvailable لthis الQuiz</p>
         </div>
       )}
     </div>

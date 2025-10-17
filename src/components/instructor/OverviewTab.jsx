@@ -15,7 +15,7 @@ import {
 const OverviewTab = ({ instructorData, courses, students, earnings }) => {
   const stats = {
     totalCourses: courses?.length || 0,
-    totalStudents: students?.length || 0,
+    totalstudents: students?.length || 0,
     totalEarnings: earnings || 0,
     averageRating: instructorData?.rating || 0,
     publishedCourses: courses?.filter(c => c.status === 'published').length || 0,
@@ -23,7 +23,7 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
     draftCourses: courses?.filter(c => c.status === 'draft').length || 0,
   };
 
-  const recentStudents = students?.slice(0, 5) || [];
+  const recentstudents = students?.slice(0, 5) || [];
 
   return (
     <div className="space-y-8">
@@ -36,8 +36,8 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
           color="from-blue-500 to-blue-600"
         />
         <StatCard
-          title="Enrolled Students"
-          value={stats.totalStudents}
+          title="Enrolled students"
+          value={stats.totalstudents}
           icon={<Users className="w-6 h-6" />}
           color="from-green-500 to-green-600"
         />
@@ -48,7 +48,7 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
           color="from-yellow-500 to-orange-500"
         />
         <StatCard
-          title="Student Rating"
+          title="student Rating"
           value={stats.averageRating.toFixed(1)}
           icon={<Star className="w-6 h-6" />}
           color="from-purple-500 to-pink-500"
@@ -79,7 +79,7 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
 
       {/* Recent Activity */}
       <div className="grid lg:grid-cols-2 gap-8">
-        <RecentEnrollments students={recentStudents} />
+        <RecentEnrollments students={recentstudents} />
         <QuickActions />
       </div>
     </div>
@@ -119,7 +119,7 @@ const RecentEnrollments = ({ students }) => (
               {student.userName?.charAt(0) || 'S'}
             </div>
             <div className="flex-1">
-              <p className="text-white font-medium">{student.userName || 'New Student'}</p>
+              <p className="text-white font-medium">{student.userName || 'New student'}</p>
               <p className="text-purple-200 text-sm">{student.enrolledAt ? new Date(student.enrolledAt).toLocaleDateString('en-US') : 'Today'}</p>
             </div>
           </div>

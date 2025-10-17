@@ -1,9 +1,9 @@
-// Free Email Service for Nexus LMS
+// free Email Service for Nexus LMS
 // Uses EmailJS and native browser APIs for free email notifications
 
 import EmailJSNotificationService from './EmailJSNotificationService';
 
-// Free Email Configuration
+// free Email Configuration
 const FREE_EMAIL_CONFIG = {
   emailjs: {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_nexus_free',
@@ -17,7 +17,7 @@ const FREE_EMAIL_CONFIG = {
   }
 };
 
-export class FreeEmailService {
+export class freeEmailService {
   
   // Check if free email service is configured
   static checkConfiguration() {
@@ -28,22 +28,22 @@ export class FreeEmailService {
       services: {
         emailjs: {
           configured: emailjsStatus.configured,
-          status: emailjsStatus.configured ? 'جاهز' : 'غير مُعد',
+          status: emailjsStatus.configured ? 'Ready' : 'Not ready',
           cost: emailjsStatus.cost,
           monthlyLimit: emailjsStatus.monthlyLimit,
           fallback: emailjsStatus.fallbackAvailable
         },
         browserNotifications: {
           configured: true,
-          status: 'جاهز دائماً',
-          cost: 'مجاني تماماً'
+          status: 'Always ready',
+          cost: 'Completely free'
         }
       },
       recommendation: emailjsStatus.configured 
-        ? 'EmailJS مُعد بنجاح - خدمة مجانية موثوقة (200 رسالة/شهر)'
-        : 'للحصول على إشعارات بريد إلكتروني، قم بإعداد EmailJS (مجاني 100%)',
-      totalMonthlyCost: '$0 (مجاني بالكامل)',
-      savings: '$15/month (مقارنة بـ SendGrid)'
+        ? 'EmailJS configured successfully - reliable free service (200 emails/month)'
+        : 'To get email notifications, set up EmailJS (100% free)',
+      totalmonthlyCost: '$0 (Completely free)',
+      savings: '$15/month (compared to SendGrid)'
     };
   }
 
@@ -72,8 +72,8 @@ export class FreeEmailService {
       console.log('📱 Falling back to browser notification...');
       await this.sendBrowserNotification(instructorData, {
         type: 'withdrawal_requested',
-        title: 'طلب سحب جديد',
-        message: `تم استلام طلب سحب ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
+        title: 'New Withdrawal Request',
+        message: `Withdrawal request received ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
         withdrawalData
       });
       
@@ -91,8 +91,8 @@ export class FreeEmailService {
       try {
         await this.sendBrowserNotification(instructorData, {
           type: 'withdrawal_requested',
-          title: 'طلب سحب جديد',
-          message: `طلب سحب: ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
+          title: 'New Withdrawal Request',
+          message: `Withdrawal request: ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
           withdrawalData
         });
         
@@ -106,7 +106,7 @@ export class FreeEmailService {
         console.error('❌ All notification methods failed:', fallbackError);
         return {
           success: false,
-          error: 'فشل في إرسال الإشعار',
+          error: 'Failed to submit notification',
           allMethodsFailed: true
         };
       }
@@ -151,8 +151,8 @@ export class FreeEmailService {
       
       // Fallback: Browser notification
       await this.sendBrowserNotification(instructorData, {
-        title: 'بيع جديد!',
-        message: `تم شراء ${courseData.title} بواسطة ${studentData.displayName}`
+        title: 'New Sale!',
+        message: `Purchased ${courseData.title} by ${studentData.displayName}`
       });
       
       return {
@@ -189,14 +189,14 @@ export class FreeEmailService {
       savings: '$15/month',
       annualSavings: '$180/year',
       features: [
-        '200 رسالة مجانية شهرياً',
-        'قوالب احترافية باللغة العربية',
-        'تسليم فوري',
-        'تتبع حالة الإرسال',
-        'بديل مجاني للمتصفح'
+        '200 free emails monthly',
+        'Professional templates in Arabic',
+        'instant delivery',
+        'Submission status tracking',
+        'free browser alternative'
       ]
     };
   }
 }
 
-export default FreeEmailService;
+export default freeEmailService;

@@ -136,8 +136,8 @@ class InstructorService {
       // Send notification to user
       await this.sendNotification(application.userId, {
         type: 'application_approved',
-        title: 'تم قبول طلبك!',
-        message: 'تهانينا! تم قبولك كمدرس في منصة نيكسوس. يمكنك الآن إنشاء كورساتك الأولى.',
+        title: 'Your request has been accepted!',
+        message: 'Congratulations! You have been accepted as an Instructor on Nexus Platform. You can now create coursesك الأولى.',
         data: { applicationId }
       });
       
@@ -178,8 +178,8 @@ class InstructorService {
       // Send notification to user
       await this.sendNotification(application.userId, {
         type: 'application_rejected',
-        title: 'طلبك مرفوض',
-        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح مدرس في هذا الوقت. يمكنك التقديم مرة أخرى لاحقاً.',
+        title: 'طلبك rejected',
+        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح Instructor in this Time. يمكنك التOld مرة أخرى Later.',
         data: { applicationId }
       });
       
@@ -199,7 +199,7 @@ class InstructorService {
       const coursesQuery = query(coursesRef, orderByChild('instructorId'), equalTo(instructorId));
       const coursesSnapshot = await get(coursesQuery);
       
-      let totalStudents = 0;
+      let totalstudents = 0;
       let totalEarnings = 0;
       let totalCourses = 0;
       let totalRating = 0;
@@ -210,7 +210,7 @@ class InstructorService {
         totalCourses = courses.length;
         
         for (const course of courses) {
-          totalStudents += course.studentsCount || 0;
+          totalstudents += course.studentsCount || 0;
           totalEarnings += course.totalRevenue || 0;
           totalRating += course.rating || 0;
           totalReviews += course.reviewsCount || 0;
@@ -223,7 +223,7 @@ class InstructorService {
         success: true,
         stats: {
           totalCourses,
-          totalStudents,
+          totalstudents,
           totalEarnings,
           averageRating: Math.round(averageRating * 10) / 10,
           totalReviews
@@ -311,7 +311,7 @@ class InstructorService {
         return { 
           success: true, 
           canApply: false, 
-          reason: 'لديك طلب قيد المراجعة حالياً' 
+          reason: 'لديك طلب قيد الReview حالياً' 
         };
       }
       
@@ -320,7 +320,7 @@ class InstructorService {
         return { 
           success: true, 
           canApply: false, 
-          reason: 'أنت مدرس معتمد بالفعل' 
+          reason: 'أنت Instructor withتمد بالفعل' 
         };
       }
       
@@ -334,7 +334,7 @@ class InstructorService {
           return { 
             success: true, 
             canApply: false, 
-            reason: `يمكنك التقديم مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} يوم` 
+            reason: `يمكنك التOld مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} day` 
           };
         }
       }

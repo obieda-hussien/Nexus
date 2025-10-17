@@ -30,11 +30,10 @@ class PayPalCoursePaymentService {
         intent: 'capture'
       });
 
-      console.log('✅ PayPal SDK loaded successfully');
       return this.paypalInstance;
     } catch (error) {
       console.error('❌ Failed to load PayPal SDK:', error);
-      throw new Error('فشل في تحميل خدمة PayPal. يرجى المحاولة مرة أخرى.');
+      throw new Error('Failed to load PayPal service. Please try again.');
     }
   }
 
@@ -62,7 +61,6 @@ class PayPalCoursePaymentService {
         // Create order on PayPal
         createOrder: async (data, actions) => {
           try {
-            console.log('Creating PayPal order...');
             
             return actions.order.create({
               purchase_units: [{
@@ -90,10 +88,9 @@ class PayPalCoursePaymentService {
         // Handle approval
         onApprove: async (data, actions) => {
           try {
-            console.log('PayPal payment approved, processing...');
             
             // Show loading state
-            const loadingToast = this.showLoadingToast('جاري معالجة الدفع عبر PayPal...');
+            const loadingToast = this.showLoadingToast('Processing PayPal payment...');
 
             // Capture payment on backend (mock implementation for frontend demo)
             const captureResult = await this.capturePayment(data.orderID, {
@@ -116,7 +113,6 @@ class PayPalCoursePaymentService {
               // Update instructor earnings
               await this.updateInstructorEarnings(captureResult.transactionData);
               
-              console.log('✅ PayPal payment completed successfully');
               onSuccess(captureResult);
             } else {
               throw new Error(captureResult.error || 'Payment capture failed');
@@ -124,27 +120,26 @@ class PayPalCoursePaymentService {
             
           } catch (error) {
             console.error('Error processing PayPal payment:', error);
-            onError(error.message || 'فشل في معالجة الدفع');
+            onError(error.message || 'Payment processing failed');
           }
         },
 
         // Handle errors
         onError: (err) => {
           console.error('PayPal error:', err);
-          onError('حدث خطأ في عملية الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
+          onError('An error occurred during PayPal payment. Please try again.');
         },
 
         // Handle cancellation
         onCancel: (data) => {
-          console.log('PayPal payment cancelled:', data);
-          this.showWarningToast('تم إلغاء عملية الدفع');
+          this.showWarningToast('Payment was cancelled');
         }
 
       }).render(`#${containerId}`);
 
     } catch (error) {
       console.error('Error creating PayPal button:', error);
-      throw new Error('فشل في إنشاء زر الدفع. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.');
+      throw new Error('Failed to create payment button. Please check internet connection and try again.');
     }
   }
 
@@ -154,7 +149,6 @@ class PayPalCoursePaymentService {
       // In a real implementation, this would call your backend API
       // For demo purposes, we'll simulate a successful capture
       
-      console.log('Capturing PayPal payment:', orderID);
       
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -190,7 +184,7 @@ class PayPalCoursePaymentService {
       console.error('Payment capture error:', error);
       return {
         success: false,
-        error: error.message || 'فشل في تأكيد الدفع'
+        error: error.message || 'Failed to confirm payment'
       };
     }
   }
@@ -228,12 +222,11 @@ class PayPalCoursePaymentService {
         transactionId: transactionData.id
       });
 
-      console.log('✅ Enrollment created successfully:', enrollmentId);
       return { success: true, enrollmentId };
 
     } catch (error) {
       console.error('Error creating enrollment:', error);
-      throw new Error('فشل في تسجيل الاشتراك في الكورس');
+      throw new Error('Failed to register course enrollment');
     }
   }
 
@@ -279,7 +272,6 @@ class PayPalCoursePaymentService {
           lastSaleDate: new Date().toISOString()
         });
 
-        console.log('✅ Instructor earnings updated:', instructorShare);
       }
 
     } catch (error) {
@@ -320,14 +312,12 @@ class PayPalCoursePaymentService {
   static showLoadingToast(message) {
     // This would integrate with your existing toast system
     // For now, return a mock object
-    console.log('Loading:', message);
     return {
       close: () => console.log('Loading finished')
     };
   }
 
   static showWarningToast(message) {
-    console.log('Warning:', message);
   }
 
   // Get course purchase summary with PayPal fees
@@ -343,7 +333,7 @@ class PayPalCoursePaymentService {
       paypalFee: paypalFee.toFixed(2),
       totalUSD: totalUSD.toFixed(2),
       exchangeRate: 31, // Mock rate
-      feeDescription: 'رسوم PayPal (3.4%) - يدفعها الطالب'
+      feeDescription: 'PayPal fees (3.4%) - paid by student'
     };
   }
 }

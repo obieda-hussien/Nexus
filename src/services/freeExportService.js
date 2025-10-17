@@ -1,13 +1,13 @@
-// Free Export Service for Nexus LMS
+// free Export Service for Nexus LMS
 // Uses native browser APIs for CSV and Excel export (100% free)
 
-export class FreeExportService {
+export class freeExportService {
   
   // Export data to CSV format (completely free)
   static exportToCSV(data, filename = 'export.csv', headers = null) {
     try {
       if (!data || data.length === 0) {
-        throw new Error('لا توجد بيانات للتصدير');
+        throw new Error('No data available للExport');
       }
 
       // Auto-generate headers if not provided
@@ -37,7 +37,7 @@ export class FreeExportService {
       
       return { success: true, format: 'CSV', filename };
     } catch (error) {
-      console.error('خطأ في تصدير CSV:', error);
+      console.error('Error in Export CSV:', error);
       return { success: false, error: error.message };
     }
   }
@@ -198,7 +198,7 @@ export class FreeExportService {
       // Add monthly breakdown if available
       if (taxData.monthlyBreakdown) {
         exportData.push({
-          'Category': '--- Monthly Details ---',
+          'Category': '--- monthly Details ---',
           'Amount (EGP)': '',
           'Percentage': '',
           'Notes': ''
@@ -374,7 +374,7 @@ export class FreeExportService {
       
     } catch (error) {
       console.error('File download error:', error);
-      throw new Error(`فشل في تحميل الملف: ${error.message}`);
+      throw new Error(`Failure in تحميل File: ${error.message}`);
     }
   }
 
@@ -391,10 +391,10 @@ export class FreeExportService {
 
   static getMonthName(monthNumber) {
     const months = [
-      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    return months[monthNumber - 1] || `الشهر ${monthNumber}`;
+    return months[monthNumber - 1] || `الmonth ${monthNumber}`;
   }
 
   static getMonthNameEnglish(monthNumber) {
@@ -409,9 +409,9 @@ export class FreeExportService {
     const names = {
       stripe: 'بطاقة ائتمانية',
       paypal: 'PayPal',
-      fawry: 'فوري',
-      vodafone: 'فودافون كاش',
-      bank: 'تحويل بنكي'
+      fawry: 'instant',
+      vodafone: 'Vodafone Cash',
+      bank: 'Bank Transfer'
     };
     return names[type] || type;
   }
@@ -429,9 +429,9 @@ export class FreeExportService {
 
   static getStatusNameAr(status) {
     const names = {
-      pending: 'معلق',
-      processing: 'قيد المعالجة',
-      completed: 'مكتمل',
+      pending: 'Suspended',
+      processing: 'Processing',
+      completed: 'Completed',
       failed: 'فاشل',
       cancelled: 'ملغي'
     };
@@ -454,16 +454,16 @@ export class FreeExportService {
     return {
       available: true,
       formats: ['CSV', 'Excel'],
-      cost: 'مجاني 100%',
+      cost: 'free 100%',
       features: [
-        'تصدير CSV محلي',
-        'تصدير Excel متوافق', 
-        'دعم اللغة العربية',
-        'لا توجد قيود على الحجم',
+        'Export CSV محلي',
+        'Export Excel متوافق', 
+        'دعم Language Arabic',
+        'لا توجد قيود on الحجم',
         'عمل دون اتصال بالإنترنت'
       ]
     };
   }
 }
 
-export default FreeExportService;
+export default freeExportService;

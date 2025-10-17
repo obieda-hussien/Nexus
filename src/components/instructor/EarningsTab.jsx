@@ -55,12 +55,12 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
   // Mock data for charts - in real implementation, this would come from Firebase
   const monthlyEarnings = [
-    { month: 'يناير', amount: 12000 },
-    { month: 'فبراير', amount: 15000 },
-    { month: 'مارس', amount: 18000 },
-    { month: 'أبريل', amount: 14000 },
-    { month: 'مايو', amount: 22000 },
-    { month: 'يونيو', amount: 25000 },
+    { month: 'January', amount: 12000 },
+    { month: 'February', amount: 15000 },
+    { month: 'March', amount: 18000 },
+    { month: 'April', amount: 14000 },
+    { month: 'May', amount: 22000 },
+    { month: 'June', amount: 25000 },
   ];
 
   return (
@@ -68,45 +68,45 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
       {/* Header */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-white">تحليل الأرباح</h2>
+          <h2 className="text-2xl font-bold text-white">Analysis Earnings</h2>
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
             className="bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="thisMonth">هذا الشهر</option>
-            <option value="lastMonth">الشهر الماضي</option>
-            <option value="thisYear">هذا العام</option>
-            <option value="allTime">كل الوقت</option>
+            <option value="thisMonth">this الmonth</option>
+            <option value="lastMonth">الmonth الماضي</option>
+            <option value="thisYear">this الyear</option>
+            <option value="allTime">all Time</option>
           </select>
         </div>
 
         {/* Earnings Overview */}
         <div className="grid md:grid-cols-4 gap-6">
           <EarningsCard
-            title="إجمالي الأرباح"
-            value={`${totalEarnings.toLocaleString()} ج.م`}
+            title="Total Earnings"
+            value={`${totalEarnings.toLocaleString()} EGP`}
             icon={<DollarSign className="w-6 h-6" />}
             color="from-green-500 to-green-600"
             trend="+12%"
           />
           <EarningsCard
-            title="الرصيد المتاح للسحب"
-            value={`${availableBalance.toLocaleString()} ج.م`}
+            title="Balance الAvailable للسحب"
+            value={`${availableBalance.toLocaleString()} EGP`}
             icon={<ArrowDown className="w-6 h-6" />}
             color="from-blue-500 to-blue-600"
             trend="+8%"
           />
           <EarningsCard
-            title="إجمالي المسحوب"
-            value={`${totalWithdrawn.toLocaleString()} ج.م`}
+            title="Total المسحوب"
+            value={`${totalWithdrawn.toLocaleString()} EGP`}
             icon={<BarChart3 className="w-6 h-6" />}
             color="from-purple-500 to-purple-600"
             trend="+15%"
           />
           <EarningsCard
-            title="طلبات معلقة"
-            value={`${pendingWithdrawals.toLocaleString()} ج.م`}
+            title="طلبات Suspendedة"
+            value={`${pendingWithdrawals.toLocaleString()} EGP`}
             icon={<Calendar className="w-6 h-6" />}
             color="from-orange-500 to-orange-600"
             trend="+3%"
@@ -121,7 +121,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 space-x-reverse transition-all"
             >
               <ArrowDown className="w-5 h-5" />
-              <span>طلب سحب أرباح</span>
+              <span>Withdrawal request أرباح</span>
             </button>
             <button
               onClick={() => onSwitchToSettings && onSwitchToSettings()}
@@ -136,7 +136,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
       {/* Earnings Chart */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-6">مخطط الأرباح الشهرية</h3>
+        <h3 className="text-xl font-semibold text-white mb-6">مخطط Earnings الmonthlyة</h3>
         <div className="space-y-4">
           {monthlyEarnings.map((data, index) => (
             <div key={index} className="flex items-center">
@@ -150,7 +150,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
                 </div>
               </div>
               <div className="w-24 text-white text-sm font-medium text-left">
-                {data.amount.toLocaleString()} ج.م
+                {data.amount.toLocaleString()} EGP
               </div>
             </div>
           ))}
@@ -160,7 +160,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
       {/* Top Earning Courses */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">أعلى الكورسات ربحاً</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">أon Courses ربحاً</h3>
           <div className="space-y-3">
             {courses?.slice(0, 5).map((course, index) => (
               <div key={course.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
@@ -170,11 +170,11 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
                   </div>
                   <div>
                     <p className="text-white font-medium text-sm">{course.title}</p>
-                    <p className="text-purple-200 text-xs">{course.studentsCount} طالب</p>
+                    <p className="text-purple-200 text-xs">{course.studentsCount} student</p>
                   </div>
                 </div>
                 <div className="text-green-400 font-semibold">
-                  {(course.totalRevenue || 0).toLocaleString()} ج.م
+                  {(course.totalRevenue || 0).toLocaleString()} EGP
                 </div>
               </div>
             ))}
@@ -182,33 +182,33 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
         </div>
 
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">تفاصيل الأرباح</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">Details Earnings</h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">إجمالي المبيعات</span>
-              <span className="text-white font-semibold">{totalEarnings.toLocaleString()} ج.م</span>
+              <span className="text-purple-200">Total المبيعات</span>
+              <span className="text-white font-semibold">{totalEarnings.toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">رسوم المنصة (10%)</span>
-              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.1).toLocaleString()} ج.م</span>
+              <span className="text-purple-200">رسوم platform (10%)</span>
+              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.1).toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">الضرائب (5%)</span>
-              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} ج.م</span>
+              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">إجمالي المسحوب</span>
-              <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} ج.م</span>
+              <span className="text-purple-200">Total المسحوب</span>
+              <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">طلبات معلقة</span>
-              <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} ج.م</span>
+              <span className="text-purple-200">طلبات Suspendedة</span>
+              <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} EGP</span>
             </div>
             <div className="border-t border-white/20 pt-3">
               <div className="flex justify-between items-center p-3 bg-green-600/20 rounded-lg">
-                <span className="text-white font-semibold">الرصيد المتاح للسحب</span>
+                <span className="text-white font-semibold">Balance الAvailable للسحب</span>
                 <span className="text-green-400 font-bold text-lg">
-                  {availableBalance.toLocaleString()} ج.م
+                  {availableBalance.toLocaleString()} EGP
                 </span>
               </div>
             </div>
@@ -218,21 +218,21 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
       {/* Payment Information */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-4">معلومات الدفع</h3>
+        <h3 className="text-xl font-semibold text-white mb-4">مScienceات الدفع</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h4 className="text-purple-200 mb-3">الدفع القادم</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} ج.م</p>
+              <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} EGP</p>
               <p className="text-purple-200 text-sm">
-                {availableBalance >= 100 ? 'متاح للسحب الآن' : `الحد الأدنى للسحب 100 ج.م`}
+                {availableBalance >= 100 ? 'Available للسحب Now' : `Minimum للسحب 100 EGP`}
               </p>
             </div>
           </div>
           <div>
             <h4 className="text-purple-200 mb-3">طرق الدفع</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-medium">حساب بنكي، PayPal، فودافون كاش</p>
+              <p className="text-white font-medium">حساب بنكي، PayPal، Vodafone Cash</p>
               <p className="text-purple-200 text-sm">
                 <button 
                   onClick={() => onSwitchToSettings && onSwitchToSettings()}

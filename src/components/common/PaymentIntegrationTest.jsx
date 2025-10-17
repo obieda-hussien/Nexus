@@ -396,7 +396,7 @@ const PaymentIntegrationTest = () => {
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>
-                  Monthly Limit: 200 free emails
+                  monthly Limit: 200 free emails
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>
@@ -467,7 +467,7 @@ const PaymentIntegrationTest = () => {
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-green rounded-full mt-2"></div>
                   <div>
-                    <span className="text-neon-green">200 Free Emails:</span> Monthly from EmailJS at no cost
+                    <span className="text-neon-green">200 free Emails:</span> monthly from EmailJS at no cost
                   </div>
                 </div>
               </div>
@@ -497,8 +497,8 @@ const PaymentIntegrationTest = () => {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-neon-green mb-2">$0</div>
-              <div className="text-text-secondary text-sm">Monthly Operating Cost</div>
-              <div className="text-xs text-neon-green mt-1">100% Free</div>
+              <div className="text-text-secondary text-sm">monthly Operating Cost</div>
+              <div className="text-xs text-neon-green mt-1">100% free</div>
             </div>
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-yellow-400 mb-2">3.4%</div>
@@ -507,7 +507,7 @@ const PaymentIntegrationTest = () => {
             </div>
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-purple-400 mb-2">200</div>
-              <div className="text-text-secondary text-sm">Free emails monthly</div>
+              <div className="text-text-secondary text-sm">free emails monthly</div>
               <div className="text-xs text-purple-400 mt-1">EmailJS</div>
             </div>
           </div>

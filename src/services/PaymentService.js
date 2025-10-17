@@ -172,8 +172,8 @@ class PaymentService {
       // Send notification to user
       await this.sendNotification(payment.userId, {
         type: 'payment_confirmed',
-        title: 'تم تأكيد دفعتك',
-        message: 'تم تأكيد دفعتك بنجاح. يمكنك الآن الوصول إلى الكورس.',
+        title: 'تم Confirm دفعتك',
+        message: 'تم Confirm دفعتك successfully. يمكنك Now الوصول to الكورس.',
         data: { paymentId, courseId: payment.courseId }
       });
       
@@ -230,8 +230,8 @@ class PaymentService {
       // Send notification to user
       await this.sendNotification(payment.userId, {
         type: 'payment_failed',
-        title: 'فشل في تأكيد الدفعة',
-        message: reason || 'لم يتم تأكيد دفعتك. يرجى التحقق من بيانات الدفع والمحاولة مرة أخرى.',
+        title: 'Failed to confirm paymentة',
+        message: reason || 'لم يتم Confirm دفعتك. Please الVerify from بيانات الدفع والمحاولة مرة أخرى.',
         data: { paymentId, courseId: payment.courseId }
       });
       
@@ -270,8 +270,8 @@ class PaymentService {
         // Send earnings notification
         await this.sendNotification(course.instructorId, {
           type: 'earnings_received',
-          title: 'أرباح جديدة',
-          message: `تم إضافة ${instructorShare.toFixed(2)} جنيه إلى أرباحك من بيع الكورس.`,
+          title: 'أرباح New',
+          message: `تم Add ${instructorShare.toFixed(2)} EGP to أرباحك from بيع الكورس.`,
           data: { courseId, amount: instructorShare }
         });
       }

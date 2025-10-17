@@ -39,11 +39,11 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
       };
 
       await update(ref(db, `courses/${course.id}`), updatedCourse);
-      toast.success('تم تحديث الكورس بنجاح');
+      toast.success('Course updated successfully');
       onUpdate(updatedCourse);
       onClose();
     } catch (error) {
-      toast.error('حدث خطأ في تحديث الكورس');
+      toast.error('An error occurred in Update Course');
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -60,7 +60,7 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`تعديل الكورس: ${course?.title || ''}`}
+      title={`Edit الكورس: ${course?.title || ''}`}
       size="2xl"
       className="bg-gray-900 text-white"
     >
@@ -68,10 +68,10 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
       <div className="border-b border-gray-600 bg-gray-800">
         <div className="flex space-x-0 space-x-reverse">
           {[
-            { id: 'basic', label: 'المعلومات الأساسية' },
-            { id: 'curriculum', label: 'المنهج والوحدات' },
-            { id: 'analytics', label: 'تحليلات الكويز' },
-            { id: 'settings', label: 'الإعدادات' }
+            { id: 'basic', label: 'Basic Information' },
+            { id: 'curriculum', label: 'Curriculum والوحدات' },
+            { id: 'analytics', label: 'Analytics الQuiz' },
+            { id: 'settings', label: 'Settings' }
           ].map(tab => (
             <button
               key={tab.id}
@@ -132,7 +132,7 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
             disabled={isLoading}
             className="px-6 py-3 text-gray-300 hover:text-white transition-colors hover:bg-gray-700 rounded-lg disabled:opacity-50"
           >
-            إلغاء
+            Cancel
           </button>
           <button
             onClick={handleSave}
@@ -141,7 +141,7 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
             className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center space-x-2 space-x-reverse"
           >
             <Save className="w-5 h-5" />
-            <span>{isLoading ? 'جاري الحفظ...' : 'حفظ التغييرات'}</span>
+            <span>{isLoading ? 'Saving...' : 'Save التغييرات'}</span>
           </button>
         </div>
       </div>
@@ -152,12 +152,12 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
 const BasicInfoTab = ({ data, onChange }) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white mb-4">المعلومات الأساسية</h3>
+      <h3 className="text-xl font-semibold text-white mb-4">Basic Information</h3>
       
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            عنوان الكورس *
+            Course Title *
           </label>
           <input
             type="text"
@@ -176,19 +176,19 @@ const BasicInfoTab = ({ data, onChange }) => {
             onChange={(e) => onChange('category', e.target.value)}
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
-            <option value="">اختر التصنيف</option>
-            <option value="physics">الفيزياء</option>
-            <option value="math">الرياضيات</option>
-            <option value="chemistry">الكيمياء</option>
-            <option value="biology">الأحياء</option>
-            <option value="programming">البرمجة</option>
+            <option value="">Select Category</option>
+            <option value="physics">Physics</option>
+            <option value="math">Mathematics</option>
+            <option value="chemistry">Chemistry</option>
+            <option value="biology">Biology</option>
+            <option value="programming">Programming</option>
           </select>
         </div>
       </div>
 
       <div>
         <label className="block text-gray-300 text-sm font-semibold mb-2">
-          وصف مختصر *
+          Short description *
         </label>
         <input
           type="text"
@@ -201,7 +201,7 @@ const BasicInfoTab = ({ data, onChange }) => {
 
       <div>
         <label className="block text-gray-300 text-sm font-semibold mb-2">
-          الوصف التفصيلي *
+          Description التفصيلي *
         </label>
         <textarea
           value={data.description || ''}
@@ -214,45 +214,45 @@ const BasicInfoTab = ({ data, onChange }) => {
       <div className="grid md:grid-cols-3 gap-6">
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            المستوى
+            Level
           </label>
           <select
             value={data.level || 'beginner'}
             onChange={(e) => onChange('level', e.target.value)}
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
-            <option value="beginner">مبتدئ</option>
-            <option value="intermediate">متوسط</option>
-            <option value="advanced">متقدم</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
           </select>
         </div>
 
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            اللغة
+            Language
           </label>
           <select
             value={data.language || 'ar'}
             onChange={(e) => onChange('language', e.target.value)}
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
-            <option value="ar">العربية</option>
-            <option value="en">الإنجليزية</option>
+            <option value="ar">Arabic</option>
+            <option value="en">English</option>
           </select>
         </div>
 
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            الحالة
+            Status
           </label>
           <select
             value={data.status || 'draft'}
             onChange={(e) => onChange('status', e.target.value)}
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
-            <option value="draft">مسودة</option>
-            <option value="pending">في المراجعة</option>
-            <option value="published">منشور</option>
+            <option value="draft">Draft</option>
+            <option value="pending">in الReview</option>
+            <option value="published">Published</option>
           </select>
         </div>
       </div>
@@ -266,7 +266,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
 
   const addSection = () => {
     if (!newSectionTitle.trim()) {
-      toast.error('يرجى إدخال عنوان الوحدة');
+      toast.error('Please enter section title');
       return;
     }
 
@@ -281,7 +281,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
     setSections([...sections, newSection]);
     setNewSectionTitle('');
     setShowAddSection(false);
-    toast.success('تم إضافة الوحدة بنجاح');
+    toast.success('Section added successfully');
   };
 
   const updateSection = (sectionId, updates) => {
@@ -291,10 +291,10 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
   };
 
   const deleteSection = (sectionId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذه الوحدة؟')) return;
+    if (!window.confirm('Are you sure you want to delete this section?')) return;
     
     setSections(sections.filter(section => section.id !== sectionId));
-    toast.success('تم حذف الوحدة');
+    toast.success('Section deleted');
   };
 
   const addLesson = (sectionId) => {
@@ -342,14 +342,14 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
   };
 
   const deleteLesson = (sectionId, lessonId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذا الدرس؟')) return;
+    if (!window.confirm('Are you sure you want to delete this lesson?')) return;
 
     const section = sections.find(s => s.id === sectionId);
     if (!section) return;
 
     const updatedLessons = section.lessons.filter(lesson => lesson.id !== lessonId);
     updateSection(sectionId, { lessons: updatedLessons });
-    toast.success('تم حذف الدرس');
+    toast.success('Lesson deleted');
   };
 
   const toggleSectionExpansion = (sectionId) => {
@@ -361,13 +361,13 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold text-white">منهج الكورس</h3>
+        <h3 className="text-xl font-semibold text-white">Course Curriculum</h3>
         <button
           onClick={() => setShowAddSection(true)}
           className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 space-x-reverse hover:bg-green-600 transition-colors"
         >
           <Plus className="w-4 h-4" />
-          <span>إضافة وحدة</span>
+          <span>Add وحدة</span>
         </button>
       </div>
 
@@ -390,7 +390,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
                 lessonTotal + (lesson.duration || 0), 0) || 0), 0
             )}
           </p>
-          <p className="text-gray-300">دقيقة</p>
+          <p className="text-gray-300">minute</p>
         </div>
       </div>
 
@@ -402,7 +402,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
               type="text"
               value={newSectionTitle}
               onChange={(e) => setNewSectionTitle(e.target.value)}
-              placeholder="عنوان الوحدة الجديدة"
+              placeholder="New Section Title"
               className="flex-1 bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               onKeyPress={(e) => e.key === 'Enter' && addSection()}
             />
@@ -410,7 +410,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
               onClick={addSection}
               className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
             >
-              إضافة
+              Add
             </button>
             <button
               onClick={() => {
@@ -419,7 +419,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
               }}
               className="text-gray-300 hover:text-white px-4 py-2"
             >
-              إلغاء
+              Cancel
             </button>
           </div>
         </div>
@@ -429,8 +429,8 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
       {sections.length === 0 ? (
         <div className="text-center py-12 bg-gray-700 rounded-xl border border-gray-600">
           <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-300">لم تقم بإضافة أي وحدات بعد</p>
-          <p className="text-gray-400 text-sm">ابدأ بإضافة الوحدة الأولى لكورسك</p>
+          <p className="text-gray-300">You haven't added any sections yet</p>
+          <p className="text-gray-400 text-sm">Start by adding the first section to your course</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -456,30 +456,30 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
 const SettingsTab = ({ data, onChange }) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white mb-4">إعدادات الكورس</h3>
+      <h3 className="text-xl font-semibold text-white mb-4">Setupات الكورس</h3>
       
       {/* Pricing */}
       <div className="bg-gray-700 rounded-xl p-6 border border-gray-600">
-        <h4 className="text-lg font-semibold text-white mb-4">التسعير</h4>
+        <h4 className="text-lg font-semibold text-white mb-4">Pricing</h4>
         
         <div className="space-y-4">
           <div className="flex items-center space-x-3 space-x-reverse">
             <input
               type="checkbox"
-              id="isFree"
-              checked={data.isFree || false}
-              onChange={(e) => onChange('isFree', e.target.checked)}
+              id="isfree"
+              checked={data.isfree || false}
+              onChange={(e) => onChange('isfree', e.target.checked)}
               className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
             />
-            <label htmlFor="isFree" className="text-white font-medium">
-              كورس مجاني
+            <label htmlFor="isfree" className="text-white font-medium">
+              كورس free
             </label>
           </div>
 
-          {!data.isFree && (
+          {!data.isfree && (
             <div>
               <label className="block text-gray-300 text-sm font-semibold mb-2">
-                السعر (بالجنيه المصري)
+                Price (بالEGP المصري)
               </label>
               <input
                 type="number"
@@ -495,7 +495,7 @@ const SettingsTab = ({ data, onChange }) => {
 
       {/* Visibility */}
       <div className="bg-gray-700 rounded-xl p-6 border border-gray-600">
-        <h4 className="text-lg font-semibold text-white mb-4">إعدادات العرض</h4>
+        <h4 className="text-lg font-semibold text-white mb-4">Setupات الView</h4>
         
         <div className="space-y-4">
           <div className="flex items-center space-x-3 space-x-reverse">
@@ -507,7 +507,7 @@ const SettingsTab = ({ data, onChange }) => {
               className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor="isActive" className="text-white font-medium">
-              كورس نشط ومتاح للتسجيل
+              كورس Active وAvailable للتسجيل
             </label>
           </div>
 
@@ -520,7 +520,7 @@ const SettingsTab = ({ data, onChange }) => {
               className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor="allowPreview" className="text-white font-medium">
-              السماح بمعاينة بعض الدروس مجاناً
+              السماح بwithاينة some الدروس مجاناً
             </label>
           </div>
         </div>
@@ -545,12 +545,12 @@ const EditableSectionCard = ({
 
   const handleTitleSave = () => {
     if (!editTitle.trim()) {
-      toast.error('عنوان الوحدة مطلوب');
+      toast.error('aboutوان الوحدة مطلوب');
       return;
     }
     onUpdate({ title: editTitle });
     setIsEditing(false);
-    toast.success('تم تحديث عنوان الوحدة');
+    toast.success('Section title updated');
   };
 
   return (
@@ -638,7 +638,7 @@ const EditableSectionCard = ({
             className="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-gray-300 hover:text-white hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
           >
             <Plus className="w-4 h-4" />
-            <span>إضافة درس جديد</span>
+            <span>Add درس New</span>
           </button>
         </div>
       )}
@@ -665,7 +665,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
       randomizeQuestions: false,
       settings: {
         description: '',
-        instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+        instructions: 'Read each question carefully and choose the correct answer.',
         showProgress: true,
         requirePassword: false,
         password: ''
@@ -697,7 +697,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
         randomizeQuestions: false,
         settings: {
           description: '',
-          instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+          instructions: 'Read each question carefully and choose the correct answer.',
           showProgress: true,
           requirePassword: false,
           password: ''
@@ -708,23 +708,23 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
   const handleSave = () => {
     if (!formData.title.trim()) {
-      toast.error('عنوان الدرس مطلوب');
+      toast.error('Lesson title required');
       return;
     }
 
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
-      toast.error('رابط الفيديو مطلوب');
+      toast.error('Video link required');
       return;
     }
 
     if (formData.type === 'quiz' && formData.quiz.questions.length === 0) {
-      toast.error('يجب إضافة سؤال واحد على الأقل للكويز');
+      toast.error('Must add at least one question to the quiz');
       return;
     }
 
     onUpdate(formData);
     setIsEditing(false);
-    toast.success('تم حفظ الدرس');
+    toast.success('Lesson saved');
   };
 
   const handleCancel = () => {
@@ -749,7 +749,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           randomizeQuestions: false,
           settings: {
             description: '',
-            instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+            instructions: 'Read each question carefully and choose the correct answer.',
             showProgress: true,
             requirePassword: false,
             password: ''
@@ -780,13 +780,13 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
   const getTypeLabel = (type) => {
     switch (type) {
       case 'video':
-        return 'فيديو';
+        return 'Video';
       case 'article':
-        return 'مقال';
+        return 'Article';
       case 'quiz':
-        return 'كويز';
+        return 'Quiz';
       default:
-        return 'مقال';
+        return 'Article';
     }
   };
 
@@ -799,7 +799,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
             type="text"
             value={formData.title}
             onChange={(e) => updateFormField('title', e.target.value)}
-            placeholder="عنوان الدرس"
+            placeholder="Lesson Title"
             className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
           />
 
@@ -809,22 +809,22 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
             onChange={(e) => updateFormField('type', e.target.value)}
             className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-400"
           >
-            <option value="article">مقال</option>
-            <option value="video">فيديو</option>
-            <option value="quiz">كويز</option>
+            <option value="article">Article</option>
+            <option value="video">Video</option>
+            <option value="quiz">Quiz</option>
           </select>
 
           {/* Content based on type */}
           {formData.type === 'article' ? (
             <div>
               <label className="block text-gray-300 text-sm font-semibold mb-2">
-                محتوى المقال (يدعم Markdown)
+                محتوى الArticle (يدعم Markdown)
               </label>
               <ErrorBoundary>
                 <MarkdownEditor
                   value={formData.content}
                   onChange={(value) => updateFormField('content', value)}
-                  placeholder="اكتب محتوى المقال باستخدام Markdown..."
+                  placeholder="Write محتوى الArticle باستخدام Markdown..."
                 />
               </ErrorBoundary>
             </div>
@@ -834,27 +834,27 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
                 type="url"
                 value={formData.videoUrl}
                 onChange={(e) => updateFormField('videoUrl', e.target.value)}
-                placeholder="رابط الفيديو (YouTube أو رابط مباشر)"
+                placeholder="Video Link (YouTube or direct link)"
                 className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
               <input
                 type="number"
                 value={formData.duration}
                 onChange={(e) => updateFormField('duration', parseInt(e.target.value) || 0)}
-                placeholder="مدة الفيديو (بالدقائق)"
+                placeholder="Video Duration (in minutes)"
                 className="w-full bg-gray-800 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
             </div>
           ) : formData.type === 'quiz' ? (
             <div>
               <label className="block text-gray-300 text-sm font-semibold mb-2">
-                محتوى الكويز
+                محتوى الQuiz
               </label>
               <ErrorBoundary>
                 <QuizEditor
                   quizData={formData.quiz}
                   onChange={handleQuizChange}
-                  placeholder="إنشاء كويز تفاعلي..."
+                  placeholder="إنشاء Quiz تفاعلي..."
                 />
               </ErrorBoundary>
             </div>
@@ -870,7 +870,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor={`published-${lesson.id}`} className="text-gray-300 text-sm">
-              منشور ومتاح للطلاب
+              Published وAvailable For students
             </label>
           </div>
 
@@ -881,14 +881,14 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               type="button"
               className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition-colors"
             >
-              حفظ
+              Save
             </button>
             <button
               onClick={handleCancel}
               type="button"
               className="text-gray-300 hover:text-white px-3 py-1 transition-colors"
             >
-              إلغاء
+              Cancel
             </button>
           </div>
         </div>
@@ -905,14 +905,14 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <h5 className="text-white font-medium">{lesson.title}</h5>
               <div className="flex items-center space-x-2 space-x-reverse text-gray-400 text-sm">
                 <span>{getTypeLabel(lesson.type)}</span>
-                {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} دقيقة</span>}
+                {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} minute</span>}
                 {lesson.type === 'quiz' && lesson.quiz?.questions?.length > 0 && (
-                  <span>• {lesson.quiz.questions.length} سؤال</span>
+                  <span>• {lesson.quiz.questions.length} Question</span>
                 )}
                 {lesson.isPublished ? (
-                  <span className="text-green-400">• منشور</span>
+                  <span className="text-green-400">• Published</span>
                 ) : (
-                  <span className="text-yellow-400">• مسودة</span>
+                  <span className="text-yellow-400">• Draft</span>
                 )}
               </div>
             </div>
@@ -958,33 +958,33 @@ const AnalyticsTab = ({ course, sections }) => {
     return (
       <div className="text-center py-12">
         <HelpCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-white mb-2">لا توجد كويزات في هذا الكورس</h3>
-        <p className="text-gray-400">قم بإضافة كويزات في تبويب "المنهج والوحدات" لعرض التحليلات</p>
+        <h3 className="text-xl font-semibold text-white mb-2">لا توجد Quizات in this الكورس</h3>
+        <p className="text-gray-400">قم بAdd Quizات in تبويب "Curriculum والوحدات" لView الAnalytics</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white mb-4">تحليلات الكويزات</h3>
+      <h3 className="text-xl font-semibold text-white mb-4">Analytics الQuizات</h3>
       
       {/* Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
           <p className="text-2xl font-bold text-white">{quizLessons.length}</p>
-          <p className="text-gray-300">إجمالي الكويزات</p>
+          <p className="text-gray-300">Total الQuizات</p>
         </div>
         <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
           <p className="text-2xl font-bold text-white">
             {quizLessons.reduce((total, lesson) => total + (lesson.quiz?.questions?.length || 0), 0)}
           </p>
-          <p className="text-gray-300">إجمالي الأسئلة</p>
+          <p className="text-gray-300">Total الأسئلة</p>
         </div>
         <div className="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
           <p className="text-2xl font-bold text-white">
             {quizLessons.filter(lesson => lesson.isPublished).length}
           </p>
-          <p className="text-gray-300">كويزات منشورة</p>
+          <p className="text-gray-300">Quizات Publishedة</p>
         </div>
       </div>
 
@@ -1001,12 +1001,12 @@ const AnalyticsTab = ({ course, sections }) => {
                     ? 'bg-green-500 text-white' 
                     : 'bg-yellow-500 text-black'
                 }`}>
-                  {lesson.isPublished ? 'منشور' : 'مسودة'}
+                  {lesson.isPublished ? 'Published' : 'Draft'}
                 </span>
               </div>
               <div className="text-gray-400 text-sm">
-                {lesson.quiz?.questions?.length || 0} سؤال • 
-                {lesson.quiz?.timeLimit || 30} دقيقة
+                {lesson.quiz?.questions?.length || 0} Question • 
+                {lesson.quiz?.timeLimit || 30} minute
               </div>
             </div>
             
@@ -1018,7 +1018,7 @@ const AnalyticsTab = ({ course, sections }) => {
               />
             ) : (
               <div className="text-center py-8 text-gray-400">
-                <p>يجب نشر الكويز أولاً لعرض التحليلات</p>
+                <p>يجب Publish الQuiz أولاً لView الAnalytics</p>
               </div>
             )}
           </div>

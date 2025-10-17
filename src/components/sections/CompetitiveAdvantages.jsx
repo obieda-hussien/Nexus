@@ -96,7 +96,7 @@ const CompetitiveAdvantages = () => {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
               >
-                Start Free Trial
+                Start free Trial
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}

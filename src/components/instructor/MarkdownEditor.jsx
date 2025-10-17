@@ -3,19 +3,19 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Eye, Edit3, HelpCircle } from 'lucide-react';
 
-const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى المقال باستخدام Markdown..." }) => {
+const MarkdownEditor = ({ value, onChange, placeholder = "Write محتوى الArticle باستخدام Markdown..." }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
   const markdownHelp = [
-    { syntax: '# عنوان رئيسي', description: 'عنوان من المستوى الأول' },
-    { syntax: '## عنوان فرعي', description: 'عنوان من المستوى الثاني' },
+    { syntax: '# aboutوان رئيسي', description: 'aboutوان from Level الأول' },
+    { syntax: '## aboutوان فرعي', description: 'aboutوان from Level الثاني' },
     { syntax: '**نص غامق**', description: 'نص بخط عريض' },
     { syntax: '*نص مائل*', description: 'نص مائل' },
-    { syntax: '- عنصر قائمة', description: 'قائمة نقطية' },
-    { syntax: '1. عنصر مرقم', description: 'قائمة مرقمة' },
+    { syntax: '- aboutصر قائمة', description: 'قائمة نقطية' },
+    { syntax: '1. aboutصر مرقم', description: 'قائمة مرقمة' },
     { syntax: '[رابط](https://example.com)', description: 'إنشاء رابط' },
-    { syntax: '`كود`', description: 'كود مضمن' },
+    { syntax: '`كود`', description: 'كود مضfrom' },
     { syntax: '```كود متعدد الأسطر```', description: 'كتلة كود' },
     { syntax: '> اقتباس', description: 'نص مقتبس' },
   ];
@@ -43,7 +43,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
             }`}
           >
             {isPreview ? <Edit3 className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            <span>{isPreview ? 'تحرير' : 'معاينة'}</span>
+            <span>{isPreview ? 'تحرير' : 'withاينة'}</span>
           </button>
           
           <button
@@ -61,7 +61,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
         </div>
         
         <div className="text-xs text-gray-400">
-          يدعم Markdown للتنسيق المتقدم
+          يدعم Markdown للتنسيق الAdvanced
         </div>
       </div>
 
@@ -153,7 +153,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
             ) : (
               <div className="text-gray-500 text-center py-12 flex flex-col items-center justify-center">
                 <Eye className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p className="text-lg">اكتب شيئاً لرؤية المعاينة هنا</p>
+                <p className="text-lg">Write شيئاً لرؤية الwithاينة هنا</p>
                 <p className="text-sm mt-1 opacity-70">استخدم صيغة Markdown للتنسيق</p>
               </div>
             )}

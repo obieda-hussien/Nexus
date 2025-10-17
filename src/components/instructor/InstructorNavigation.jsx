@@ -14,7 +14,7 @@ const InstructorNavigation = ({ activeTab, setActiveTab, notificationCount = 0 }
   const tabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'courses', label: 'Courses', icon: BookOpen },
-    { id: 'students', label: 'Students', icon: Users },
+    { id: 'students', label: 'students', icon: Users },
     { id: 'reviews', label: 'Reviews', icon: MessageSquare },
     { id: 'earnings', label: 'Earnings', icon: DollarSign },
     { id: 'notifications', label: 'Notifications', icon: Bell, badge: notificationCount },

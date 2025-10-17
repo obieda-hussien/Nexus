@@ -76,13 +76,13 @@ async function testCourseCreation(user) {
     const courseRef = push(ref(db, 'courses'));
     const testCourse = {
       id: courseRef.key,
-      title: 'Test Course - تجربة إنشاء كورس',
+      title: 'Test Course - Course Creation Test',
       description: 'This is a test course to verify creation functionality',
       category: 'test',
       level: 'beginner',
       language: 'ar',
       price: 0,
-      isFree: true,
+      isfree: true,
       instructorId: user.uid,
       instructorName: user.displayName || 'Test Instructor',
       status: 'draft',

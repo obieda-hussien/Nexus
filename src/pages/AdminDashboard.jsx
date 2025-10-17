@@ -29,18 +29,18 @@ const AdminDashboard = () => {
   });
 
   const [recentActivities] = useState([
-    { id: 1, type: 'user', message: 'أحمد محمد انضم للمنصة', time: '5 دقائق', icon: Users },
-    { id: 2, type: 'course', message: 'تم إنشاء كورس جديد: الفيزياء المتقدمة', time: '15 دقيقة', icon: BookOpen },
-    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 جنيه', time: '30 دقيقة', icon: DollarSign },
-    { id: 4, type: 'instructor', message: 'طلب تدريس جديد من د. سارة أحمد', time: '1 ساعة', icon: UserCheck },
-    { id: 5, type: 'alert', message: 'تحديث أمني مطلوب للنظام', time: '2 ساعة', icon: AlertCircle }
+    { id: 1, type: 'user', message: 'Ahmed Mohamed انضم للfromصة', time: '5 minutes', icon: Users },
+    { id: 2, type: 'course', message: 'تم Create New Course: Advanced Physics', time: '15 minute', icon: BookOpen },
+    { id: 3, type: 'payment', message: 'تم استلام دفعة بRateة 500 EGP', time: '30 minutes', icon: DollarSign },
+    { id: 4, type: 'instructor', message: 'طلب تدريس New from Dr. Sarah Ahmed', time: '1 hour', icon: UserCheck },
+    { id: 5, type: 'alert', message: 'Update أfromي مطلوب للنظام', time: '2 hours', icon: AlertCircle }
   ]);
 
   const [topCourses] = useState([
-    { name: 'الفيزياء الأساسية', students: 2340, revenue: 468000, rating: 4.9 },
-    { name: 'الرياضيات التطبيقية', students: 1890, revenue: 471750, rating: 4.8 },
-    { name: 'الفيزياء المتقدمة', students: 1650, revenue: 493500, rating: 4.9 },
-    { name: 'التفاضل والتكامل', students: 1420, revenue: 355000, rating: 4.7 }
+    { name: 'Basic Physics', students: 2340, revenue: 468000, rating: 4.9 },
+    { name: 'Applied Mathematics', students: 1890, revenue: 471750, rating: 4.8 },
+    { name: 'Advanced Physics', students: 1650, revenue: 493500, rating: 4.9 },
+    { name: 'Calculus وIntegration', students: 1420, revenue: 355000, rating: 4.7 }
   ]);
 
   useEffect(() => {
@@ -63,8 +63,8 @@ const AdminDashboard = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">لوحة تحكم المدير</h1>
-            <p className="text-gray-300">مرحباً بك في لوحة التحكم الرئيسية - إدارة شاملة للمنصة التعليمية</p>
+            <h1 className="text-4xl font-bold text-white mb-2">لوحة تحكم Admin</h1>
+            <p className="text-gray-300">مرحباً بك in Dashboard Mainة - إدارة شاملة للfromصة التعليمية</p>
           </div>
 
           {/* Key Statistics */}
@@ -72,9 +72,9 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-100 text-sm">إجمالي المستخدمين</p>
+                  <p className="text-blue-100 text-sm">Total Userين</p>
                   <p className="text-3xl font-bold">{stats.totalUsers.toLocaleString()}</p>
-                  <p className="text-blue-100 text-xs">+12% من الشهر الماضي</p>
+                  <p className="text-blue-100 text-xs">+12% from الmonth الماضي</p>
                 </div>
                 <Users className="h-12 w-12 text-blue-200" />
               </div>
@@ -83,9 +83,9 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100 text-sm">إجمالي الكورسات</p>
+                  <p className="text-green-100 text-sm">Total Courses</p>
                   <p className="text-3xl font-bold">{stats.totalCourses}</p>
-                  <p className="text-green-100 text-xs">+3 كورسات جديدة</p>
+                  <p className="text-green-100 text-xs">+3 كورسات New</p>
                 </div>
                 <BookOpen className="h-12 w-12 text-green-200" />
               </div>
@@ -94,8 +94,8 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100 text-sm">الإيرادات الشهرية</p>
-                  <p className="text-3xl font-bold">{(stats.monthlyRevenue / 1000).toFixed(0)}K ج.م</p>
+                  <p className="text-purple-100 text-sm">الإيرادات الmonthlyة</p>
+                  <p className="text-3xl font-bold">{(stats.monthlyRevenue / 1000).toFixed(0)}K EGP</p>
                   <p className="text-purple-100 text-xs">+8% نمو</p>
                 </div>
                 <DollarSign className="h-12 w-12 text-purple-200" />
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-orange-100 text-sm">معدل الإكمال</p>
+                  <p className="text-orange-100 text-sm">withدل الإكمال</p>
                   <p className="text-3xl font-bold">{stats.completionRate}%</p>
                   <p className="text-orange-100 text-xs">أداء ممتاز</p>
                 </div>
@@ -134,7 +134,7 @@ const AdminDashboard = () => {
                       </div>
                       <div className="flex-1">
                         <p className="text-white text-sm">{activity.message}</p>
-                        <p className="text-gray-400 text-xs">منذ {activity.time}</p>
+                        <p className="text-gray-400 text-xs">fromذ {activity.time}</p>
                       </div>
                     </div>
                   );
@@ -151,22 +151,22 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg transition-colors">
                   <UserCheck className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">موافقة المدرسين</span>
-                  <span className="block text-xs text-blue-200">({stats.pendingApprovals} في الانتظار)</span>
+                  <span className="text-sm">OKة Instructorين</span>
+                  <span className="block text-xs text-blue-200">({stats.pendingApprovals} in الانتظار)</span>
                 </button>
                 <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-lg transition-colors">
                   <BookOpen className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">إدارة الكورسات</span>
+                  <span className="text-sm">Course Management</span>
                   <span className="block text-xs text-green-200">({stats.totalCourses} كورس)</span>
                 </button>
                 <button className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg transition-colors">
                   <BarChart3 className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">التقارير المالية</span>
-                  <span className="block text-xs text-purple-200">{(stats.totalRevenue / 1000000).toFixed(1)}M ج.م</span>
+                  <span className="text-sm">Reports المالية</span>
+                  <span className="block text-xs text-purple-200">{(stats.totalRevenue / 1000000).toFixed(1)}M EGP</span>
                 </button>
                 <button className="bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-lg transition-colors">
                   <Award className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">إدارة الشهادات</span>
+                  <span className="text-sm">إدارة Certificates</span>
                   <span className="block text-xs text-orange-200">نظام آلي</span>
                 </button>
               </div>
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
           {/* Top Performing Courses */}
           <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 mb-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">الكورسات الأعلى أداءً</h3>
+              <h3 className="text-xl font-bold text-white">Courses الأon أداءً</h3>
               <PieChart className="h-6 w-6 text-blue-400" />
             </div>
             <div className="overflow-x-auto">
@@ -184,9 +184,9 @@ const AdminDashboard = () => {
                 <thead>
                   <tr className="border-b border-gray-700">
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">اسم الكورس</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد الطلاب</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد students</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">الإيرادات</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">التقييم</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium">Rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -194,7 +194,7 @@ const AdminDashboard = () => {
                     <tr key={index} className="border-b border-gray-700/50 hover:bg-gray-700/30">
                       <td className="py-3 px-4 text-white font-medium">{course.name}</td>
                       <td className="py-3 px-4 text-gray-300">{course.students.toLocaleString()}</td>
-                      <td className="py-3 px-4 text-green-400 font-medium">{course.revenue.toLocaleString()} ج.م</td>
+                      <td className="py-3 px-4 text-green-400 font-medium">{course.revenue.toLocaleString()} EGP</td>
                       <td className="py-3 px-4">
                         <div className="flex items-center">
                           <Award className="h-4 w-4 text-yellow-400 ml-1" />
@@ -212,29 +212,29 @@ const AdminDashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">حالة النظام</h4>
+                <h4 className="text-lg font-semibold text-white">حالة System</h4>
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               </div>
-              <p className="text-gray-400 text-sm">جميع الأنظمة تعمل بشكل طبيعي</p>
+              <p className="text-gray-400 text-sm">جميع الأنظمة تعمل correctly طبيعي</p>
               <p className="text-green-400 text-xs mt-1">وقت التشغيل: 99.9%</p>
             </div>
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">المدرسون النشطون</h4>
+                <h4 className="text-lg font-semibold text-white">Instructorون الActiveون</h4>
                 <Calendar className="h-5 w-5 text-blue-400" />
               </div>
               <p className="text-3xl font-bold text-blue-400">{stats.activeInstructors}</p>
-              <p className="text-gray-400 text-xs">من أصل 32 مدرس</p>
+              <p className="text-gray-400 text-xs">from أصل 32 Instructor</p>
             </div>
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">متوسط التقييم</h4>
+                <h4 className="text-lg font-semibold text-white">Intermediate Rating</h4>
                 <Award className="h-5 w-5 text-yellow-400" />
               </div>
               <p className="text-3xl font-bold text-yellow-400">{stats.averageRating}</p>
-              <p className="text-gray-400 text-xs">من 5 نجوم</p>
+              <p className="text-gray-400 text-xs">from 5 نجوم</p>
             </div>
           </div>
         </div>

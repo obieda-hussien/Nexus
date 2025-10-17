@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
@@ -40,10 +40,10 @@ const Footer = () => {
     {
       title: isRTL ? 'الدورات' : 'Courses',
       links: [
-        { name: isRTL ? 'الفيزياء الأساسية' : 'Basic Physics', href: '#' },
-        { name: isRTL ? 'الفيزياء المتقدمة' : 'Advanced Physics', href: '#' },
-        { name: isRTL ? 'الرياضيات التطبيقية' : 'Applied Mathematics', href: '#' },
-        { name: isRTL ? 'العلوم التجريبية' : 'Experimental Sciences', href: '#' }
+        { name: isRTL ? 'Basic Physics' : 'Basic Physics', href: '#' },
+        { name: isRTL ? 'Advanced Physics' : 'Advanced Physics', href: '#' },
+        { name: isRTL ? 'Applied Mathematics' : 'Applied Mathematics', href: '#' },
+        { name: isRTL ? 'الScience التجريبية' : 'Experimental Sciences', href: '#' }
       ]
     },
     {
@@ -52,22 +52,22 @@ const Footer = () => {
         { name: isRTL ? 'حولنا' : 'About Us', href: '#' },
         { name: isRTL ? 'فريق العمل' : 'Our Team', href: '#' },
         { name: isRTL ? 'الوظائف' : 'Careers', href: '#' },
-        { name: isRTL ? 'الأخبار' : 'News', href: '#' }
+        { name: isRTL ? 'News' : 'News', href: '#' }
       ]
     },
     {
-      title: isRTL ? 'الدعم' : 'Support',
+      title: isRTL ? 'Support' : 'Support',
       links: [
-        { name: isRTL ? 'مركز المساعدة' : 'Help Center', href: '#' },
-        { name: isRTL ? 'الأسئلة الشائعة' : 'FAQ', href: '#' },
-        { name: isRTL ? 'تواصل معنا' : 'Contact Us', href: '#' },
-        { name: isRTL ? 'حالة النظام' : 'System Status', href: '#' }
+        { name: isRTL ? 'مركز Help' : 'Help Center', href: '#' },
+        { name: isRTL ? 'FAQ' : 'FAQ', href: '#' },
+        { name: isRTL ? 'تواصل withنا' : 'Contact Us', href: '#' },
+        { name: isRTL ? 'حالة System' : 'System Status', href: '#' }
       ]
     },
     {
       title: isRTL ? 'قانوني' : 'Legal',
       links: [
-        { name: isRTL ? 'سياسة الخصوصية' : 'Privacy Policy', href: '#' },
+        { name: isRTL ? 'Privacy Policy' : 'Privacy Policy', href: '#' },
         { name: isRTL ? 'شروط الاستخدام' : 'Terms of Service', href: '#' },
         { name: isRTL ? 'ملفات تعريف الارتباط' : 'Cookie Policy', href: '#' },
         { name: isRTL ? 'إخلاء المسؤولية' : 'Disclaimer', href: '#' }
@@ -78,26 +78,26 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: isRTL ? 'البريد الإلكتروني' : 'Email',
+      title: isRTL ? 'Email' : 'Email',
       value: 'info@nexus.edu',
       href: 'mailto:info@nexus.edu'
     },
     {
       icon: Phone,
-      title: isRTL ? 'الهاتف' : 'Phone',
+      title: isRTL ? 'Phone' : 'Phone',
       value: isRTL ? '+20 2 123 4567' : '+20 2 123 4567',
       href: 'tel:+20212340567'
     },
     {
       icon: MapPin,
-      title: isRTL ? 'العنوان' : 'Address',
-      value: isRTL ? 'القاهرة، جمهورية مصر العربية' : 'Cairo, Egypt',
+      title: isRTL ? 'Title' : 'Address',
+      value: isRTL ? 'القاهرة، جمهورية مصر Arabic' : 'Cairo, Egypt',
       href: '#'
     }
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', color: 'hover:text-blue-500', name: isRTL ? 'فيسبوك' : 'Facebook' },
+    { icon: Facebook, href: '#', color: 'hover:text-blue-500', name: isRTL ? 'inسبوك' : 'Facebook' },
     { icon: Twitter, href: '#', color: 'hover:text-blue-400', name: isRTL ? 'تويتر' : 'Twitter' },
     { icon: Instagram, href: '#', color: 'hover:text-pink-500', name: isRTL ? 'إنستغرام' : 'Instagram' },
     { icon: Linkedin, href: '#', color: 'hover:text-blue-600', name: isRTL ? 'لينكد إن' : 'LinkedIn' },
@@ -105,7 +105,7 @@ const Footer = () => {
   ];
 
   const stats = [
-    { icon: Users, value: '10K+', label: isRTL ? 'طالب' : 'Students' },
+    { icon: Users, value: '10K+', label: isRTL ? 'student' : 'students' },
     { icon: BookOpen, value: '50+', label: isRTL ? 'دورة' : 'Courses' },
     { icon: Award, value: '25+', label: isRTL ? 'جائزة' : 'Awards' }
   ];
@@ -143,11 +143,11 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-bold gradient-text mb-4">
-              {isRTL ? 'ابق على اطلاع' : 'Stay Updated'}
+              {isRTL ? 'ابق on اطلاع' : 'Stay Updated'}
             </h3>
             <p className="text-text-secondary max-w-2xl mx-auto">
               {isRTL 
-                ? 'اشترك في نشرتنا الإخبارية للحصول على آخر الأخبار والدورات الجديدة'
+                ? 'اشترك in Publishتنا الإخبارية للحصول on آخر News والدورات الNew'
                 : 'Subscribe to our newsletter for the latest news and new courses'
               }
             </p>
@@ -163,15 +163,15 @@ const Footer = () => {
             <div className="flex glass rounded-lg p-2">
               <input
                 type="email"
-                placeholder={isRTL ? 'أدخل بريدك الإلكتروني' : 'Enter your email'}
+                placeholder={isRTL ? 'Enter your email' : 'Enter your email'}
                 className="flex-1 bg-transparent text-white placeholder-text-secondary px-4 py-2 focus:outline-none"
                 dir={isRTL ? 'rtl' : 'ltr'}
-                aria-label={isRTL ? 'عنوان البريد الإلكتروني للاشتراك في النشرة الإخبارية' : 'Email address for newsletter subscription'}
+                aria-label={isRTL ? 'aboutوان Email للاشتراك in الPublishة الإخبارية' : 'Email address for newsletter subscription'}
               />
               <Button 
                 variant="gradient" 
                 size="sm"
-                aria-label={isRTL ? 'اشترك في النشرة الإخبارية' : 'Subscribe to newsletter'}
+                aria-label={isRTL ? 'اشترك in الPublishة الإخبارية' : 'Subscribe to newsletter'}
               >
                 {isRTL ? 'اشتراك' : 'Subscribe'}
               </Button>
@@ -197,12 +197,12 @@ const Footer = () => {
                   <span className="text-white font-bold text-xl">N</span>
                 </div>
                 <span className="text-2xl font-bold gradient-text">
-                  {isRTL ? 'نيكسوس' : 'Nexus'}
+                  {isRTL ? 'Nexus' : 'Nexus'}
                 </span>
               </div>
               <p className="text-text-secondary leading-relaxed mb-6">
                 {isRTL 
-                  ? 'منصة تعليمية حديثة تهدف إلى تقديم أفضل تجربة تعليمية في مجال الفيزياء والرياضيات للجيل الجديد.'
+                  ? 'fromصة تعليمية Recentة تهدف to تOld أفضل تجربة تعليمية in مجال Physics وMathematics للجيل الNew.'
                   : 'A modern educational platform aimed at providing the best learning experience in physics and mathematics for the new generation.'
                 }
               </p>
@@ -250,7 +250,7 @@ const Footer = () => {
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
             <h4 className="text-white font-semibold mb-4">
-              {isRTL ? 'معلومات التواصل' : 'Contact Info'}
+              {isRTL ? 'مScienceات التواصل' : 'Contact Info'}
             </h4>
             <div className="space-y-4">
               {contactInfo.map((contact, index) => {
@@ -276,7 +276,7 @@ const Footer = () => {
             {/* Social Links */}
             <div className="mt-6">
               <h5 className="text-white font-medium mb-3">
-                {isRTL ? 'تابعنا' : 'Follow Us'}
+                {isRTL ? 'Followنا' : 'Follow Us'}
               </h5>
               <div className="flex space-x-3">
                 {socialLinks.map((social, index) => {
@@ -288,7 +288,7 @@ const Footer = () => {
                       className={`w-10 h-10 glass rounded-lg flex items-center justify-center text-text-secondary transition-all duration-300 ${social.color}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      aria-label={`${isRTL ? 'تابعنا على' : 'Follow us on'} ${social.name}`}
+                      aria-label={`${isRTL ? 'Followنا on' : 'Follow us on'} ${social.name}`}
                     >
                       <Icon size={18} aria-hidden="true" />
                     </motion.a>
@@ -306,7 +306,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-text-secondary text-sm">
               {isRTL 
-                ? `© ${new Date().getFullYear()} نيكسوس. جميع الحقوق محفوظة.`
+                ? `© ${new Date().getFullYear()} Nexus. جميع الحقوق محفوظة.`
                 : `© ${new Date().getFullYear()} Nexus. All rights reserved.`
               }
             </p>
@@ -316,7 +316,7 @@ const Footer = () => {
               </span>
               <span className="text-red-500">❤️</span>
               <span className="text-text-secondary text-sm">
-                {isRTL ? 'في مصر' : 'in Egypt'}
+                {isRTL ? 'in مصر' : 'in Egypt'}
               </span>
             </div>
           </div>
@@ -333,7 +333,7 @@ const Footer = () => {
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: showScrollTop ? 1 : 0 }}
-        aria-label={isRTL ? 'العودة إلى أعلى الصفحة' : 'Scroll to top of page'}
+        aria-label={isRTL ? 'العودة to أon الصفحة' : 'Scroll to top of page'}
       >
         <ArrowUp size={20} aria-hidden="true" />
       </motion.button>
@@ -341,4 +341,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

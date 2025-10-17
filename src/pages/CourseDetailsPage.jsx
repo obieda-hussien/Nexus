@@ -67,7 +67,7 @@ const CourseDetailsPage = () => {
     if (!currentUser) return;
     
     try {
-      const result = await CourseService.getStudentEnrollments(currentUser.uid);
+      const result = await CourseService.getstudentEnrollments(currentUser.uid);
       if (result.success) {
         const enrollment = result.enrollments.find(e => e.courseId === id);
         setIsEnrolled(!!enrollment);
@@ -79,25 +79,25 @@ const CourseDetailsPage = () => {
 
   const handleEnroll = async () => {
     if (!currentUser) {
-      toast.error('يرجى تسجيل الدخول أولاً');
+      toast.error('Please Login first');
       return;
     }
 
     if (!course) return;
 
-    if (course.isFree) {
-      // Free enrollment
+    if (course.isfree) {
+      // free enrollment
       try {
-        const result = await CourseService.enrollStudent(currentUser.uid, course.id);
+        const result = await CourseService.enrollstudent(currentUser.uid, course.id);
         if (result.success) {
           setIsEnrolled(true);
-          toast.success('تم التسجيل في الكورس بنجاح!');
+          toast.success('تم التسجيل in الكورس successfully!');
         } else {
-          toast.error('حدث خطأ أثناء التسجيل');
+          toast.error('An error occurred during registration');
         }
       } catch (error) {
         console.error('Error enrolling:', error);
-        toast.error('حدث خطأ أثناء التسجيل');
+        toast.error('An error occurred during registration');
       }
     } else {
       // Paid enrollment - show payment modal
@@ -114,7 +114,7 @@ const CourseDetailsPage = () => {
     }
     
     if (!paymentData.vodafoneNumber || !paymentData.transactionId) {
-      toast.error('يرجى ملء جميع البيانات المطلوبة');
+      toast.error('Please ملء جميع Data المطلوبة');
       return;
     }
 
@@ -130,7 +130,7 @@ const CourseDetailsPage = () => {
 
       if (paymentResult.success) {
         // Create enrollment with pending payment
-        const enrollmentResult = await CourseService.enrollStudent(
+        const enrollmentResult = await CourseService.enrollstudent(
           currentUser.uid,
           course.id,
           {
@@ -143,16 +143,16 @@ const CourseDetailsPage = () => {
         if (enrollmentResult.success) {
           setShowPaymentModal(false);
           setIsEnrolled(true);
-          toast.success('تم إرسال طلب الدفع! سيتم تأكيد الدفعة خلال 24 ساعة');
+          toast.success('تم Submit طلب الدفع! سيتم Confirm paymentة خلال 24 hour');
         } else {
-          toast.error('حدث خطأ أثناء التسجيل');
+          toast.error('An error occurred during registration');
         }
       } else {
-        toast.error('حدث خطأ أثناء معالجة الدفع');
+        toast.error('An error occurred while processing payment');
       }
     } catch (error) {
       console.error('Error processing payment:', error);
-      toast.error('حدث خطأ أثناء معالجة الدفع');
+      toast.error('An error occurred while processing payment');
     }
   };
 
@@ -167,7 +167,7 @@ const CourseDetailsPage = () => {
         try {
           const instructorData = { 
             email: course.instructorEmail || 'instructor@example.com',
-            displayName: course.instructorName || 'المدرس'
+            displayName: course.instructorName || 'Instructor'
           };
           
           await EmailJSNotificationService.sendCoursePaymentNotification(
@@ -185,27 +185,27 @@ const CourseDetailsPage = () => {
         }
       }
       
-      toast.success('🎉 تم الدفع بنجاح! مرحباً بك في الكورس');
+      toast.success('🎉 Payment successful! Welcome to the course');
     } catch (error) {
       console.error('Error handling PayPal success:', error);
-      toast.error('تم الدفع لكن حدث خطأ في التسجيل. يرجى التواصل مع الدعم الفني.');
+      toast.error('تم الدفع لكن An error occurred in التسجيل. Please التواصل with Support الفني.');
     }
   };
 
   const handlePayPalError = (error) => {
     console.error('PayPal payment error:', error);
-    toast.error('فشل في الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
+    toast.error('Failure in الدفع عبر PayPal. Please المحاولة مرة أخرى.');
   };
 
   const getPlaceholderCourse = () => ({
     id: id,
-    title: 'أساسيات البرمجة بـ Python',
-    description: 'كورس شامل لتعلم البرمجة بلغة Python من الصفر إلى الاحتراف. يغطي الكورس جميع الأساسيات والمفاهيم المتقدمة مع تطبيقات عملية ومشاريع حقيقية.',
-    shortDescription: 'تعلم البرمجة بـ Python من الصفر مع أمثلة عملية',
+    title: 'Python Programming Basics',
+    description: 'كورس شامل لتعلم Programming بلغة Python from الصفر to الاحتراف. يغطي الكورس جميع الBasics والمفاهيم الAdvancedة with Applyات process ومشاريع حقيقية.',
+    shortDescription: 'تعلم Programming بـ Python from الصفر with Examples process',
     price: 299,
     originalPrice: 399,
-    isFree: false,
-    instructorName: 'أحمد محمد',
+    isfree: false,
+    instructorName: 'Ahmed Mohamed',
     instructorAvatar: '',
     category: 'programming',
     level: 'beginner',
@@ -214,33 +214,33 @@ const CourseDetailsPage = () => {
     studentsCount: 1250,
     rating: 4.8,
     reviewsCount: 89,
-    tags: ['Python', 'البرمجة', 'المبتدئين'],
+    tags: ['Python', 'Programming', 'الBeginnerين'],
     requirements: [
-      'لا يتطلب خبرة سابقة في البرمجة',
-      'حاسوب شخصي مع اتصال بالإنترنت',
-      'رغبة في التعلم والممارسة'
+      'لا يتطلب Experience سابقة in Programming',
+      'حاسوب شخصي with اتصال بالإنترنت',
+      'رغبة in التعلم والمMarchة'
     ],
     whatYouWillLearn: [
-      'أساسيات لغة Python',
-      'البرمجة الكائنية',
-      'التعامل مع الملفات وقواعد البيانات',
-      'بناء تطبيقات ويب بسيطة',
-      'حل المشاكل البرمجية',
-      'أفضل الممارسات في البرمجة'
+      'Basics لغة Python',
+      'Programming الكائنية',
+      'التyearل with Fileات وقواعد Data',
+      'بناء Applyات ويب بسيطة',
+      'حل المشاall البرمجية',
+      'أفضل المMarchات in Programming'
     ],
     curriculum: {
       section1: {
-        title: 'مقدمة في البرمجة',
+        title: 'مقدمة in Programming',
         order: 1,
         lessons: {
           lesson1: {
-            title: 'ما هي البرمجة؟',
+            title: 'ما هي Programming؟',
             duration: 15,
             type: 'video',
             isPreview: true
           },
           lesson2: {
-            title: 'تثبيت Python',
+            title: 'Installation Python',
             duration: 20,
             type: 'video',
             isPreview: true
@@ -248,7 +248,7 @@ const CourseDetailsPage = () => {
         }
       },
       section2: {
-        title: 'الأساسيات',
+        title: 'الBasics',
         order: 2,
         lessons: {
           lesson3: {
@@ -258,7 +258,7 @@ const CourseDetailsPage = () => {
             isPreview: false
           },
           lesson4: {
-            title: 'العمليات الحسابية',
+            title: 'الPracticalات Accountية',
             duration: 30,
             type: 'video',
             isPreview: false
@@ -300,9 +300,9 @@ const CourseDetailsPage = () => {
           <div className="container mx-auto px-4 py-8 text-center">
             <BookOpen className="w-16 h-16 text-gray-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-white mb-2">الكورس غير موجود</h1>
-            <p className="text-gray-400 mb-6">لم يتم العثور على الكورس المطلوب</p>
+            <p className="text-gray-400 mb-6">لم يتم العثور on الكورس المطلوب</p>
             <Link to="/Nexus/courses" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
-              العودة إلى الكورسات
+              العودة to Courses
             </Link>
           </div>
         </main>
@@ -318,9 +318,9 @@ const CourseDetailsPage = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-            <Link to="/Nexus/" className="hover:text-white">الرئيسية</Link>
+            <Link to="/Nexus/" className="hover:text-white">Mainة</Link>
             <span>/</span>
-            <Link to="/Nexus/courses" className="hover:text-white">الكورسات</Link>
+            <Link to="/Nexus/courses" className="hover:text-white">Courses</Link>
             <span>/</span>
             <span className="text-white">{course.title}</span>
           </nav>
@@ -340,11 +340,11 @@ const CourseDetailsPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-gray-400" />
-                    <span className="text-gray-300">{course.studentsCount?.toLocaleString()} طالب</span>
+                    <span className="text-gray-300">{course.studentsCount?.toLocaleString()} student</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5 text-gray-400" />
-                    <span className="text-gray-300">{Math.floor(course.duration / 60)} ساعة</span>
+                    <span className="text-gray-300">{Math.floor(course.duration / 60)} hour</span>
                   </div>
                 </div>
 
@@ -354,7 +354,7 @@ const CourseDetailsPage = () => {
                   </div>
                   <div>
                     <p className="text-white font-semibold">{course.instructorName}</p>
-                    <p className="text-gray-400 text-sm">مدرب معتمد</p>
+                    <p className="text-gray-400 text-sm">مدرب withتمد</p>
                   </div>
                 </div>
               </div>
@@ -366,32 +366,32 @@ const CourseDetailsPage = () => {
                   </div>
                   
                   <div className="price-section mb-6">
-                    {!course.isFree ? (
+                    {!course.isfree ? (
                       <div className="text-center">
-                        <span className="text-3xl font-bold text-white">{course.price} جنيه</span>
+                        <span className="text-3xl font-bold text-white">{course.price} EGP</span>
                         {course.originalPrice && course.originalPrice > course.price && (
                           <div>
-                            <span className="text-gray-500 line-through text-lg">{course.originalPrice} جنيه</span>
+                            <span className="text-gray-500 line-through text-lg">{course.originalPrice} EGP</span>
                             <span className="bg-red-500 text-white px-2 py-1 rounded-full text-sm ml-2">
-                              خصم {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}%
+                              Discount {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}%
                             </span>
                           </div>
                         )}
                       </div>
                     ) : (
-                      <span className="text-3xl font-bold text-green-400">مجاني</span>
+                      <span className="text-3xl font-bold text-green-400">free</span>
                     )}
                   </div>
 
                   {isEnrolled ? (
                     <div className="text-center">
                       <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-2" />
-                      <p className="text-green-400 font-semibold mb-4">أنت مسجل في هذا الكورس</p>
+                      <p className="text-green-400 font-semibold mb-4">أنت مسجل in this الكورس</p>
                       <Link
                         to={`/learn/${course.id}`}
                         className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors block text-center"
                       >
-                        متابعة التعلم
+                        مFollowة التعلم
                       </Link>
                     </div>
                   ) : (
@@ -399,7 +399,7 @@ const CourseDetailsPage = () => {
                       onClick={handleEnroll}
                       className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors font-semibold"
                     >
-                      {course.isFree ? 'التسجيل المجاني' : 'شراء الكورس'}
+                      {course.isfree ? 'التسجيل الfree' : 'شراء الكورس'}
                     </button>
                   )}
                 </div>
@@ -411,15 +411,15 @@ const CourseDetailsPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300">شهادة إتمام</span>
+                    <span className="text-gray-300">Certificate إتمام</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300">دعم فني مباشر</span>
+                    <span className="text-gray-300">Technical support مباشر</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300">مشاهدة على الجوال</span>
+                    <span className="text-gray-300">مWatchة on الجوال</span>
                   </div>
                 </div>
               </div>
@@ -431,7 +431,7 @@ const CourseDetailsPage = () => {
             <div className="lg:col-span-2 space-y-8">
               {/* Description */}
               <section className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-white mb-4">وصف الكورس</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Course Description</h2>
                 <p className="text-gray-300 leading-relaxed">{course.description}</p>
               </section>
 
@@ -439,7 +439,7 @@ const CourseDetailsPage = () => {
               <section className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
                 <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                   <Target className="w-6 h-6 text-blue-400" />
-                  ماذا ستتعلم؟
+                  what ستتعلم؟
                 </h2>
                 <div className="grid md:grid-cols-2 gap-3">
                   {course.whatYouWillLearn?.map((item, index) => (
@@ -453,7 +453,7 @@ const CourseDetailsPage = () => {
 
               {/* Requirements */}
               <section className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-white mb-4">المتطلبات</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Requirements</h2>
                 <ul className="space-y-2">
                   {course.requirements?.map((req, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -466,7 +466,7 @@ const CourseDetailsPage = () => {
 
               {/* Curriculum */}
               <section className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-white mb-4">محتوى الكورس</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Course Content</h2>
                 <div className="space-y-4">
                   {Object.values(course.curriculum || {}).map((section, index) => (
                     <div key={index} className="border border-gray-700 rounded-lg">
@@ -483,10 +483,10 @@ const CourseDetailsPage = () => {
                               <Play className="w-4 h-4 text-gray-400" />
                               <span className="text-gray-300">{lesson.title}</span>
                               {lesson.isPreview && (
-                                <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs">معاينة</span>
+                                <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs">withاينة</span>
                               )}
                             </div>
-                            <span className="text-gray-400 text-sm">{lesson.duration} دقيقة</span>
+                            <span className="text-gray-400 text-sm">{lesson.duration} minute</span>
                           </div>
                         ))}
                       </div>
@@ -500,26 +500,26 @@ const CourseDetailsPage = () => {
             <div className="space-y-6">
               {/* Course Stats */}
               <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">معلومات الكورس</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">مScienceات الكورس</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">المستوى</span>
+                    <span className="text-gray-400">Level</span>
                     <span className="text-white">{
-                      course.level === 'beginner' ? 'مبتدئ' :
-                      course.level === 'intermediate' ? 'متوسط' : 'متقدم'
+                      course.level === 'beginner' ? 'Beginner' :
+                      course.level === 'intermediate' ? 'Intermediate' : 'Advanced'
                     }</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">عدد الدروس</span>
+                    <span className="text-gray-400">Number of lessons</span>
                     <span className="text-white">{course.lessonsCount || 0}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">المدة</span>
-                    <span className="text-white">{Math.floor(course.duration / 60)} ساعة</span>
+                    <span className="text-gray-400">Duration</span>
+                    <span className="text-white">{Math.floor(course.duration / 60)} hour</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">اللغة</span>
-                    <span className="text-white">العربية</span>
+                    <span className="text-gray-400">Language</span>
+                    <span className="text-white">Arabic</span>
                   </div>
                 </div>
               </div>
@@ -540,20 +540,20 @@ const CourseDetailsPage = () => {
 
               {/* Instructor */}
               <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">المدرس</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Instructor</h3>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
                     <User className="w-6 h-6 text-gray-300" />
                   </div>
                   <div>
                     <p className="text-white font-semibold">{course.instructorName}</p>
-                    <p className="text-gray-400 text-sm">مدرب معتمد</p>
+                    <p className="text-gray-400 text-sm">مدرب withتمد</p>
                   </div>
                 </div>
-                <p className="text-gray-300 text-sm">مدرس متخصص في {course.category === 'programming' ? 'البرمجة' : course.category} مع سنوات من الخبرة في التدريس.</p>
+                <p className="text-gray-300 text-sm">Instructor متخصص in {course.category === 'programming' ? 'Programming' : course.category} with years from الExperience in التدريس.</p>
               </div>
 
-              {/* Student Review Submission (only for enrolled students) */}
+              {/* student Review Submission (only for enrolled students) */}
               {isEnrolled && (
                 <ReviewSubmission 
                   courseId={id}
@@ -573,14 +573,14 @@ const CourseDetailsPage = () => {
             <div className="bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <CreditCard className="w-6 h-6" />
-                إتمام الدفع - {course.price} جنيه
+                إتمام الدفع - {course.price} EGP
               </h2>
 
               {!showPayPalPayment ? (
                 <>
                   {/* Payment Method Selection */}
                   <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-3">اختر طريقة الدفع:</h3>
+                    <h3 className="text-white font-semibold mb-3">Choose Payment Method:</h3>
                     <div className="space-y-3">
                       <label className="flex items-center gap-3 p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
                         <input
@@ -597,10 +597,10 @@ const CourseDetailsPage = () => {
                           </div>
                           <div>
                             <p className="text-white font-medium">PayPal</p>
-                            <p className="text-gray-400 text-sm">دفع فوري آمن - بطاقات ائتمان دولية</p>
+                            <p className="text-gray-400 text-sm">Instant Payment آfrom - بطاقات ائتمان دولية</p>
                           </div>
                         </div>
-                        <span className="text-green-400 text-xs bg-green-900/20 px-2 py-1 rounded">موصى به</span>
+                        <span className="text-green-400 text-xs bg-green-900/20 px-2 py-1 rounded">Recommended</span>
                       </label>
 
                       <label className="flex items-center gap-3 p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
@@ -617,8 +617,8 @@ const CourseDetailsPage = () => {
                             <span className="text-white text-xs font-bold">VC</span>
                           </div>
                           <div>
-                            <p className="text-white font-medium">فودافون كاش</p>
-                            <p className="text-gray-400 text-sm">تحويل عبر فودافون كاش (يتطلب مراجعة يدوية)</p>
+                            <p className="text-white font-medium">Vodafone Cash</p>
+                            <p className="text-gray-400 text-sm">تحويل عبر Vodafone Cash (يتطلب Review يدوية)</p>
                           </div>
                         </div>
                       </label>
@@ -628,12 +628,12 @@ const CourseDetailsPage = () => {
                   {paymentMethod === 'paypal' ? (
                     <div className="space-y-4">
                       <div className="bg-blue-900/20 border border-blue-700/30 rounded-xl p-4">
-                        <h3 className="text-blue-400 font-semibold mb-2">دفع آمن عبر PayPal:</h3>
+                        <h3 className="text-blue-400 font-semibold mb-2">دفع آfrom عبر PayPal:</h3>
                         <ul className="text-sm text-gray-300 space-y-1">
-                          <li>• دفع فوري وآمن</li>
+                          <li>• Instant Payment وآfrom</li>
                           <li>• حماية المشتري</li>
                           <li>• يقبل بطاقات ائتمان دولية</li>
-                          <li>• وصول فوري للكورس بعد الدفع</li>
+                          <li>• وصول instant للكورس بعد الدفع</li>
                         </ul>
                       </div>
 
@@ -647,18 +647,18 @@ const CourseDetailsPage = () => {
                   ) : (
                     <>
                       <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-4 mb-6">
-                        <h3 className="text-red-400 font-semibold mb-2">تعليمات فودافون كاش:</h3>
+                        <h3 className="text-red-400 font-semibold mb-2">تعليمات Vodafone Cash:</h3>
                         <ol className="text-sm text-gray-300 space-y-1">
-                          <li>1. حول {course.price} جنيه إلى رقم فودافون كاش: <strong>01234567890</strong></li>
-                          <li>2. اكتب رقم فودافون كاش الخاص بك أدناه</li>
-                          <li>3. اكتب رقم العملية (Transaction ID)</li>
-                          <li>4. سيتم تأكيد الدفع خلال 24 ساعة</li>
+                          <li>1. حول {course.price} EGP to رقم Vodafone Cash: <strong>01234567890</strong></li>
+                          <li>2. Write رقم Vodafone Cash الخاص بك أدناه</li>
+                          <li>3. Write رقم الprocess (Transaction ID)</li>
+                          <li>4. سيتم Confirm payment خلال 24 hour</li>
                         </ol>
                       </div>
 
                       <form onSubmit={handlePayment} className="space-y-4">
                         <div>
-                          <label className="block text-white font-medium mb-2">رقم فودافون كاش الخاص بك</label>
+                          <label className="block text-white font-medium mb-2">رقم Vodafone Cash الخاص بك</label>
                           <input
                             type="tel"
                             value={paymentData.vodafoneNumber}
@@ -670,7 +670,7 @@ const CourseDetailsPage = () => {
                         </div>
 
                         <div>
-                          <label className="block text-white font-medium mb-2">رقم العملية (Transaction ID)</label>
+                          <label className="block text-white font-medium mb-2">رقم الprocess (Transaction ID)</label>
                           <input
                             type="text"
                             value={paymentData.transactionId}
@@ -686,14 +686,14 @@ const CourseDetailsPage = () => {
                             type="submit"
                             className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg transition-colors"
                           >
-                            تأكيد الدفع
+                            Confirm payment
                           </button>
                           <button
                             type="button"
                             onClick={() => setShowPaymentModal(false)}
                             className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg transition-colors"
                           >
-                            إلغاء
+                            Cancel
                           </button>
                         </div>
                       </form>
@@ -727,7 +727,7 @@ const CourseDetailsPage = () => {
                       }}
                       className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors text-sm"
                     >
-                      إلغاء
+                      Cancel
                     </button>
                   </div>
                 </>

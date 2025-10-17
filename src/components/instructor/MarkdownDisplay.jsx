@@ -6,7 +6,7 @@ const MarkdownDisplay = ({ content, className = "" }) => {
   if (!content) {
     return (
       <div className="text-purple-300 text-center py-8">
-        <p>لا يوجد محتوى لعرضه</p>
+        <p>None محتوى لViewه</p>
       </div>
     );
   }

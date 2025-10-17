@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Star, Clock, Users, BookOpen, Award } from 'lucide-react';
 import Card from '../ui/Card';
@@ -25,19 +25,19 @@ const Pricing = () => {
   const plans = [
     {
       id: 'basic',
-      name: isRTL ? 'الباقة الأساسية' : 'Basic Plan',
+      name: isRTL ? 'الباقة Basicة' : 'Basic Plan',
       price: isRTL ? '199 ريال' : '$199',
-      period: isRTL ? 'شهرياً' : '/month',
-      description: isRTL ? 'مثالية للمبتدئين' : 'Perfect for beginners',
+      period: isRTL ? 'monthly' : '/month',
+      description: isRTL ? 'مثالية للBeginnerين' : 'Perfect for beginners',
       features: [
-        isRTL ? 'الوصول إلى 10 دورات' : 'Access to 10 courses',
-        isRTL ? 'شهادة إتمام' : 'Certificate of completion',
-        isRTL ? 'دعم عبر البريد الإلكتروني' : 'Email support',
+        isRTL ? 'الوصول to 10 دورات' : 'Access to 10 courses',
+        isRTL ? 'Certificate إتمام' : 'Certificate of completion',
+        isRTL ? 'دعم عبر Email' : 'Email support',
         isRTL ? 'مواد تدريبية قابلة للتحميل' : 'Downloadable resources'
       ],
       notIncluded: [
         isRTL ? 'جلسات مباشرة' : 'Live sessions',
-        isRTL ? 'مشروع تخرج' : 'Capstone project'
+        isRTL ? 'Graduation Project' : 'Capstone project'
       ],
       popular: false,
       color: 'from-blue-500 to-purple-600'
@@ -46,15 +46,15 @@ const Pricing = () => {
       id: 'premium',
       name: isRTL ? 'الباقة المتميزة' : 'Premium Plan',
       price: isRTL ? '399 ريال' : '$399',
-      period: isRTL ? 'شهرياً' : '/month',
-      description: isRTL ? 'الأكثر شعبية' : 'Most popular',
+      period: isRTL ? 'monthly' : '/month',
+      description: isRTL ? 'Most Popular' : 'Most popular',
       features: [
-        isRTL ? 'الوصول إلى جميع الدورات' : 'Access to all courses',
-        isRTL ? 'جلسات مباشرة أسبوعية' : 'Weekly live sessions',
-        isRTL ? 'شهادة معتمدة' : 'Certified certificate',
+        isRTL ? 'الوصول to جميع الدورات' : 'Access to all courses',
+        isRTL ? 'جلسات مباشرة weekية' : 'Weekly live sessions',
+        isRTL ? 'Certified certificate' : 'Certified certificate',
         isRTL ? 'دعم 24/7' : '24/7 support',
-        isRTL ? 'مشروع تخرج' : 'Capstone project',
-        isRTL ? 'مجتمع طلابي خاص' : 'Private student community'
+        isRTL ? 'Graduation Project' : 'Capstone project',
+        isRTL ? 'مجتwith طلابي خاص' : 'Private student community'
       ],
       notIncluded: [],
       popular: true,
@@ -64,14 +64,14 @@ const Pricing = () => {
       id: 'enterprise',
       name: isRTL ? 'الباقة المؤسسية' : 'Enterprise Plan',
       price: isRTL ? '799 ريال' : '$799',
-      period: isRTL ? 'شهرياً' : '/month',
+      period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'للفرق والمؤسسات' : 'For teams & organizations',
       features: [
-        isRTL ? 'كل ما في الباقة المتميزة' : 'Everything in Premium',
+        isRTL ? 'all ما in الباقة المتميزة' : 'Everything in Premium',
         isRTL ? 'تدريب مخصص' : 'Custom training',
         isRTL ? 'مدير حساب مخصص' : 'Dedicated account manager',
         isRTL ? 'تقارير تقدم مفصلة' : 'Detailed progress reports',
-        isRTL ? 'تكامل مع الأنظمة الأخرى' : 'System integrations',
+        isRTL ? 'Integration with الأنظمة الأخرى' : 'System integrations',
         isRTL ? 'تسعير خاص للمجموعات' : 'Volume pricing'
       ],
       notIncluded: [],
@@ -88,7 +88,7 @@ const Pricing = () => {
     e.preventDefault();
     // Handle form submission
     console.log('Form submitted:', formData);
-    alert(isRTL ? 'تم التسجيل بنجاح!' : 'Registration successful!');
+    alert(isRTL ? 'تم التسجيل successfully!' : 'Registration successful!');
     setShowRegistration(false);
   };
 
@@ -129,7 +129,7 @@ const Pricing = () => {
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
             {isRTL 
-              ? 'اختر الباقة التي تناسب احتياجاتك التعليمية وابدأ رحلتك نحو التميز'
+              ? 'Choose الباقة التي تناسب احتياجاتك التعليمية وابدأ رحلتك نحو التميز'
               : 'Choose the plan that fits your learning needs and start your journey to excellence'
             }
           </p>
@@ -158,7 +158,7 @@ const Pricing = () => {
                 >
                   <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-bg px-4 py-1 rounded-full text-sm font-bold flex items-center">
                     <Star className="w-4 h-4 mr-1" aria-hidden="true" />
-                    {isRTL ? 'الأكثر شعبية' : 'Most Popular'}
+                    {isRTL ? 'Most Popular' : 'Most Popular'}
                   </div>
                 </motion.div>
               )}
@@ -220,9 +220,9 @@ const Pricing = () => {
                     setFormData(prev => ({ ...prev, plan: plan.name }));
                     setShowRegistration(true);
                   }}
-                  aria-label={`${isRTL ? 'اختر باقة' : 'Choose'} ${plan.name}`}
+                  aria-label={`${isRTL ? 'Choose باقة' : 'Choose'} ${plan.name}`}
                 >
-                  {isRTL ? 'اختر هذه الباقة' : 'Choose Plan'}
+                  {isRTL ? 'Choose this الباقة' : 'Choose Plan'}
                 </Button>
               </Card>
             </motion.div>
@@ -250,17 +250,17 @@ const Pricing = () => {
                 <Card className="p-8">
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      {isRTL ? 'تسجيل جديد' : 'Registration'}
+                      {isRTL ? 'تسجيل New' : 'Registration'}
                     </h3>
                     <p className="text-text-secondary">
-                      {isRTL ? 'املأ البيانات للبدء' : 'Fill in your details to get started'}
+                      {isRTL ? 'املأ Data للبدء' : 'Fill in your details to get started'}
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
-                      label={isRTL ? 'الاسم الكامل' : 'Full Name'}
-                      placeholder={isRTL ? 'أدخل اسمك الكامل' : 'Enter your full name'}
+                      label={isRTL ? 'Full Name' : 'Full Name'}
+                      placeholder={isRTL ? 'Enter your full name' : 'Enter your full name'}
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       required
@@ -268,7 +268,7 @@ const Pricing = () => {
                     />
 
                     <Input
-                      label={isRTL ? 'البريد الإلكتروني' : 'Email'}
+                      label={isRTL ? 'Email' : 'Email'}
                       type="email"
                       placeholder={isRTL ? 'example@email.com' : 'example@email.com'}
                       value={formData.email}
@@ -277,7 +277,7 @@ const Pricing = () => {
                     />
 
                     <Input
-                      label={isRTL ? 'رقم الهاتف' : 'Phone Number'}
+                      label={isRTL ? 'رقم Phone' : 'Phone Number'}
                       placeholder={isRTL ? '+966 XX XXX XXXX' : '+1 XXX XXX XXXX'}
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
@@ -301,7 +301,7 @@ const Pricing = () => {
                         className="flex-1"
                         onClick={() => setShowRegistration(false)}
                       >
-                        {isRTL ? 'إلغاء' : 'Cancel'}
+                        {isRTL ? 'Cancel' : 'Cancel'}
                       </Button>
                       <Button
                         type="submit"
@@ -322,4 +322,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default memo(Pricing);

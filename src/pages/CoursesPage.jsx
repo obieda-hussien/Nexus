@@ -12,7 +12,7 @@ const CoursesPage = () => {
   const [filters, setFilters] = useState({
     category: '',
     level: '',
-    isFree: '',
+    isfree: '',
     sortBy: 'newest'
   });
 
@@ -29,7 +29,7 @@ const CoursesPage = () => {
       } else {
         const queryFilters = {
           ...filters,
-          isFree: filters.isFree === 'true' ? true : filters.isFree === 'false' ? false : undefined,
+          isfree: filters.isfree === 'true' ? true : filters.isfree === 'false' ? false : undefined,
           status: 'published' // Only show published courses
         };
         result = await CourseService.getCourses(queryFilters);
@@ -57,14 +57,14 @@ const CoursesPage = () => {
   const getPlaceholderCourses = () => [
     {
       id: '1',
-      title: 'أساسيات البرمجة بـ Python',
-      description: 'تعلم البرمجة من الصفر باستخدام لغة Python مع أمثلة عملية ومشاريع تطبيقية',
-      shortDescription: 'كورس شامل لتعلم البرمجة بـ Python للمبتدئين',
+      title: 'Python Programming Basics',
+      description: 'تعلم Programming from الصفر باستخدام لغة Python with Examples process ومشاريع Applyية',
+      shortDescription: 'كورس شامل لتعلم Programming بـ Python للBeginnerين',
       price: 299,
       originalPrice: 399,
-      isFree: false,
+      isfree: false,
       thumbnail: '/placeholder-course.jpg',
-      instructorName: 'أحمد محمد',
+      instructorName: 'Ahmed Mohamed',
       instructorAvatar: '',
       category: 'programming',
       duration: 120,
@@ -77,13 +77,13 @@ const CoursesPage = () => {
     },
     {
       id: '2',
-      title: 'فيزياء المرحلة الثانوية',
-      description: 'شرح مفصل ومبسط لمنهج الفيزياء للصف الثالث الثانوي مع حل المسائل',
-      shortDescription: 'منهج الفيزياء كامل للثانوية العامة',
+      title: 'Physics Stage الثانوية',
+      description: 'شرح مفصل ومبسط لfromهج Physics للصف الثالث الثانوي with حل الProblems',
+      shortDescription: 'fromهج Physics كامل للثانوية الyearة',
       price: 0,
-      isFree: true,
+      isfree: true,
       thumbnail: '/placeholder-course.jpg',
-      instructorName: 'د. سارة أحمد',
+      instructorName: 'Dr. Sarah Ahmed',
       instructorAvatar: '',
       category: 'physics',
       duration: 200,
@@ -97,11 +97,11 @@ const CoursesPage = () => {
     {
       id: '3',
       title: 'تصميم المواقع بـ HTML & CSS',
-      description: 'تعلم تصميم المواقع الحديثة والمتجاوبة باستخدام HTML و CSS',
-      shortDescription: 'أساسيات تصميم المواقع للمبتدئين',
+      description: 'تعلم تصميم المواقع الRecentة والمتجاوبة باستخدام HTML و CSS',
+      shortDescription: 'Basics تصميم المواقع للBeginnerين',
       price: 199,
       originalPrice: 299,
-      isFree: false,
+      isfree: false,
       thumbnail: '/placeholder-course.jpg',
       instructorName: 'محمد علي',
       instructorAvatar: '',
@@ -123,10 +123,10 @@ const CoursesPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              استكشف الكورسات
+              استكشف Courses
             </h1>
             <p className="text-gray-300 text-lg">
-              اختر من مجموعة واسعة من الكورسات في مختلف المجالات
+              Choose from مجموعة واسعة from Courses in مختلف المجالات
             </p>
           </div>
 
@@ -138,7 +138,7 @@ const CoursesPage = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="ابحث عن كورس..."
+                  placeholder="اSearch about كورس..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-lg pr-10 pl-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
@@ -148,7 +148,7 @@ const CoursesPage = () => {
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
               >
-                بحث
+                Search
               </button>
             </form>
 
@@ -160,11 +160,11 @@ const CoursesPage = () => {
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="">جميع المجالات</option>
-                <option value="programming">البرمجة</option>
-                <option value="physics">الفيزياء</option>
-                <option value="math">الرياضيات</option>
-                <option value="chemistry">الكيمياء</option>
-                <option value="biology">الأحياء</option>
+                <option value="programming">Programming</option>
+                <option value="physics">Physics</option>
+                <option value="math">Mathematics</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="biology">Biology</option>
               </select>
 
               <select
@@ -173,19 +173,19 @@ const CoursesPage = () => {
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="">جميع المستويات</option>
-                <option value="beginner">مبتدئ</option>
-                <option value="intermediate">متوسط</option>
-                <option value="advanced">متقدم</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
               </select>
 
               <select
-                value={filters.isFree}
-                onChange={(e) => setFilters(prev => ({ ...prev, isFree: e.target.value }))}
+                value={filters.isfree}
+                onChange={(e) => setFilters(prev => ({ ...prev, isfree: e.target.value }))}
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="">مجاني ومدفوع</option>
-                <option value="true">مجاني فقط</option>
-                <option value="false">مدفوع فقط</option>
+                <option value="">free وPaid</option>
+                <option value="true">free فقط</option>
+                <option value="false">Paid فقط</option>
               </select>
 
               <select
@@ -193,11 +193,11 @@ const CoursesPage = () => {
                 onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value }))}
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="newest">الأحدث</option>
-                <option value="popular">الأكثر شعبية</option>
-                <option value="rating">الأعلى تقييماً</option>
-                <option value="price_low">السعر: منخفض إلى مرتفع</option>
-                <option value="price_high">السعر: مرتفع إلى منخفض</option>
+                <option value="newest">Newest</option>
+                <option value="popular">Most Popular</option>
+                <option value="rating">Highest Rated</option>
+                <option value="price_low">Price: Low to مرتفع</option>
+                <option value="price_high">Price: مرتفع to Low</option>
               </select>
             </div>
           </div>
@@ -220,7 +220,7 @@ const CoursesPage = () => {
             <div className="text-center py-12">
               <BookOpen className="w-16 h-16 text-gray-500 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-400 mb-2">لا توجد كورسات</h3>
-              <p className="text-gray-500">لم يتم العثور على كورسات تطابق المعايير المحددة</p>
+              <p className="text-gray-500">لم يتم العثور on كورسات تطابق الwithايير المSelectة</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -230,9 +230,9 @@ const CoursesPage = () => {
                     <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 h-48 flex items-center justify-center">
                       <BookOpen className="w-16 h-16 text-blue-400" />
                     </div>
-                    {course.isFree && (
+                    {course.isfree && (
                       <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm font-medium">
-                        مجاني
+                        free
                       </div>
                     )}
                   </div>
@@ -251,11 +251,11 @@ const CoursesPage = () => {
                     <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        <span>{course.duration} دقيقة</span>
+                        <span>{course.duration} minute</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        <span>{course.studentsCount?.toLocaleString()} طالب</span>
+                        <span>{course.studentsCount?.toLocaleString()} student</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -265,15 +265,15 @@ const CoursesPage = () => {
                     
                     <div className="flex justify-between items-center">
                       <div className="price-section">
-                        {!course.isFree ? (
+                        {!course.isfree ? (
                           <div className="flex items-center gap-2">
-                            <span className="text-2xl font-bold text-white">{course.price} جنيه</span>
+                            <span className="text-2xl font-bold text-white">{course.price} EGP</span>
                             {course.originalPrice && course.originalPrice > course.price && (
                               <span className="text-gray-500 line-through">{course.originalPrice}</span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-2xl font-bold text-green-400">مجاني</span>
+                          <span className="text-2xl font-bold text-green-400">free</span>
                         )}
                       </div>
                       
@@ -281,7 +281,7 @@ const CoursesPage = () => {
                         to={`/courses/${course.id}`}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                       >
-                        عرض التفاصيل
+                        View الDetails
                       </Link>
                     </div>
                   </div>

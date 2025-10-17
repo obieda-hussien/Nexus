@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
@@ -146,7 +146,7 @@ const Hero = () => {
           {[
             { 
               number: '10K+', 
-              label: 'Active Students' 
+              label: 'Active students' 
             },
             { 
               number: '500+', 
@@ -192,4 +192,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

@@ -97,7 +97,7 @@ const ReviewsDisplay = ({ courseId }) => {
       <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
           <MessageSquare className="w-5 h-5 ml-2 text-blue-400" />
-          تقييمات الطلاب ({stats.totalReviews})
+          تقييمات students ({stats.totalReviews})
         </h3>
 
         {stats.totalReviews > 0 ? (
@@ -108,7 +108,7 @@ const ReviewsDisplay = ({ courseId }) => {
                 <div className="flex items-center mb-1">
                   {renderStars(Math.round(stats.averageRating))}
                 </div>
-                <div className="text-gray-400 text-sm">من {stats.totalReviews} تقييم</div>
+                <div className="text-gray-400 text-sm">from {stats.totalReviews} تقييم</div>
               </div>
             </div>
 
@@ -138,8 +138,8 @@ const ReviewsDisplay = ({ courseId }) => {
         ) : (
           <div className="text-center py-8">
             <Star className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-400">لا توجد تقييمات حتى الآن</p>
-            <p className="text-gray-500 text-sm">كن أول من يقيم هذا الكورس</p>
+            <p className="text-gray-400">لا توجد تقييمات حتى Now</p>
+            <p className="text-gray-500 text-sm">كن أول from يRate this الكورس</p>
           </div>
         )}
       </div>
@@ -147,7 +147,7 @@ const ReviewsDisplay = ({ courseId }) => {
       {/* Individual Reviews */}
       {reviews.length > 0 && (
         <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-white">آراء الطلاب</h4>
+          <h4 className="text-lg font-semibold text-white">آراء students</h4>
           {reviews.map((review) => (
             <div key={review.id} className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               {/* Review Header */}
@@ -157,7 +157,7 @@ const ReviewsDisplay = ({ courseId }) => {
                     <User className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h5 className="text-white font-semibold">{review.studentName || 'طالب'}</h5>
+                    <h5 className="text-white font-semibold">{review.studentName || 'student'}</h5>
                     <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-400">
                       <Calendar className="w-4 h-4" />
                       <span>{new Date(review.createdAt).toLocaleDateString('ar-EG')}</span>
@@ -186,7 +186,7 @@ const ReviewsDisplay = ({ courseId }) => {
                 <div className="mt-4 p-4 bg-blue-500/20 rounded-lg border-r-4 border-blue-400">
                   <div className="flex items-center mb-2">
                     <Reply className="w-4 h-4 text-blue-400 ml-2" />
-                    <span className="text-blue-300 font-semibold">رد المدرس</span>
+                    <span className="text-blue-300 font-semibold">Instructor Reply</span>
                     <span className="text-gray-400 text-sm mr-auto">
                       {new Date(review.instructorReply.timestamp).toLocaleDateString('ar-EG')}
                     </span>

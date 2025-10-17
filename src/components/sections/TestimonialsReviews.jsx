@@ -6,57 +6,57 @@ const TestimonialsReviews = () => {
   const testimonials = [
     {
       id: 1,
-      name: "أحمد محمد علي",
+      name: "Ahmed Mohamed Ali",
       nameEn: "Ahmed Mohamed Ali",
-      role: "طالب هندسة - جامعة القاهرة",
-      roleEn: "Engineering Student - Cairo University",
+      role: "student هندسة - Cairo University",
+      roleEn: "Engineering student - Cairo University",
       avatar: "👨‍🎓",
       rating: 5,
-      review: "منصة رائعة ساعدتني في فهم الفيزياء بطريقة سهلة ومبسطة. الشرح واضح والأمثلة عملية.",
+      review: "fromصة رائعة ساعدتني in فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والExamples process.",
       reviewEn: "Amazing platform that helped me understand physics in an easy and simplified way. Clear explanations and practical examples."
     },
     {
       id: 2,
       name: "فاطمة أحمد حسن",
       nameEn: "Fatma Ahmed Hassan",
-      role: "طالبة رياضيات - جامعة الأزهر",
-      roleEn: "Mathematics Student - Al-Azhar University",
+      role: "studentة Mathematics - Al-Azhar University",
+      roleEn: "Mathematics student - Al-Azhar University",
       avatar: "👩‍🎓",
       rating: 5,
-      review: "أفضل منصة تعليمية جربتها. المحتوى غني والتفاعل مع المدرسين ممتاز.",
+      review: "أفضل fromصة تعليمية جربتها. Content غني والتفاعل with Instructorين ممتاز.",
       reviewEn: "The best educational platform I've tried. Rich content and excellent interaction with instructors."
     },
     {
       id: 3,
       name: "محمد أشرف سالم",
       nameEn: "Mohamed Ashraf Salem",
-      role: "مدرس فيزياء - وزارة التربية والتعليم",
+      role: "Instructor Physics - وزارة التربية والتعليم",
       roleEn: "Physics Teacher - Ministry of Education",
       avatar: "👨‍🏫",
       rating: 5,
-      review: "استخدم المنصة في التدريس لطلابي. أدوات رائعة وطرق تدريس حديثة.",
+      review: "استخدم platform in التدريس لطلابي. أدوات رائعة وطرق تدريس Recentة.",
       reviewEn: "I use the platform for teaching my students. Great tools and modern teaching methods."
     },
     {
       id: 4,
       name: "سارة محمود عبدالله",
       nameEn: "Sara Mahmoud Abdullah",
-      role: "طالبة ثانوية عامة",
-      roleEn: "High School Student",
+      role: "studentة High School",
+      roleEn: "High School student",
       avatar: "👩‍💼",
       rating: 5,
-      review: "ساعدتني المنصة في التحضير للثانوية العامة وحصلت على درجات ممتازة في الفيزياء والرياضيات.",
+      review: "ساعدتني platform in التحضير للثانوية الyearة وحصلت on درجات ممتازة in Physics وMathematics.",
       reviewEn: "The platform helped me prepare for high school exams and I got excellent grades in physics and mathematics."
     },
     {
       id: 5,
       name: "عمر حسام الدين",
       nameEn: "Omar Hossam El-Din",
-      role: "طالب دراسات عليا - جامعة عين شمس",
-      roleEn: "Graduate Student - Ain Shams University",
+      role: "student دراسات عليا - Ain Shams University",
+      roleEn: "Graduate student - Ain Shams University",
       avatar: "👨‍🔬",
       rating: 5,
-      review: "المحتوى المتقدم في الفيزياء النظرية ممتاز. استفدت كثيراً في رسالة الماجستير.",
+      review: "Content الAdvanced in Theoretical Physics ممتاز. استفدت كثيراً in Thesis الMaster.",
       reviewEn: "The advanced content in theoretical physics is excellent. It helped me a lot with my master's thesis."
     },
     {
@@ -67,7 +67,7 @@ const TestimonialsReviews = () => {
       roleEn: "Computer Engineer",
       avatar: "👩‍💻",
       rating: 4,
-      review: "منصة متميزة لتعلم الرياضيات التطبيقية. أنصح بها كل المهندسين.",
+      review: "fromصة متميزة لتعلم Applied Mathematics. أنصح بها all المهندسين.",
       reviewEn: "Excellent platform for learning applied mathematics. I recommend it to all engineers."
     }
   ];
@@ -76,23 +76,23 @@ const TestimonialsReviews = () => {
     {
       icon: <Award className="w-8 h-8" />,
       title: "Best Educational Platform",
-      titleAr: "أفضل منصة تعليمية",
+      titleAr: "أفضل fromصة تعليمية",
       subtitle: "Egypt Education Awards 2024",
       subtitleAr: "جوائز التعليم المصري ٢٠٢٤"
     },
     {
       icon: <ThumbsUp className="w-8 h-8" />,
-      title: "98% Student Satisfaction",
-      titleAr: "٩٨٪ رضا الطلاب",
+      title: "98% student Satisfaction",
+      titleAr: "٩٨٪ رضا students",
       subtitle: "Based on 10,000+ reviews",
-      subtitleAr: "بناءً على أكثر من ١٠٠٠٠ تقييم"
+      subtitleAr: "بناءً on أكثر from ١٠٠٠٠ تقييم"
     },
     {
       icon: <Star className="w-8 h-8" />,
       title: "5-Star Rating",
       titleAr: "تقييم ٥ نجوم",
       subtitle: "Top-rated in Egypt",
-      subtitleAr: "الأعلى تقييماً في مصر"
+      subtitleAr: "Highest Rated in مصر"
     }
   ];
 
@@ -118,14 +118,14 @@ const TestimonialsReviews = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-white mb-4">
-            <span className="block">What Our Students Say</span>
-            <span className="block text-2xl text-purple-300 mt-2">ماذا يقول طلابنا</span>
+            <span className="block">What Our students Say</span>
+            <span className="block text-2xl text-purple-300 mt-2">what يقول طلابنا</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Real feedback from thousands of successful students across Egypt
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            تقييمات حقيقية من آلاف الطلاب الناجحين في جميع أنحاء مصر
+            تقييمات حقيقية from آلاف students الناجحين in جميع أنحاء مصر
           </p>
         </motion.div>
 
@@ -222,17 +222,17 @@ const TestimonialsReviews = () => {
         >
           <div className="glass-card p-8 rounded-2xl backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-white/20">
             <h3 className="text-2xl font-bold text-white mb-4">
-              Join 10,000+ Successful Students
+              Join 10,000+ Successful students
             </h3>
             <p className="text-lg text-purple-300 mb-6">
-              انضم إلى أكثر من ١٠٠٠٠ طالب ناجح
+              انضم to أكثر from ١٠٠٠٠ student ناجح
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
             >
-              Start Your Success Story | ابدأ قصة نجاحك
+              Start Your Success Story | ابدأ Cutة Successك
             </motion.button>
           </div>
         </motion.div>

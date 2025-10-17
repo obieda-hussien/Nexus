@@ -9,43 +9,43 @@ export const addSampleReviews = async () => {
     const sampleReviews = [
       {
         studentId: 'student1',
-        studentName: 'أحمد محمد',
+        studentName: 'Ahmed Mohamed',
         rating: 5,
-        comment: 'كورس ممتاز وشرح واضح جداً! استفدت كثيراً من المحتوى المقدم والأمثلة العملية.',
+        comment: 'كورس ممتاز وشرح واضح جداً! استفدت كثيراً from Content المقدم والExamples الprocess.',
         createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days ago
       },
       {
         studentId: 'student2',
         studentName: 'فاطمة أحمد',
         rating: 4,
-        comment: 'كورس مفيد ومفهوم، لكن كنت أتمنى المزيد من التمارين العملية.',
+        comment: 'كورس مinد ومفهوم، لكن كنت أتfromى More from التمارين الprocess.',
         createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
         instructorReply: {
-          message: 'شكراً لك على التقييم! سأضيف المزيد من التمارين العملية في التحديث القادم.',
+          message: 'Thank you لك on Rating! سأضيف More from التمارين الprocess in الUpdate القادم.',
           timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
           instructorId: 'instructor1',
-          instructorName: 'د. محمد علي'
+          instructorName: 'Dr. محمد علي'
         }
       },
       {
         studentId: 'student3',
         studentName: 'عمر حسام',
         rating: 5,
-        comment: 'من أفضل الكورسات التي أخذتها! المحتوى منظم والشرح مبسط ومفهوم.',
+        comment: 'from أفضل Courses التي أخذتها! Content fromظم والشرح مبسط ومفهوم.',
         createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString() // 1 week ago
       },
       {
         studentId: 'student4',
         studentName: 'سارة محمود',
         rating: 3,
-        comment: 'الكورس جيد بشكل عام، لكن أحتاج لوقت أكثر لفهم بعض المفاهيم.',
+        comment: 'الكورس جيد correctly year، لكن أحتاج لوقت أكثر لفهم some المفاهيم.',
         createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString() // 10 days ago
       },
       {
         studentId: 'student5',
         studentName: 'خالد أشرف',
         rating: 4,
-        comment: 'شرح واضح ومنظم، أنصح به بقوة!',
+        comment: 'شرح واضح وfromظم، أنصح به بقوة!',
         createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString() // 2 weeks ago
       }
     ];
