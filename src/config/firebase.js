@@ -10,7 +10,7 @@ import { getAnalytics } from 'firebase/analytics';
 const firebaseConfig = {
   apiKey: "AIzaSyDjl-tbsDaqx_9vpZaCqn45eT06kKPVU6A",
   authDomain: "nexus-012.firebaseapp.com",
-  databaseURL: "https://nexus-012-default-rtdb.firebaseio.com", // Realtime Database URL
+  databaseURL: "https://nexus-012.firebaseio.com", // Corrected Realtime Database URL
   projectId: "nexus-012", 
   storageBucket: "nexus-012.firebasestorage.app", // Storage not used in free plan
   messagingSenderId: "272428886699",
