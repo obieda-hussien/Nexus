@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { useInView as useIntersectionObserver } from 'react-intersection-observer';
 
 const Stats = () => {
-  const [isRTL, setIsRTL] = useState(false);
   const [counters, setCounters] = useState({
     students: 0,
     courses: 0,
@@ -15,11 +14,6 @@ const Stats = () => {
     threshold: 0.3,
     triggerOnce: true
   });
-
-  useEffect(() => {
-    const dir = document.documentElement.getAttribute('dir');
-    setIsRTL(dir === 'rtl');
-  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -63,7 +57,7 @@ const Stats = () => {
       id: 'students',
       value: counters.students,
       suffix: '+',
-      label: isRTL ? 'طالب مسجل' : 'Registered Students',
+      label: 'Registered Students',
       icon: '👥',
       color: 'from-blue-500 to-purple-600'
     },
@@ -71,7 +65,7 @@ const Stats = () => {
       id: 'courses',
       value: counters.courses,
       suffix: '+',
-      label: isRTL ? 'دورة متاحة' : 'Available Courses',
+      label: 'Available Courses',
       icon: '📚',
       color: 'from-purple-500 to-pink-600'
     },
@@ -79,7 +73,7 @@ const Stats = () => {
       id: 'success',
       value: counters.success,
       suffix: '%',
-      label: isRTL ? 'معدل النجاح' : 'Success Rate',
+      label: 'Success Rate',
       icon: '🎯',
       color: 'from-green-500 to-blue-600'
     },
@@ -87,7 +81,7 @@ const Stats = () => {
       id: 'awards',
       value: counters.awards,
       suffix: '+',
-      label: isRTL ? 'جائزة حصلنا عليها' : 'Awards Won',
+      label: 'Awards Won',
       icon: '🏆',
       color: 'from-yellow-500 to-orange-600'
     }
@@ -129,14 +123,11 @@ const Stats = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">
-              {isRTL ? 'إنجازاتنا بالأرقام' : 'Our Achievements in Numbers'}
+              Our Achievements in Numbers
             </span>
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
-            {isRTL 
-              ? 'نفخر بما حققناه من نجاحات في رحلتنا التعليمية'
-              : 'We are proud of our achievements in our educational journey'
-            }
+            We are proud of our achievements in our educational journey
           </p>
         </motion.div>
 
@@ -230,10 +221,7 @@ const Stats = () => {
         >
           <div className="glass rounded-lg p-6 max-w-2xl mx-auto">
             <p className="text-text-secondary leading-relaxed">
-              {isRTL 
-                ? 'منذ انطلاقنا، ساعدنا آلاف الطلاب على تحقيق أهدافهم التعليمية والمهنية من خلال برامج تدريبية عالية الجودة ومتابعة مستمرة.'
-                : 'Since our launch, we have helped thousands of students achieve their educational and professional goals through high-quality training programs and continuous follow-up.'
-              }
+              Since our launch, we have helped thousands of students achieve their educational and professional goals through high-quality training programs and continuous follow-up.
             </p>
           </div>
         </motion.div>
