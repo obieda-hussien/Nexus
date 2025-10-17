@@ -10,7 +10,6 @@ import FirebaseDiagnostic from '../auth/FirebaseDiagnostic';
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isRTL, setIsRTL] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState('login');
   const [showDashboard, setShowDashboard] = useState(false);
@@ -30,34 +29,29 @@ const Navigation = () => {
   const navItems = [
     { 
       id: 'courses', 
-      label: isRTL ? 'الدورات' : 'Courses', 
+      label: 'Courses', 
       icon: BookOpen,
       href: '#courses' 
     },
     { 
       id: 'about', 
-      label: isRTL ? 'حولنا' : 'About', 
+      label: 'About', 
       icon: Users,
       href: '#about' 
     },
     { 
       id: 'instructor', 
-      label: isRTL ? 'المدرس' : 'Instructor', 
+      label: 'Become Instructor', 
       icon: Award,
       href: '#instructor' 
     },
     { 
       id: 'contact', 
-      label: isRTL ? 'تواصل معنا' : 'Contact', 
+      label: 'Contact', 
       icon: Phone,
       href: '#contact' 
     }
   ];
-
-  const toggleLanguage = () => {
-    setIsRTL(!isRTL);
-    document.documentElement.setAttribute('dir', !isRTL ? 'rtl' : 'ltr');
-  };
 
   const handleAuthAction = (mode) => {
     setAuthMode(mode);
@@ -109,9 +103,7 @@ const Navigation = () => {
             <div className="w-8 h-8 rounded-lg bg-accent-gradient flex items-center justify-center">
               <span className="text-white font-bold text-xl">N</span>
             </div>
-            <span className="text-xl font-bold gradient-text">
-              {isRTL ? 'نيكسوس' : 'Nexus'}
-            </span>
+            <span className="text-xl font-bold gradient-text">Nexus</span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -125,24 +117,13 @@ const Navigation = () => {
                   className="flex items-center space-x-2 text-text-secondary hover:text-white transition-colors duration-300"
                   whileHover={{ scale: 1.05, color: '#00d4ff' }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label={`${item.label} - ${isRTL ? 'اذهب إلى قسم' : 'Go to'} ${item.label}`}
+                  aria-label={`Go to ${item.label}`}
                 >
                   <Icon size={16} aria-hidden="true" />
                   <span>{item.label}</span>
                 </motion.a>
               );
             })}
-            
-            {/* Language Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleLanguage}
-              className="ml-4"
-              aria-label={isRTL ? 'تبديل إلى الإنجليزية' : 'Switch to Arabic'}
-            >
-              {isRTL ? 'EN' : 'عربي'}
-            </Button>
             
             {/* Authentication Section */}
             {currentUser ? (
@@ -154,7 +135,7 @@ const Navigation = () => {
                   className="flex items-center space-x-2"
                 >
                   <UserCircle size={16} />
-                  <span>{currentUser.displayName || 'المستخدم'}</span>
+                  <span>{currentUser.displayName || 'User'}</span>
                 </Button>
                 
                 {/* Firebase Diagnostic Button - Show if there are issues */}
@@ -163,7 +144,7 @@ const Navigation = () => {
                   size="sm"
                   onClick={() => setShowDiagnostic(true)}
                   className="flex items-center space-x-2 text-orange-400 hover:text-orange-300"
-                  title="تشخيص Firebase"
+                  title="Firebase Diagnostic"
                 >
                   <Settings size={16} />
                 </Button>
@@ -173,7 +154,7 @@ const Navigation = () => {
                   size="sm"
                   onClick={handleLogout}
                 >
-                  {isRTL ? 'تسجيل خروج' : 'Logout'}
+                  Logout
                 </Button>
               </div>
             ) : (
@@ -184,7 +165,7 @@ const Navigation = () => {
                   size="sm"
                   onClick={() => setShowDiagnostic(true)}
                   className="flex items-center space-x-2 text-orange-400 hover:text-orange-300"
-                  title="تشخيص Firebase"
+                  title="Firebase Diagnostic"
                 >
                   <Settings size={16} />
                 </Button>
@@ -196,14 +177,14 @@ const Navigation = () => {
                   className="flex items-center space-x-2"
                 >
                   <LogIn size={16} />
-                  <span>{isRTL ? 'دخول' : 'Login'}</span>
+                  <span>Login</span>
                 </Button>
                 <Button 
                   variant="gradient" 
                   size="sm"
                   onClick={() => handleAuthAction('register')}
                 >
-                  {isRTL ? 'انضم الآن' : 'Join Now'}
+                  Join Now
                 </Button>
               </div>
             )}
@@ -215,7 +196,7 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:text-neon-blue transition-colors duration-300"
               whileTap={{ scale: 0.95 }}
-              aria-label={isOpen ? (isRTL ? 'إغلاق القائمة' : 'Close menu') : (isRTL ? 'فتح القائمة' : 'Open menu')}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -243,7 +224,7 @@ const Navigation = () => {
                       className="flex items-center space-x-2 text-text-secondary hover:text-white transition-colors duration-300 py-2"
                       onClick={() => setIsOpen(false)}
                       whileHover={{ x: 5 }}
-                      aria-label={`${item.label} - ${isRTL ? 'اذهب إلى قسم' : 'Go to'} ${item.label}`}
+                      aria-label={`Go to ${item.label}`}
                     >
                       <Icon size={16} aria-hidden="true" />
                       <span>{item.label}</span>
@@ -252,16 +233,6 @@ const Navigation = () => {
                 })}
                 
                 <div className="flex space-x-2 pt-4 border-t border-glass-border">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={toggleLanguage}
-                    className="flex-1"
-                    aria-label={isRTL ? 'تبديل إلى الإنجليزية' : 'Switch to Arabic'}
-                  >
-                    {isRTL ? 'EN' : 'عربي'}
-                  </Button>
-                  
                   {currentUser ? (
                     <div className="flex space-x-2 flex-1">
                       <Button
@@ -274,7 +245,7 @@ const Navigation = () => {
                         className="flex-1"
                       >
                         <UserCircle size={16} className="ml-1" />
-                        {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+                        Dashboard
                       </Button>
                       <Button
                         variant="outline"
@@ -285,7 +256,7 @@ const Navigation = () => {
                         }}
                         className="flex-1"
                       >
-                        {isRTL ? 'خروج' : 'Logout'}
+                        Logout
                       </Button>
                     </div>
                   ) : (
@@ -299,7 +270,7 @@ const Navigation = () => {
                         }}
                         className="flex-1"
                       >
-                        {isRTL ? 'دخول' : 'Login'}
+                        Login
                       </Button>
                       <Button 
                         variant="gradient" 
@@ -310,7 +281,7 @@ const Navigation = () => {
                         }}
                         className="flex-1"
                       >
-                        {isRTL ? 'انضم' : 'Join'}
+                        Join
                       </Button>
                     </div>
                   )}
