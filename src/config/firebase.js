@@ -40,11 +40,14 @@ export const checkDatabaseConnection = async () => {
     console.log('✅ Realtime Database connection successful');
     return true;
   } catch (error) {
-    console.error('❌ Realtime Database connection failed:', error);
-    console.error('Error details:', {
-      code: error.code,
-      message: error.message
-    });
+    // Handle permission denied errors more gracefully
+    if (error.code === 'PERMISSION_DENIED') {
+      console.warn('⚠️ Realtime Database: Permission denied. Please check Firebase rules.');
+    } else if (error.message?.includes('ERR_NAME_NOT_RESOLVED')) {
+      console.warn('⚠️ Realtime Database: Network error. Please check your internet connection.');
+    } else {
+      console.warn('⚠️ Realtime Database connection issue:', error.code || error.message);
+    }
     return false;
   }
 };
