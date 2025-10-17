@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/Nexus/',
   build: {
+    // Enable source maps for production debugging
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {

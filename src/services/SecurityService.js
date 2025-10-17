@@ -281,11 +281,12 @@ class SecurityService {
       }
     });
 
-    // Monitor for suspicious navigation patterns
+    // Monitor for suspicious navigation patterns using pagehide instead of beforeunload
+    // pagehide is the modern replacement for beforeunload and not deprecated
     let navigationCount = 0;
     const navigationThreshold = 50; // Threshold for rapid navigation
 
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener('pagehide', () => {
       navigationCount++;
       if (navigationCount > navigationThreshold) {
         this.logSecurityEvent('suspicious_navigation', {
