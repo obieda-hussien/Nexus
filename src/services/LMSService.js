@@ -355,7 +355,7 @@ class LMSService {
       return result;
     } catch (error) {
       console.error('Error submitting quiz result:', error);
-      throw new Error('فشل في إرسال نتيجة الاختبار');
+      throw new Error('فشل في Submit نتيجة الQuiz');
     }
   }
 
@@ -513,7 +513,7 @@ class LMSService {
       return true;
     } catch (error) {
       console.error('Error submitting course review:', error);
-      throw new Error('فشل في إرسال التقييم');
+      throw new Error('فشل في Submit التقييم');
     }
   }
 

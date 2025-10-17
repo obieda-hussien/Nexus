@@ -34,52 +34,52 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
     try {
       if (authMode === 'login') {
         await signin(email, password);
-        setSuccess('تم تسجيل الدخول بنجاح!');
+        setSuccess('Login successful!');
         setTimeout(() => {
           onClose();
           resetForm();
         }, 1500);
       } else if (authMode === 'register') {
         if (password !== confirmPassword) {
-          setError('كلمات المرور غير متطابقة');
+          setError('Passwords do not match');
           setLoading(false);
           return;
         }
         if (password.length < 6) {
-          setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+          setError('Password must be at least 6 characters');
           setLoading(false);
           return;
         }
         await signup(email, password, displayName);
-        setSuccess('تم إنشاء الحساب بنجاح!');
+        setSuccess('Account created successfully!');
         setTimeout(() => {
           onClose();
           resetForm();
         }, 1500);
       } else if (authMode === 'reset') {
         await resetPassword(email);
-        setSuccess('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+        setSuccess('Password reset link sent to your email');
       }
     } catch (error) {
       console.error('Auth error:', error);
       switch (error.code) {
         case 'auth/user-not-found':
-          setError('هذا البريد الإلكتروني غير مسجل');
+          setError('This email is not registered');
           break;
         case 'auth/wrong-password':
-          setError('كلمة المرور غير صحيحة');
+          setError('Incorrect password');
           break;
         case 'auth/email-already-in-use':
-          setError('هذا البريد الإلكتروني مستخدم بالفعل');
+          setError('This email is already in use');
           break;
         case 'auth/weak-password':
-          setError('كلمة المرور ضعيفة جداً');
+          setError('Password is too weak');
           break;
         case 'auth/invalid-email':
-          setError('البريد الإلكتروني غير صحيح');
+          setError('Invalid email address');
           break;
         default:
-          setError('حدث خطأ. يرجى المحاولة مرة أخرى');
+          setError('An error occurred. Please try again');
       }
     }
     setLoading(false);
@@ -99,9 +99,9 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
         <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 p-6 text-white border-b border-glass-border">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold text-white">
-              {authMode === 'login' && 'تسجيل الدخول'}
-              {authMode === 'register' && 'إنشاء حساب جديد'}
-              {authMode === 'reset' && 'إعادة تعيين كلمة المرور'}
+              {authMode === 'login' && 'Login'}
+              {authMode === 'register' && 'Create New Account'}
+              {authMode === 'reset' && 'Reset Password'}
             </h2>
             <button
               onClick={() => {
@@ -121,7 +121,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {authMode === 'register' && (
             <div>
               <label className="block text-gray-300 text-sm font-bold mb-2">
-                الاسم الكامل
+                Full Name
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -130,7 +130,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
-                  placeholder="أدخل اسمك الكامل"
+                  placeholder="Enter your full name"
                   required
                 />
               </div>
@@ -140,7 +140,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {/* Email */}
           <div>
             <label className="block text-gray-300 text-sm font-bold mb-2">
-              البريد الإلكتروني
+              Email
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -149,7 +149,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
-                placeholder="أدخل بريدك الإلكتروني"
+                placeholder="Enter your email"
                 required
               />
             </div>
@@ -159,7 +159,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {authMode !== 'reset' && (
             <div>
               <label className="block text-gray-300 text-sm font-bold mb-2">
-                كلمة المرور
+                Password
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -168,7 +168,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-10 pr-12 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
-                  placeholder="أدخل كلمة المرور"
+                  placeholder="Enter your password"
                   required
                 />
                 <button
@@ -186,7 +186,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
           {authMode === 'register' && (
             <div>
               <label className="block text-gray-300 text-sm font-bold mb-2">
-                تأكيد كلمة المرور
+                Confirm Password
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -195,7 +195,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-glass-bg border border-glass-border rounded-lg focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
-                  placeholder="أعد كتابة كلمة المرور"
+                  placeholder="Re-enter your password"
                   required
                 />
               </div>
@@ -227,13 +227,13 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>جاري المعالجة...</span>
+                <span>Processing...</span>
               </div>
             ) : (
               <>
-                {authMode === 'login' && 'تسجيل الدخول'}
-                {authMode === 'register' && 'إنشاء الحساب'}
-                {authMode === 'reset' && 'إرسال رابط الإعادة'}
+                {authMode === 'login' && 'Login'}
+                {authMode === 'register' && 'Create Account'}
+                {authMode === 'reset' && 'Send Reset Link'}
               </>
             )}
           </button>
@@ -243,7 +243,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
             {authMode === 'login' && (
               <>
                 <p className="text-gray-400">
-                  ليس لديك حساب؟{' '}
+                  Don't have an account?{' '}
                   <button
                     type="button"
                     onClick={() => {
@@ -252,11 +252,11 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                     }}
                     className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                   >
-                    إنشاء حساب جديد
+                    Create New Account
                   </button>
                 </p>
                 <p className="text-gray-400">
-                  نسيت كلمة المرور؟{' '}
+                  Forgot password?{' '}
                   <button
                     type="button"
                     onClick={() => {
@@ -265,14 +265,14 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                     }}
                     className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                   >
-                    إعادة تعيين
+                    Reset
                   </button>
                 </p>
               </>
             )}
             {authMode === 'register' && (
               <p className="text-gray-400">
-                لديك حساب بالفعل؟{' '}
+                Already have an account?{' '}
                 <button
                   type="button"
                   onClick={() => {
@@ -281,13 +281,13 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   }}
                   className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                 >
-                  تسجيل الدخول
+                  Login
                 </button>
               </p>
             )}
             {authMode === 'reset' && (
               <p className="text-gray-400">
-                تذكرت كلمة المرور؟{' '}
+                Remember your password?{' '}
                 <button
                   type="button"
                   onClick={() => {
@@ -296,7 +296,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   }}
                   className="text-neon-blue hover:text-neon-blue/80 font-bold transition-colors duration-200"
                 >
-                  تسجيل الدخول
+                  Login
                 </button>
               </p>
             )}

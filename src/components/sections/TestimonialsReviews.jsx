@@ -8,29 +8,29 @@ const TestimonialsReviews = () => {
       id: 1,
       name: "أحمد محمد علي",
       nameEn: "Ahmed Mohamed Ali",
-      role: "طالب هندسة - جامعة القاهرة",
+      role: "Student هندسة - University القاهرة",
       roleEn: "Engineering Student - Cairo University",
       avatar: "👨‍🎓",
       rating: 5,
-      review: "منصة رائعة ساعدتني في فهم الفيزياء بطريقة سهلة ومبسطة. الشرح واضح والأمثلة عملية.",
+      review: "منصة رائعة ساعدتني في فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والأمثلة عملية.",
       reviewEn: "Amazing platform that helped me understand physics in an easy and simplified way. Clear explanations and practical examples."
     },
     {
       id: 2,
       name: "فاطمة أحمد حسن",
       nameEn: "Fatma Ahmed Hassan",
-      role: "طالبة رياضيات - جامعة الأزهر",
+      role: "Studentة Mathematics - University الأزهر",
       roleEn: "Mathematics Student - Al-Azhar University",
       avatar: "👩‍🎓",
       rating: 5,
-      review: "أفضل منصة تعليمية جربتها. المحتوى غني والتفاعل مع المدرسين ممتاز.",
+      review: "أفضل منصة تعليمية جربتها. المحتوى غني والتفاعل مع Instructorين ممتاز.",
       reviewEn: "The best educational platform I've tried. Rich content and excellent interaction with instructors."
     },
     {
       id: 3,
       name: "محمد أشرف سالم",
       nameEn: "Mohamed Ashraf Salem",
-      role: "مدرس فيزياء - وزارة التربية والتعليم",
+      role: "مدرس Physics - وزارة التربية والتعليم",
       roleEn: "Physics Teacher - Ministry of Education",
       avatar: "👨‍🏫",
       rating: 5,
@@ -41,22 +41,22 @@ const TestimonialsReviews = () => {
       id: 4,
       name: "سارة محمود عبدالله",
       nameEn: "Sara Mahmoud Abdullah",
-      role: "طالبة ثانوية عامة",
+      role: "Studentة ثانوية عامة",
       roleEn: "High School Student",
       avatar: "👩‍💼",
       rating: 5,
-      review: "ساعدتني المنصة في التحضير للثانوية العامة وحصلت على درجات ممتازة في الفيزياء والرياضيات.",
+      review: "ساعدتني المنصة في التحضير للثانوية العامة وحصلت على درجات ممتازة في Physics وMathematics.",
       reviewEn: "The platform helped me prepare for high school exams and I got excellent grades in physics and mathematics."
     },
     {
       id: 5,
       name: "عمر حسام الدين",
       nameEn: "Omar Hossam El-Din",
-      role: "طالب دراسات عليا - جامعة عين شمس",
+      role: "Student دراسات عليا - University عين شمس",
       roleEn: "Graduate Student - Ain Shams University",
       avatar: "👨‍🔬",
       rating: 5,
-      review: "المحتوى المتقدم في الفيزياء النظرية ممتاز. استفدت كثيراً في رسالة الماجستير.",
+      review: "المحتوى الAdvanced في Physics النظرية ممتاز. استفدت كثيراً في رسالة الماجستير.",
       reviewEn: "The advanced content in theoretical physics is excellent. It helped me a lot with my master's thesis."
     },
     {
@@ -67,7 +67,7 @@ const TestimonialsReviews = () => {
       roleEn: "Computer Engineer",
       avatar: "👩‍💻",
       rating: 4,
-      review: "منصة متميزة لتعلم الرياضيات التطبيقية. أنصح بها كل المهندسين.",
+      review: "منصة متميزة لتعلم Applied Mathematics. أنصح بها كل المهندسين.",
       reviewEn: "Excellent platform for learning applied mathematics. I recommend it to all engineers."
     }
   ];
@@ -83,7 +83,7 @@ const TestimonialsReviews = () => {
     {
       icon: <ThumbsUp className="w-8 h-8" />,
       title: "98% Student Satisfaction",
-      titleAr: "٩٨٪ رضا الطلاب",
+      titleAr: "٩٨٪ رضا Students",
       subtitle: "Based on 10,000+ reviews",
       subtitleAr: "بناءً على أكثر من ١٠٠٠٠ تقييم"
     },
@@ -125,7 +125,7 @@ const TestimonialsReviews = () => {
             Real feedback from thousands of successful students across Egypt
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            تقييمات حقيقية من آلاف الطلاب الناجحين في جميع أنحاء مصر
+            تقييمات حقيقية من آلاف Students الناجحين في جميع أنحاء مصر
           </p>
         </motion.div>
 
@@ -225,7 +225,7 @@ const TestimonialsReviews = () => {
               Join 10,000+ Successful Students
             </h3>
             <p className="text-lg text-purple-300 mb-6">
-              انضم إلى أكثر من ١٠٠٠٠ طالب ناجح
+              انضم إلى أكثر من ١٠٠٠٠ Student ناجح
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}

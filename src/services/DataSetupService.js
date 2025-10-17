@@ -8,8 +8,8 @@ class DataSetupService {
     try {
       const courses = [
         {
-          title: 'أساسيات الفيزياء للثانوية العامة',
-          description: 'كورس شامل يغطي جميع أساسيات الفيزياء المطلوبة للثانوية العامة',
+          title: 'Physics Basics للثانوية العامة',
+          description: 'كورس شامل يغطي جميع Physics Basics المطلوبة للثانوية العامة',
           subject: 'physics',
           level: 'high_school',
           instructor_id: 'instructor_1',
@@ -17,17 +17,17 @@ class DataSetupService {
           price: 299,
           currency: 'EGP',
           thumbnail: '/images/physics-course.jpg',
-          tags: ['فيزياء', 'ثانوية عامة', 'أساسيات'],
+          tags: ['Physics', 'ثانوية عامة', 'أساسيات'],
           modules: [
             'الميكانيكا',
             'الحرارة والغازات',
             'الكهرباء والمغناطيسية',
             'الضوء والبصريات',
-            'الفيزياء الحديثة'
+            'Physics الحديثة'
           ],
-          requirements: ['معرفة أساسية بالرياضيات', 'آلة حاسبة علمية'],
+          requirements: ['معرفة أساسية بMathematics', 'آلة حاسبة علمية'],
           learning_outcomes: [
-            'فهم القوانين الأساسية للفيزياء',
+            'فهم القوانين الأساسية للPhysics',
             'حل المسائل الفيزيائية بطريقة منهجية',
             'تطبيق المفاهيم النظرية عملياً'
           ],
@@ -37,8 +37,8 @@ class DataSetupService {
           updated_at: new Date().toISOString()
         },
         {
-          title: 'الرياضيات المتقدمة - التفاضل والتكامل',
-          description: 'دراسة معمقة للتفاضل والتكامل مع التطبيقات العملية',
+          title: 'Mathematics الAdvancedة - الCalculus والIntegration',
+          description: 'دراسة معمقة للCalculus والIntegration مع التطبيقات العملية',
           subject: 'mathematics',
           level: 'university',
           instructor_id: 'instructor_2',
@@ -46,19 +46,19 @@ class DataSetupService {
           price: 399,
           currency: 'EGP',
           thumbnail: '/images/math-course.jpg',
-          tags: ['رياضيات', 'تفاضل', 'تكامل', 'جامعة'],
+          tags: ['Mathematics', 'Calculus', 'Integration', 'University'],
           modules: [
             'النهايات والاتصال',
-            'التفاضل',
-            'تطبيقات التفاضل',
-            'التكامل',
-            'تطبيقات التكامل',
-            'المعادلات التفاضلية'
+            'الCalculus',
+            'تطبيقات الCalculus',
+            'الIntegration',
+            'تطبيقات الIntegration',
+            'المعادلات الCalculusية'
           ],
           requirements: ['إتمام الجبر والهندسة بنجاح', 'معرفة جيدة بالدوال'],
           learning_outcomes: [
-            'إتقان مفاهيم التفاضل والتكامل',
-            'حل المعادلات التفاضلية',
+            'إتقان مفاهيم الCalculus والIntegration',
+            'حل المعادلات الCalculusية',
             'تطبيق المفاهيم في المسائل العملية'
           ],
           status: 'active',
@@ -67,8 +67,8 @@ class DataSetupService {
           updated_at: new Date().toISOString()
         },
         {
-          title: 'الكيمياء العضوية الأساسية',
-          description: 'مقدمة شاملة للكيمياء العضوية وتفاعلاتها',
+          title: 'Chemistry العضوية الأساسية',
+          description: 'مقدمة شاملة للChemistry العضوية وتفاعلاتها',
           subject: 'chemistry',
           level: 'university',
           instructor_id: 'instructor_3',
@@ -76,7 +76,7 @@ class DataSetupService {
           price: 349,
           currency: 'EGP',
           thumbnail: '/images/chemistry-course.jpg',
-          tags: ['كيمياء', 'عضوية', 'تفاعلات', 'جامعة'],
+          tags: ['Chemistry', 'عضوية', 'تفاعلات', 'University'],
           modules: [
             'المركبات العضوية',
             'التصاوغ',
@@ -85,7 +85,7 @@ class DataSetupService {
             'المركبات الأروماتية',
             'المجموعات الوظيفية'
           ],
-          requirements: ['أساسيات الكيمياء العامة', 'معرفة بالجدول الدوري'],
+          requirements: ['أساسيات Chemistry العامة', 'معرفة بالجدول الدوري'],
           learning_outcomes: [
             'فهم بنية المركبات العضوية',
             'توقع نتائج التفاعلات العضوية',
@@ -201,8 +201,8 @@ class DataSetupService {
       const quizzes = [
         {
           course_id: courseIds[0],
-          title: 'اختبار أساسيات الميكانيكا',
-          description: 'اختبار شامل على أساسيات الميكانيكا',
+          title: 'Quiz أساسيات الميكانيكا',
+          description: 'Quiz شامل على أساسيات الميكانيكا',
           order: 1,
           time_limit_minutes: 30,
           total_questions: 10,
@@ -247,45 +247,45 @@ class DataSetupService {
     try {
       const sessions = [
         {
-          title: 'مراجعة شاملة في الفيزياء',
+          title: 'مراجعة شاملة في Physics',
           instructor_name: 'د. أحمد محمد',
           subject: 'physics',
           scheduled_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
           duration_minutes: 90,
           max_participants: 100,
           current_participants: 45,
-          description: 'مراجعة شاملة لأهم موضوعات الفيزياء مع حل أمثلة تطبيقية',
+          description: 'مراجعة شاملة لأهم موضوعات Physics مع حل أمثلة تطبيقية',
           meeting_url: 'https://meet.nexus.com/physics-review',
           status: 'scheduled',
-          tags: ['مراجعة', 'فيزياء', 'أمثلة'],
+          tags: ['مراجعة', 'Physics', 'أمثلة'],
           created_at: new Date().toISOString()
         },
         {
-          title: 'حل مسائل التفاضل والتكامل',
+          title: 'حل مسائل الCalculus والIntegration',
           instructor_name: 'د. فاطمة علي',
           subject: 'mathematics',
           scheduled_at: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // Day after tomorrow
           duration_minutes: 120,
           max_participants: 80,
           current_participants: 32,
-          description: 'جلسة تفاعلية لحل مسائل متنوعة في التفاضل والتكامل',
+          description: 'جلسة تفاعلية لحل مسائل متنوعة في الCalculus والIntegration',
           meeting_url: 'https://meet.nexus.com/calculus-problems',
           status: 'scheduled',
-          tags: ['تفاضل', 'تكامل', 'مسائل'],
+          tags: ['Calculus', 'Integration', 'مسائل'],
           created_at: new Date().toISOString()
         },
         {
-          title: 'تجارب الكيمياء العضوية',
+          title: 'تجارب Chemistry العضوية',
           instructor_name: 'د. محمد حسن',
           subject: 'chemistry',
           scheduled_at: new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString(), // 3 days from now
           duration_minutes: 105,
           max_participants: 50,
           current_participants: 28,
-          description: 'عرض تجارب عملية في الكيمياء العضوية مع الشرح التفصيلي',
+          description: 'View تجارب عملية في Chemistry العضوية مع الشرح التفصيلي',
           meeting_url: 'https://meet.nexus.com/organic-chemistry-lab',
           status: 'scheduled',
-          tags: ['تجارب', 'كيمياء عضوية', 'عملي'],
+          tags: ['تجارب', 'Organic Chemistry', 'عملي'],
           created_at: new Date().toISOString()
         }
       ];
@@ -307,43 +307,43 @@ class DataSetupService {
         {
           id: 'instructor_1',
           name: 'د. أحمد محمد علي',
-          title: 'أستاذ الفيزياء - جامعة القاهرة',
-          bio: 'دكتوراه في الفيزياء النظرية مع خبرة 15 عام في التدريس الجامعي والثانوي',
-          specialties: ['فيزياء', 'رياضيات', 'فيزياء نووية'],
+          title: 'أستاذ Physics - University القاهرة',
+          bio: 'دكتوراه في Physics النظرية مع خبرة 15 عام في التدريس الجامعي والثانوي',
+          specialties: ['Physics', 'Mathematics', 'Physics نووية'],
           experience_years: 15,
-          education: ['دكتوراه فيزياء - جامعة القاهرة', 'ماجستير فيزياء - جامعة عين شمس'],
+          education: ['دكتوراه Physics - University القاهرة', 'ماجستير Physics - University عين شمس'],
           rating: 4.8,
           total_students: 2500,
           profile_image: '/images/instructor-1.jpg',
-          languages: ['العربية', 'الإنجليزية'],
+          languages: ['Arabic', 'English'],
           created_at: new Date().toISOString()
         },
         {
           id: 'instructor_2',
           name: 'د. فاطمة علي محمود',
-          title: 'أستاذة الرياضيات - جامعة الأزهر',
-          bio: 'خبيرة في الرياضيات التطبيقية مع التركيز على التفاضل والتكامل والإحصاء',
-          specialties: ['رياضيات', 'إحصاء', 'تحليل عددي'],
+          title: 'أستاذة Mathematics - University الأزهر',
+          bio: 'خبيرة في Applied Mathematics مع التركيز على الCalculus والIntegration والإحصاء',
+          specialties: ['Mathematics', 'إحصاء', 'تحليل عددي'],
           experience_years: 12,
-          education: ['دكتوراه رياضيات - جامعة الأزهر', 'ماجستير رياضيات تطبيقية - جامعة القاهرة'],
+          education: ['دكتوراه Mathematics - University الأزهر', 'ماجستير Mathematics تطبيقية - University القاهرة'],
           rating: 4.9,
           total_students: 1800,
           profile_image: '/images/instructor-2.jpg',
-          languages: ['العربية', 'الإنجليزية'],
+          languages: ['Arabic', 'English'],
           created_at: new Date().toISOString()
         },
         {
           id: 'instructor_3',
           name: 'د. محمد حسن إبراهيم',
-          title: 'أستاذ الكيمياء - جامعة عين شمس',
-          bio: 'متخصص في الكيمياء العضوية والتحليلية مع خبرة واسعة في الأبحاث والتدريس',
-          specialties: ['كيمياء عضوية', 'كيمياء تحليلية', 'كيمياء حيوية'],
+          title: 'أستاذ Chemistry - University عين شمس',
+          bio: 'متخصص في Chemistry العضوية والتحليلية مع خبرة واسعة في الأبحاث والتدريس',
+          specialties: ['Organic Chemistry', 'Chemistry تحليلية', 'Chemistry حيوية'],
           experience_years: 18,
-          education: ['دكتوراه كيمياء عضوية - جامعة عين شمس', 'ماجستير كيمياء - جامعة القاهرة'],
+          education: ['دكتوراه Organic Chemistry - University عين شمس', 'ماجستير Chemistry - University القاهرة'],
           rating: 4.7,
           total_students: 2100,
           profile_image: '/images/instructor-3.jpg',
-          languages: ['العربية', 'الإنجليزية', 'الفرنسية'],
+          languages: ['Arabic', 'English', 'الفرنسية'],
           created_at: new Date().toISOString()
         }
       ];

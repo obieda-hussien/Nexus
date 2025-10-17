@@ -7,7 +7,7 @@ export class FreeExportService {
   static exportToCSV(data, filename = 'export.csv', headers = null) {
     try {
       if (!data || data.length === 0) {
-        throw new Error('لا توجد بيانات للتصدير');
+        throw new Error('No data available للExport');
       }
 
       // Auto-generate headers if not provided
@@ -37,7 +37,7 @@ export class FreeExportService {
       
       return { success: true, format: 'CSV', filename };
     } catch (error) {
-      console.error('خطأ في تصدير CSV:', error);
+      console.error('خطأ في Export CSV:', error);
       return { success: false, error: error.message };
     }
   }
@@ -391,8 +391,8 @@ export class FreeExportService {
 
   static getMonthName(monthNumber) {
     const months = [
-      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
     ];
     return months[monthNumber - 1] || `الشهر ${monthNumber}`;
   }
@@ -409,9 +409,9 @@ export class FreeExportService {
     const names = {
       stripe: 'بطاقة ائتمانية',
       paypal: 'PayPal',
-      fawry: 'فوري',
-      vodafone: 'فودافون كاش',
-      bank: 'تحويل بنكي'
+      fawry: 'Instant',
+      vodafone: 'Vodafone Cash',
+      bank: 'Bank Transfer'
     };
     return names[type] || type;
   }
@@ -429,9 +429,9 @@ export class FreeExportService {
 
   static getStatusNameAr(status) {
     const names = {
-      pending: 'معلق',
-      processing: 'قيد المعالجة',
-      completed: 'مكتمل',
+      pending: 'Suspended',
+      processing: 'Processing',
+      completed: 'Completed',
       failed: 'فاشل',
       cancelled: 'ملغي'
     };
@@ -454,11 +454,11 @@ export class FreeExportService {
     return {
       available: true,
       formats: ['CSV', 'Excel'],
-      cost: 'مجاني 100%',
+      cost: 'Free 100%',
       features: [
-        'تصدير CSV محلي',
-        'تصدير Excel متوافق', 
-        'دعم اللغة العربية',
+        'Export CSV محلي',
+        'Export Excel متوافق', 
+        'دعم اللغة Arabic',
         'لا توجد قيود على الحجم',
         'عمل دون اتصال بالإنترنت'
       ]

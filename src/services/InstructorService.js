@@ -136,8 +136,8 @@ class InstructorService {
       // Send notification to user
       await this.sendNotification(application.userId, {
         type: 'application_approved',
-        title: 'تم قبول طلبك!',
-        message: 'تهانينا! تم قبولك كمدرس في منصة نيكسوس. يمكنك الآن إنشاء كورساتك الأولى.',
+        title: 'Your request has been accepted!',
+        message: 'تهانينا! تم قبولك كمدرس في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.',
         data: { applicationId }
       });
       
@@ -179,7 +179,7 @@ class InstructorService {
       await this.sendNotification(application.userId, {
         type: 'application_rejected',
         title: 'طلبك مرفوض',
-        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح مدرس في هذا الوقت. يمكنك التقديم مرة أخرى لاحقاً.',
+        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح مدرس في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.',
         data: { applicationId }
       });
       
@@ -334,7 +334,7 @@ class InstructorService {
           return { 
             success: true, 
             canApply: false, 
-            reason: `يمكنك التقديم مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} يوم` 
+            reason: `يمكنك التOld مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} يوم` 
           };
         }
       }

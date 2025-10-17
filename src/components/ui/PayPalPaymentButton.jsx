@@ -32,7 +32,7 @@ const PayPalPaymentButton = ({
 
       // Check PayPal configuration
       if (!PayPalCoursePaymentService.isConfigured()) {
-        throw new Error('PayPal غير مُعد بشكل صحيح');
+        throw new Error('PayPal Not ready بشكل صحيح');
       }
 
       // Get payment summary
@@ -72,7 +72,7 @@ const PayPalPaymentButton = ({
 
   const handlePaymentSuccess = async (result) => {
     try {
-      toast.success('🎉 تم الدفع بنجاح! مرحباً بك في الكورس');
+      toast.success('🎉 Payment successful! Welcome to the course');
       
       // Call parent success handler
       if (onSuccess) {
@@ -87,7 +87,7 @@ const PayPalPaymentButton = ({
 
     } catch (error) {
       console.error('❌ Error in success handler:', error);
-      toast.error('حدث خطأ بعد الدفع. يرجى التواصل مع الدعم الفني.');
+      toast.error('An error occurred بعد الدفع. يرجى التواصل مع الدعم الفني.');
     }
   };
 
@@ -154,7 +154,7 @@ const PayPalPaymentButton = ({
             </div>
             <div className="border-t border-glass-border pt-3">
               <div className="flex justify-between items-center">
-                <span className="text-white font-semibold">الإجمالي:</span>
+                <span className="text-white font-semibold">الTotal:</span>
                 <span className="text-neon-blue font-bold text-lg">${paymentSummary.totalUSD}</span>
               </div>
             </div>
@@ -163,7 +163,7 @@ const PayPalPaymentButton = ({
           <div className="mt-4 p-3 glass rounded-lg border border-neon-blue/20">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-neon-blue" />
-              <span className="text-sm text-neon-blue">الرسوم يدفعها الطالب - لا توجد رسوم على المنصة</span>
+              <span className="text-sm text-neon-blue">الرسوم يدفعها الStudent - لا توجد رسوم على المنصة</span>
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ const PayPalPaymentButton = ({
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
-                بيئة اختبار آمنة (Sandbox)
+                بيئة Quiz آمنة (Sandbox)
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>

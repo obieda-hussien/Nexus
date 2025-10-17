@@ -13,7 +13,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
     randomizeQuestions: false,
     settings: {
       description: '',
-      instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+      instructions: 'Read each question carefully and choose the correct answer.',
       showProgress: true,
       requirePassword: false,
       password: ''
@@ -99,13 +99,13 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
   };
 
   const deleteQuestion = (questionId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذا السؤال؟')) return;
+    if (!window.confirm('هل أنت متأكد من Delete هذا السؤال؟')) return;
     
     setQuiz(prev => ({
       ...prev,
       questions: prev.questions.filter(q => q.id !== questionId)
     }));
-    toast.success('تم حذف السؤال');
+    toast.success('تم Delete السؤال');
   };
 
   const moveQuestion = (questionId, direction) => {
@@ -193,7 +193,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
               : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          الإعدادات
+          Settings
         </button>
       </div>
 
@@ -207,7 +207,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
                 <div className="text-center py-8 text-gray-400">
                   <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
                   <p className="text-lg mb-2">لا توجد أسئلة بعد</p>
-                  <p className="text-sm">ابدأ بإضافة أول سؤال للكويز</p>
+                  <p className="text-sm">ابدأ بAdd أول سؤال للكويز</p>
                 </div>
               ) : (
                 quiz.questions.map((question, index) => renderQuestionEditor(question, index))
@@ -215,7 +215,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
 
               {/* Add Question Buttons */}
               <div className="border-t border-gray-600 pt-4">
-                <h4 className="text-white font-medium mb-3">إضافة سؤال جديد:</h4>
+                <h4 className="text-white font-medium mb-3">Add سؤال New:</h4>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => addQuestion('multiple_choice')}
@@ -283,7 +283,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
 
   const removeOption = (optionId) => {
     if (question.options.length <= 2) {
-      toast.error('يجب أن يكون هناك خيارين على الأقل');
+      toast.error('يجب أن يكون هناك خيارين على الLess');
       return;
     }
     onUpdate({ options: question.options.filter(option => option.id !== optionId) });
@@ -398,7 +398,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
                   className="mt-2 flex items-center space-x-1 space-x-reverse text-blue-400 hover:text-blue-300"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>إضافة خيار</span>
+                  <span>Add خيار</span>
                 </button>
               )}
             </div>
@@ -758,7 +758,7 @@ const QuizPreview = ({ quiz, onClose }) => {
             className="flex items-center space-x-2 space-x-reverse px-6 py-3 bg-gray-700 text-gray-300 rounded-xl font-semibold hover:bg-gray-600 hover:text-white transition-all duration-200 border border-gray-600"
           >
             <X className="w-4 h-4" />
-            <span>إغلاق المعاينة</span>
+            <span>Close المعاينة</span>
           </button>
         </div>
       </div>

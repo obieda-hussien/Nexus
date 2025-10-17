@@ -34,7 +34,7 @@ class PayPalCoursePaymentService {
       return this.paypalInstance;
     } catch (error) {
       console.error('❌ Failed to load PayPal SDK:', error);
-      throw new Error('فشل في تحميل خدمة PayPal. يرجى المحاولة مرة أخرى.');
+      throw new Error('Failed to load PayPal service. Please try again.');
     }
   }
 
@@ -93,7 +93,7 @@ class PayPalCoursePaymentService {
             console.log('PayPal payment approved, processing...');
             
             // Show loading state
-            const loadingToast = this.showLoadingToast('جاري معالجة الدفع عبر PayPal...');
+            const loadingToast = this.showLoadingToast('Processing PayPal payment...');
 
             // Capture payment on backend (mock implementation for frontend demo)
             const captureResult = await this.capturePayment(data.orderID, {
@@ -124,20 +124,20 @@ class PayPalCoursePaymentService {
             
           } catch (error) {
             console.error('Error processing PayPal payment:', error);
-            onError(error.message || 'فشل في معالجة الدفع');
+            onError(error.message || 'Payment processing failed');
           }
         },
 
         // Handle errors
         onError: (err) => {
           console.error('PayPal error:', err);
-          onError('حدث خطأ في عملية الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
+          onError('An error occurred في عملية الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
         },
 
         // Handle cancellation
         onCancel: (data) => {
           console.log('PayPal payment cancelled:', data);
-          this.showWarningToast('تم إلغاء عملية الدفع');
+          this.showWarningToast('تم Cancel عملية الدفع');
         }
 
       }).render(`#${containerId}`);
@@ -190,7 +190,7 @@ class PayPalCoursePaymentService {
       console.error('Payment capture error:', error);
       return {
         success: false,
-        error: error.message || 'فشل في تأكيد الدفع'
+        error: error.message || 'فشل في Confirm الدفع'
       };
     }
   }
@@ -343,7 +343,7 @@ class PayPalCoursePaymentService {
       paypalFee: paypalFee.toFixed(2),
       totalUSD: totalUSD.toFixed(2),
       exchangeRate: 31, // Mock rate
-      feeDescription: 'رسوم PayPal (3.4%) - يدفعها الطالب'
+      feeDescription: 'رسوم PayPal (3.4%) - يدفعها الStudent'
     };
   }
 }

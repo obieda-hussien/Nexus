@@ -56,7 +56,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
         });
         setDiagnostics(prev => ({ ...prev, authStatus: true }));
       } else {
-        addTestResult('Authentication', 'error', 'لا يوجد مستخدم مسجل دخول');
+        addTestResult('Authentication', 'error', 'None مستخدم مسجل دخول');
       }
 
       // Test 3: Database Connection
@@ -76,17 +76,17 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
           const userRef = ref(db, `users/${currentUser.uid}`);
           const snapshot = await get(userRef);
           if (snapshot.exists()) {
-            addTestResult('User Profile', 'success', 'ملف المستخدم موجود في قاعدة البيانات', {
+            addTestResult('User Profile', 'success', 'ملف User موجود في قاعدة البيانات', {
               data: snapshot.val()
             });
             setDiagnostics(prev => ({ ...prev, userProfileExists: true }));
           } else {
-            addTestResult('User Profile', 'warning', 'ملف المستخدم غير موجود في قاعدة البيانات', {
-              solution: 'يمكنك إنشاء ملف شخصي جديد من لوحة التحكم'
+            addTestResult('User Profile', 'warning', 'ملف User غير موجود في قاعدة البيانات', {
+              solution: 'يمكنك إنشاء ملف شخصي New من Dashboard'
             });
           }
         } catch (error) {
-          addTestResult('User Profile', 'error', 'خطأ في قراءة ملف المستخدم', {
+          addTestResult('User Profile', 'error', 'خطأ في قراءة ملف User', {
             error: error.message,
             code: error.code
           });
@@ -171,7 +171,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
           
           <div className={`bg-gray-800/50 rounded-xl p-4 text-center ${diagnostics.userProfileExists ? 'border border-green-500/30' : 'border border-gray-700/30'}`}>
             <User className={`w-8 h-8 mx-auto mb-2 ${diagnostics.userProfileExists ? 'text-green-400' : 'text-gray-400'}`} />
-            <p className="text-sm text-gray-300">ملف المستخدم</p>
+            <p className="text-sm text-gray-300">ملف User</p>
           </div>
         </div>
 
@@ -220,7 +220,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-colors"
           >
-            إغلاق
+            Close
           </button>
         </div>
       </div>

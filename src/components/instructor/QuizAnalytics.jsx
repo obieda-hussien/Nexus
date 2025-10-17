@@ -195,7 +195,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <div>
           <h3 className="text-xl font-semibold text-white flex items-center space-x-2 space-x-reverse">
             <BarChart3 className="w-6 h-6 text-blue-400" />
-            <span>تحليلات الكويز</span>
+            <span>Analytics الكويز</span>
           </h3>
           <p className="text-gray-400 text-sm mt-1">{quizTitle}</p>
         </div>
@@ -217,7 +217,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             className="flex items-center space-x-1 space-x-reverse px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
           >
             <Download className="w-4 h-4" />
-            <span>تصدير</span>
+            <span>Export</span>
           </button>
         </div>
       </div>
@@ -226,25 +226,25 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           icon={<Users className="w-6 h-6" />}
-          title="الطلاب المشاركون"
+          title="Students المشاركون"
           value={analytics.uniqueStudents}
           color="blue"
         />
         <MetricCard
           icon={<TrendingUp className="w-6 h-6" />}
-          title="إجمالي المحاولات"
+          title="Total المحاولات"
           value={analytics.totalAttempts}
           color="green"
         />
         <MetricCard
           icon={<Trophy className="w-6 h-6" />}
-          title="متوسط الدرجات"
+          title="Intermediate الدرجات"
           value={`${analytics.averageScore}%`}
           color="yellow"
         />
         <MetricCard
           icon={<Clock className="w-6 h-6" />}
-          title="متوسط الوقت"
+          title="Intermediate الوقت"
           value={`${Math.round(analytics.averageTime / 60)} دقيقة`}
           color="purple"
         />
@@ -320,7 +320,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             {analytics.submissions.slice(0, 10).map((submission) => (
               <div key={submission.id} className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                 <div>
-                  <span className="text-white font-medium">طالب {submission.studentId}</span>
+                  <span className="text-white font-medium">Student {submission.studentId}</span>
                   <div className="text-gray-400 text-sm">
                     {new Date(submission.submittedAt).toLocaleDateString('ar-EG')} • 
                     {Math.round(submission.timeSpent / 60)} دقيقة
@@ -348,7 +348,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <div className="text-center py-8 text-gray-400">
           <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
           <p className="text-lg mb-2">لا توجد محاولات بعد</p>
-          <p className="text-sm">سيتم عرض التحليلات عندما يبدأ الطلاب في حل الكويز</p>
+          <p className="text-sm">سيتم View الAnalytics عندما يبدأ Students في حل الكويز</p>
         </div>
       )}
     </div>
@@ -380,7 +380,7 @@ const getScoreDistribution = (submissions) => {
     { label: '80-89%', min: 80, max: 89 },
     { label: '70-79%', min: 70, max: 79 },
     { label: '60-69%', min: 60, max: 69 },
-    { label: 'أقل من 60%', min: 0, max: 59 }
+    { label: 'Less than 60%', min: 0, max: 59 }
   ];
 
   return ranges.map(range => ({

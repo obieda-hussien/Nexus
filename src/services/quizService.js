@@ -213,11 +213,11 @@ export class QuizService {
    */
   static calculateTimeDistribution(submissions) {
     const ranges = [
-      { label: 'أقل من 5 دقائق', min: 0, max: 300 },
-      { label: '5-10 دقائق', min: 300, max: 600 },
-      { label: '10-20 دقائق', min: 600, max: 1200 },
+      { label: 'Less than 5 minutes', min: 0, max: 300 },
+      { label: '5-10 minutes', min: 300, max: 600 },
+      { label: '10-20 minutes', min: 600, max: 1200 },
       { label: '20-30 دقائق', min: 1200, max: 1800 },
-      { label: 'أكثر من 30 دقيقة', min: 1800, max: Infinity }
+      { label: 'More than 30 minutes', min: 1800, max: Infinity }
     ];
 
     return ranges.reduce((acc, range) => {
@@ -239,7 +239,7 @@ export class QuizService {
       { label: '80-89%', min: 80, max: 89 },
       { label: '70-79%', min: 70, max: 79 },
       { label: '60-69%', min: 60, max: 69 },
-      { label: 'أقل من 60%', min: 0, max: 59 }
+      { label: 'Less than 60%', min: 0, max: 59 }
     ];
 
     return ranges.reduce((acc, range) => {

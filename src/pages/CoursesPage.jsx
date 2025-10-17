@@ -57,9 +57,9 @@ const CoursesPage = () => {
   const getPlaceholderCourses = () => [
     {
       id: '1',
-      title: 'أساسيات البرمجة بـ Python',
-      description: 'تعلم البرمجة من الصفر باستخدام لغة Python مع أمثلة عملية ومشاريع تطبيقية',
-      shortDescription: 'كورس شامل لتعلم البرمجة بـ Python للمبتدئين',
+      title: 'Python Programming Basics',
+      description: 'تعلم Programming من الصفر باستخدام لغة Python مع أمثلة عملية ومشاريع تطبيقية',
+      shortDescription: 'كورس شامل لتعلم Programming بـ Python للBeginnerين',
       price: 299,
       originalPrice: 399,
       isFree: false,
@@ -77,9 +77,9 @@ const CoursesPage = () => {
     },
     {
       id: '2',
-      title: 'فيزياء المرحلة الثانوية',
-      description: 'شرح مفصل ومبسط لمنهج الفيزياء للصف الثالث الثانوي مع حل المسائل',
-      shortDescription: 'منهج الفيزياء كامل للثانوية العامة',
+      title: 'Physics المرحلة الثانوية',
+      description: 'شرح مفصل ومبسط لمنهج Physics للصف الثالث الثانوي مع حل المسائل',
+      shortDescription: 'منهج Physics كامل للثانوية العامة',
       price: 0,
       isFree: true,
       thumbnail: '/placeholder-course.jpg',
@@ -98,7 +98,7 @@ const CoursesPage = () => {
       id: '3',
       title: 'تصميم المواقع بـ HTML & CSS',
       description: 'تعلم تصميم المواقع الحديثة والمتجاوبة باستخدام HTML و CSS',
-      shortDescription: 'أساسيات تصميم المواقع للمبتدئين',
+      shortDescription: 'أساسيات تصميم المواقع للBeginnerين',
       price: 199,
       originalPrice: 299,
       isFree: false,
@@ -123,10 +123,10 @@ const CoursesPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              استكشف الكورسات
+              استكشف Courses
             </h1>
             <p className="text-gray-300 text-lg">
-              اختر من مجموعة واسعة من الكورسات في مختلف المجالات
+              اختر من مجموعة واسعة من Courses في مختلف المجالات
             </p>
           </div>
 
@@ -138,7 +138,7 @@ const CoursesPage = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="ابحث عن كورس..."
+                  placeholder="اSearch عن كورس..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-lg pr-10 pl-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
@@ -148,7 +148,7 @@ const CoursesPage = () => {
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
               >
-                بحث
+                Search
               </button>
             </form>
 
@@ -160,10 +160,10 @@ const CoursesPage = () => {
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="">جميع المجالات</option>
-                <option value="programming">البرمجة</option>
-                <option value="physics">الفيزياء</option>
-                <option value="math">الرياضيات</option>
-                <option value="chemistry">الكيمياء</option>
+                <option value="programming">Programming</option>
+                <option value="physics">Physics</option>
+                <option value="math">Mathematics</option>
+                <option value="chemistry">Chemistry</option>
                 <option value="biology">الأحياء</option>
               </select>
 
@@ -173,9 +173,9 @@ const CoursesPage = () => {
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="">جميع المستويات</option>
-                <option value="beginner">مبتدئ</option>
-                <option value="intermediate">متوسط</option>
-                <option value="advanced">متقدم</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
               </select>
 
               <select
@@ -183,9 +183,9 @@ const CoursesPage = () => {
                 onChange={(e) => setFilters(prev => ({ ...prev, isFree: e.target.value }))}
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="">مجاني ومدفوع</option>
-                <option value="true">مجاني فقط</option>
-                <option value="false">مدفوع فقط</option>
+                <option value="">Free وPaid</option>
+                <option value="true">Free فقط</option>
+                <option value="false">Paid فقط</option>
               </select>
 
               <select
@@ -193,11 +193,11 @@ const CoursesPage = () => {
                 onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value }))}
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="newest">الأحدث</option>
+                <option value="newest">Newest</option>
                 <option value="popular">الأكثر شعبية</option>
                 <option value="rating">الأعلى تقييماً</option>
-                <option value="price_low">السعر: منخفض إلى مرتفع</option>
-                <option value="price_high">السعر: مرتفع إلى منخفض</option>
+                <option value="price_low">Price: منخفض إلى مرتفع</option>
+                <option value="price_high">Price: مرتفع إلى منخفض</option>
               </select>
             </div>
           </div>
@@ -232,7 +232,7 @@ const CoursesPage = () => {
                     </div>
                     {course.isFree && (
                       <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm font-medium">
-                        مجاني
+                        Free
                       </div>
                     )}
                   </div>
@@ -255,7 +255,7 @@ const CoursesPage = () => {
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        <span>{course.studentsCount?.toLocaleString()} طالب</span>
+                        <span>{course.studentsCount?.toLocaleString()} Student</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -273,7 +273,7 @@ const CoursesPage = () => {
                             )}
                           </div>
                         ) : (
-                          <span className="text-2xl font-bold text-green-400">مجاني</span>
+                          <span className="text-2xl font-bold text-green-400">Free</span>
                         )}
                       </div>
                       
@@ -281,7 +281,7 @@ const CoursesPage = () => {
                         to={`/courses/${course.id}`}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                       >
-                        عرض التفاصيل
+                        View التفاصيل
                       </Link>
                     </div>
                   </div>

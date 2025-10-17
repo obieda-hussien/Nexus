@@ -118,11 +118,11 @@ export class TaxReportingService {
       console.error('Error generating annual tax report:', error);
       
       // Provide specific guidance for Firebase indexing errors
-      if (error.message && error.message.includes('قاعدة البيانات تحتاج إلى فهرسة')) {
-        throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب إلى Firebase Console\n2. افتح Realtime Database → Rules\n3. انسخ المحتوى من ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 دقائق لبناء الفهارس\n5. أعد المحاولة`);
+      if (error.message && error.message.includes('Database needs indexing')) {
+        throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب إلى Firebase Console\n2. اOpen Realtime Database → Rules\n3. اCopy المحتوى من ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 دقائق لبناء الفهارس\n5. أعد المحاولة`);
       }
       
-      throw new Error(`فشل في إنتاج التقرير الضريبي السنوي: ${error.message}`);
+      throw new Error(`Report generation failed الضريبي السنوي: ${error.message}`);
     }
   }
   
@@ -176,7 +176,7 @@ export class TaxReportingService {
         
       } catch (error) {
         if (error.message && error.message.includes('Index not defined')) {
-          throw new Error(`قاعدة البيانات تحتاج إلى فهرسة. يرجى تحديث قواعد Firebase وإضافة الفهرس للحقل "requestedAt" في مسار withdrawalHistory. راجع ملف FIREBASE_SETUP.md للتفاصيل.`);
+          throw new Error(`Database needs indexing. يرجى Update قواعد Firebase وAdd الفهرس للحقل "requestedAt" في مسار withdrawalHistory. راجع ملف FIREBASE_SETUP.md للتفاصيل.`);
         }
         throw error;
       }
@@ -345,9 +345,9 @@ export class TaxReportingService {
   // Determine which tax form is required
   static determineTaxFormRequired(taxableIncome) {
     if (taxableIncome === 0) {
-      return { form: 'لا يتطلب إقرار ضريبي', reason: 'لا يوجد دخل خاضع للضريبة' };
+      return { form: 'لا يتطلب إقرار ضريبي', reason: 'None دخل خاضع للضريبة' };
     } else if (taxableIncome < TAX_CONFIG.egypt.businessTax.threshold) {
-      return { form: 'نموذج 1 (الأفراد)', reason: 'دخل شخصي أقل من الحد الأدنى للنشاط التجاري' };
+      return { form: 'نموذج 1 (الأفراد)', reason: 'دخل شخصي Less من Minimum للنشاط التجاري' };
     } else {
       return { form: 'نموذج 2 (النشاط التجاري)', reason: 'دخل من نشاط تجاري' };
     }
@@ -383,7 +383,7 @@ export class TaxReportingService {
     }
     
     recommendations.push('احتفظ بجميع الإيصالات والوثائق المالية لمدة 5 سنوات');
-    recommendations.push('استشر محاسب ضرائب مؤهل لمراجعة إقرارك الضريبي');
+    recommendations.push('Consult a qualified tax accountant to review your tax return');
     
     return recommendations;
   }
@@ -403,7 +403,7 @@ export class TaxReportingService {
       // Header in Arabic
       pdf.setFontSize(20);
       pdf.text('التقرير الضريبي السنوي', 105, 20, { align: 'center' });
-      pdf.text(`منصة نيكسوس التعليمية - ${reportData.year}`, 105, 30, { align: 'center' });
+      pdf.text(`Nexus Educational Platform - ${reportData.year}`, 105, 30, { align: 'center' });
       
       // Income Summary
       let yPos = 50;
@@ -412,7 +412,7 @@ export class TaxReportingService {
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`إجمالي الدخل الإجمالي: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total الدخل الTotal: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       pdf.text(`مبيعات الدورات: ${reportData.income.coursesSales.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
@@ -430,7 +430,7 @@ export class TaxReportingService {
       yPos += 7;
       pdf.text(`الخصم المعياري: ${reportData.deductions.standardDeduction.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`إجمالي الخصومات: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total الخصومات: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Tax Calculations
@@ -486,7 +486,7 @@ export class TaxReportingService {
           '٢. قم بتوثيق المصروفات المتعلقة بالعمل لتقليل الضريبة المستحقة',
           '٣. فكر في تسجيل نشاط تجاري للاستفادة من المزايا الضريبية',
           '٤. احتفظ بجميع الإيصالات والوثائق المالية لمدة ٥ سنوات',
-          '٥. استشر محاسب ضرائب مؤهل لمراجعة إقرارك الضريبي'
+          '٥. Consult a qualified tax accountant to review your tax return'
         ];
         
         arabicRecommendations.forEach((recommendation) => {

@@ -72,7 +72,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
       const mockCourseProgress = [
         {
           id: 'physics-101',
-          title: 'أساسيات الفيزياء',
+          title: 'Physics Basics',
           progress: 75,
           totalLessons: 20,
           completedLessons: 15,
@@ -80,7 +80,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'math-201',
-          title: 'الرياضيات المتقدمة',
+          title: 'Mathematics الAdvancedة',
           progress: 45,
           totalLessons: 25,
           completedLessons: 11,
@@ -88,7 +88,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'chemistry-101',
-          title: 'الكيمياء العامة',
+          title: 'Chemistry العامة',
           progress: 30,
           totalLessons: 18,
           completedLessons: 5,
@@ -104,19 +104,19 @@ const UserDashboard = ({ isOpen, onClose }) => {
           type: 'lesson_completed',
           title: 'أكمل درس: قوانين نيوتن',
           time: '2024-12-29T10:30:00',
-          course: 'أساسيات الفيزياء'
+          course: 'Physics Basics'
         },
         {
           type: 'quiz_passed',
-          title: 'نجح في اختبار: الحركة الدائرية',
+          title: 'نجح في Quiz: الحركة الدائرية',
           time: '2024-12-29T09:15:00',
-          course: 'أساسيات الفيزياء'
+          course: 'Physics Basics'
         },
         {
           type: 'course_enrolled',
-          title: 'انضم إلى: الرياضيات المتقدمة',
+          title: 'انضم إلى: Mathematics الAdvancedة',
           time: '2024-12-28T14:20:00',
-          course: 'الرياضيات المتقدمة'
+          course: 'Mathematics الAdvancedة'
         }
       ];
       
@@ -177,12 +177,12 @@ const UserDashboard = ({ isOpen, onClose }) => {
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1">مرحباً، {userProfile?.displayName || 'المستخدم'}</h2>
+                <h2 className="text-3xl font-bold text-white mb-1">مرحباً، {userProfile?.displayName || 'User'}</h2>
                 <p className="text-gray-300 flex items-center">
                   <GraduationCap className="h-4 w-4 ml-1" />
-                  لوحة التحكم الشخصية
+                  Dashboard الشخصية
                 </p>
-                <p className="text-sm text-neon-blue/80 mt-1">جاهز للتعلم اليوم؟</p>
+                <p className="text-sm text-neon-blue/80 mt-1">Ready للتعلم اليوم؟</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -203,8 +203,8 @@ const UserDashboard = ({ isOpen, onClose }) => {
               <span className="text-gray-300">جاري تحميل البيانات...</span>
               {!userProfile && currentUser && (
                 <div className="text-center">
-                  <p className="text-yellow-400 text-sm">لا توجد بيانات ملف شخصي</p>
-                  <p className="text-gray-400 text-xs">يتم إنشاء الملف الشخصي...</p>
+                  <p className="text-yellow-400 text-sm">No data available ملف شخصي</p>
+                  <p className="text-gray-400 text-xs">يتم إنشاء Profile...</p>
                 </div>
               )}
             </div>
@@ -213,12 +213,12 @@ const UserDashboard = ({ isOpen, onClose }) => {
               <div className="text-red-400 text-xl font-semibold">خطأ في تحميل البيانات</div>
               <div className="text-center max-w-md">
                 <p className="text-gray-400 mb-4">
-                  لم يتم العثور على بيانات الملف الشخصي.<br/>
-                  قد تحتاج لإنشاء الملف الشخصي أو التحقق من الاتصال.
+                  لم يتم العثور على بيانات Profile.<br/>
+                  قد تحتاج لإنشاء Profile أو التحقق من الاتصال.
                 </p>
                 <div className="bg-blue-900/20 border border-blue-400/30 p-4 rounded-xl">
                   <p className="text-blue-400 text-sm">
-                    💡 <strong>نصيحة:</strong> استخدم الزر أدناه لإنشاء ملف شخصي جديد
+                    💡 <strong>نصيحة:</strong> استخدم الزر أدناه لإنشاء ملف شخصي New
                   </p>
                 </div>
               </div>
@@ -251,9 +251,9 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-blue/10 rounded-full blur-xl group-hover:bg-neon-blue/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-blue-300 text-sm font-medium mb-1">الكورسات المسجلة</p>
+                      <p className="text-blue-300 text-sm font-medium mb-1">Courses المسجلة</p>
                       <p className="text-3xl font-bold text-white">{stats.enrolledCourses}</p>
-                      <p className="text-xs text-blue-200/60 mt-1">كورس نشط</p>
+                      <p className="text-xs text-blue-200/60 mt-1">كورس Active</p>
                     </div>
                     <div className="bg-neon-blue/20 p-3 rounded-xl">
                       <BookOpen className="h-8 w-8 text-neon-blue" />
@@ -270,7 +270,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-green/10 rounded-full blur-xl group-hover:bg-neon-green/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-green-300 text-sm font-medium mb-1">الكورسات المكتملة</p>
+                      <p className="text-green-300 text-sm font-medium mb-1">Courses الCompletedة</p>
                       <p className="text-3xl font-bold text-white">{stats.completedCourses}</p>
                       <p className="text-xs text-green-200/60 mt-1">تم إنجازها</p>
                     </div>
@@ -291,7 +291,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                     <div>
                       <p className="text-purple-300 text-sm font-medium mb-1">ساعات الدراسة</p>
                       <p className="text-3xl font-bold text-white">{stats.totalStudyTime}</p>
-                      <p className="text-xs text-purple-200/60 mt-1">دقيقة إجمالي</p>
+                      <p className="text-xs text-purple-200/60 mt-1">دقيقة Total</p>
                     </div>
                     <div className="bg-neon-purple/20 p-3 rounded-xl">
                       <Clock className="h-8 w-8 text-neon-purple" />
@@ -310,7 +310,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                     <div>
                       <p className="text-orange-300 text-sm font-medium mb-1">أيام متتالية</p>
                       <p className="text-3xl font-bold text-white">{stats.streakDays}</p>
-                      <p className="text-xs text-orange-200/60 mt-1">🔥 سلسلة نشطة</p>
+                      <p className="text-xs text-orange-200/60 mt-1">🔥 سلسلة Activeة</p>
                     </div>
                     <div className="bg-orange-400/20 p-3 rounded-xl">
                       <TrendingUp className="h-8 w-8 text-orange-400" />
@@ -330,7 +330,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                     <div className="bg-neon-blue/20 p-2 rounded-lg ml-3">
                       <Target className="h-6 w-6 text-neon-blue" />
                     </div>
-                    تقدم الكورسات
+                    تقدم Courses
                   </h3>
                   <div className="space-y-6">
                     {courseProgress.map((course, index) => (
@@ -455,7 +455,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                       className="text-center mt-6"
                     >
                       <button className="glass-hover bg-gradient-to-r from-neon-blue/10 to-neon-purple/10 border border-glass-border hover:from-neon-blue/20 hover:to-neon-purple/20 px-6 py-3 rounded-xl text-gray-400 hover:text-white transition-all duration-200 font-medium">
-                        عرض المزيد من النشاطات
+                        View More من النشاطات
                       </button>
                     </motion.div>
                   </div>

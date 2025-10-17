@@ -6,7 +6,7 @@ const EMAIL_CONFIG = {
   sendgrid: {
     apiKey: import.meta.env.VITE_SENDGRID_API_KEY || '',
     fromEmail: import.meta.env.VITE_FROM_EMAIL || 'noreply@nexus-edu.com',
-    fromName: import.meta.env.VITE_FROM_NAME || 'منصة نيكسوس التعليمية'
+    fromName: import.meta.env.VITE_FROM_NAME || 'Nexus Educational Platform'
   },
   smtp: {
     host: import.meta.env.VITE_SMTP_HOST || 'smtp.gmail.com',
@@ -42,19 +42,19 @@ export class EmailNotificationService {
         },
         templateId: EMAIL_CONFIG.templates.withdrawalRequested,
         dynamicTemplateData: {
-          instructorName: instructorData.displayName || 'المدرس',
+          instructorName: instructorData.displayName || 'Instructor',
           withdrawalAmount: withdrawalData.amount,
           currency: withdrawalData.currency || 'EGP',
           paymentMethod: this.getPaymentMethodNameAr(withdrawalData.paymentMethod.type),
           requestDate: new Date().toLocaleDateString('ar-EG'),
           withdrawalId: withdrawalData.id,
-          estimatedProcessing: withdrawalData.estimatedProcessing || '3-5 أيام عمل',
+          estimatedProcessing: withdrawalData.estimatedProcessing || '3-5 business days',
           fees: withdrawalData.fees,
           netAmount: withdrawalData.netAmount,
           platformFee: withdrawalData.platformFee,
           taxAmount: withdrawalData.taxAmount,
           supportEmail: 'support@nexus-edu.com',
-          platformName: 'منصة نيكسوس التعليمية'
+          platformName: 'Nexus Educational Platform'
         }
       };
 
@@ -69,7 +69,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal request notification:', error);
-      throw new Error(`فشل في إرسال إشعار طلب السحب: ${error.message}`);
+      throw new Error(`فشل في Submit إشعار طلب السحب: ${error.message}`);
     }
   }
 
@@ -84,7 +84,7 @@ export class EmailNotificationService {
         },
         templateId: EMAIL_CONFIG.templates.withdrawalCompleted,
         dynamicTemplateData: {
-          instructorName: instructorData.displayName || 'المدرس',
+          instructorName: instructorData.displayName || 'Instructor',
           withdrawalAmount: withdrawalData.amount,
           currency: withdrawalData.currency || 'EGP',
           paymentMethod: this.getPaymentMethodNameAr(withdrawalData.paymentMethod.type),
@@ -97,7 +97,7 @@ export class EmailNotificationService {
           taxAmount: withdrawalData.taxAmount,
           accountDetails: this.formatAccountDetails(withdrawalData.paymentMethod),
           supportEmail: 'support@nexus-edu.com',
-          platformName: 'منصة نيكسوس التعليمية'
+          platformName: 'Nexus Educational Platform'
         }
       };
 
@@ -112,7 +112,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal completion notification:', error);
-      throw new Error(`فشل في إرسال إشعار إتمام السحب: ${error.message}`);
+      throw new Error(`فشل في Submit إشعار إتمام السحب: ${error.message}`);
     }
   }
 
@@ -127,18 +127,18 @@ export class EmailNotificationService {
         },
         templateId: EMAIL_CONFIG.templates.withdrawalFailed,
         dynamicTemplateData: {
-          instructorName: instructorData.displayName || 'المدرس',
+          instructorName: instructorData.displayName || 'Instructor',
           withdrawalAmount: withdrawalData.amount,
           currency: withdrawalData.currency || 'EGP',
           paymentMethod: this.getPaymentMethodNameAr(withdrawalData.paymentMethod.type),
           failureDate: new Date().toLocaleDateString('ar-EG'),
           withdrawalId: withdrawalData.id,
-          errorMessage: errorMessage || 'خطأ غير محدد',
+          errorMessage: errorMessage || 'خطأ Not specified',
           refundAmount: withdrawalData.amount, // Amount will be refunded to available balance
           nextSteps: this.getFailureNextSteps(withdrawalData.paymentMethod.type),
           supportEmail: 'support@nexus-edu.com',
           supportPhone: '+20-123-456-7890',
-          platformName: 'منصة نيكسوس التعليمية'
+          platformName: 'Nexus Educational Platform'
         }
       };
 
@@ -153,7 +153,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal failure notification:', error);
-      throw new Error(`فشل في إرسال إشعار فشل السحب: ${error.message}`);
+      throw new Error(`فشل في Submit إشعار فشل السحب: ${error.message}`);
     }
   }
 
@@ -168,7 +168,7 @@ export class EmailNotificationService {
         },
         templateId: EMAIL_CONFIG.templates.monthlyReport,
         dynamicTemplateData: {
-          instructorName: instructorData.displayName || 'المدرس',
+          instructorName: instructorData.displayName || 'Instructor',
           reportMonth: reportData.month,
           reportYear: reportData.year,
           totalEarnings: reportData.totalEarnings,
@@ -185,7 +185,7 @@ export class EmailNotificationService {
           currency: 'EGP',
           reportDate: new Date().toLocaleDateString('ar-EG'),
           supportEmail: 'support@nexus-edu.com',
-          platformName: 'منصة نيكسوس التعليمية'
+          platformName: 'Nexus Educational Platform'
         }
       };
 
@@ -200,7 +200,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending monthly earnings report:', error);
-      throw new Error(`فشل في إرسال التقرير الشهري: ${error.message}`);
+      throw new Error(`فشل في Submit التقرير الشهري: ${error.message}`);
     }
   }
 
@@ -215,7 +215,7 @@ export class EmailNotificationService {
         },
         templateId: EMAIL_CONFIG.templates.taxReport,
         dynamicTemplateData: {
-          instructorName: instructorData.displayName || 'المدرس',
+          instructorName: instructorData.displayName || 'Instructor',
           taxYear: taxReportData.year,
           totalGrossIncome: taxReportData.totalGrossIncome,
           totalDeductions: taxReportData.totalDeductions,
@@ -229,7 +229,7 @@ export class EmailNotificationService {
           downloadLink: taxReportData.downloadLink,
           taxAdvice: this.getTaxAdvice(),
           supportEmail: 'support@nexus-edu.com',
-          platformName: 'منصة نيكسوس التعليمية'
+          platformName: 'Nexus Educational Platform'
         },
         attachments: taxReportData.attachments ? [{
           content: taxReportData.attachments.pdfContent,
@@ -250,7 +250,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending tax report notification:', error);
-      throw new Error(`فشل في إرسال تقرير الضرائب: ${error.message}`);
+      throw new Error(`فشل في Submit تقرير الضرائب: ${error.message}`);
     }
   }
 
@@ -299,7 +299,7 @@ export class EmailNotificationService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>إشعار من منصة نيكسوس</title>
+        <title>إشعار من Nexus Platform</title>
         <style>
           body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; direction: rtl; }
           .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -313,7 +313,7 @@ export class EmailNotificationService {
       <body>
         <div class="container">
           <div class="header">
-            <h1>📧 إشعار من منصة نيكسوس</h1>
+            <h1>📧 إشعار من Nexus Platform</h1>
             <p>مرحباً ${data.instructorName}</p>
           </div>
           <div class="content">
@@ -350,7 +350,7 @@ export class EmailNotificationService {
           <div class="info-row">
             <strong>الوقت المتوقع للمعالجة:</strong> ${data.estimatedProcessing}
           </div>
-          <p>سيتم معالجة طلبك في أقرب وقت ممكن وستصلك رسالة تأكيد عند إتمام العملية.</p>
+          <p>سيتم معالجة طلبك في أقرب وقت ممكن وستصلك رسالة Confirm عند إتمام العملية.</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalCompleted:
@@ -368,7 +368,7 @@ export class EmailNotificationService {
           <div class="info-row">
             <strong>تاريخ الإتمام:</strong> ${data.completedDate}
           </div>
-          <p>تم تحويل الأرباح بنجاح إلى حسابك. شكراً لاستخدام منصة نيكسوس!</p>
+          <p>تم تحويل Earnings بنجاح إلى حسابك. شكراً لاستخدام Nexus Platform!</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalFailed:
@@ -388,7 +388,7 @@ export class EmailNotificationService {
         `;
         
       default:
-        return '<p>رسالة من منصة نيكسوس التعليمية</p>';
+        return '<p>رسالة من Nexus Educational Platform</p>';
     }
   }
 
@@ -397,9 +397,9 @@ export class EmailNotificationService {
     const names = {
       stripe: 'Stripe',
       paypal: 'PayPal',
-      fawry: 'فوري',
-      vodafone: 'فودافون كاش',
-      bank: 'تحويل بنكي'
+      fawry: 'Instant',
+      vodafone: 'Vodafone Cash',
+      bank: 'Bank Transfer'
     };
     return names[type] || type;
   }
@@ -413,16 +413,16 @@ export class EmailNotificationService {
       case 'vodafone':
         return paymentMethod.vodafoneCashNumber;
       default:
-        return 'غير محدد';
+        return 'Not specified';
     }
   }
 
   static getFailureNextSteps(paymentMethodType) {
     const steps = {
       bank: 'تحقق من بيانات الحساب البنكي وتأكد من صحة IBAN',
-      paypal: 'تحقق من صحة البريد الإلكتروني المرتبط بـ PayPal',
-      vodafone: 'تحقق من رقم فودافون كاش وتأكد من تفعيل الخدمة',
-      fawry: 'تحقق من بيانات محفظة فوري',
+      paypal: 'تحقق من صحة Email المرتبط بـ PayPal',
+      vodafone: 'تحقق من رقم Vodafone Cash وتأكد من تفعيل الخدمة',
+      fawry: 'تحقق من بيانات مSaveة Instant',
       stripe: 'تحقق من بيانات البطاقة الائتمانية'
     };
     return steps[paymentMethodType] || 'تواصل مع الدعم الفني للمساعدة';
@@ -431,7 +431,7 @@ export class EmailNotificationService {
   static getTaxAdvice() {
     return [
       'احتفظ بجميع إيصالات الدخل والمصروفات',
-      'استشر محاسب ضرائب مؤهل لمراجعة إقرارك الضريبي',
+      'Consult a qualified tax accountant to review your tax return',
       'تأكد من تسجيل جميع الدخل من المنصة في إقرارك',
       'يمكن خصم بعض المصروفات المتعلقة بالتدريس كمصروفات قابلة للخصم'
     ];
@@ -439,13 +439,13 @@ export class EmailNotificationService {
 
   static getEmailSubject(templateId) {
     const subjects = {
-      [EMAIL_CONFIG.templates.withdrawalRequested]: 'تم استلام طلب سحب الأرباح - منصة نيكسوس',
-      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب الأرباح بنجاح - منصة نيكسوس',
-      [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: فشل في عملية سحب الأرباح - منصة نيكسوس',
-      [EMAIL_CONFIG.templates.monthlyReport]: 'التقرير الشهري للأرباح - منصة نيكسوس',
-      [EMAIL_CONFIG.templates.taxReport]: 'تقرير الضرائب السنوي - منصة نيكسوس'
+      [EMAIL_CONFIG.templates.withdrawalRequested]: 'تم استلام طلب سحب Earnings - Nexus Platform',
+      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب Earnings بنجاح - Nexus Platform',
+      [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: فشل في عملية سحب Earnings - Nexus Platform',
+      [EMAIL_CONFIG.templates.monthlyReport]: 'التقرير الشهري للأرباح - Nexus Platform',
+      [EMAIL_CONFIG.templates.taxReport]: 'تقرير الضرائب السنوي - Nexus Platform'
     };
-    return subjects[templateId] || 'إشعار من منصة نيكسوس';
+    return subjects[templateId] || 'إشعار من Nexus Platform';
   }
 
   // Send test email to verify configuration
@@ -457,15 +457,15 @@ export class EmailNotificationService {
           email: EMAIL_CONFIG.sendgrid.fromEmail,
           name: EMAIL_CONFIG.sendgrid.fromName
         },
-        subject: 'اختبار خدمة البريد الإلكتروني - منصة نيكسوس',
+        subject: 'Quiz خدمة Email - Nexus Platform',
         html: `
           <div style="font-family: Arial, sans-serif; direction: rtl; padding: 20px;">
-            <h2>✅ تم إعداد خدمة البريد الإلكتروني بنجاح</h2>
-            <p>هذه رسالة اختبار لتأكيد أن خدمة إرسال الإشعارات تعمل بشكل صحيح.</p>
+            <h2>✅ تم إعداد خدمة Email بنجاح</h2>
+            <p>هذه رسالة Quiz لConfirm أن خدمة Submit Notifications تعمل بشكل صحيح.</p>
             <p>التاريخ: ${new Date().toLocaleDateString('ar-EG')}</p>
             <p>الوقت: ${new Date().toLocaleTimeString('ar-EG')}</p>
             <br>
-            <p>منصة نيكسوس التعليمية</p>
+            <p>Nexus Educational Platform</p>
           </div>
         `
       };
@@ -476,11 +476,11 @@ export class EmailNotificationService {
         await this.sendViaSMTP(testEmailData);
       }
 
-      return { success: true, message: 'تم إرسال رسالة الاختبار بنجاح' };
+      return { success: true, message: 'Test email sent successfully' };
 
     } catch (error) {
       console.error('Test email sending error:', error);
-      throw new Error(`فشل في إرسال رسالة الاختبار: ${error.message}`);
+      throw new Error(`فشل في Submit رسالة الQuiz: ${error.message}`);
     }
   }
 
@@ -489,11 +489,11 @@ export class EmailNotificationService {
     const status = {
       sendgrid: {
         configured: !!EMAIL_CONFIG.sendgrid.apiKey,
-        status: EMAIL_CONFIG.sendgrid.apiKey ? 'جاهز' : 'غير مُعد'
+        status: EMAIL_CONFIG.sendgrid.apiKey ? 'Ready' : 'Not ready'
       },
       smtp: {
         configured: !!(EMAIL_CONFIG.smtp.user && EMAIL_CONFIG.smtp.pass),
-        status: (EMAIL_CONFIG.smtp.user && EMAIL_CONFIG.smtp.pass) ? 'جاهز' : 'غير مُعد'
+        status: (EMAIL_CONFIG.smtp.user && EMAIL_CONFIG.smtp.pass) ? 'Ready' : 'Not ready'
       }
     };
 
@@ -506,7 +506,7 @@ export class EmailNotificationService {
 
   static getEmailServiceRecommendation(status) {
     if (status.sendgrid.configured) {
-      return 'SendGrid مُعد بشكل صحيح - الخدمة جاهزة للاستخدام';
+      return 'SendGrid مُعد بشكل صحيح - الخدمة Readyة للاستخدام';
     } else if (status.smtp.configured) {
       return 'SMTP مُعد كخدمة احتياطية - يُنصح بإعداد SendGrid للحصول على أداء أفضل';
     } else {

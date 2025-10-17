@@ -40,9 +40,9 @@ const Footer = () => {
     {
       title: isRTL ? 'الدورات' : 'Courses',
       links: [
-        { name: isRTL ? 'الفيزياء الأساسية' : 'Basic Physics', href: '#' },
-        { name: isRTL ? 'الفيزياء المتقدمة' : 'Advanced Physics', href: '#' },
-        { name: isRTL ? 'الرياضيات التطبيقية' : 'Applied Mathematics', href: '#' },
+        { name: isRTL ? 'Basic Physics' : 'Basic Physics', href: '#' },
+        { name: isRTL ? 'Physics الAdvancedة' : 'Advanced Physics', href: '#' },
+        { name: isRTL ? 'Applied Mathematics' : 'Applied Mathematics', href: '#' },
         { name: isRTL ? 'العلوم التجريبية' : 'Experimental Sciences', href: '#' }
       ]
     },
@@ -78,7 +78,7 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: isRTL ? 'البريد الإلكتروني' : 'Email',
+      title: isRTL ? 'Email' : 'Email',
       value: 'info@nexus.edu',
       href: 'mailto:info@nexus.edu'
     },
@@ -90,8 +90,8 @@ const Footer = () => {
     },
     {
       icon: MapPin,
-      title: isRTL ? 'العنوان' : 'Address',
-      value: isRTL ? 'القاهرة، جمهورية مصر العربية' : 'Cairo, Egypt',
+      title: isRTL ? 'Title' : 'Address',
+      value: isRTL ? 'القاهرة، جمهورية مصر Arabic' : 'Cairo, Egypt',
       href: '#'
     }
   ];
@@ -105,7 +105,7 @@ const Footer = () => {
   ];
 
   const stats = [
-    { icon: Users, value: '10K+', label: isRTL ? 'طالب' : 'Students' },
+    { icon: Users, value: '10K+', label: isRTL ? 'Student' : 'Students' },
     { icon: BookOpen, value: '50+', label: isRTL ? 'دورة' : 'Courses' },
     { icon: Award, value: '25+', label: isRTL ? 'جائزة' : 'Awards' }
   ];
@@ -147,7 +147,7 @@ const Footer = () => {
             </h3>
             <p className="text-text-secondary max-w-2xl mx-auto">
               {isRTL 
-                ? 'اشترك في نشرتنا الإخبارية للحصول على آخر الأخبار والدورات الجديدة'
+                ? 'اشترك في Publishتنا الإخبارية للحصول على آخر الأخبار والدورات الNewة'
                 : 'Subscribe to our newsletter for the latest news and new courses'
               }
             </p>
@@ -163,15 +163,15 @@ const Footer = () => {
             <div className="flex glass rounded-lg p-2">
               <input
                 type="email"
-                placeholder={isRTL ? 'أدخل بريدك الإلكتروني' : 'Enter your email'}
+                placeholder={isRTL ? 'Enter your email' : 'Enter your email'}
                 className="flex-1 bg-transparent text-white placeholder-text-secondary px-4 py-2 focus:outline-none"
                 dir={isRTL ? 'rtl' : 'ltr'}
-                aria-label={isRTL ? 'عنوان البريد الإلكتروني للاشتراك في النشرة الإخبارية' : 'Email address for newsletter subscription'}
+                aria-label={isRTL ? 'عنوان Email للاشتراك في الPublishة الإخبارية' : 'Email address for newsletter subscription'}
               />
               <Button 
                 variant="gradient" 
                 size="sm"
-                aria-label={isRTL ? 'اشترك في النشرة الإخبارية' : 'Subscribe to newsletter'}
+                aria-label={isRTL ? 'اشترك في الPublishة الإخبارية' : 'Subscribe to newsletter'}
               >
                 {isRTL ? 'اشتراك' : 'Subscribe'}
               </Button>
@@ -197,12 +197,12 @@ const Footer = () => {
                   <span className="text-white font-bold text-xl">N</span>
                 </div>
                 <span className="text-2xl font-bold gradient-text">
-                  {isRTL ? 'نيكسوس' : 'Nexus'}
+                  {isRTL ? 'Nexus' : 'Nexus'}
                 </span>
               </div>
               <p className="text-text-secondary leading-relaxed mb-6">
                 {isRTL 
-                  ? 'منصة تعليمية حديثة تهدف إلى تقديم أفضل تجربة تعليمية في مجال الفيزياء والرياضيات للجيل الجديد.'
+                  ? 'منصة تعليمية حديثة تهدف إلى تOld أفضل تجربة تعليمية في مجال Physics وMathematics للجيل الNew.'
                   : 'A modern educational platform aimed at providing the best learning experience in physics and mathematics for the new generation.'
                 }
               </p>
@@ -306,7 +306,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-text-secondary text-sm">
               {isRTL 
-                ? `© ${new Date().getFullYear()} نيكسوس. جميع الحقوق محفوظة.`
+                ? `© ${new Date().getFullYear()} Nexus. جميع الحقوق محفوظة.`
                 : `© ${new Date().getFullYear()} Nexus. All rights reserved.`
               }
             </p>

@@ -76,7 +76,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
         return;
       }
       if (passwordInput !== quiz.settings.password) {
-        toast.error('كلمة المرور غير صحيحة');
+        toast.error('Incorrect password');
         return;
       }
     }
@@ -109,7 +109,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
 
   const submitQuiz = async () => {
     if (!currentUser) {
-      toast.error('يجب تسجيل الدخول لحفظ النتائج');
+      toast.error('يجب Login لSave النتائج');
       return;
     }
 
@@ -178,7 +178,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
 
     } catch (error) {
       console.error('Error saving quiz results:', error);
-      toast.error('حدث خطأ في حفظ النتائج');
+      toast.error('An error occurred في Save النتائج');
     }
   };
 
@@ -235,7 +235,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           onClick={onClose}
           className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إغلاق
+          Close
         </button>
       </div>
     );
@@ -251,7 +251,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           type="password"
           value={passwordInput}
           onChange={(e) => setPasswordInput(e.target.value)}
-          placeholder="أدخل كلمة المرور"
+          placeholder="Enter your password"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-blue-400"
         />
         <div className="flex space-x-2 space-x-reverse">
@@ -265,7 +265,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
             onClick={onClose}
             className="flex-1 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
           >
-            إلغاء
+            Cancel
           </button>
         </div>
       </div>
@@ -524,7 +524,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
           onClick={onClose}
           className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إلغاء
+          Cancel
         </button>
       </div>
     </div>
@@ -581,7 +581,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
           onClick={onClose}
           className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
         >
-          إغلاق
+          Close
         </button>
       </div>
 

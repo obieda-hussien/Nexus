@@ -55,12 +55,12 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
   // Mock data for charts - in real implementation, this would come from Firebase
   const monthlyEarnings = [
-    { month: 'يناير', amount: 12000 },
-    { month: 'فبراير', amount: 15000 },
-    { month: 'مارس', amount: 18000 },
-    { month: 'أبريل', amount: 14000 },
-    { month: 'مايو', amount: 22000 },
-    { month: 'يونيو', amount: 25000 },
+    { month: 'January', amount: 12000 },
+    { month: 'February', amount: 15000 },
+    { month: 'March', amount: 18000 },
+    { month: 'April', amount: 14000 },
+    { month: 'May', amount: 22000 },
+    { month: 'June', amount: 25000 },
   ];
 
   return (
@@ -68,7 +68,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
       {/* Header */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-white">تحليل الأرباح</h2>
+          <h2 className="text-2xl font-bold text-white">تحليل Earnings</h2>
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
@@ -84,7 +84,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
         {/* Earnings Overview */}
         <div className="grid md:grid-cols-4 gap-6">
           <EarningsCard
-            title="إجمالي الأرباح"
+            title="Total Earnings"
             value={`${totalEarnings.toLocaleString()} ج.م`}
             icon={<DollarSign className="w-6 h-6" />}
             color="from-green-500 to-green-600"
@@ -98,14 +98,14 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             trend="+8%"
           />
           <EarningsCard
-            title="إجمالي المسحوب"
+            title="Total المسحوب"
             value={`${totalWithdrawn.toLocaleString()} ج.م`}
             icon={<BarChart3 className="w-6 h-6" />}
             color="from-purple-500 to-purple-600"
             trend="+15%"
           />
           <EarningsCard
-            title="طلبات معلقة"
+            title="طلبات Suspendedة"
             value={`${pendingWithdrawals.toLocaleString()} ج.م`}
             icon={<Calendar className="w-6 h-6" />}
             color="from-orange-500 to-orange-600"
@@ -136,7 +136,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
       {/* Earnings Chart */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-6">مخطط الأرباح الشهرية</h3>
+        <h3 className="text-xl font-semibold text-white mb-6">مخطط Earnings الشهرية</h3>
         <div className="space-y-4">
           {monthlyEarnings.map((data, index) => (
             <div key={index} className="flex items-center">
@@ -160,7 +160,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
       {/* Top Earning Courses */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">أعلى الكورسات ربحاً</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">أعلى Courses ربحاً</h3>
           <div className="space-y-3">
             {courses?.slice(0, 5).map((course, index) => (
               <div key={course.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
@@ -170,7 +170,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
                   </div>
                   <div>
                     <p className="text-white font-medium text-sm">{course.title}</p>
-                    <p className="text-purple-200 text-xs">{course.studentsCount} طالب</p>
+                    <p className="text-purple-200 text-xs">{course.studentsCount} Student</p>
                   </div>
                 </div>
                 <div className="text-green-400 font-semibold">
@@ -182,10 +182,10 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
         </div>
 
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">تفاصيل الأرباح</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">تفاصيل Earnings</h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">إجمالي المبيعات</span>
+              <span className="text-purple-200">Total المبيعات</span>
               <span className="text-white font-semibold">{totalEarnings.toLocaleString()} ج.م</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
@@ -197,11 +197,11 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
               <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} ج.م</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">إجمالي المسحوب</span>
+              <span className="text-purple-200">Total المسحوب</span>
               <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} ج.م</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">طلبات معلقة</span>
+              <span className="text-purple-200">طلبات Suspendedة</span>
               <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} ج.م</span>
             </div>
             <div className="border-t border-white/20 pt-3">
@@ -225,14 +225,14 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             <div className="bg-white/5 rounded-lg p-4">
               <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} ج.م</p>
               <p className="text-purple-200 text-sm">
-                {availableBalance >= 100 ? 'متاح للسحب الآن' : `الحد الأدنى للسحب 100 ج.م`}
+                {availableBalance >= 100 ? 'متاح للسحب الآن' : `Minimum للسحب 100 ج.م`}
               </p>
             </div>
           </div>
           <div>
             <h4 className="text-purple-200 mb-3">طرق الدفع</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-medium">حساب بنكي، PayPal، فودافون كاش</p>
+              <p className="text-white font-medium">حساب بنكي، PayPal، Vodafone Cash</p>
               <p className="text-purple-200 text-sm">
                 <button 
                   onClick={() => onSwitchToSettings && onSwitchToSettings()}

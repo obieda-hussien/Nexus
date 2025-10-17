@@ -271,7 +271,7 @@ const LiveSessions = () => {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
               >
-                View Schedule | عرض الجدول
+                View Schedule | View الجدول
               </motion.button>
             </div>
           </div>

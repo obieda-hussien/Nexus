@@ -30,17 +30,17 @@ const AdminDashboard = () => {
 
   const [recentActivities] = useState([
     { id: 1, type: 'user', message: 'أحمد محمد انضم للمنصة', time: '5 دقائق', icon: Users },
-    { id: 2, type: 'course', message: 'تم إنشاء كورس جديد: الفيزياء المتقدمة', time: '15 دقيقة', icon: BookOpen },
-    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 جنيه', time: '30 دقيقة', icon: DollarSign },
-    { id: 4, type: 'instructor', message: 'طلب تدريس جديد من د. سارة أحمد', time: '1 ساعة', icon: UserCheck },
-    { id: 5, type: 'alert', message: 'تحديث أمني مطلوب للنظام', time: '2 ساعة', icon: AlertCircle }
+    { id: 2, type: 'course', message: 'تم Create New Course: Physics الAdvancedة', time: '15 دقيقة', icon: BookOpen },
+    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 جنيه', time: '30 minutes', icon: DollarSign },
+    { id: 4, type: 'instructor', message: 'طلب تدريس New من د. سارة أحمد', time: '1 ساعة', icon: UserCheck },
+    { id: 5, type: 'alert', message: 'Update أمني مطلوب للنظام', time: '2 hours', icon: AlertCircle }
   ]);
 
   const [topCourses] = useState([
-    { name: 'الفيزياء الأساسية', students: 2340, revenue: 468000, rating: 4.9 },
-    { name: 'الرياضيات التطبيقية', students: 1890, revenue: 471750, rating: 4.8 },
-    { name: 'الفيزياء المتقدمة', students: 1650, revenue: 493500, rating: 4.9 },
-    { name: 'التفاضل والتكامل', students: 1420, revenue: 355000, rating: 4.7 }
+    { name: 'Basic Physics', students: 2340, revenue: 468000, rating: 4.9 },
+    { name: 'Applied Mathematics', students: 1890, revenue: 471750, rating: 4.8 },
+    { name: 'Physics الAdvancedة', students: 1650, revenue: 493500, rating: 4.9 },
+    { name: 'الCalculus والIntegration', students: 1420, revenue: 355000, rating: 4.7 }
   ]);
 
   useEffect(() => {
@@ -63,8 +63,8 @@ const AdminDashboard = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">لوحة تحكم المدير</h1>
-            <p className="text-gray-300">مرحباً بك في لوحة التحكم الرئيسية - إدارة شاملة للمنصة التعليمية</p>
+            <h1 className="text-4xl font-bold text-white mb-2">لوحة تحكم Admin</h1>
+            <p className="text-gray-300">مرحباً بك في Dashboard الرئيسية - إدارة شاملة للمنصة التعليمية</p>
           </div>
 
           {/* Key Statistics */}
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-100 text-sm">إجمالي المستخدمين</p>
+                  <p className="text-blue-100 text-sm">Total Userين</p>
                   <p className="text-3xl font-bold">{stats.totalUsers.toLocaleString()}</p>
                   <p className="text-blue-100 text-xs">+12% من الشهر الماضي</p>
                 </div>
@@ -83,9 +83,9 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100 text-sm">إجمالي الكورسات</p>
+                  <p className="text-green-100 text-sm">Total Courses</p>
                   <p className="text-3xl font-bold">{stats.totalCourses}</p>
-                  <p className="text-green-100 text-xs">+3 كورسات جديدة</p>
+                  <p className="text-green-100 text-xs">+3 كورسات Newة</p>
                 </div>
                 <BookOpen className="h-12 w-12 text-green-200" />
               </div>
@@ -151,17 +151,17 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg transition-colors">
                   <UserCheck className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">موافقة المدرسين</span>
+                  <span className="text-sm">موافقة Instructorين</span>
                   <span className="block text-xs text-blue-200">({stats.pendingApprovals} في الانتظار)</span>
                 </button>
                 <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-lg transition-colors">
                   <BookOpen className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">إدارة الكورسات</span>
+                  <span className="text-sm">Course Management</span>
                   <span className="block text-xs text-green-200">({stats.totalCourses} كورس)</span>
                 </button>
                 <button className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg transition-colors">
                   <BarChart3 className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">التقارير المالية</span>
+                  <span className="text-sm">Reports المالية</span>
                   <span className="block text-xs text-purple-200">{(stats.totalRevenue / 1000000).toFixed(1)}M ج.م</span>
                 </button>
                 <button className="bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-lg transition-colors">
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
           {/* Top Performing Courses */}
           <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 mb-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">الكورسات الأعلى أداءً</h3>
+              <h3 className="text-xl font-bold text-white">Courses الأعلى أداءً</h3>
               <PieChart className="h-6 w-6 text-blue-400" />
             </div>
             <div className="overflow-x-auto">
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
                 <thead>
                   <tr className="border-b border-gray-700">
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">اسم الكورس</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد الطلاب</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد Students</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">الإيرادات</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">التقييم</th>
                   </tr>
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">المدرسون النشطون</h4>
+                <h4 className="text-lg font-semibold text-white">Instructorون الActiveون</h4>
                 <Calendar className="h-5 w-5 text-blue-400" />
               </div>
               <p className="text-3xl font-bold text-blue-400">{stats.activeInstructors}</p>
@@ -230,7 +230,7 @@ const AdminDashboard = () => {
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">متوسط التقييم</h4>
+                <h4 className="text-lg font-semibold text-white">Intermediate التقييم</h4>
                 <Award className="h-5 w-5 text-yellow-400" />
               </div>
               <p className="text-3xl font-bold text-yellow-400">{stats.averageRating}</p>

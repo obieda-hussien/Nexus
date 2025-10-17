@@ -27,17 +27,17 @@ const Pricing = () => {
       id: 'basic',
       name: isRTL ? 'الباقة الأساسية' : 'Basic Plan',
       price: isRTL ? '199 ريال' : '$199',
-      period: isRTL ? 'شهرياً' : '/month',
-      description: isRTL ? 'مثالية للمبتدئين' : 'Perfect for beginners',
+      period: isRTL ? 'Monthly' : '/month',
+      description: isRTL ? 'مثالية للBeginnerين' : 'Perfect for beginners',
       features: [
         isRTL ? 'الوصول إلى 10 دورات' : 'Access to 10 courses',
         isRTL ? 'شهادة إتمام' : 'Certificate of completion',
-        isRTL ? 'دعم عبر البريد الإلكتروني' : 'Email support',
+        isRTL ? 'دعم عبر Email' : 'Email support',
         isRTL ? 'مواد تدريبية قابلة للتحميل' : 'Downloadable resources'
       ],
       notIncluded: [
         isRTL ? 'جلسات مباشرة' : 'Live sessions',
-        isRTL ? 'مشروع تخرج' : 'Capstone project'
+        isRTL ? 'Project تخرج' : 'Capstone project'
       ],
       popular: false,
       color: 'from-blue-500 to-purple-600'
@@ -46,14 +46,14 @@ const Pricing = () => {
       id: 'premium',
       name: isRTL ? 'الباقة المتميزة' : 'Premium Plan',
       price: isRTL ? '399 ريال' : '$399',
-      period: isRTL ? 'شهرياً' : '/month',
+      period: isRTL ? 'Monthly' : '/month',
       description: isRTL ? 'الأكثر شعبية' : 'Most popular',
       features: [
         isRTL ? 'الوصول إلى جميع الدورات' : 'Access to all courses',
         isRTL ? 'جلسات مباشرة أسبوعية' : 'Weekly live sessions',
         isRTL ? 'شهادة معتمدة' : 'Certified certificate',
         isRTL ? 'دعم 24/7' : '24/7 support',
-        isRTL ? 'مشروع تخرج' : 'Capstone project',
+        isRTL ? 'Project تخرج' : 'Capstone project',
         isRTL ? 'مجتمع طلابي خاص' : 'Private student community'
       ],
       notIncluded: [],
@@ -64,14 +64,14 @@ const Pricing = () => {
       id: 'enterprise',
       name: isRTL ? 'الباقة المؤسسية' : 'Enterprise Plan',
       price: isRTL ? '799 ريال' : '$799',
-      period: isRTL ? 'شهرياً' : '/month',
+      period: isRTL ? 'Monthly' : '/month',
       description: isRTL ? 'للفرق والمؤسسات' : 'For teams & organizations',
       features: [
         isRTL ? 'كل ما في الباقة المتميزة' : 'Everything in Premium',
         isRTL ? 'تدريب مخصص' : 'Custom training',
         isRTL ? 'مدير حساب مخصص' : 'Dedicated account manager',
         isRTL ? 'تقارير تقدم مفصلة' : 'Detailed progress reports',
-        isRTL ? 'تكامل مع الأنظمة الأخرى' : 'System integrations',
+        isRTL ? 'Integration مع الأنظمة الأخرى' : 'System integrations',
         isRTL ? 'تسعير خاص للمجموعات' : 'Volume pricing'
       ],
       notIncluded: [],
@@ -250,7 +250,7 @@ const Pricing = () => {
                 <Card className="p-8">
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      {isRTL ? 'تسجيل جديد' : 'Registration'}
+                      {isRTL ? 'تسجيل New' : 'Registration'}
                     </h3>
                     <p className="text-text-secondary">
                       {isRTL ? 'املأ البيانات للبدء' : 'Fill in your details to get started'}
@@ -259,8 +259,8 @@ const Pricing = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
-                      label={isRTL ? 'الاسم الكامل' : 'Full Name'}
-                      placeholder={isRTL ? 'أدخل اسمك الكامل' : 'Enter your full name'}
+                      label={isRTL ? 'Full Name' : 'Full Name'}
+                      placeholder={isRTL ? 'Enter your full name' : 'Enter your full name'}
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       required
@@ -268,7 +268,7 @@ const Pricing = () => {
                     />
 
                     <Input
-                      label={isRTL ? 'البريد الإلكتروني' : 'Email'}
+                      label={isRTL ? 'Email' : 'Email'}
                       type="email"
                       placeholder={isRTL ? 'example@email.com' : 'example@email.com'}
                       value={formData.email}
@@ -301,7 +301,7 @@ const Pricing = () => {
                         className="flex-1"
                         onClick={() => setShowRegistration(false)}
                       >
-                        {isRTL ? 'إلغاء' : 'Cancel'}
+                        {isRTL ? 'Cancel' : 'Cancel'}
                       </Button>
                       <Button
                         type="submit"

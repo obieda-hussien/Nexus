@@ -3,13 +3,13 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Eye, Edit3, HelpCircle } from 'lucide-react';
 
-const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى المقال باستخدام Markdown..." }) => {
+const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى الArticle باستخدام Markdown..." }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
   const markdownHelp = [
-    { syntax: '# عنوان رئيسي', description: 'عنوان من المستوى الأول' },
-    { syntax: '## عنوان فرعي', description: 'عنوان من المستوى الثاني' },
+    { syntax: '# عنوان رئيسي', description: 'عنوان من Level الأول' },
+    { syntax: '## عنوان فرعي', description: 'عنوان من Level الثاني' },
     { syntax: '**نص غامق**', description: 'نص بخط عريض' },
     { syntax: '*نص مائل*', description: 'نص مائل' },
     { syntax: '- عنصر قائمة', description: 'قائمة نقطية' },
@@ -61,7 +61,7 @@ const MarkdownEditor = ({ value, onChange, placeholder = "اكتب محتوى ا
         </div>
         
         <div className="text-xs text-gray-400">
-          يدعم Markdown للتنسيق المتقدم
+          يدعم Markdown للتنسيق الAdvanced
         </div>
       </div>
 

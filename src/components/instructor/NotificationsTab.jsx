@@ -9,8 +9,8 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
     {
       id: 1,
       type: 'review',
-      title: 'تقييم جديد على كورسك',
-      message: 'حصل كورس "الفيزياء الأساسية" على تقييم 5 نجوم من الطالب أحمد محمد',
+      title: 'تقييم New على كورسك',
+      message: 'حصل كورس "Basic Physics" على تقييم 5 نجوم من الStudent أحمد محمد',
       time: '10 دقائق',
       isRead: false,
       icon: Star
@@ -19,17 +19,17 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       id: 2,
       type: 'enrollment',
       title: 'تسجيل طلاب جدد',
-      message: '15 طالب جديد انضموا لكورس "النسبية المتخصصة"',
-      time: '30 دقيقة',
+      message: '15 Student New انضموا لكورس "النسبية المتخصصة"',
+      time: '30 minutes',
       isRead: false,
       icon: Users
     },
     {
       id: 3,
       type: 'system',
-      title: 'تحديث في النظام',
-      message: 'تم إضافة ميزات جديدة لإدارة الكورسات',
-      time: '2 ساعة',
+      title: 'Update في النظام',
+      message: 'تم Add ميزات Newة لCourse Management',
+      time: '2 hours',
       isRead: true,
       icon: Info
     },
@@ -89,10 +89,10 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3 space-x-reverse">
-            <h2 className="text-2xl font-bold text-white">الإشعارات</h2>
+            <h2 className="text-2xl font-bold text-white">Notifications</h2>
             {unreadCount > 0 && (
               <span className="bg-red-500 text-white text-sm px-2 py-1 rounded-full">
-                {unreadCount} جديد
+                {unreadCount} New
               </span>
             )}
           </div>
@@ -102,7 +102,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
               onClick={markAllAsRead}
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
             >
-              تمييز الكل كمقروء
+              تمييز All كمقروء
             </button>
           )}
         </div>
@@ -117,7 +117,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
                 : 'bg-white/10 text-purple-200 hover:text-white'
             }`}
           >
-            الكل ({notificationsList.length})
+            All ({notificationsList.length})
           </button>
           <button
             onClick={() => setFilter('unread')}
@@ -158,7 +158,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
             <Bell className="w-16 h-16 text-purple-300 mx-auto mb-4" />
             <p className="text-white text-xl mb-2">لا توجد إشعارات</p>
             <p className="text-purple-200">
-              {filter === 'unread' ? 'جميع الإشعارات مقروءة' : 'لا توجد إشعارات في هذا التصنيف'}
+              {filter === 'unread' ? 'جميع Notifications مقروءة' : 'لا توجد إشعارات في هذا التصنيف'}
             </p>
           </div>
         )}
@@ -212,7 +212,7 @@ const NotificationCard = ({ notification, onMarkAsRead, getNotificationColor }) 
           )}
           <button
             className="text-red-400 hover:text-red-300 p-1"
-            title="حذف الإشعار"
+            title="Delete الإشعار"
           >
             <X className="w-4 h-4" />
           </button>

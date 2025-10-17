@@ -32,8 +32,8 @@ export class EmailJSNotificationService {
 
       const templateParams = {
         to_email: instructorData.email,
-        to_name: instructorData.displayName || 'المدرس الكريم',
-        instructor_name: instructorData.displayName || 'المدرس',
+        to_name: instructorData.displayName || 'Dear Instructor',
+        instructor_name: instructorData.displayName || 'Instructor',
         payout_amount: payoutData.amount,
         currency: payoutData.currency || 'EGP',
         payment_method: this.getPaymentMethodNameAr(payoutData.paymentMethod.type),
@@ -46,7 +46,7 @@ export class EmailJSNotificationService {
         total_earnings: instructorData.instructorData?.totalEarnings || 0,
         account_details: this.formatAccountDetails(payoutData.paymentMethod),
         support_email: 'support@nexus-edu.com',
-        platform_name: 'منصة نيكسوس التعليمية',
+        platform_name: 'Nexus Educational Platform',
         payout_status: payoutData.status || 'completed',
         estimated_arrival: this.getEstimatedArrival(payoutData.paymentMethod.type),
         year: new Date().getFullYear(),
@@ -78,7 +78,7 @@ export class EmailJSNotificationService {
       
       // Send browser notification as fallback
       await this.sendBrowserNotification({
-        title: 'تم إرسال الأرباح',
+        title: 'تم Submit Earnings',
         body: `تم تحويل ${payoutData.amount} ${payoutData.currency || 'EGP'} بنجاح`,
         icon: '/favicon.ico'
       });
@@ -97,7 +97,7 @@ export class EmailJSNotificationService {
       if (!this.isConfigured()) {
         console.warn('EmailJS not configured, using browser notification');
         await this.sendBrowserNotification({
-          title: 'بيع جديد!',
+          title: 'New Sale!',
           body: `تم شراء كورس ${courseData.title} بواسطة ${studentData.displayName}`,
           icon: '/favicon.ico'
         });
@@ -108,12 +108,12 @@ export class EmailJSNotificationService {
       
       const templateParams = {
         to_email: instructorData.email,
-        to_name: instructorData.displayName || 'المدرس الكريم',
-        instructor_name: instructorData.displayName || 'المدرس',
+        to_name: instructorData.displayName || 'Dear Instructor',
+        instructor_name: instructorData.displayName || 'Instructor',
         course_title: courseData.title,
         course_price: paymentData.amount,
         currency: paymentData.currency || 'EGP',
-        student_name: studentData.displayName || 'الطالب',
+        student_name: studentData.displayName || 'الStudent',
         student_email: studentData.email,
         payment_method: this.getPaymentMethodNameAr(paymentData.paymentMethod || 'paypal'),
         sale_date: new Date().toLocaleDateString('ar-EG'),
@@ -121,7 +121,7 @@ export class EmailJSNotificationService {
         instructor_earnings: instructorShare,
         platform_fee: paymentData.amount * 0.1,
         total_sales: courseData.salesCount + 1,
-        platform_name: 'منصة نيكسوس التعليمية',
+        platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         formatted_date: new Date().toLocaleDateString('ar-EG', { 
           weekday: 'long', 
@@ -145,7 +145,7 @@ export class EmailJSNotificationService {
       
       // Browser notification fallback
       await this.sendBrowserNotification({
-        title: 'بيع جديد!',
+        title: 'New Sale!',
         body: `تم شراء كورس ${courseData.title} - ربح: ${(paymentData.amount * 0.9).toFixed(2)} ج.م`,
         icon: '/favicon.ico'
       });
@@ -164,8 +164,8 @@ export class EmailJSNotificationService {
 
       const templateParams = {
         to_email: instructorData.email,
-        to_name: instructorData.displayName || 'المدرس الكريم',
-        instructor_name: instructorData.displayName || 'المدرس',
+        to_name: instructorData.displayName || 'Dear Instructor',
+        instructor_name: instructorData.displayName || 'Instructor',
         report_month: reportData.month,
         report_year: reportData.year,
         total_earnings: reportData.totalEarnings || 0,
@@ -177,7 +177,7 @@ export class EmailJSNotificationService {
         courses_sold: reportData.coursesSold || 0,
         new_students: reportData.newStudents || 0,
         top_course: reportData.topCourse || 'غير متاح',
-        platform_name: 'منصة نيكسوس التعليمية',
+        platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         report_date: new Date().toLocaleDateString('ar-EG'),
         formatted_date: new Date().toLocaleDateString('ar-EG', { 
@@ -213,10 +213,10 @@ export class EmailJSNotificationService {
 
       const templateParams = {
         to_email: instructorData.email,
-        to_name: instructorData.displayName || 'المدرس الكريم',
-        instructor_name: instructorData.displayName || 'المدرس',
+        to_name: instructorData.displayName || 'Dear Instructor',
+        instructor_name: instructorData.displayName || 'Instructor',
         registration_date: new Date().toLocaleDateString('ar-EG'),
-        platform_name: 'منصة نيكسوس التعليمية',
+        platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         dashboard_url: `${window.location.origin}/instructor`,
         guidelines_url: `${window.location.origin}/instructor-guidelines`,
@@ -303,7 +303,7 @@ export class EmailJSNotificationService {
   static async sendTestEmail(recipientEmail, recipientName = 'المختبر') {
     try {
       if (!this.isConfigured()) {
-        throw new Error('خدمة EmailJS غير مُعدّة بشكل صحيح. تحقق من متغيرات البيئة.');
+        throw new Error('خدمة EmailJS Not readyّة بشكل صحيح. تحقق من متغيرات البيئة.');
       }
 
       // Validate inputs
@@ -314,12 +314,12 @@ export class EmailJSNotificationService {
       // Test template parameters with all required fields
       const templateParams = {
         to_email: recipientEmail,
-        to_name: recipientName || 'مختبر النظام',
-        instructor_name: recipientName || 'مختبر النظام',
+        to_name: recipientName || 'System Lab',
+        instructor_name: recipientName || 'System Lab',
         // Payout notification fields (since we're using that template)
         payout_amount: '0.00',
         currency: 'EGP',
-        payment_method: 'اختبار',
+        payment_method: 'Quiz',
         payout_date: new Date().toLocaleDateString('ar-EG'),
         transaction_id: `test_${Date.now()}`,
         net_amount: '0.00',
@@ -327,12 +327,12 @@ export class EmailJSNotificationService {
         tax_amount: '0.00',
         available_balance: '0.00',
         total_earnings: '0.00',
-        account_details: 'حساب اختبار',
+        account_details: 'حساب Quiz',
         payout_status: 'test',
-        estimated_arrival: 'فوري',
+        estimated_arrival: 'Instant',
         // Generic fields
-        test_message: 'هذه رسالة اختبار للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
-        platform_name: 'منصة نيكسوس التعليمية',
+        test_message: 'هذه رسالة Quiz للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
+        platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         test_date: new Date().toLocaleDateString('ar-EG'),
         year: new Date().getFullYear(),
@@ -361,14 +361,14 @@ export class EmailJSNotificationService {
       return { 
         success: true, 
         messageId: response.text,
-        message: 'تم إرسال رسالة الاختبار بنجاح! تحقق من صندوق الوارد.'
+        message: 'Test email sent successfully! تحقق من صندوق الوارد.'
       };
 
     } catch (error) {
       console.error('❌ Test email error:', error);
       
       // Provide more specific error messages
-      let errorMessage = 'فشل في إرسال رسالة الاختبار';
+      let errorMessage = 'فشل في Submit رسالة الQuiz';
       
       if (error.text) {
         if (error.text.includes('Invalid')) {
@@ -376,7 +376,7 @@ export class EmailJSNotificationService {
         } else if (error.text.includes('Forbidden')) {
           errorMessage = 'المفتاح العام غير مصرح له بالوصول';
         } else if (error.text.includes('Limit')) {
-          errorMessage = 'تم تجاوز الحد المسموح من الرسائل الشهرية';
+          errorMessage = 'تم تجاوز الحد المسموح من Messages الشهرية';
         } else {
           errorMessage = `خطأ في الخدمة: ${error.text}`;
         }
@@ -393,15 +393,15 @@ export class EmailJSNotificationService {
     const names = {
       paypal: 'PayPal',
       stripe: 'Stripe',
-      bank: 'تحويل بنكي',
-      vodafone: 'فودافون كاش',
-      fawry: 'فوري'
+      bank: 'Bank Transfer',
+      vodafone: 'Vodafone Cash',
+      fawry: 'Instant'
     };
     return names[type] || type;
   }
 
   static formatAccountDetails(paymentMethod) {
-    if (!paymentMethod) return 'غير محدد';
+    if (!paymentMethod) return 'Not specified';
     
     switch (paymentMethod.type) {
       case 'bank':
@@ -409,21 +409,21 @@ export class EmailJSNotificationService {
       case 'paypal':
         return paymentMethod.paypalEmail || 'PayPal';
       case 'vodafone':
-        return paymentMethod.vodafoneCashNumber || 'فودافون كاش';
+        return paymentMethod.vodafoneCashNumber || 'Vodafone Cash';
       default:
-        return paymentMethod.type || 'غير محدد';
+        return paymentMethod.type || 'Not specified';
     }
   }
 
   static getEstimatedArrival(paymentMethodType) {
     const arrivals = {
-      bank: '3-5 أيام عمل',
-      paypal: 'فوري',
+      bank: '3-5 business days',
+      paypal: 'Instant',
       vodafone: '24 ساعة',
       fawry: '24-48 ساعة',
-      stripe: 'فوري'
+      stripe: 'Instant'
     };
-    return arrivals[paymentMethodType] || '1-3 أيام عمل';
+    return arrivals[paymentMethodType] || '1-3 business days';
   }
 
   // Get email usage statistics (mock - would need backend integration)

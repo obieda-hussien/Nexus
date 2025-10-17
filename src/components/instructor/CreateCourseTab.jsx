@@ -37,14 +37,14 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
     try {
       // Validate authentication
       if (!currentUser) {
-        toast.error('يجب تسجيل الدخول أولاً لإنشاء كورس');
+        toast.error('يجب Login أولاً لإنشاء كورس');
         console.error('❌ No authenticated user found');
         return;
       }
 
       // Check if user has instructor permissions
       if (!canCreateCourses()) {
-        toast.error('ليس لديك صلاحية إنشاء كورسات. يجب أن تكون مدرساً أولاً');
+        toast.error('You do not have permission إنشاء كورسات. يجب أن تكون مدرساً أولاً');
         console.error('❌ User does not have instructor role:', {
           userId: currentUser.uid,
           userRole: userProfile?.role,
@@ -55,7 +55,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
 
       // Validate required fields
       if (!courseData.title || !courseData.description || !courseData.category) {
-        toast.error('يرجى ملء جميع الحقول المطلوبة');
+        toast.error('Please fill all required fields');
         console.error('❌ Missing required fields:', {
           title: !!courseData.title,
           description: !!courseData.description,
@@ -104,7 +104,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       console.error('❌ Error creating course:', error);
       
       // Provide more specific error messages
-      let errorMessage = 'حدث خطأ في إنشاء الكورس';
+      let errorMessage = 'An error occurred في إنشاء الكورس';
       
       if (error.code === 'permission-denied') {
         errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تأكد من أن دورك "مدرس" في النظام';
@@ -114,7 +114,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       } else if (error.code === 'network-request-failed') {
         errorMessage = 'خطأ في الشبكة. تحقق من اتصالك بالإنترنت';
       } else if (error.code === 'auth/requires-recent-login') {
-        errorMessage = 'يجب إعادة تسجيل الدخول للمتابعة';
+        errorMessage = 'يجب إعادة Login للمتابعة';
       } else if (error.message) {
         errorMessage = `خطأ: ${error.message}`;
       }
@@ -134,13 +134,13 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-white">إنشاء كورس جديد</h2>
+        <h2 className="text-2xl font-bold text-white">Create New Course</h2>
         <div className="flex space-x-3 space-x-reverse">
           <button
             onClick={onCancel}
             className="px-4 py-2 text-purple-200 hover:text-white transition-colors"
           >
-            إلغاء
+            Cancel
           </button>
         </div>
       </div>
@@ -190,10 +190,10 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
 
 const CourseCreationSteps = ({ currentStep }) => {
   const steps = [
-    { id: 1, title: 'المعلومات الأساسية' },
-    { id: 2, title: 'المنهج' },
-    { id: 3, title: 'التسعير' },
-    { id: 4, title: 'المراجعة والنشر' }
+    { id: 1, title: 'Basic Information' },
+    { id: 2, title: 'Curriculum' },
+    { id: 3, title: 'Pricing' },
+    { id: 4, title: 'المراجعة والPublish' }
   ];
 
   return (
@@ -234,7 +234,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
 
   const handleNext = () => {
     if (!formData.title || !formData.description || !formData.category) {
-      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      toast.error('Please fill all required fields');
       return;
     }
     onNext();
@@ -245,14 +245,14 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-purple-200 text-sm font-semibold mb-2">
-            عنوان الكورس *
+            Course Title *
           </label>
           <input
             type="text"
             value={formData.title}
             onChange={(e) => handleInputChange('title', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-            placeholder="مثال: أساسيات الفيزياء الحديثة"
+            placeholder="مثال: Physics Basics الحديثة"
           />
         </div>
 
@@ -266,11 +266,11 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
             <option value="">اختر التصنيف</option>
-            <option value="physics">الفيزياء</option>
-            <option value="math">الرياضيات</option>
-            <option value="chemistry">الكيمياء</option>
+            <option value="physics">Physics</option>
+            <option value="math">Mathematics</option>
+            <option value="chemistry">Chemistry</option>
             <option value="biology">الأحياء</option>
-            <option value="programming">البرمجة</option>
+            <option value="programming">Programming</option>
           </select>
         </div>
       </div>
@@ -284,37 +284,37 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           value={formData.shortDescription}
           onChange={(e) => handleInputChange('shortDescription', e.target.value)}
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="وصف قصير يلخص محتوى الكورس في سطر واحد"
+          placeholder="وصف قصير يلخص Course Content في سطر واحد"
           maxLength="120"
         />
       </div>
 
       <div>
         <label className="block text-purple-200 text-sm font-semibold mb-2">
-          الوصف التفصيلي *
+          Description التفصيلي *
         </label>
         <textarea
           value={formData.description}
           onChange={(e) => handleInputChange('description', e.target.value)}
           rows="6"
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه الطلاب، والفوائد المتوقعة..."
+          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه Students، والفوائد المتوقعة..."
         />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-purple-200 text-sm font-semibold mb-2">
-            المستوى
+            Level
           </label>
           <select
             value={formData.level}
             onChange={(e) => handleInputChange('level', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="beginner">مبتدئ</option>
-            <option value="intermediate">متوسط</option>
-            <option value="advanced">متقدم</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
           </select>
         </div>
 
@@ -327,8 +327,8 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             onChange={(e) => handleInputChange('language', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="ar">العربية</option>
-            <option value="en">الإنجليزية</option>
+            <option value="ar">Arabic</option>
+            <option value="en">English</option>
           </select>
         </div>
       </div>
@@ -338,7 +338,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           onClick={handleNext}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
         >
-          التالي: المنهج
+          التالي: Curriculum
         </button>
       </div>
     </div>
@@ -371,7 +371,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     onChange({ sections: updatedSections });
     setNewSectionTitle('');
     setShowAddSection(false);
-    toast.success('تم إضافة الوحدة بنجاح');
+    toast.success('تم Add الوحدة بنجاح');
   };
 
   const updateSection = (sectionId, updates) => {
@@ -383,12 +383,12 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
   };
 
   const deleteSection = (sectionId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذه الوحدة؟')) return;
+    if (!window.confirm('هل أنت متأكد من Delete هذه الوحدة؟')) return;
     
     const updatedSections = sections.filter(section => section.id !== sectionId);
     setSections(updatedSections);
     onChange({ sections: updatedSections });
-    toast.success('تم حذف الوحدة');
+    toast.success('تم Delete الوحدة');
   };
 
   const addLesson = (sectionId) => {
@@ -424,7 +424,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
         randomizeQuestions: false,
         settings: {
           description: '',
-          instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+          instructions: 'Read each question carefully and choose the correct answer.',
           showProgress: true,
           requirePassword: false,
           password: ''
@@ -452,14 +452,14 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
   };
 
   const deleteLesson = (sectionId, lessonId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذا الدرس؟')) return;
+    if (!window.confirm('هل أنت متأكد من Delete هذا الدرس؟')) return;
 
     const section = sections.find(s => s.id === sectionId);
     if (!section) return;
 
     const updatedLessons = section.lessons.filter(lesson => lesson.id !== lessonId);
     updateSection(sectionId, { lessons: updatedLessons });
-    toast.success('تم حذف الدرس');
+    toast.success('تم Delete الدرس');
   };
 
   const toggleSectionExpansion = (sectionId) => {
@@ -470,7 +470,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
 
   const handleNext = () => {
     if (sections.length === 0) {
-      toast.error('يرجى إضافة وحدة واحدة على الأقل');
+      toast.error('يرجى Add وحدة واحدة على الLess');
       return;
     }
 
@@ -495,7 +495,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
           className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 space-x-reverse hover:bg-green-600 transition-colors"
         >
           <Plus className="w-4 h-4" />
-          <span>إضافة وحدة</span>
+          <span>Add وحدة</span>
         </button>
       </div>
 
@@ -507,7 +507,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
               type="text"
               value={newSectionTitle}
               onChange={(e) => setNewSectionTitle(e.target.value)}
-              placeholder="عنوان الوحدة الجديدة"
+              placeholder="عنوان الوحدة الNewة"
               className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               onKeyPress={(e) => e.key === 'Enter' && addSection()}
             />
@@ -515,7 +515,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
               onClick={addSection}
               className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
             >
-              إضافة
+              Add
             </button>
             <button
               onClick={() => {
@@ -524,7 +524,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
               }}
               className="text-purple-200 hover:text-white px-4 py-2"
             >
-              إلغاء
+              Cancel
             </button>
           </div>
         </div>
@@ -534,8 +534,8 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
       {sections.length === 0 ? (
         <div className="text-center py-12">
           <BookOpen className="w-16 h-16 text-purple-300 mx-auto mb-4" />
-          <p className="text-purple-200">لم تقم بإضافة أي وحدات بعد</p>
-          <p className="text-purple-300 text-sm">ابدأ بإضافة الوحدة الأولى لكورسك</p>
+          <p className="text-purple-200">لم تقم بAdd أي وحدات بعد</p>
+          <p className="text-purple-300 text-sm">ابدأ بAdd الوحدة الأولى لكورسك</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -567,7 +567,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
           onClick={handleNext}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
         >
-          التالي: التسعير
+          التالي: Pricing
         </button>
       </div>
     </div>
@@ -596,7 +596,7 @@ const SectionCard = ({
     }
     onUpdate({ title: editTitle });
     setIsEditing(false);
-    toast.success('تم تحديث عنوان الوحدة');
+    toast.success('تم Update عنوان الوحدة');
   };
 
   return (
@@ -685,7 +685,7 @@ const SectionCard = ({
               className="bg-white/5 border border-white/10 rounded-lg p-3 text-purple-200 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
             >
               <Plus className="w-4 h-4" />
-              <span>إضافة درس جديد</span>
+              <span>Add درس New</span>
             </button>
             
             <button
@@ -693,7 +693,7 @@ const SectionCard = ({
               className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-3 text-blue-200 hover:text-white hover:bg-blue-500/30 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
             >
               <HelpCircle className="w-4 h-4" />
-              <span>إضافة كويز</span>
+              <span>Add كويز</span>
             </button>
           </div>
         </div>
@@ -721,7 +721,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
       randomizeQuestions: false,
       settings: {
         description: '',
-        instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+        instructions: 'Read each question carefully and choose the correct answer.',
         showProgress: true,
         requirePassword: false,
         password: ''
@@ -741,18 +741,18 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
     }
 
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
-      toast.error('رابط الفيديو مطلوب');
+      toast.error('رابط الVideo مطلوب');
       return;
     }
 
     if (formData.type === 'quiz' && (!formData.quizData.questions || formData.quizData.questions.length === 0)) {
-      toast.error('يجب إضافة سؤال واحد على الأقل للكويز');
+      toast.error('يجب Add سؤال واحد على الLess للكويز');
       return;
     }
 
     onUpdate(formData);
     setIsEditing(false);
-    toast.success('تم حفظ الدرس');
+    toast.success('تم Save الدرس');
   };
 
   const handleCancel = () => {
@@ -775,7 +775,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           randomizeQuestions: false,
           settings: {
             description: '',
-            instructions: 'اقرأ كل سؤال بعناية واختر الإجابة الصحيحة.',
+            instructions: 'Read each question carefully and choose the correct answer.',
             showProgress: true,
             requirePassword: false,
             password: ''
@@ -802,13 +802,13 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
   const getTypeLabel = (type) => {
     switch (type) {
       case 'video':
-        return 'فيديو';
+        return 'Video';
       case 'article':
-        return 'مقال';
+        return 'Article';
       case 'quiz':
         return 'كويز';
       default:
-        return 'مقال';
+        return 'Article';
     }
   };
 
@@ -831,8 +831,8 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
             onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
             className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="article">مقال</option>
-            <option value="video">فيديو</option>
+            <option value="article">Article</option>
+            <option value="video">Video</option>
             <option value="quiz">كويز</option>
           </select>
 
@@ -840,12 +840,12 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           {formData.type === 'article' ? (
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                محتوى المقال (يدعم Markdown)
+                محتوى الArticle (يدعم Markdown)
               </label>
               <MarkdownEditor
                 value={formData.content}
                 onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
-                placeholder="اكتب محتوى المقال باستخدام Markdown...
+                placeholder="اكتب محتوى الArticle باستخدام Markdown...
 
 مثال:
 # عنوان رئيسي
@@ -871,14 +871,14 @@ console.log('مرحباً بالعالم');
                 type="url"
                 value={formData.videoUrl}
                 onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
-                placeholder="رابط الفيديو (YouTube أو رابط مباشر)"
+                placeholder="رابط الVideo (YouTube أو رابط مباشر)"
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               />
               <input
                 type="number"
                 value={formData.duration}
                 onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
-                placeholder="مدة الفيديو (بالدقائق)"
+                placeholder="مدة الVideo (بالدقائق)"
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               />
             </div>
@@ -901,13 +901,13 @@ console.log('مرحباً بالعالم');
               onClick={handleSave}
               className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
             >
-              حفظ
+              Save
             </button>
             <button
               onClick={handleCancel}
               className="text-purple-200 hover:text-white px-3 py-1"
             >
-              إلغاء
+              Cancel
             </button>
           </div>
         </div>
@@ -980,14 +980,14 @@ const PricingStep = ({ data, onChange, onNext, onBack }) => {
             className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
           />
           <label htmlFor="isFree" className="text-white font-medium">
-            كورس مجاني
+            كورس Free
           </label>
         </div>
 
         {!data.isFree && (
           <div>
             <label className="block text-purple-200 text-sm font-semibold mb-2">
-              السعر (بالجنيه المصري)
+              Price (بالجنيه المصري)
             </label>
             <input
               type="number"
@@ -1027,7 +1027,7 @@ const ReviewStep = ({ data, onSubmit, onBack }) => {
       
       <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
         <div>
-          <h4 className="text-purple-200 text-sm">عنوان الكورس</h4>
+          <h4 className="text-purple-200 text-sm">Course Title</h4>
           <p className="text-white font-medium">{data.title}</p>
         </div>
         
@@ -1037,17 +1037,17 @@ const ReviewStep = ({ data, onSubmit, onBack }) => {
         </div>
         
         <div>
-          <h4 className="text-purple-200 text-sm">المستوى</h4>
+          <h4 className="text-purple-200 text-sm">Level</h4>
           <p className="text-white">
-            {data.level === 'beginner' ? 'مبتدئ' : 
-             data.level === 'intermediate' ? 'متوسط' : 'متقدم'}
+            {data.level === 'beginner' ? 'Beginner' : 
+             data.level === 'intermediate' ? 'Intermediate' : 'Advanced'}
           </p>
         </div>
         
         <div>
-          <h4 className="text-purple-200 text-sm">السعر</h4>
+          <h4 className="text-purple-200 text-sm">Price</h4>
           <p className="text-white">
-            {data.isFree ? 'مجاني' : `${data.price} جنيه`}
+            {data.isFree ? 'Free' : `${data.price} جنيه`}
           </p>
         </div>
       </div>
@@ -1079,7 +1079,7 @@ const InstructorUpgradePrompt = () => {
     try {
       setIsUpgrading(true);
       await becomeInstructor();
-      toast.success('🎉 تم ترقية حسابك لمدرس بنجاح! يمكنك الآن إنشاء الكورسات');
+      toast.success('🎉 تم ترقية حسابك لمدرس بنجاح! يمكنك الآن إنشاء Courses');
       // The page will automatically update due to role change
     } catch (error) {
       console.error('❌ Error becoming instructor:', error);
@@ -1102,15 +1102,15 @@ const InstructorUpgradePrompt = () => {
         
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
           <p className="text-purple-200 mb-4">
-            حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'طالب'}</span>
+            حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'Student'}</span>
           </p>
           <p className="text-purple-200 mb-4">
-            لإنشاء وإدارة الكورسات، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">مدرس</span>
+            لإنشاء وCourse Management، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">مدرس</span>
           </p>
         </div>
 
         <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/30 rounded-xl p-6 mb-6">
-          <h3 className="text-lg font-semibold text-white mb-4">مزايا حساب المدرس</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">مزايا حساب Instructor</h3>
           <div className="grid md:grid-cols-2 gap-4 text-right">
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -1122,7 +1122,7 @@ const InstructorUpgradePrompt = () => {
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-purple-200">متابعة تقدم الطلاب</span>
+              <span className="text-purple-200">متابعة تقدم Students</span>
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -1155,7 +1155,7 @@ const InstructorUpgradePrompt = () => {
         </button>
 
         <p className="text-purple-300 text-sm mt-4">
-          الترقية مجانية وفورية - لا توجد رسوم إضافية
+          الترقية Freeة وInstantة - لا توجد رسوم إضافية
         </p>
       </div>
     </div>

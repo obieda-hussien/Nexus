@@ -28,21 +28,21 @@ export class FreeEmailService {
       services: {
         emailjs: {
           configured: emailjsStatus.configured,
-          status: emailjsStatus.configured ? 'جاهز' : 'غير مُعد',
+          status: emailjsStatus.configured ? 'Ready' : 'Not ready',
           cost: emailjsStatus.cost,
           monthlyLimit: emailjsStatus.monthlyLimit,
           fallback: emailjsStatus.fallbackAvailable
         },
         browserNotifications: {
           configured: true,
-          status: 'جاهز دائماً',
-          cost: 'مجاني تماماً'
+          status: 'Ready دائماً',
+          cost: 'Completely free'
         }
       },
       recommendation: emailjsStatus.configured 
-        ? 'EmailJS مُعد بنجاح - خدمة مجانية موثوقة (200 رسالة/شهر)'
-        : 'للحصول على إشعارات بريد إلكتروني، قم بإعداد EmailJS (مجاني 100%)',
-      totalMonthlyCost: '$0 (مجاني بالكامل)',
+        ? 'EmailJS مُعد بنجاح - خدمة Freeة موثوقة (200 رسالة/شهر)'
+        : 'للحصول على إشعارات بريد إلكتروني، قم بإعداد EmailJS (Free 100%)',
+      totalMonthlyCost: '$0 (Free بالكامل)',
       savings: '$15/month (مقارنة بـ SendGrid)'
     };
   }
@@ -72,7 +72,7 @@ export class FreeEmailService {
       console.log('📱 Falling back to browser notification...');
       await this.sendBrowserNotification(instructorData, {
         type: 'withdrawal_requested',
-        title: 'طلب سحب جديد',
+        title: 'New Withdrawal Request',
         message: `تم استلام طلب سحب ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
         withdrawalData
       });
@@ -91,7 +91,7 @@ export class FreeEmailService {
       try {
         await this.sendBrowserNotification(instructorData, {
           type: 'withdrawal_requested',
-          title: 'طلب سحب جديد',
+          title: 'New Withdrawal Request',
           message: `طلب سحب: ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
           withdrawalData
         });
@@ -106,7 +106,7 @@ export class FreeEmailService {
         console.error('❌ All notification methods failed:', fallbackError);
         return {
           success: false,
-          error: 'فشل في إرسال الإشعار',
+          error: 'فشل في Submit الإشعار',
           allMethodsFailed: true
         };
       }
@@ -151,7 +151,7 @@ export class FreeEmailService {
       
       // Fallback: Browser notification
       await this.sendBrowserNotification(instructorData, {
-        title: 'بيع جديد!',
+        title: 'New Sale!',
         message: `تم شراء ${courseData.title} بواسطة ${studentData.displayName}`
       });
       
@@ -189,11 +189,11 @@ export class FreeEmailService {
       savings: '$15/month',
       annualSavings: '$180/year',
       features: [
-        '200 رسالة مجانية شهرياً',
-        'قوالب احترافية باللغة العربية',
-        'تسليم فوري',
-        'تتبع حالة الإرسال',
-        'بديل مجاني للمتصفح'
+        '200 رسالة Freeة Monthly',
+        'قوالب احترافية باللغة Arabic',
+        'تسليم Instant',
+        'تتبع حالة الSubmit',
+        'بديل Free للمتصفح'
       ]
     };
   }

@@ -18,10 +18,10 @@ export const addSampleReviews = async () => {
         studentId: 'student2',
         studentName: 'فاطمة أحمد',
         rating: 4,
-        comment: 'كورس مفيد ومفهوم، لكن كنت أتمنى المزيد من التمارين العملية.',
+        comment: 'كورس مفيد ومفهوم، لكن كنت أتمنى More من التمارين العملية.',
         createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
         instructorReply: {
-          message: 'شكراً لك على التقييم! سأضيف المزيد من التمارين العملية في التحديث القادم.',
+          message: 'شكراً لك على التقييم! سأضيف More من التمارين العملية في الUpdate القادم.',
           timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
           instructorId: 'instructor1',
           instructorName: 'د. محمد علي'
@@ -31,7 +31,7 @@ export const addSampleReviews = async () => {
         studentId: 'student3',
         studentName: 'عمر حسام',
         rating: 5,
-        comment: 'من أفضل الكورسات التي أخذتها! المحتوى منظم والشرح مبسط ومفهوم.',
+        comment: 'من أفضل Courses التي أخذتها! المحتوى منظم والشرح مبسط ومفهوم.',
         createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString() // 1 week ago
       },
       {

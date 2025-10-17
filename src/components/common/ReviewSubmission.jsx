@@ -53,7 +53,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
     try {
       const reviewData = {
         studentId: currentUser.uid,
-        studentName: currentUser.displayName || currentUser.email?.split('@')[0] || 'طالب',
+        studentName: currentUser.displayName || currentUser.email?.split('@')[0] || 'Student',
         rating: rating,
         comment: comment.trim(),
         createdAt: new Date().toISOString(),
@@ -67,17 +67,17 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
           ...reviewData,
           updatedAt: new Date().toISOString()
         });
-        toast.success('تم تحديث تقييمك بنجاح');
+        toast.success('تم Update تقييمك بنجاح');
       } else {
         // Create new review - use courses/{courseId}/reviews path
         const reviewsRef = ref(db, `courses/${courseId}/reviews`);
         await push(reviewsRef, reviewData);
-        toast.success('تم إرسال تقييمك بنجاح');
+        toast.success('تم Submit تقييمك بنجاح');
         setHasReviewed(true);
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      toast.error('حدث خطأ في إرسال التقييم');
+      toast.error('An error occurred في Submit التقييم');
     } finally {
       setIsSubmitting(false);
     }
@@ -110,14 +110,14 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
     <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
       <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
         <MessageSquare className="w-5 h-5 ml-2 text-blue-400" />
-        {hasReviewed ? 'تحديث تقييمك' : 'قيم هذا الكورس'}
+        {hasReviewed ? 'Update تقييمك' : 'قيم هذا الكورس'}
       </h3>
 
       {hasReviewed && (
         <div className="mb-4 p-3 bg-green-900/20 border border-green-700/30 rounded-lg">
           <div className="flex items-center text-green-400 text-sm">
             <CheckCircle className="w-4 h-4 ml-2" />
-            لقد قمت بتقييم هذا الكورس مسبقاً. يمكنك تحديث تقييمك أدناه.
+            لقد قمت بتقييم هذا الكورس مسبقاً. يمكنك Update تقييمك أدناه.
           </div>
         </div>
       )}
@@ -163,12 +163,12 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
         {isSubmitting ? (
           <>
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-            <span>جاري الإرسال...</span>
+            <span>Sending...</span>
           </>
         ) : (
           <>
             <Send className="w-4 h-4" />
-            <span>{hasReviewed ? 'تحديث التقييم' : 'إرسال التقييم'}</span>
+            <span>{hasReviewed ? 'Update التقييم' : 'Submit التقييم'}</span>
           </>
         )}
       </button>

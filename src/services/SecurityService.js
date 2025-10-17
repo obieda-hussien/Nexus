@@ -40,7 +40,7 @@ class SecurityService {
       hasSpecialChar
     ].filter(Boolean).length;
     
-    const strength = score < 2 ? 'ضعيف' : score < 4 ? 'متوسط' : 'قوي';
+    const strength = score < 2 ? 'ضعيف' : score < 4 ? 'Intermediate' : 'قوي';
     
     return {
       score,
@@ -65,7 +65,7 @@ class SecurityService {
       // Validate new password strength
       const passwordCheck = this.validatePasswordStrength(newPassword);
       if (!passwordCheck.isValid) {
-        throw new Error('كلمة المرور الجديدة لا تلبي متطلبات الأمان');
+        throw new Error('Password الNewة لا تلبي متطلبات الأمان');
       }
 
       // Re-authenticate user
@@ -81,7 +81,7 @@ class SecurityService {
         success: true
       });
 
-      return { success: true, message: 'تم تغيير كلمة المرور بنجاح' };
+      return { success: true, message: 'تم تغيير Password بنجاح' };
     } catch (error) {
       await this.logSecurityEvent('password_change_failed', {
         user_id: auth.currentUser?.uid,
@@ -89,9 +89,9 @@ class SecurityService {
       });
       
       if (error.code === 'auth/wrong-password') {
-        throw new Error('كلمة المرور الحالية غير صحيحة');
+        throw new Error('Password الحالية غير صحيحة');
       }
-      throw new Error('فشل في تغيير كلمة المرور');
+      throw new Error('فشل في تغيير Password');
     }
   }
 
@@ -193,7 +193,7 @@ class SecurityService {
       return { success: true };
     } catch (error) {
       console.error('Error updating security settings:', error);
-      throw new Error('فشل في تحديث إعدادات الأمان');
+      throw new Error('فشل في Update إعدادات الأمان');
     }
   }
 
@@ -363,7 +363,7 @@ class SecurityService {
       recommendations.push({
         type: 'security_questions',
         title: 'تعيين أسئلة الأمان',
-        description: 'قم بتعيين أسئلة الأمان لاستعادة الحساب في حالة فقدان كلمة المرور'
+        description: 'قم بتعيين أسئلة الأمان لاستعادة الحساب في حالة فقدان Password'
       });
     }
     
@@ -373,8 +373,8 @@ class SecurityService {
       if (daysSinceChange > 90) {
         recommendations.push({
           type: 'password_update',
-          title: 'تحديث كلمة المرور',
-          description: 'ننصح بتغيير كلمة المرور كل 90 يوم'
+          title: 'Update Password',
+          description: 'ننصح بتغيير Password كل 90 يوم'
         });
       }
     }

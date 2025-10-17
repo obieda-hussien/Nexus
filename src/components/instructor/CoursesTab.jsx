@@ -337,7 +337,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
             course.isActive ? 'bg-green-400' : 'bg-gray-400'
           }`}></span>
           <span className="text-sm text-purple-200">
-            {course.isActive ? 'نشط' : 'غير نشط'}
+            {course.isActive ? 'Active' : 'Inactive'}
           </span>
         </div>
         

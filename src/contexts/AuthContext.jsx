@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       // Create comprehensive user document in Realtime Database
       const userProfileData = {
         uid: user.uid,
-        displayName: displayName || 'مستخدم جديد',
+        displayName: displayName || 'New User',
         email,
         createdAt: new Date().toISOString(),
         role: 'student',
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
         try {
           const minimalProfile = {
             uid: user.uid,
-            displayName: displayName || 'مستخدم جديد',
+            displayName: displayName || 'New User',
             email,
             createdAt: new Date().toISOString(),
             role: 'student'
@@ -133,13 +133,13 @@ export const AuthProvider = ({ children }) => {
       
       // Provide specific error guidance
       if (error.code === 'auth/email-already-in-use') {
-        throw new Error('هذا البريد الإلكتروني مستخدم بالفعل');
+        throw new Error('This email is already in use');
       } else if (error.code === 'auth/weak-password') {
-        throw new Error('كلمة المرور ضعيفة جداً');
+        throw new Error('Password is too weak');
       } else if (error.code === 'auth/invalid-email') {
-        throw new Error('البريد الإلكتروني غير صالح');
+        throw new Error('Email غير صالح');
       } else {
-        throw new Error('فشل في إنشاء الحساب. يرجى المحاولة مرة أخرى');
+        throw new Error('فشل في Create Account. يرجى المحاولة مرة أخرى');
       }
     }
   };
@@ -170,13 +170,13 @@ export const AuthProvider = ({ children }) => {
       console.error('❌ Sign in failed:', error);
       
       if (error.code === 'auth/user-not-found') {
-        throw new Error('المستخدم غير موجود');
+        throw new Error('User غير موجود');
       } else if (error.code === 'auth/wrong-password') {
-        throw new Error('كلمة المرور غير صحيحة');
+        throw new Error('Incorrect password');
       } else if (error.code === 'auth/invalid-email') {
-        throw new Error('البريد الإلكتروني غير صالح');
+        throw new Error('Email غير صالح');
       } else {
-        throw new Error('فشل في تسجيل الدخول');
+        throw new Error('فشل في Login');
       }
     }
   };
@@ -228,7 +228,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const userProfileData = {
         uid: currentUser.uid,
-        displayName: userData.displayName || currentUser.displayName || 'مستخدم جديد',
+        displayName: userData.displayName || currentUser.displayName || 'New User',
         email: currentUser.email,
         createdAt: userData.createdAt || new Date().toISOString(),
         role: userData.role || 'student',
@@ -384,7 +384,7 @@ export const AuthProvider = ({ children }) => {
   // Become instructor function
   const becomeInstructor = async () => {
     if (!currentUser) {
-      throw new Error('يجب تسجيل الدخول أولاً');
+      throw new Error('يجب Login أولاً');
     }
 
     if (hasRole('instructor') || hasRole('admin')) {
