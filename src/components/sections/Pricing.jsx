@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Star, Clock, Users, BookOpen, Award } from 'lucide-react';
 import Card from '../ui/Card';
@@ -322,4 +322,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default memo(Pricing);
