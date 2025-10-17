@@ -60,8 +60,8 @@ const Footer = () => {
       links: [
         { name: isRTL ? 'مركز Help' : 'Help Center', href: '#' },
         { name: isRTL ? 'FAQ' : 'FAQ', href: '#' },
-        { name: isRTL ? 'تواصل معنا' : 'Contact Us', href: '#' },
-        { name: isRTL ? 'حالة النظام' : 'System Status', href: '#' }
+        { name: isRTL ? 'تواصل withنا' : 'Contact Us', href: '#' },
+        { name: isRTL ? 'حالة System' : 'System Status', href: '#' }
       ]
     },
     {
@@ -97,7 +97,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', color: 'hover:text-blue-500', name: isRTL ? 'فيسبوك' : 'Facebook' },
+    { icon: Facebook, href: '#', color: 'hover:text-blue-500', name: isRTL ? 'inسبوك' : 'Facebook' },
     { icon: Twitter, href: '#', color: 'hover:text-blue-400', name: isRTL ? 'تويتر' : 'Twitter' },
     { icon: Instagram, href: '#', color: 'hover:text-pink-500', name: isRTL ? 'إنستغرام' : 'Instagram' },
     { icon: Linkedin, href: '#', color: 'hover:text-blue-600', name: isRTL ? 'لينكد إن' : 'LinkedIn' },
@@ -143,11 +143,11 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-bold gradient-text mb-4">
-              {isRTL ? 'ابق على اطلاع' : 'Stay Updated'}
+              {isRTL ? 'ابق on اطلاع' : 'Stay Updated'}
             </h3>
             <p className="text-text-secondary max-w-2xl mx-auto">
               {isRTL 
-                ? 'اشترك في Publishتنا الإخبارية للحصول على آخر News والدورات الNewة'
+                ? 'اشترك in Publishتنا الإخبارية للحصول on آخر News والدورات الNew'
                 : 'Subscribe to our newsletter for the latest news and new courses'
               }
             </p>
@@ -166,12 +166,12 @@ const Footer = () => {
                 placeholder={isRTL ? 'Enter your email' : 'Enter your email'}
                 className="flex-1 bg-transparent text-white placeholder-text-secondary px-4 py-2 focus:outline-none"
                 dir={isRTL ? 'rtl' : 'ltr'}
-                aria-label={isRTL ? 'عنوان Email للاشتراك في الPublishة الإخبارية' : 'Email address for newsletter subscription'}
+                aria-label={isRTL ? 'aboutوان Email للاشتراك in الPublishة الإخبارية' : 'Email address for newsletter subscription'}
               />
               <Button 
                 variant="gradient" 
                 size="sm"
-                aria-label={isRTL ? 'اشترك في الPublishة الإخبارية' : 'Subscribe to newsletter'}
+                aria-label={isRTL ? 'اشترك in الPublishة الإخبارية' : 'Subscribe to newsletter'}
               >
                 {isRTL ? 'اشتراك' : 'Subscribe'}
               </Button>
@@ -202,7 +202,7 @@ const Footer = () => {
               </div>
               <p className="text-text-secondary leading-relaxed mb-6">
                 {isRTL 
-                  ? 'منصة تعليمية حديثة تهدف إلى تOld أفضل تجربة تعليمية في مجال Physics وMathematics للجيل الNew.'
+                  ? 'fromصة تعليمية Recentة تهدف to تOld أفضل تجربة تعليمية in مجال Physics وMathematics للجيل الNew.'
                   : 'A modern educational platform aimed at providing the best learning experience in physics and mathematics for the new generation.'
                 }
               </p>
@@ -288,7 +288,7 @@ const Footer = () => {
                       className={`w-10 h-10 glass rounded-lg flex items-center justify-center text-text-secondary transition-all duration-300 ${social.color}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      aria-label={`${isRTL ? 'Followنا على' : 'Follow us on'} ${social.name}`}
+                      aria-label={`${isRTL ? 'Followنا on' : 'Follow us on'} ${social.name}`}
                     >
                       <Icon size={18} aria-hidden="true" />
                     </motion.a>
@@ -316,7 +316,7 @@ const Footer = () => {
               </span>
               <span className="text-red-500">❤️</span>
               <span className="text-text-secondary text-sm">
-                {isRTL ? 'في مصر' : 'in Egypt'}
+                {isRTL ? 'in مصر' : 'in Egypt'}
               </span>
             </div>
           </div>
@@ -333,7 +333,7 @@ const Footer = () => {
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: showScrollTop ? 1 : 0 }}
-        aria-label={isRTL ? 'العودة إلى أعلى الصفحة' : 'Scroll to top of page'}
+        aria-label={isRTL ? 'العودة to أon الصفحة' : 'Scroll to top of page'}
       >
         <ArrowUp size={20} aria-hidden="true" />
       </motion.button>

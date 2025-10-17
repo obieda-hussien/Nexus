@@ -244,7 +244,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         />
         <MetricCard
           icon={<Clock className="w-6 h-6" />}
-          title="Intermediate الوقت"
+          title="Intermediate Time"
           value={`${Math.round(analytics.averageTime / 60)} minute`}
           color="purple"
         />
@@ -253,7 +253,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
       {/* Additional Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-gray-800 border border-gray-600 rounded-lg p-4">
-          <h4 className="text-white font-medium mb-2">معدل الSuccess</h4>
+          <h4 className="text-white font-medium mb-2">withدل الSuccess</h4>
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="flex-1 bg-gray-700 rounded-full h-3">
               <div 
@@ -264,7 +264,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             <span className="text-white font-semibold">{analytics.passingRate}%</span>
           </div>
           <p className="text-gray-400 text-sm mt-2">
-            {analytics.submissions.filter(s => s.score >= 70).length} من {analytics.totalAttempts} محاولة
+            {analytics.submissions.filter(s => s.score >= 70).length} from {analytics.totalAttempts} محاولة
           </p>
         </div>
 
@@ -348,7 +348,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <div className="text-center py-8 text-gray-400">
           <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
           <p className="text-lg mb-2">لا توجد محاولات بعد</p>
-          <p className="text-sm">سيتم View الAnalytics عندما يبدأ students في حل الQuiz</p>
+          <p className="text-sm">سيتم View الAnalytics aboutدما يبدأ students in حل الQuiz</p>
         </div>
       )}
     </div>

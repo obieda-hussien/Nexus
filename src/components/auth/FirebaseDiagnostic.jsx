@@ -62,11 +62,11 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
       // Test 3: Database Connection
       const databaseConnected = await checkDatabaseConnection();
       if (databaseConnected) {
-        addTestResult('Database Connection', 'success', 'الاتصال بقاعدة البيانات يعمل successfully');
+        addTestResult('Database Connection', 'success', 'الاتصال بقاعدة Data يعمل successfully');
         setDiagnostics(prev => ({ ...prev, databaseConnection: true }));
       } else {
-        addTestResult('Database Connection', 'error', 'Failure في الاتصال بقاعدة البيانات', {
-          solution: 'تحقق من إعدادات Firebase وقواعد Security'
+        addTestResult('Database Connection', 'error', 'Failure in الاتصال بقاعدة Data', {
+          solution: 'Verify from Setupات Firebase وقواعد Security'
         });
       }
 
@@ -76,17 +76,17 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
           const userRef = ref(db, `users/${currentUser.uid}`);
           const snapshot = await get(userRef);
           if (snapshot.exists()) {
-            addTestResult('User Profile', 'success', 'ملف User موجود في قاعدة البيانات', {
+            addTestResult('User Profile', 'success', 'ملف User موجود in قاعدة Data', {
               data: snapshot.val()
             });
             setDiagnostics(prev => ({ ...prev, userProfileExists: true }));
           } else {
-            addTestResult('User Profile', 'warning', 'ملف User غير موجود في قاعدة البيانات', {
-              solution: 'يمكنك إنشاء ملف شخصي New من Dashboard'
+            addTestResult('User Profile', 'warning', 'ملف User غير موجود in قاعدة Data', {
+              solution: 'يمكنك إنشاء ملف شخصي New from Dashboard'
             });
           }
         } catch (error) {
-          addTestResult('User Profile', 'error', 'Error في قراءة ملف User', {
+          addTestResult('User Profile', 'error', 'Error in قراءة ملف User', {
             error: error.message,
             code: error.code
           });
@@ -94,7 +94,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
       }
 
     } catch (error) {
-      addTestResult('General Error', 'error', 'Error عام في التشخيص', {
+      addTestResult('General Error', 'error', 'Error year in التشخيص', {
         error: error.message
       });
     }
@@ -166,7 +166,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
           
           <div className={`bg-gray-800/50 rounded-xl p-4 text-center ${diagnostics.databaseConnection ? 'border border-green-500/30' : 'border border-gray-700/30'}`}>
             <Database className={`w-8 h-8 mx-auto mb-2 ${diagnostics.databaseConnection ? 'text-green-400' : 'text-gray-400'}`} />
-            <p className="text-sm text-gray-300">قاعدة البيانات</p>
+            <p className="text-sm text-gray-300">قاعدة Data</p>
           </div>
           
           <div className={`bg-gray-800/50 rounded-xl p-4 text-center ${diagnostics.userProfileExists ? 'border border-green-500/30' : 'border border-gray-700/30'}`}>

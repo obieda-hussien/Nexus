@@ -77,7 +77,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      toast.error('An error occurred في Submit Rating');
+      toast.error('An error occurred in Submit Rating');
     } finally {
       setIsSubmitting(false);
     }
@@ -110,14 +110,14 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
     <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
       <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
         <MessageSquare className="w-5 h-5 ml-2 text-blue-400" />
-        {hasReviewed ? 'Update تقييمك' : 'Rate هذا الكورس'}
+        {hasReviewed ? 'Update تقييمك' : 'Rate this الكورس'}
       </h3>
 
       {hasReviewed && (
         <div className="mb-4 p-3 bg-green-900/20 border border-green-700/30 rounded-lg">
           <div className="flex items-center text-green-400 text-sm">
             <CheckCircle className="w-4 h-4 ml-2" />
-            لقد قمت بتقييم هذا الكورس مسبقاً. يمكنك Update تقييمك أدناه.
+            لقد قمت بتقييم this الكورس مسبقاً. يمكنك Update تقييمك أدناه.
           </div>
         </div>
       )}
@@ -128,7 +128,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
         <div className="flex items-center space-x-1 space-x-reverse">
           {renderStars()}
           <span className="text-gray-300 mr-3">
-            {rating > 0 ? `${rating}/5` : 'اختر Rating'}
+            {rating > 0 ? `${rating}/5` : 'Choose Rating'}
           </span>
         </div>
       </div>
@@ -141,7 +141,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Shareنا رأيك في الكورس..."
+          placeholder="Shareنا رanyك in الكورس..."
           className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none h-24"
           maxLength={500}
         />

@@ -65,14 +65,14 @@ const ReviewsTab = ({ courses = [] }) => {
       // No need to initialize a separate course_reviews path
       // We'll use the existing courses structure: courses/{courseId}/reviews/{reviewId}
       // This leverages existing Firebase rules for courses
-      console.log('استخدام هيكل Courses الموجود للمReviewات');
+      console.log('استخدام هيall Courses الموجود للمReviewات');
       
       setDatabaseInitialized(true);
     } catch (error) {
-      console.error('Error في تهيئة قاعدة البيانات:', error);
+      console.error('Error in تهيئة قاعدة Data:', error);
       setError({
         type: 'initialization',
-        message: 'Failure في تهيئة قاعدة بيانات المReviewات',
+        message: 'Failure in تهيئة قاعدة بيانات المReviewات',
         details: error.message
       });
       setLoading(false);
@@ -137,7 +137,7 @@ const ReviewsTab = ({ courses = [] }) => {
             },
             (error) => {
               hasError = true;
-              console.error(`Error في جلب مReviewات الكورس ${course.title}:`, error);
+              console.error(`Error in جلب مReviewات الكورس ${course.title}:`, error);
               reject(error);
             }
           );
@@ -147,10 +147,10 @@ const ReviewsTab = ({ courses = [] }) => {
       await Promise.allSettled(coursePromises);
       
     } catch (error) {
-      console.error('Error في جلب المReviewات:', error);
+      console.error('Error in جلب المReviewات:', error);
       setError({
         type: 'fetch',
-        message: 'An error occurred في جلب المReviewات',
+        message: 'An error occurred in جلب المReviewات',
         details: error.message
       });
       setLoading(false);
@@ -206,7 +206,7 @@ const ReviewsTab = ({ courses = [] }) => {
 
   const handleReply = async (reviewId) => {
     if (!replyText.trim()) {
-      toast.error('Please كتابة الرد أولاً');
+      toast.error('Please كتابة Reply أولاً');
       return;
     }
 
@@ -224,10 +224,10 @@ const ReviewsTab = ({ courses = [] }) => {
 
       setReplyText('');
       setReplyingTo(null);
-      toast.success('تم Submit الرد successfully');
+      toast.success('تم Submit Reply successfully');
     } catch (error) {
       console.error('Error sending reply:', error);
-      toast.error('An error occurred في Submit الرDr. Please المحاولة مرة أخرى.');
+      toast.error('An error occurred in Submit الرDr. Please المحاولة مرة أخرى.');
     }
   };
 
@@ -274,8 +274,8 @@ const ReviewsTab = ({ courses = [] }) => {
       <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
         <Database className="w-8 h-8 text-blue-400" />
       </div>
-      <h3 className="text-xl font-semibold text-white mb-2">جاري تهيئة قاعدة البيانات</h3>
-      <p className="text-blue-300 mb-4">يتم إعداد نظام المReviewات لأول مرة...</p>
+      <h3 className="text-xl font-semibold text-white mb-2">جاري تهيئة قاعدة Data</h3>
+      <p className="text-blue-300 mb-4">يتم Setup نظام المReviewات لأول مرة...</p>
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto"></div>
     </div>
   );
@@ -349,7 +349,7 @@ const ReviewsTab = ({ courses = [] }) => {
             <div className="flex justify-center mb-1">
               {renderStars(Math.round(stats.averageRating))}
             </div>
-            <div className="text-yellow-300 text-sm">Rating العام</div>
+            <div className="text-yellow-300 text-sm">Rating الyear</div>
           </div>
           <div className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-white">{courses.length}</div>
@@ -392,7 +392,7 @@ const ReviewsTab = ({ courses = [] }) => {
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="الSearch في المReviewات..."
+              placeholder="الSearch in المReviewات..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-10 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -443,7 +443,7 @@ const ReviewsTab = ({ courses = [] }) => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">لا توجد كورسات Publishedة</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    يجب Publish Courses أولاً حتى يتمكن students من تقييمها وكتابة المReviewات
+                    يجب Publish Courses أولاً حتى يتمكن students from تقييمها وكتابة المReviewات
                   </p>
                   <div className="flex items-center justify-center space-x-6 space-x-reverse text-sm text-gray-500">
                     <div className="flex items-center space-x-2 space-x-reverse">
@@ -456,7 +456,7 @@ const ReviewsTab = ({ courses = [] }) => {
                     </div>
                     <div className="flex items-center space-x-2 space-x-reverse">
                       <Star className="w-4 h-4" />
-                      <span>احصل على Reviews</span>
+                      <span>احصل on Reviews</span>
                     </div>
                   </div>
                 </div>
@@ -470,9 +470,9 @@ const ReviewsTab = ({ courses = [] }) => {
                   <div className="w-24 h-24 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <MessageSquare className="w-12 h-12 text-yellow-400" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد مReviewات حتى الآن</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد مReviewات حتى Now</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    لم يقم أي student بكتابة Review أو تقييم لكورساتك بعDr. عندما يبدأ students في التفاعل مع Content ستظهر مReviewاتهم هنا.
+                    لم يقم any student بكتابة Review أو تقييم لكورساتك بعDr. aboutدما يبدأ students in التفاعل with Content ستظهر مReviewاتهم هنا.
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 max-w-lg mx-auto">
                     <div className="flex items-start space-x-3 space-x-reverse">
@@ -482,7 +482,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       <div className="text-right">
                         <h4 className="text-blue-300 font-semibold mb-1">نصيحة</h4>
                         <p className="text-blue-200 text-sm">
-                          تفاعل مع طلابك وقدم محتوى High الجودة لتشجيعهم على ترك تقييمات إيجابية
+                          تفاعل with طلابك وقدم محتوى High الجودة لتشجيعهم on ترك تقييمات إيجابية
                         </p>
                       </div>
                     </div>
@@ -499,7 +499,7 @@ const ReviewsTab = ({ courses = [] }) => {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">No results</h3>
                 <p className="text-gray-400 mb-4">
-                  لا توجد مReviewات تطابق المرشحات المحددة
+                  لا توجد مReviewات تطابق المرشحات المSelectة
                 </p>
                 <button
                   onClick={() => {
@@ -576,7 +576,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       <textarea
                         value={replyText}
                         onChange={(e) => setReplyText(e.target.value)}
-                        placeholder="اكتب ردك على هذه الReview..."
+                        placeholder="Write ردك on this الReview..."
                         className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none h-24"
                       />
                       <div className="flex space-x-2 space-x-reverse">
@@ -585,7 +585,7 @@ const ReviewsTab = ({ courses = [] }) => {
                           className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
                         >
                           <Send className="w-4 h-4" />
-                          <span>Submit الرد</span>
+                          <span>Submit Reply</span>
                         </button>
                         <button
                           onClick={() => {
@@ -604,7 +604,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition-all duration-300"
                     >
                       <Reply className="w-4 h-4" />
-                      <span>الرد على الReview</span>
+                      <span>Reply on الReview</span>
                     </button>
                   )}
                 </div>

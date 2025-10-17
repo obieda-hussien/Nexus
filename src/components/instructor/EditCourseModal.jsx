@@ -43,7 +43,7 @@ const EditCourseModal = ({ course, isOpen, onClose, onUpdate }) => {
       onUpdate(updatedCourse);
       onClose();
     } catch (error) {
-      toast.error('An error occurred في Update Course');
+      toast.error('An error occurred in Update Course');
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -243,7 +243,7 @@ const BasicInfoTab = ({ data, onChange }) => {
 
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            الحالة
+            Status
           </label>
           <select
             value={data.status || 'draft'}
@@ -251,7 +251,7 @@ const BasicInfoTab = ({ data, onChange }) => {
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
             <option value="draft">Draft</option>
-            <option value="pending">في الReview</option>
+            <option value="pending">in الReview</option>
             <option value="published">Published</option>
           </select>
         </div>
@@ -456,7 +456,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
 const SettingsTab = ({ data, onChange }) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white mb-4">إعدادات الكورس</h3>
+      <h3 className="text-xl font-semibold text-white mb-4">Setupات الكورس</h3>
       
       {/* Pricing */}
       <div className="bg-gray-700 rounded-xl p-6 border border-gray-600">
@@ -495,7 +495,7 @@ const SettingsTab = ({ data, onChange }) => {
 
       {/* Visibility */}
       <div className="bg-gray-700 rounded-xl p-6 border border-gray-600">
-        <h4 className="text-lg font-semibold text-white mb-4">إعدادات الView</h4>
+        <h4 className="text-lg font-semibold text-white mb-4">Setupات الView</h4>
         
         <div className="space-y-4">
           <div className="flex items-center space-x-3 space-x-reverse">
@@ -520,7 +520,7 @@ const SettingsTab = ({ data, onChange }) => {
               className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor="allowPreview" className="text-white font-medium">
-              السماح بمعاينة بعض الدروس مجاناً
+              السماح بwithاينة some الدروس مجاناً
             </label>
           </div>
         </div>
@@ -545,7 +545,7 @@ const EditableSectionCard = ({
 
   const handleTitleSave = () => {
     if (!editTitle.trim()) {
-      toast.error('عنوان الوحدة مطلوب');
+      toast.error('aboutوان الوحدة مطلوب');
       return;
     }
     onUpdate({ title: editTitle });
@@ -824,7 +824,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
                 <MarkdownEditor
                   value={formData.content}
                   onChange={(value) => updateFormField('content', value)}
-                  placeholder="اكتب محتوى الArticle باستخدام Markdown..."
+                  placeholder="Write محتوى الArticle باستخدام Markdown..."
                 />
               </ErrorBoundary>
             </div>
@@ -958,8 +958,8 @@ const AnalyticsTab = ({ course, sections }) => {
     return (
       <div className="text-center py-12">
         <HelpCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-white mb-2">لا توجد Quizات في هذا الكورس</h3>
-        <p className="text-gray-400">قم بAdd Quizات في تبويب "Curriculum والوحدات" لView الAnalytics</p>
+        <h3 className="text-xl font-semibold text-white mb-2">لا توجد Quizات in this الكورس</h3>
+        <p className="text-gray-400">قم بAdd Quizات in تبويب "Curriculum والوحدات" لView الAnalytics</p>
       </div>
     );
   }

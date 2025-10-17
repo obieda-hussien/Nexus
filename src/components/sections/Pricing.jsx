@@ -25,13 +25,13 @@ const Pricing = () => {
   const plans = [
     {
       id: 'basic',
-      name: isRTL ? 'الباقة الأساسية' : 'Basic Plan',
+      name: isRTL ? 'الباقة Basicة' : 'Basic Plan',
       price: isRTL ? '199 ريال' : '$199',
       period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'مثالية للBeginnerين' : 'Perfect for beginners',
       features: [
-        isRTL ? 'الوصول إلى 10 دورات' : 'Access to 10 courses',
-        isRTL ? 'شهادة إتمام' : 'Certificate of completion',
+        isRTL ? 'الوصول to 10 دورات' : 'Access to 10 courses',
+        isRTL ? 'Certificate إتمام' : 'Certificate of completion',
         isRTL ? 'دعم عبر Email' : 'Email support',
         isRTL ? 'مواد تدريبية قابلة للتحميل' : 'Downloadable resources'
       ],
@@ -49,12 +49,12 @@ const Pricing = () => {
       period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'Most Popular' : 'Most popular',
       features: [
-        isRTL ? 'الوصول إلى جميع الدورات' : 'Access to all courses',
+        isRTL ? 'الوصول to جميع الدورات' : 'Access to all courses',
         isRTL ? 'جلسات مباشرة weekية' : 'Weekly live sessions',
         isRTL ? 'Certified certificate' : 'Certified certificate',
         isRTL ? 'دعم 24/7' : '24/7 support',
         isRTL ? 'Graduation Project' : 'Capstone project',
-        isRTL ? 'مجتمع طلابي خاص' : 'Private student community'
+        isRTL ? 'مجتwith طلابي خاص' : 'Private student community'
       ],
       notIncluded: [],
       popular: true,
@@ -67,11 +67,11 @@ const Pricing = () => {
       period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'للفرق والمؤسسات' : 'For teams & organizations',
       features: [
-        isRTL ? 'كل ما في الباقة المتميزة' : 'Everything in Premium',
+        isRTL ? 'all ما in الباقة المتميزة' : 'Everything in Premium',
         isRTL ? 'تدريب مخصص' : 'Custom training',
         isRTL ? 'مدير حساب مخصص' : 'Dedicated account manager',
         isRTL ? 'تقارير تقدم مفصلة' : 'Detailed progress reports',
-        isRTL ? 'Integration مع الأنظمة الأخرى' : 'System integrations',
+        isRTL ? 'Integration with الأنظمة الأخرى' : 'System integrations',
         isRTL ? 'تسعير خاص للمجموعات' : 'Volume pricing'
       ],
       notIncluded: [],
@@ -129,7 +129,7 @@ const Pricing = () => {
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
             {isRTL 
-              ? 'اختر الباقة التي تناسب احتياجاتك التعليمية وابدأ رحلتك نحو التميز'
+              ? 'Choose الباقة التي تناسب احتياجاتك التعليمية وابدأ رحلتك نحو التميز'
               : 'Choose the plan that fits your learning needs and start your journey to excellence'
             }
           </p>
@@ -220,9 +220,9 @@ const Pricing = () => {
                     setFormData(prev => ({ ...prev, plan: plan.name }));
                     setShowRegistration(true);
                   }}
-                  aria-label={`${isRTL ? 'اختر باقة' : 'Choose'} ${plan.name}`}
+                  aria-label={`${isRTL ? 'Choose باقة' : 'Choose'} ${plan.name}`}
                 >
-                  {isRTL ? 'اختر هذه الباقة' : 'Choose Plan'}
+                  {isRTL ? 'Choose this الباقة' : 'Choose Plan'}
                 </Button>
               </Card>
             </motion.div>
@@ -253,7 +253,7 @@ const Pricing = () => {
                       {isRTL ? 'تسجيل New' : 'Registration'}
                     </h3>
                     <p className="text-text-secondary">
-                      {isRTL ? 'املأ البيانات للبدء' : 'Fill in your details to get started'}
+                      {isRTL ? 'املأ Data للبدء' : 'Fill in your details to get started'}
                     </p>
                   </div>
 

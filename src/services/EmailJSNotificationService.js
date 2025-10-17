@@ -303,7 +303,7 @@ export class EmailJSNotificationService {
   static async sendTestEmail(recipientEmail, recipientName = 'الLaboratory') {
     try {
       if (!this.isConfigured()) {
-        throw new Error('خدمة EmailJS Not readyّة بشكل صحيح. تحقق من متغيرات البيئة.');
+        throw new Error('خدمة EmailJS Not readyّة correctly صحيح. Verify from متغيرات البيئة.');
       }
 
       // Validate inputs
@@ -331,7 +331,7 @@ export class EmailJSNotificationService {
         payout_status: 'test',
         estimated_arrival: 'instant',
         // Generic fields
-        test_message: 'هذه Thesis Quiz للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
+        test_message: 'this Thesis Quiz للEnsure from أن خدمة EmailJS تعمل correctly صحيح.',
         platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         test_date: new Date().toLocaleDateString('ar-EG'),
@@ -361,24 +361,24 @@ export class EmailJSNotificationService {
       return { 
         success: true, 
         messageId: response.text,
-        message: 'Test email sent successfully! تحقق من صندوق الوارDr.'
+        message: 'Test email sent successfully! Verify from صندوق الوارDr.'
       };
 
     } catch (error) {
       console.error('❌ Test email error:', error);
       
       // Provide more specific error messages
-      let errorMessage = 'Failure في Submit Thesis الQuiz';
+      let errorMessage = 'Failure in Submit Thesis الQuiz';
       
       if (error.text) {
         if (error.text.includes('Invalid')) {
-          errorMessage = 'معرف الخدمة أو القالب غير صحيح';
+          errorMessage = 'withرف Service أو القالب غير صحيح';
         } else if (error.text.includes('Forbidden')) {
-          errorMessage = 'المفتاح العام غير مصرح له بالوصول';
+          errorMessage = 'المفتاح الyear غير مصرح له بالوصول';
         } else if (error.text.includes('Limit')) {
-          errorMessage = 'تم تجاوز الحد المسموح من Messages الmonthية';
+          errorMessage = 'تم تجاوز الحد المسموح from Messages الmonthlyة';
         } else {
-          errorMessage = `Error في الخدمة: ${error.text}`;
+          errorMessage = `Error in Service: ${error.text}`;
         }
       } else if (error.message) {
         errorMessage = error.message;
@@ -405,7 +405,7 @@ export class EmailJSNotificationService {
     
     switch (paymentMethod.type) {
       case 'bank':
-        return `${paymentMethod.bankName || 'البنك'} - ${paymentMethod.accountNumber || 'رقم الحساب'}`;
+        return `${paymentMethod.bankName || 'البنك'} - ${paymentMethod.accountNumber || 'رقم Account'}`;
       case 'paypal':
         return paymentMethod.paypalEmail || 'PayPal';
       case 'vodafone':

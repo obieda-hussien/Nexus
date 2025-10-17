@@ -99,7 +99,7 @@ class LMSService {
       return newCourseRef.key;
     } catch (error) {
       console.error('Error creating course:', error);
-      throw new Error('Failure في إنشاء الكورس');
+      throw new Error('Failure in creating the course');
     }
   }
 
@@ -174,7 +174,7 @@ class LMSService {
       return docRef.id;
     } catch (error) {
       console.error('Error creating lesson:', error);
-      throw new Error('Failure في إنشاء الدرس');
+      throw new Error('Failure in creating the lesson');
     }
   }
 
@@ -355,7 +355,7 @@ class LMSService {
       return result;
     } catch (error) {
       console.error('Error submitting quiz result:', error);
-      throw new Error('Failure في Submit نتيجة الQuiz');
+      throw new Error('Failure in submitting quiz result');
     }
   }
 
@@ -389,7 +389,7 @@ class LMSService {
       return true;
     } catch (error) {
       console.error('Error enrolling user in course:', error);
-      throw new Error('Failure في التسجيل في الكورس');
+      throw new Error('Failure in course registration');
     }
   }
 
@@ -513,7 +513,7 @@ class LMSService {
       return true;
     } catch (error) {
       console.error('Error submitting course review:', error);
-      throw new Error('Failure في Submit Rating');
+      throw new Error('Failure in Submit Rating');
     }
   }
 

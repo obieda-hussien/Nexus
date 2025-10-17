@@ -104,15 +104,15 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       console.error('❌ Error creating course:', error);
       
       // Provide more specific error messages
-      let errorMessage = 'An error occurred في إنشاء الكورس';
+      let errorMessage = 'An error occurred in إنشاء الكورس';
       
       if (error.code === 'permission-denied') {
-        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تأكد من أن دورك "Instructor" في النظام';
+        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. Ensure from أن دورك "Instructor" in System';
         console.error('💡 Troubleshooting: Check user role in Firebase Realtime Database');
         console.error('📋 Current user role:', userProfile?.role);
         console.error('📋 Required role: instructor or admin');
       } else if (error.code === 'network-request-failed') {
-        errorMessage = 'Error في الشبكة. تحقق من اتصالك بالإنترنت';
+        errorMessage = 'Error in الشبكة. Verify from اتصالك بالإنترنت';
       } else if (error.code === 'auth/requires-recent-login') {
         errorMessage = 'يجب إعادة Login للمFollowة';
       } else if (error.message) {
@@ -252,7 +252,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             value={formData.title}
             onChange={(e) => handleInputChange('title', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-            placeholder="مثال: Physics Basics الحديثة"
+            placeholder="مثال: Physics Basics الRecentة"
           />
         </div>
 
@@ -284,7 +284,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           value={formData.shortDescription}
           onChange={(e) => handleInputChange('shortDescription', e.target.value)}
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="وصف Cutير يلخص Course Content في سطر واحد"
+          placeholder="وصف Cutير يلخص Course Content in سطر واحد"
           maxLength="120"
         />
       </div>
@@ -298,7 +298,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           onChange={(e) => handleInputChange('description', e.target.value)}
           rows="6"
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه students، والفوائد المتوقعة..."
+          placeholder="Write وصفاً مفصلاً about الكورس، ما سيتعلمه students، والفوائد المتوقعة..."
         />
       </div>
 
@@ -470,7 +470,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
 
   const handleNext = () => {
     if (sections.length === 0) {
-      toast.error('Please Add وحدة واحدة على الLess');
+      toast.error('Please Add وحدة واحدة on الLess');
       return;
     }
 
@@ -479,7 +479,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     );
 
     if (hasEmptyLessons) {
-      toast.error('Please إكمال جميع عناوين الدروس');
+      toast.error('Please إكمال جميع aboutاوين الدروس');
       return;
     }
 
@@ -591,7 +591,7 @@ const SectionCard = ({
 
   const handleTitleSave = () => {
     if (!editTitle.trim()) {
-      toast.error('عنوان الوحدة مطلوب');
+      toast.error('aboutوان الوحدة مطلوب');
       return;
     }
     onUpdate({ title: editTitle });
@@ -845,24 +845,24 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <MarkdownEditor
                 value={formData.content}
                 onChange={(value) => setFormData(prev => ({ ...prev, content: value }))}
-                placeholder="اكتب محتوى الArticle باستخدام Markdown...
+                placeholder="Write محتوى الArticle باستخدام Markdown...
 
 مثال:
-# عنوان رئيسي
-## عنوان فرعي
+# aboutوان رئيسي
+## aboutوان فرعي
 
-هذا **نص مهم** وهذا *نص مائل*.
+this **نص مهم** وthis *نص مائل*.
 
 - النقطة الأولى
 - النقطة الثانية
 
-> هذا اقتباس مهم
+> this اقتباس مهم
 
 ```javascript
 console.log('مرحباً بالعالم');
 ```
 
-[رابط مفيد](https://example.com)"
+[رابط مinد](https://example.com)"
               />
             </div>
           ) : formData.type === 'video' ? (
@@ -885,7 +885,7 @@ console.log('مرحباً بالعالم');
           ) : formData.type === 'quiz' ? (
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                إعداد الQuiz
+                Setup الQuiz
               </label>
               <QuizEditor
                 quizData={formData.quizData}
@@ -1079,11 +1079,11 @@ const InstructorUpgradePrompt = () => {
     try {
       setIsUpgrading(true);
       await becomeInstructor();
-      toast.success('🎉 تم ترقية حسابك لInstructor successfully! يمكنك الآن إنشاء Courses');
+      toast.success('🎉 تم ترقية حسابك لInstructor successfully! يمكنك Now إنشاء Courses');
       // The page will automatically update due to role change
     } catch (error) {
       console.error('❌ Error becoming instructor:', error);
-      toast.error(error.message || 'Failure في ترقية الحساب. Please المحاولة مرة أخرى');
+      toast.error(error.message || 'Failure in ترقية Account. Please المحاولة مرة أخرى');
     } finally {
       setIsUpgrading(false);
     }
@@ -1097,7 +1097,7 @@ const InstructorUpgradePrompt = () => {
         </div>
         
         <h2 className="text-2xl font-bold text-white mb-4">
-          ترقية الحساب إلى Instructor
+          ترقية Account to Instructor
         </h2>
         
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
@@ -1105,7 +1105,7 @@ const InstructorUpgradePrompt = () => {
             حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'student'}</span>
           </p>
           <p className="text-purple-200 mb-4">
-            لإنشاء وCourse Management، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">Instructor</span>
+            لإنشاء وCourse Management، يجب ترقية حسابك to <span className="font-semibold text-green-400">Instructor</span>
           </p>
         </div>
 
@@ -1148,14 +1148,14 @@ const InstructorUpgradePrompt = () => {
           ) : (
             <>
               <UserCheck className="w-5 h-5" />
-              <span>ترقية إلى Instructor</span>
+              <span>ترقية to Instructor</span>
               <ArrowRight className="w-5 h-5" />
             </>
           )}
         </button>
 
         <p className="text-purple-300 text-sm mt-4">
-          الترقية freeة وinstantة - لا توجد additional fees
+          الترقية freeة وInstant - لا توجد additional fees
         </p>
       </div>
     </div>

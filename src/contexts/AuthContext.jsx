@@ -139,7 +139,7 @@ export const AuthProvider = ({ children }) => {
       } else if (error.code === 'auth/invalid-email') {
         throw new Error('Invalid email');
       } else {
-        throw new Error('Failure في Create Account. Please المحاولة مرة أخرى');
+        throw new Error('Failure in Create Account. Please المحاولة مرة أخرى');
       }
     }
   };
@@ -176,7 +176,7 @@ export const AuthProvider = ({ children }) => {
       } else if (error.code === 'auth/invalid-email') {
         throw new Error('Invalid email');
       } else {
-        throw new Error('Failure في Login');
+        throw new Error('Failure in Login');
       }
     }
   };
@@ -396,7 +396,7 @@ export const AuthProvider = ({ children }) => {
       console.log('🎉 Successfully became instructor');
       return true;
     } else {
-      throw new Error('Failure في ترقية الحساب لInstructor. Please المحاولة مرة أخرى');
+      throw new Error('Failure in ترقية Account لInstructor. Please المحاولة مرة أخرى');
     }
   };
 

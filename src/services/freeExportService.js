@@ -37,7 +37,7 @@ export class freeExportService {
       
       return { success: true, format: 'CSV', filename };
     } catch (error) {
-      console.error('Error في Export CSV:', error);
+      console.error('Error in Export CSV:', error);
       return { success: false, error: error.message };
     }
   }
@@ -374,7 +374,7 @@ export class freeExportService {
       
     } catch (error) {
       console.error('File download error:', error);
-      throw new Error(`Failure في تحميل الملف: ${error.message}`);
+      throw new Error(`Failure in تحميل File: ${error.message}`);
     }
   }
 
@@ -459,7 +459,7 @@ export class freeExportService {
         'Export CSV محلي',
         'Export Excel متوافق', 
         'دعم Language Arabic',
-        'لا توجد قيود على الحجم',
+        'لا توجد قيود on الحجم',
         'عمل دون اتصال بالإنترنت'
       ]
     };

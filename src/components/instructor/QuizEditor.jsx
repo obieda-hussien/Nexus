@@ -99,7 +99,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء Quiz تفا�
   };
 
   const deleteQuestion = (questionId) => {
-    if (!window.confirm('هل أنت متأكد من Delete هذا الQuestion؟')) return;
+    if (!window.confirm('هل أنت مEnsure from Delete this الQuestion؟')) return;
     
     setQuiz(prev => ({
       ...prev,
@@ -168,7 +168,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء Quiz تفا�
             className="flex items-center space-x-1 space-x-reverse px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
             <Eye className="w-4 h-4" />
-            <span>معاينة</span>
+            <span>withاينة</span>
           </button>
         </div>
       </div>
@@ -283,7 +283,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
 
   const removeOption = (optionId) => {
     if (question.options.length <= 2) {
-      toast.error('يجب أن يكون هناك خيارين على الLess');
+      toast.error('يجب أن يكون هناك خيارين on الLess');
       return;
     }
     onUpdate({ options: question.options.filter(option => option.id !== optionId) });
@@ -349,7 +349,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
             <textarea
               value={question.question}
               onChange={(e) => updateQuestion('question', e.target.value)}
-              placeholder="اكتب الQuestion هنا..."
+              placeholder="Write الQuestion هنا..."
               rows="3"
               className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
             />
@@ -486,7 +486,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
             <textarea
               value={question.explanation}
               onChange={(e) => updateQuestion('explanation', e.target.value)}
-              placeholder="اكتب شرح للAnswer الصحيحة..."
+              placeholder="Write شرح للAnswer الصحيحة..."
               rows="2"
               className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
             />
@@ -505,7 +505,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-2">
             <Clock className="w-4 h-4 inline ml-1" />
-            الحد الزمني (minute)
+            الحد الزfromي (minute)
           </label>
           <input
             type="number"
@@ -632,7 +632,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
             onChange={(e) => onUpdateQuizSetting('requirePassword', e.target.checked)}
             className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
           />
-          <span className="text-gray-300">حماية بكلمة مرور</span>
+          <span className="text-gray-300">حماية بallمة مرور</span>
         </label>
 
         {quiz.settings.requirePassword && (
@@ -640,7 +640,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
             type="text"
             value={quiz.settings.password}
             onChange={(e) => onUpdateQuizSetting('password', e.target.value)}
-            placeholder="كلمة مرور الQuiz"
+            placeholder="allمة مرور الQuiz"
             className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
           />
         )}
@@ -717,7 +717,7 @@ const QuizPreview = ({ quiz, onClose }) => {
           
           {/* Score Details */}
           <p className="text-gray-300 mb-6 text-lg">
-            أجبت على <span className="text-blue-400 font-semibold">{score.correct}</span> من <span className="text-blue-400 font-semibold">{score.total}</span> أسئلة بشكل صحيح
+            أجبت on <span className="text-blue-400 font-semibold">{score.correct}</span> from <span className="text-blue-400 font-semibold">{score.total}</span> أسئلة correctly صحيح
           </p>
           
           {/* Pass/Fail Badge */}
@@ -758,7 +758,7 @@ const QuizPreview = ({ quiz, onClose }) => {
             className="flex items-center space-x-2 space-x-reverse px-6 py-3 bg-gray-700 text-gray-300 rounded-xl font-semibold hover:bg-gray-600 hover:text-white transition-all duration-200 border border-gray-600"
           >
             <X className="w-4 h-4" />
-            <span>Close المعاينة</span>
+            <span>Close الwithاينة</span>
           </button>
         </div>
       </div>
@@ -772,7 +772,7 @@ const QuizPreview = ({ quiz, onClose }) => {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <h3 className="text-xl font-bold text-white">معاينة الQuiz</h3>
+            <h3 className="text-xl font-bold text-white">withاينة الQuiz</h3>
           </div>
           <button
             onClick={onClose}
@@ -787,7 +787,7 @@ const QuizPreview = ({ quiz, onClose }) => {
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-300 text-sm font-medium">
-                الQuestion {currentQuestion + 1} من {quiz.questions.length}
+                الQuestion {currentQuestion + 1} from {quiz.questions.length}
               </span>
               <span className="text-blue-400 text-sm font-semibold">
                 {Math.round(((currentQuestion + 1) / quiz.questions.length) * 100)}%
@@ -895,7 +895,7 @@ const QuizPreview = ({ quiz, onClose }) => {
                 type="text"
                 value={answers[currentQ.id] || ''}
                 onChange={(e) => handleAnswerChange(currentQ.id, e.target.value)}
-                placeholder="اكتب إجابتك هنا..."
+                placeholder="Write your answer here..."
                 className="w-full p-4 bg-gray-700 border-2 border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors duration-200"
               />
             </div>

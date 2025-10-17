@@ -9,8 +9,8 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
     {
       id: 1,
       type: 'review',
-      title: 'تقييم New على كورسك',
-      message: 'حصل كورس "Basic Physics" على تقييم 5 نجوم من الstudent Ahmed Mohamed',
+      title: 'تقييم New on كورسك',
+      message: 'حصل كورس "Basic Physics" on تقييم 5 نجوم from الstudent Ahmed Mohamed',
       time: '10 minutes',
       isRead: false,
       icon: Star
@@ -27,8 +27,8 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
     {
       id: 3,
       type: 'system',
-      title: 'Update في النظام',
-      message: 'تم Add ميزات Newة لCourse Management',
+      title: 'Update in System',
+      message: 'تم Add ميزات New لCourse Management',
       time: '2 hours',
       isRead: true,
       icon: Info
@@ -37,7 +37,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       id: 4,
       type: 'alert',
       title: 'Review مطلوبة',
-      message: 'كورس "ميكانيكا الكم" في انتظار Review Content',
+      message: 'كورس "ميكانيكا الكم" in انتظار Review Content',
       time: '3 hours',
       isRead: false,
       icon: AlertCircle
@@ -158,7 +158,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
             <Bell className="w-16 h-16 text-purple-300 mx-auto mb-4" />
             <p className="text-white text-xl mb-2">لا توجد إشعارات</p>
             <p className="text-purple-200">
-              {filter === 'unread' ? 'جميع Notifications مقروءة' : 'لا توجد إشعارات في هذا التصنيف'}
+              {filter === 'unread' ? 'جميع Notifications مقروءة' : 'لا توجد إشعارات in this التصنيف'}
             </p>
           </div>
         )}
@@ -191,7 +191,7 @@ const NotificationCard = ({ notification, onMarkAsRead, getNotificationColor }) 
               {notification.title}
             </h3>
             <span className="text-gray-400 text-xs">
-              منذ {notification.time}
+              fromذ {notification.time}
             </span>
           </div>
           <p className={`text-sm ${notification.isRead ? 'text-purple-300' : 'text-purple-100'}`}>
@@ -212,7 +212,7 @@ const NotificationCard = ({ notification, onMarkAsRead, getNotificationColor }) 
           )}
           <button
             className="text-red-400 hover:text-red-300 p-1"
-            title="Delete الإشعار"
+            title="Delete Notification"
           >
             <X className="w-4 h-4" />
           </button>

@@ -218,7 +218,7 @@ class DataSetupService {
                 'Energy cannot be created or destroyed'
               ],
               correct_answer: 0,
-              explanation: 'Newton's First Law ينص على أن الجسم يحافظ على حالة السكون أو Motion المنتظمة ما لم تؤثر عليه قوة خارجية'
+              explanation: 'Newton's First Law states that a body maintains its state of rest or uniform motion unless acted upon by an external force'
             },
             {
               question: 'The SI unit of force is:',
@@ -285,7 +285,7 @@ class DataSetupService {
           description: 'View practical experiments in Organic Chemistry with detailed explanation',
           meeting_url: 'https://meet.nexus.com/organic-chemistry-lab',
           status: 'scheduled',
-          tags: ['تجارب', 'Organic Chemistry', 'عملي'],
+          tags: ['Experiments', 'Organic Chemistry', 'Practical'],
           created_at: new Date().toISOString()
         }
       ];
@@ -307,11 +307,11 @@ class DataSetupService {
         {
           id: 'instructor_1',
           name: 'Dr. Ahmed Mohamed Ali',
-          title: 'Professor Physics - University القاهرة',
-          bio: 'دكتوراه في Physics النظرية مع خبرة 15 عام في التدريس الجامعي والثانوي',
-          specialties: ['Physics', 'Mathematics', 'Physics نووية'],
+          title: 'Physics Professor - Cairo University',
+          bio: 'PhD in Theoretical Physics with 15 years of experience in university and high school teaching',
+          specialties: ['Physics', 'Mathematics', 'Nuclear Physics'],
           experience_years: 15,
-          education: ['دكتوراه Physics - University القاهرة', 'ماجستير Physics - University عين شمس'],
+          education: ['PhD in Physics - Cairo University', 'Master in Physics - Ain Shams University'],
           rating: 4.8,
           total_students: 2500,
           profile_image: '/images/instructor-1.jpg',
@@ -320,12 +320,12 @@ class DataSetupService {
         },
         {
           id: 'instructor_2',
-          name: 'Dr. Fatima Ali محمود',
-          title: 'Professorة Mathematics - University الأزهر',
-          bio: 'خبيرة في Applied Mathematics مع التركيز على Calculus وIntegration والإحصاء',
-          specialties: ['Mathematics', 'إحصاء', 'Analysis عددي'],
+          name: 'Dr. Fatima Ali Mahmoud',
+          title: 'Mathematics Professor - Al-Azhar University',
+          bio: 'Expert in Applied Mathematics with focus on Calculus, Integration and Statistics',
+          specialties: ['Mathematics', 'Statistics', 'Numerical Analysis'],
           experience_years: 12,
-          education: ['دكتوراه Mathematics - University الأزهر', 'ماجستير Mathematics Applyية - University القاهرة'],
+          education: ['PhD in Mathematics - Al-Azhar University', 'Master in Applied Mathematics - Cairo University'],
           rating: 4.9,
           total_students: 1800,
           profile_image: '/images/instructor-2.jpg',
@@ -334,16 +334,16 @@ class DataSetupService {
         },
         {
           id: 'instructor_3',
-          name: 'Dr. Mohamed Hassan إبراهيم',
-          title: 'Professor Chemistry - University عين شمس',
-          bio: 'متخصص في Chemistry الOrganic والAnalysisية مع خبرة واسعة في الأبحاث والتدريس',
-          specialties: ['Organic Chemistry', 'Chemistry Analysisية', 'Chemistry حيوية'],
+          name: 'Dr. Mohamed Hassan Ibrahim',
+          title: 'Chemistry Professor - Ain Shams University',
+          bio: 'Specialist in Organic and Analytical Chemistry with extensive experience in research and teaching',
+          specialties: ['Organic Chemistry', 'Analytical Chemistry', 'Biochemistry'],
           experience_years: 18,
-          education: ['دكتوراه Organic Chemistry - University عين شمس', 'ماجستير Chemistry - University القاهرة'],
+          education: ['PhD in Organic Chemistry - Ain Shams University', 'Master Chemistry - Cairo University'],
           rating: 4.7,
           total_students: 2100,
           profile_image: '/images/instructor-3.jpg',
-          languages: ['Arabic', 'English', 'الفرنسية'],
+          languages: ['Arabic', 'English', 'French'],
           created_at: new Date().toISOString()
         }
       ];

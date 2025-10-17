@@ -118,7 +118,7 @@ const LiveSessions = () => {
             Join live sessions with expert instructors and connect with students worldwide
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            انضم إلى جلسات مباشرة مع Instructorين خبراء وتواصل مع طلاب من جميع أنحاء العالم
+            انضم to جلسات مباشرة with Instructorين خبراء وتواصل with طلاب from جميع أنحاء العالم
           </p>
         </motion.div>
 
@@ -253,7 +253,7 @@ const LiveSessions = () => {
               Never Miss a Live Session
             </h3>
             <p className="text-lg text-blue-300 mb-6">
-              لا تفوت أي جلسة مباشرة
+              لا تفوت any جلسة مباشرة
             </p>
             <p className="text-gray-300 mb-6">
               Get notified about upcoming live sessions and join the interactive learning experience

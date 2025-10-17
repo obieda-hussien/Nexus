@@ -32,7 +32,7 @@ const PayPalPaymentButton = ({
 
       // Check PayPal configuration
       if (!PayPalCoursePaymentService.isConfigured()) {
-        throw new Error('PayPal Not ready بشكل صحيح');
+        throw new Error('PayPal Not ready correctly صحيح');
       }
 
       // Get payment summary
@@ -87,7 +87,7 @@ const PayPalPaymentButton = ({
 
     } catch (error) {
       console.error('❌ Error in success handler:', error);
-      toast.error('An error occurred بعد الدفع. Please التواصل مع Support الفني.');
+      toast.error('An error occurred بعد الدفع. Please التواصل with Support الفني.');
     }
   };
 
@@ -113,7 +113,7 @@ const PayPalPaymentButton = ({
             <div className="p-2 bg-red-500/20 rounded-lg">
               <AlertTriangle className="w-5 h-5 text-red-400" />
             </div>
-            <h3 className="font-semibold text-red-400 text-lg">Error في PayPal</h3>
+            <h3 className="font-semibold text-red-400 text-lg">Error in PayPal</h3>
           </div>
           <p className="text-text-secondary mb-4">{error}</p>
           <button
@@ -145,7 +145,7 @@ const PayPalPaymentButton = ({
               <span className="text-white font-medium">{paymentSummary.originalPrice} EGP</span>
             </div>
             <div className="flex justify-between items-center py-2">
-              <span className="text-text-secondary">المبلغ بالUSD:</span>
+              <span className="text-text-secondary">Amount بالUSD:</span>
               <span className="text-white font-medium">${paymentSummary.usdAmount}</span>
             </div>
             <div className="flex justify-between items-center py-2">
@@ -163,7 +163,7 @@ const PayPalPaymentButton = ({
           <div className="mt-4 p-3 glass rounded-lg border border-neon-blue/20">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-neon-blue" />
-              <span className="text-sm text-neon-blue">الرسوم paid by student - لا توجد رسوم على المنصة</span>
+              <span className="text-sm text-neon-blue">الرسوم paid by student - لا توجد رسوم on platform</span>
             </div>
           </div>
         </div>
@@ -200,19 +200,19 @@ const PayPalPaymentButton = ({
             <CheckCircle className="w-5 h-5 text-neon-green" />
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-3">دفع آمن عبر PayPal</h4>
+            <h4 className="text-white font-semibold mb-3">دفع آfrom عبر PayPal</h4>
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
-                حماية المشتري من PayPal
+                حماية المشتري from PayPal
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
-                تشفير SSL للبيانات
+                تشinر SSL للبيانات
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
-                بيئة Quiz آمنة (Sandbox)
+                بيئة Quiz automatic (Sandbox)
               </div>
               <div className="flex items-center gap-2 text-text-secondary">
                 <div className="w-1.5 h-1.5 bg-neon-green rounded-full"></div>
@@ -225,7 +225,7 @@ const PayPalPaymentButton = ({
 
       {/* Support Info */}
       <div className="mt-4 text-center">
-        <p className="text-text-secondary text-sm mb-2">في حالة واجهت مشاكل في الدفع، تواصل معنا على</p>
+        <p className="text-text-secondary text-sm mb-2">in حالة واجهت مشاall in الدفع، تواصل withنا on</p>
         <a 
           href="mailto:support@nexus-edu.com" 
           className="inline-flex items-center gap-2 text-neon-blue hover:text-neon-purple transition-colors font-medium"

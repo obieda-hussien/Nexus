@@ -88,7 +88,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'chemistry-101',
-          title: 'Chemistry العامة',
+          title: 'Chemistry الyearة',
           progress: 30,
           totalLessons: 18,
           completedLessons: 5,
@@ -108,13 +108,13 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           type: 'quiz_passed',
-          title: 'Passed في Quiz: Motion الدائرية',
+          title: 'Passed in Quiz: Motion الدائرية',
           time: '2024-12-29T09:15:00',
           course: 'Physics Basics'
         },
         {
           type: 'course_enrolled',
-          title: 'انضم إلى: Advanced Mathematics',
+          title: 'انضم to: Advanced Mathematics',
           time: '2024-12-28T14:20:00',
           course: 'Advanced Mathematics'
         }
@@ -200,7 +200,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
           {loading ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-4">
               <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-gray-300">جاري تحميل البيانات...</span>
+              <span className="text-gray-300">جاري تحميل Data...</span>
               {!userProfile && currentUser && (
                 <div className="text-center">
                   <p className="text-yellow-400 text-sm">No data available ملف شخصي</p>
@@ -210,11 +210,11 @@ const UserDashboard = ({ isOpen, onClose }) => {
             </div>
           ) : !userProfile ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-6">
-              <div className="text-red-400 text-xl font-semibold">Error في تحميل البيانات</div>
+              <div className="text-red-400 text-xl font-semibold">Error in تحميل Data</div>
               <div className="text-center max-w-md">
                 <p className="text-gray-400 mb-4">
-                  لم يتم العثور على بيانات Profile.<br/>
-                  قد تحتاج لإنشاء Profile أو التحقق من الاتصال.
+                  لم يتم العثور on بيانات Profile.<br/>
+                  قد تحتاج لإنشاء Profile أو الVerify from الاتصال.
                 </p>
                 <div className="bg-blue-900/20 border border-blue-400/30 p-4 rounded-xl">
                   <p className="text-blue-400 text-sm">
@@ -351,7 +351,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                               <div className="flex items-center space-x-4 text-sm text-gray-400">
                                 <span className="flex items-center">
                                   <CheckCircle className="h-4 w-4 ml-1 text-neon-green" />
-                                  {course.completedLessons} من {course.totalLessons} دروس
+                                  {course.completedLessons} from {course.totalLessons} دروس
                                 </span>
                                 <span className="flex items-center">
                                   <Calendar className="h-4 w-4 ml-1 text-neon-blue" />
@@ -455,7 +455,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                       className="text-center mt-6"
                     >
                       <button className="glass-hover bg-gradient-to-r from-neon-blue/10 to-neon-purple/10 border border-glass-border hover:from-neon-blue/20 hover:to-neon-purple/20 px-6 py-3 rounded-xl text-gray-400 hover:text-white transition-all duration-200 font-medium">
-                        View More من النشاطات
+                        View More from النشاطات
                       </button>
                     </motion.div>
                   </div>

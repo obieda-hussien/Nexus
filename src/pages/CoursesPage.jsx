@@ -58,7 +58,7 @@ const CoursesPage = () => {
     {
       id: '1',
       title: 'Python Programming Basics',
-      description: 'تعلم Programming من الصفر باستخدام لغة Python مع Examples عملية ومشاريع Applyية',
+      description: 'تعلم Programming from الصفر باستخدام لغة Python with Examples process ومشاريع Applyية',
       shortDescription: 'كورس شامل لتعلم Programming بـ Python للBeginnerين',
       price: 299,
       originalPrice: 399,
@@ -77,9 +77,9 @@ const CoursesPage = () => {
     },
     {
       id: '2',
-      title: 'Physics المرحلة الثانوية',
-      description: 'شرح مفصل ومبسط لمنهج Physics للصف الثالث الثانوي مع حل الProblems',
-      shortDescription: 'منهج Physics كامل للثانوية العامة',
+      title: 'Physics Stage الثانوية',
+      description: 'شرح مفصل ومبسط لfromهج Physics للصف الثالث الثانوي with حل الProblems',
+      shortDescription: 'fromهج Physics كامل للثانوية الyearة',
       price: 0,
       isfree: true,
       thumbnail: '/placeholder-course.jpg',
@@ -97,7 +97,7 @@ const CoursesPage = () => {
     {
       id: '3',
       title: 'تصميم المواقع بـ HTML & CSS',
-      description: 'تعلم تصميم المواقع الحديثة والمتجاوبة باستخدام HTML و CSS',
+      description: 'تعلم تصميم المواقع الRecentة والمتجاوبة باستخدام HTML و CSS',
       shortDescription: 'Basics تصميم المواقع للBeginnerين',
       price: 199,
       originalPrice: 299,
@@ -126,7 +126,7 @@ const CoursesPage = () => {
               استكشف Courses
             </h1>
             <p className="text-gray-300 text-lg">
-              اختر من مجموعة واسعة من Courses في مختلف المجالات
+              Choose from مجموعة واسعة from Courses in مختلف المجالات
             </p>
           </div>
 
@@ -138,7 +138,7 @@ const CoursesPage = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="اSearch عن كورس..."
+                  placeholder="اSearch about كورس..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-lg pr-10 pl-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
@@ -196,8 +196,8 @@ const CoursesPage = () => {
                 <option value="newest">Newest</option>
                 <option value="popular">Most Popular</option>
                 <option value="rating">Highest Rated</option>
-                <option value="price_low">Price: Low إلى مرتفع</option>
-                <option value="price_high">Price: مرتفع إلى Low</option>
+                <option value="price_low">Price: Low to مرتفع</option>
+                <option value="price_high">Price: مرتفع to Low</option>
               </select>
             </div>
           </div>
@@ -220,7 +220,7 @@ const CoursesPage = () => {
             <div className="text-center py-12">
               <BookOpen className="w-16 h-16 text-gray-500 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-400 mb-2">لا توجد كورسات</h3>
-              <p className="text-gray-500">لم يتم العثور على كورسات تطابق المعايير المحددة</p>
+              <p className="text-gray-500">لم يتم العثور on كورسات تطابق الwithايير المSelectة</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -69,7 +69,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal request notification:', error);
-      throw new Error(`Failure في Submit إشعار طلب السحب: ${error.message}`);
+      throw new Error(`Failure in submitting withdrawal request notification: ${error.message}`);
     }
   }
 
@@ -112,7 +112,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal completion notification:', error);
-      throw new Error(`Failure في Submit إشعار إتمام السحب: ${error.message}`);
+      throw new Error(`Failure in submitting withdrawal completion notification: ${error.message}`);
     }
   }
 
@@ -153,7 +153,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal failure notification:', error);
-      throw new Error(`Failure في Submit إشعار Failure السحب: ${error.message}`);
+      throw new Error(`Failure in Submit إشعار Failure السحب: ${error.message}`);
     }
   }
 
@@ -200,7 +200,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending monthly earnings report:', error);
-      throw new Error(`Failure في Submit الReport الmonthي: ${error.message}`);
+      throw new Error(`Failure in Submit الReport الmonthly: ${error.message}`);
     }
   }
 
@@ -250,7 +250,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending tax report notification:', error);
-      throw new Error(`Failure في Submit Report الضرائب: ${error.message}`);
+      throw new Error(`Failure in Submit Report الضرائب: ${error.message}`);
     }
   }
 
@@ -299,7 +299,7 @@ export class EmailNotificationService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>إشعار من Nexus Platform</title>
+        <title>Notification from Nexus Platform</title>
         <style>
           body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; direction: rtl; }
           .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -313,7 +313,7 @@ export class EmailNotificationService {
       <body>
         <div class="container">
           <div class="header">
-            <h1>📧 إشعار من Nexus Platform</h1>
+            <h1>📧 Notification from Nexus Platform</h1>
             <p>مرحباً ${data.instructorName}</p>
           </div>
           <div class="content">
@@ -336,31 +336,31 @@ export class EmailNotificationService {
         return `
           <h2>✅ تم استلام طلب السحب</h2>
           <div class="info-row">
-            <strong>مبلغ السحب:</strong> <span class="amount">${data.withdrawalAmount} ${data.currency}</span>
+            <strong>Withdrawal Amount:</strong> <span class="amount">${data.withdrawalAmount} ${data.currency}</span>
           </div>
           <div class="info-row">
-            <strong>صافي المبلغ:</strong> ${data.netAmount} ${data.currency}
+            <strong>Net Amount:</strong> ${data.netAmount} ${data.currency}
           </div>
           <div class="info-row">
             <strong>Payment Method:</strong> ${data.paymentMethod}
           </div>
           <div class="info-row">
-            <strong>معرف الطلب:</strong> ${data.withdrawalId}
+            <strong>Request ID:</strong> ${data.withdrawalId}
           </div>
           <div class="info-row">
-            <strong>الوقت المتوقع للمعالجة:</strong> ${data.estimatedProcessing}
+            <strong>Time المتوقع للProcessing:</strong> ${data.estimatedProcessing}
           </div>
-          <p>سيتم معالجة طلبك في أقرب وقت ممكن وستصلك Thesis Confirm عند إتمام العملية.</p>
+          <p>سيتم Processing طلبك in أقرب وقت ممكن وستصلك Thesis Confirm aboutد إتمام الprocess.</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalCompleted:
         return `
-          <h2>🎉 تم إتمام عملية السحب successfully</h2>
+          <h2>🎉 تم إتمام process السحب successfully</h2>
           <div class="info-row">
-            <strong>المبلغ المحول:</strong> <span class="amount">${data.netAmount} ${data.currency}</span>
+            <strong>Transferred Amount:</strong> <span class="amount">${data.netAmount} ${data.currency}</span>
           </div>
           <div class="info-row">
-            <strong>رقم المعاملة:</strong> ${data.transactionId}
+            <strong>Transaction Number:</strong> ${data.transactionId}
           </div>
           <div class="info-row">
             <strong>Payment Method:</strong> ${data.paymentMethod}
@@ -368,27 +368,27 @@ export class EmailNotificationService {
           <div class="info-row">
             <strong>تاريخ الإتمام:</strong> ${data.completedDate}
           </div>
-          <p>تم تحويل Earnings successfully إلى حسابك. Thank you لاستخدام Nexus Platform!</p>
+          <p>تم تحويل Earnings successfully to حسابك. Thank you لاستخدام Nexus Platform!</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalFailed:
         return `
-          <h2>❌ Failure في عملية السحب</h2>
+          <h2>❌ Failure in process السحب</h2>
           <div class="info-row">
-            <strong>المبلغ:</strong> ${data.withdrawalAmount} ${data.currency}
+            <strong>Amount:</strong> ${data.withdrawalAmount} ${data.currency}
           </div>
           <div class="info-row">
-            <strong>سبب الFailure:</strong> ${data.errorMessage}
+            <strong>Failure Reason:</strong> ${data.errorMessage}
           </div>
           <div class="info-row">
-            <strong>معرف الطلب:</strong> ${data.withdrawalId}
+            <strong>Request ID:</strong> ${data.withdrawalId}
           </div>
-          <p>تم إرجاع المبلغ إلى رصيدك الAvailable. يمكنك المحاولة مرة أخرى أو التواصل مع Support الفني.</p>
+          <p>تم إرجاع Amount to رصيدك الAvailable. يمكنك المحاولة مرة أخرى أو التواصل with Support الفني.</p>
           <p><strong>الخطوات Nextة:</strong> ${data.nextSteps}</p>
         `;
         
       default:
-        return '<p>Thesis من Nexus Educational Platform</p>';
+        return '<p>Thesis from Nexus Educational Platform</p>';
     }
   }
 
@@ -419,33 +419,33 @@ export class EmailNotificationService {
 
   static getFailureNextSteps(paymentMethodType) {
     const steps = {
-      bank: 'تحقق من بيانات الحساب البنكي وتأكد من صحة IBAN',
-      paypal: 'تحقق من صحة Email المرتبط بـ PayPal',
-      vodafone: 'تحقق من رقم Vodafone Cash وتأكد من تفعيل الخدمة',
-      fawry: 'تحقق من بيانات مSaveة instant',
-      stripe: 'تحقق من بيانات البطاقة الائتمانية'
+      bank: 'Verify bank account details and ensure IBAN is correct',
+      paypal: 'Verify the email address linked to PayPal',
+      vodafone: 'Verify Vodafone Cash number and ensure service is activated',
+      fawry: 'Verify instant payment service details',
+      stripe: 'Verify credit card details'
     };
-    return steps[paymentMethodType] || 'تواصل مع Support الفني للمساعدة';
+    return steps[paymentMethodType] || 'Contact technical support for assistance';
   }
 
   static getTaxAdvice() {
     return [
-      'احتفظ بجميع إيصالات الدخل والمصروفات',
+      'Keep all income and expense receipts',
       'Consult a qualified tax accountant to review your tax return',
-      'تأكد من تسجيل جميع الدخل من المنصة في إقرارك',
-      'يمكن Discount بعض المصروفات المتCommentة بالتدريس كمصروفات قابلة للDiscount'
+      'Ensure all income from the platform is recorded in your return',
+      'Some teaching-related expenses can be deducted as deductible expenses'
     ];
   }
 
   static getEmailSubject(templateId) {
     const subjects = {
       [EMAIL_CONFIG.templates.withdrawalRequested]: 'Withdrawal request received Earnings - Nexus Platform',
-      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب Earnings successfully - Nexus Platform',
-      [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: Failure في عملية سحب Earnings - Nexus Platform',
-      [EMAIL_CONFIG.templates.monthlyReport]: 'الReport الmonthي للأرباح - Nexus Platform',
-      [EMAIL_CONFIG.templates.taxReport]: 'Report الضرائب السنوي - Nexus Platform'
+      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'Earnings withdrawal completed successfully - Nexus Platform',
+      [EMAIL_CONFIG.templates.withdrawalFailed]: 'Alert: Failure in earnings withdrawal process - Nexus Platform',
+      [EMAIL_CONFIG.templates.monthlyReport]: 'Monthly earnings report - Nexus Platform',
+      [EMAIL_CONFIG.templates.taxReport]: 'Annual tax report - Nexus Platform'
     };
-    return subjects[templateId] || 'إشعار من Nexus Platform';
+    return subjects[templateId] || 'Notification from Nexus Platform';
   }
 
   // Send test email to verify configuration
@@ -457,13 +457,13 @@ export class EmailNotificationService {
           email: EMAIL_CONFIG.sendgrid.fromEmail,
           name: EMAIL_CONFIG.sendgrid.fromName
         },
-        subject: 'Quiz خدمة Email - Nexus Platform',
+        subject: 'Email service test - Nexus Platform',
         html: `
           <div style="font-family: Arial, sans-serif; direction: rtl; padding: 20px;">
-            <h2>✅ تم إعداد خدمة Email successfully</h2>
-            <p>هذه Thesis Quiz لConfirm أن خدمة Submit Notifications تعمل بشكل صحيح.</p>
-            <p>التاريخ: ${new Date().toLocaleDateString('ar-EG')}</p>
-            <p>الوقت: ${new Date().toLocaleTimeString('ar-EG')}</p>
+            <h2>✅ تم Setup خدمة Email successfully</h2>
+            <p>this Thesis Quiz لConfirm أن خدمة Submit Notifications تعمل correctly صحيح.</p>
+            <p>Date: ${new Date().toLocaleDateString('ar-EG')}</p>
+            <p>Time: ${new Date().toLocaleTimeString('ar-EG')}</p>
             <br>
             <p>Nexus Educational Platform</p>
           </div>
@@ -480,7 +480,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Test email sending error:', error);
-      throw new Error(`Failure في Submit Thesis الQuiz: ${error.message}`);
+      throw new Error(`Failure in Submit Thesis الQuiz: ${error.message}`);
     }
   }
 
@@ -506,11 +506,11 @@ export class EmailNotificationService {
 
   static getEmailServiceRecommendation(status) {
     if (status.sendgrid.configured) {
-      return 'SendGrid مُعد بشكل صحيح - الخدمة Readyة للاستخدام';
+      return 'SendGrid configured correctly - Service ready to use';
     } else if (status.smtp.configured) {
-      return 'SMTP مُعد كخدمة احتياطية - يُنصح بإعداد SendGrid للحصول على أداء أفضل';
+      return 'SMTP configured as backup service - SendGrid recommended for better performance';
     } else {
-      return 'لم يتم إعداد أي خدمة بريد إلكتروني - قم بإعداد SendGrid أو SMTP';
+      return 'No email service configured - Set up SendGrid or SMTP';
     }
   }
 }

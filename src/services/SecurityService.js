@@ -65,7 +65,7 @@ class SecurityService {
       // Validate new password strength
       const passwordCheck = this.validatePasswordStrength(newPassword);
       if (!passwordCheck.isValid) {
-        throw new Error('Password الNewة لا تلبي متطلبات Security');
+        throw new Error('Password الNew لا تلبي متطلبات Security');
       }
 
       // Re-authenticate user
@@ -91,7 +91,7 @@ class SecurityService {
       if (error.code === 'auth/wrong-password') {
         throw new Error('Password الحالية غير صحيحة');
       }
-      throw new Error('Failure في تغيير Password');
+      throw new Error('Failure in تغيير Password');
     }
   }
 
@@ -193,7 +193,7 @@ class SecurityService {
       return { success: true };
     } catch (error) {
       console.error('Error updating security settings:', error);
-      throw new Error('Failure في Update إعدادات Security');
+      throw new Error('Failure in Update Setupات Security');
     }
   }
 
@@ -363,7 +363,7 @@ class SecurityService {
       recommendations.push({
         type: 'security_questions',
         title: 'تعيين أسئلة Security',
-        description: 'قم بتعيين أسئلة Security لاستعادة الحساب في حالة فقدان Password'
+        description: 'قم بتعيين أسئلة Security لاستعادة Account in حالة فقدان Password'
       });
     }
     
@@ -374,7 +374,7 @@ class SecurityService {
         recommendations.push({
           type: 'password_update',
           title: 'Update Password',
-          description: 'ننصح بتغيير Password كل 90 day'
+          description: 'ننصح بتغيير Password all 90 day'
         });
       }
     }

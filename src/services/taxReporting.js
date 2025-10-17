@@ -119,7 +119,7 @@ export class TaxReportingService {
       
       // Provide specific guidance for Firebase indexing errors
       if (error.message && error.message.includes('Database needs indexing')) {
-        throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب إلى Firebase Console\n2. اOpen Realtime Database → Rules\n3. اCopy Content من ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 minutes لبناء الفهارس\n5. أعد المحاولة`);
+        throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب to Firebase Console\n2. اOpen Realtime Database → Rules\n3. اCopy Content from ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 minutes لبناء الفهارس\n5. أعد المحاولة`);
       }
       
       throw new Error(`Annual tax report generation failed: ${error.message}`);
@@ -176,7 +176,7 @@ export class TaxReportingService {
         
       } catch (error) {
         if (error.message && error.message.includes('Index not defined')) {
-          throw new Error(`Database needs indexing. Please Update قواعد Firebase وAdd الفهرس للحقل "requestedAt" في مسار withdrawalHistory. Review ملف FIREBASE_SETUP.md للDetails.`);
+          throw new Error(`Database needs indexing. Please Update قواعد Firebase وAdd الفهرس للحقل "requestedAt" in مسار withdrawalHistory. Review ملف FIREBASE_SETUP.md للDetails.`);
         }
         throw error;
       }

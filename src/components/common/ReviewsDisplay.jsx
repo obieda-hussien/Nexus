@@ -108,7 +108,7 @@ const ReviewsDisplay = ({ courseId }) => {
                 <div className="flex items-center mb-1">
                   {renderStars(Math.round(stats.averageRating))}
                 </div>
-                <div className="text-gray-400 text-sm">من {stats.totalReviews} تقييم</div>
+                <div className="text-gray-400 text-sm">from {stats.totalReviews} تقييم</div>
               </div>
             </div>
 
@@ -138,8 +138,8 @@ const ReviewsDisplay = ({ courseId }) => {
         ) : (
           <div className="text-center py-8">
             <Star className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-400">لا توجد تقييمات حتى الآن</p>
-            <p className="text-gray-500 text-sm">كن أول من يRate هذا الكورس</p>
+            <p className="text-gray-400">لا توجد تقييمات حتى Now</p>
+            <p className="text-gray-500 text-sm">كن أول from يRate this الكورس</p>
           </div>
         )}
       </div>

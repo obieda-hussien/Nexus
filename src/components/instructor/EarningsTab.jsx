@@ -74,10 +74,10 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             onChange={(e) => setTimeRange(e.target.value)}
             className="bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="thisMonth">هذا الmonth</option>
+            <option value="thisMonth">this الmonth</option>
             <option value="lastMonth">الmonth الماضي</option>
-            <option value="thisYear">هذا العام</option>
-            <option value="allTime">كل الوقت</option>
+            <option value="thisYear">this الyear</option>
+            <option value="allTime">all Time</option>
           </select>
         </div>
 
@@ -91,7 +91,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             trend="+12%"
           />
           <EarningsCard
-            title="الرصيد الAvailable للسحب"
+            title="Balance الAvailable للسحب"
             value={`${availableBalance.toLocaleString()} EGP`}
             icon={<ArrowDown className="w-6 h-6" />}
             color="from-blue-500 to-blue-600"
@@ -136,7 +136,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
       {/* Earnings Chart */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-6">مخطط Earnings الmonthية</h3>
+        <h3 className="text-xl font-semibold text-white mb-6">مخطط Earnings الmonthlyة</h3>
         <div className="space-y-4">
           {monthlyEarnings.map((data, index) => (
             <div key={index} className="flex items-center">
@@ -160,7 +160,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
       {/* Top Earning Courses */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">أعلى Courses ربحاً</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">أon Courses ربحاً</h3>
           <div className="space-y-3">
             {courses?.slice(0, 5).map((course, index) => (
               <div key={course.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
@@ -189,7 +189,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
               <span className="text-white font-semibold">{totalEarnings.toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-purple-200">رسوم المنصة (10%)</span>
+              <span className="text-purple-200">رسوم platform (10%)</span>
               <span className="text-red-400 font-semibold">-{(totalEarnings * 0.1).toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
@@ -206,7 +206,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             </div>
             <div className="border-t border-white/20 pt-3">
               <div className="flex justify-between items-center p-3 bg-green-600/20 rounded-lg">
-                <span className="text-white font-semibold">الرصيد الAvailable للسحب</span>
+                <span className="text-white font-semibold">Balance الAvailable للسحب</span>
                 <span className="text-green-400 font-bold text-lg">
                   {availableBalance.toLocaleString()} EGP
                 </span>
@@ -225,7 +225,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
             <div className="bg-white/5 rounded-lg p-4">
               <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} EGP</p>
               <p className="text-purple-200 text-sm">
-                {availableBalance >= 100 ? 'Available للسحب الآن' : `Minimum للسحب 100 EGP`}
+                {availableBalance >= 100 ? 'Available للسحب Now' : `Minimum للسحب 100 EGP`}
               </p>
             </div>
           </div>

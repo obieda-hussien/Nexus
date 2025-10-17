@@ -348,10 +348,10 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
               </div>
               <div>
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
-                  نظام الدفع المتطور
+                  Advanced Payment System
                 </h2>
                 <p className="text-text-secondary text-sm">
-                  بوابات دفع حقيقية • تقارير ضريبية • إشعارات تلقائية
+                  بوابات دفع حقيقية • تقارير ضريبية • Automatic Notifications
                 </p>
               </div>
             </div>
@@ -367,8 +367,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
           <div className="flex space-x-1 space-x-reverse mt-6 glass rounded-lg p-1 border border-glass-border">
             {[
               { id: 'overview', label: 'Overview', icon: TrendingUp },
-              { id: 'withdrawal', label: 'سحب متطور', icon: DollarSign },
-              { id: 'tax', label: 'Reports الضريبية', icon: FileText },
+              { id: 'withdrawal', label: 'Advanced Withdrawal', icon: DollarSign },
+              { id: 'tax', label: 'Tax Reports', icon: FileText },
               { id: 'email', label: 'Notifications', icon: Mail },
               { id: 'settings', label: 'Settings', icon: Settings }
             ].map(tab => (
@@ -394,9 +394,9 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent mb-2">
-                  Overview على النظام المتطور
+                  Overview of Advanced System
                 </h3>
-                <p className="text-text-secondary">إدارة شاملة للPaidات وEarnings مع خدمات freeة</p>
+                <p className="text-text-secondary">إدارة شاملة للPaidات وEarnings with خدمات freeة</p>
               </div>
               
               {/* Gateway Status Cards */}
@@ -406,7 +406,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="p-3 bg-neon-blue/20 rounded-full">
                       <CreditCard className="w-6 h-6 text-neon-blue" />
                     </div>
-                    <h4 className="font-semibold text-white text-lg">بوابات الدفع الAvailableة</h4>
+                    <h4 className="font-semibold text-white text-lg">Available Payment Gateways</h4>
                   </div>
                   <div className="space-y-3">
                     {paymentGateways.map(gateway => (
@@ -434,7 +434,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="p-3 bg-neon-purple/20 rounded-full">
                       <Mail className="w-6 h-6 text-neon-purple" />
                     </div>
-                    <h4 className="font-semibold text-white text-lg">حالة خدمة Notifications</h4>
+                    <h4 className="font-semibold text-white text-lg">Notification Service Status</h4>
                   </div>
                   <div className="space-y-3">
                     {emailConfig && (
@@ -455,7 +455,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <div className="flex items-center justify-between p-3 bg-secondary-bg/50 rounded-lg border border-glass-border">
                           <div className="flex items-center gap-2">
                             <CheckCircle className="w-4 h-4 text-neon-green" />
-                            <span className="text-white font-medium">إشعارات المBrowse</span>
+                            <span className="text-white font-medium">Transaction Notifications</span>
                           </div>
                           <span className="text-xs px-3 py-1 rounded-full font-medium border bg-neon-green/20 text-neon-green border-neon-green/30">
                             Ready ✓
@@ -463,7 +463,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         </div>
                         <div className="mt-3 p-3 bg-blue-500/10 rounded-lg border border-blue-500/30">
                           <p className="text-xs text-blue-400 leading-relaxed">
-                            💡 {emailConfig.recommendation || 'النظام يعمل بخدمات freeة مع إمكانية الترقية'}
+                            💡 {emailConfig.recommendation || 'System يعمل بخدمات freeة with إمكانية الترقية'}
                           </p>
                         </div>
                       </>
@@ -475,7 +475,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
               {/* Features Overview */}
               <div className="glass rounded-xl p-8 border border-glass-border backdrop-blur-xl bg-gradient-to-r from-neon-blue/5 to-neon-purple/5">
                 <div className="text-center mb-6">
-                  <h4 className="font-semibold text-white text-xl mb-2">المزايا الNewة</h4>
+                  <h4 className="font-semibold text-white text-xl mb-2">New Features</h4>
                   <div className="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full mx-auto"></div>
                 </div>
                 <div className="grid md:grid-cols-3 gap-6">
@@ -483,22 +483,22 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="w-16 h-16 glass rounded-full flex items-center justify-center mx-auto mb-4 border border-glass-border group-hover:border-neon-blue/50 transition-colors">
                       <CreditCard className="w-8 h-8 text-neon-blue" />
                     </div>
-                    <h5 className="font-semibold text-white mb-2">دفع instant</h5>
-                    <p className="text-text-secondary text-sm leading-relaxed">معالجة مباشرة عبر بوابات دفع حقيقية مع رسوم شفافة</p>
+                    <h5 className="font-semibold text-white mb-2">Instant Payment</h5>
+                    <p className="text-text-secondary text-sm leading-relaxed">Direct processing through real payment gateways with transparent fees</p>
                   </div>
                   <div className="text-center group hover:scale-105 transition-transform duration-300">
                     <div className="w-16 h-16 glass rounded-full flex items-center justify-center mx-auto mb-4 border border-glass-border group-hover:border-neon-green/50 transition-colors">
                       <FileText className="w-8 h-8 text-neon-green" />
                     </div>
                     <h5 className="font-semibold text-white mb-2">تقارير ضريبية</h5>
-                    <p className="text-text-secondary text-sm leading-relaxed">تقارير تلقائية متوافقة مع القانون المصري والضرائب</p>
+                    <p className="text-text-secondary text-sm leading-relaxed">Automatic reports compliant with Egyptian law and taxes</p>
                   </div>
                   <div className="text-center group hover:scale-105 transition-transform duration-300">
                     <div className="w-16 h-16 glass rounded-full flex items-center justify-center mx-auto mb-4 border border-glass-border group-hover:border-neon-purple/50 transition-colors">
                       <Mail className="w-8 h-8 text-neon-purple" />
                     </div>
-                    <h5 className="font-semibold text-white mb-2">إشعارات instantة</h5>
-                    <p className="text-text-secondary text-sm leading-relaxed">إشعارات تلقائية freeة لجميع العمليات المالية والتحويلات</p>
+                    <h5 className="font-semibold text-white mb-2">Instant Notifications</h5>
+                    <p className="text-text-secondary text-sm leading-relaxed">Automatic Notifications freeة لجميع الPracticalات المالية والتحويلات</p>
                   </div>
                 </div>
               </div>
@@ -509,9 +509,9 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent mb-2">
-                  سحب متطور مع معالجة instantة
+                  Advanced withdrawal with instant processing
                 </h3>
-                <p className="text-text-secondary">إدارة طلبات السحب مع رسوم شفافة ومعالجة آمنة</p>
+                <p className="text-text-secondary">Manage withdrawal requests with transparent fees and automatic processing</p>
               </div>
               
               <div className="grid lg:grid-cols-2 gap-8">
@@ -526,21 +526,21 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-text-secondary mb-3">
-                        المبلغ ({withdrawalRequest.currency})
+                        Amount ({withdrawalRequest.currency})
                       </label>
                       <input
                         type="number"
                         value={withdrawalRequest.amount}
                         onChange={(e) => setWithdrawalRequest(prev => ({ ...prev, amount: e.target.value }))}
                         className="w-full px-4 py-3 glass border border-glass-border rounded-xl focus:ring-2 focus:ring-neon-blue focus:border-neon-blue bg-secondary-bg/50 text-white placeholder-text-secondary transition-all duration-300"
-                        placeholder="أدخل المبلغ"
+                        placeholder="Enter Amount"
                         min="1"
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-text-secondary mb-3">
-                        طريقة الدفع
+                        Payment Method
                       </label>
                       <div className="space-y-3">
                         {paymentGateways.filter(g => g.supported).map(gateway => {
@@ -579,7 +579,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                                 {feeInfo && (
                                   <div className="bg-secondary-bg/30 p-2 rounded-lg">
                                     <p className="text-xs text-neon-green">
-                                      {feeInfo.description} • صافي المبلغ: {feeInfo.netAmount} {withdrawalRequest.currency}
+                                      {feeInfo.description} • Net Amount: {feeInfo.netAmount} {withdrawalRequest.currency}
                                     </p>
                                   </div>
                                 )}
@@ -603,7 +603,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                       ) : (
                         <>
                           <Send className="w-5 h-5" />
-                          معالجة السحب
+                          Processing السحب
                         </>
                       )}
                     </button>
@@ -615,7 +615,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="p-3 bg-neon-green/20 rounded-full">
                       <CheckCircle className="w-6 h-6 text-neon-green" />
                     </div>
-                    <h4 className="font-semibold text-white text-xl">مزايا النظام المتطور</h4>
+                    <h4 className="font-semibold text-white text-xl">Advanced System Features</h4>
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -623,8 +623,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <Clock className="w-4 h-4 text-neon-green" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">معالجة instantة</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">دفع مباشر عبر بوابات حقيقية مع تتبع لحظي للحالة</p>
+                        <p className="font-semibold text-white mb-1">Instant processing</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">Direct payment through real gateways with real-time status tracking</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -632,8 +632,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <Calculator className="w-4 h-4 text-neon-blue" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">رسوم شفافة</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">View واضح لجميع الرسوم والخصومات قبل الConfirm</p>
+                        <p className="font-semibold text-white mb-1">Transparent Fees</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">Clear view of all fees and deductions before confirmation</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -641,8 +641,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <Mail className="w-4 h-4 text-neon-purple" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">إشعارات تلقائية</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">تنبيهات instantة freeة لحالة العمليات عبر Email والمBrowse</p>
+                        <p className="font-semibold text-white mb-1">Automatic Notifications</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">تنبيهات Instant freeة لحالة الPracticalات عبر Email وtransaction</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -650,8 +650,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <FileText className="w-4 h-4 text-yellow-400" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">توثيق كامل</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">سجل مفصل ومرجع دائم لجميع المعاملات والتحويلات</p>
+                        <p className="font-semibold text-white mb-1">Complete Documentation</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">سجل مفصل ومرجع دائم لجميع المyearلات والتحويلات</p>
                       </div>
                     </div>
                   </div>
@@ -659,10 +659,10 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                   <div className="mt-6 p-4 bg-neon-green/10 rounded-xl border border-neon-green/30">
                     <div className="flex items-center gap-2 text-neon-green font-medium mb-2">
                       <CheckCircle className="w-4 h-4" />
-                      🎉 نظام free بنسبة 90%
+                      🎉 90% free system
                     </div>
                     <div className="text-sm text-text-secondary leading-relaxed">
-                      التكلفة الوحيدة هي رسوم المعاملات التي يدفعها User النهائي فقط
+                      التallفة الوحيدة هي رسوم المyearلات التي يدفعها User النهائي فقط
                     </div>
                   </div>
                 </div>
@@ -674,9 +674,9 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent mb-2">
-                  Reports الضريبية التلقائية
+                  Automatic Tax Reports
                 </h3>
-                <p className="text-text-secondary">تقارير متوافقة مع القانون المصري والضرائب المحلية</p>
+                <p className="text-text-secondary">Reports compliant with Egyptian law and local taxes</p>
               </div>
               
               <div className="grid lg:grid-cols-2 gap-8">
@@ -685,13 +685,13 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="p-3 bg-neon-green/20 rounded-full">
                       <FileText className="w-6 h-6 text-neon-green" />
                     </div>
-                    <h4 className="font-semibold text-white text-xl">إنتاج Reports</h4>
+                    <h4 className="font-semibold text-white text-xl">Generate Reports</h4>
                   </div>
                   
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-text-secondary mb-3">
-                        الyear الضريبية
+                        الyear Taxة
                       </label>
                       <select
                         value={taxSettings?.taxYear || new Date().getFullYear()}
@@ -753,16 +753,16 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="glass rounded-lg p-4 border border-glass-border bg-secondary-bg/30">
                       <h5 className="font-semibold text-white mb-3 flex items-center gap-2">
                         <div className="w-2 h-2 bg-neon-blue rounded-full"></div>
-                        معدلات الضرائب المصرية
+                        withدلات الضرائب المصرية
                       </h5>
                       <div className="text-sm text-text-secondary space-y-2 leading-relaxed">
-                        <div className="flex justify-between"><span>0% حتى 8,000 EGP</span><span className="text-neon-green">معفي</span></div>
-                        <div className="flex justify-between"><span>2.5% من 8,000 إلى 30,000 EGP</span><span className="text-yellow-400">Low</span></div>
-                        <div className="flex justify-between"><span>10% من 30,000 إلى 45,000 EGP</span><span className="text-orange-400">Intermediate</span></div>
-                        <div className="flex justify-between"><span>15% من 45,000 إلى 60,000 EGP</span><span className="text-red-400">High</span></div>
-                        <div className="flex justify-between"><span>20% من 60,000 إلى 200,000 EGP</span><span className="text-red-400">High</span></div>
-                        <div className="flex justify-between"><span>22.5% من 200,000 إلى 400,000 EGP</span><span className="text-red-500">High جداً</span></div>
-                        <div className="flex justify-between"><span>25% أكثر من 400,000 EGP</span><span className="text-red-600">الأعلى</span></div>
+                        <div className="flex justify-between"><span>0% حتى 8,000 EGP</span><span className="text-neon-green">within</span></div>
+                        <div className="flex justify-between"><span>2.5% from 8,000 to 30,000 EGP</span><span className="text-yellow-400">Low</span></div>
+                        <div className="flex justify-between"><span>10% from 30,000 to 45,000 EGP</span><span className="text-orange-400">Intermediate</span></div>
+                        <div className="flex justify-between"><span>15% from 45,000 to 60,000 EGP</span><span className="text-red-400">High</span></div>
+                        <div className="flex justify-between"><span>20% from 60,000 to 200,000 EGP</span><span className="text-red-400">High</span></div>
+                        <div className="flex justify-between"><span>22.5% from 200,000 to 400,000 EGP</span><span className="text-red-500">High جداً</span></div>
+                        <div className="flex justify-between"><span>25% أكثر from 400,000 EGP</span><span className="text-red-600">الأon</span></div>
                       </div>
                     </div>
                     
@@ -785,7 +785,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         💡 تقارير freeة بالكامل
                       </div>
                       <div className="text-sm text-text-secondary leading-relaxed">
-                        إنتاج وExport Reports Completely free بدون أي additional fees أو اشتراكات
+                        إنتاج وExport Reports Completely free بدون any additional fees أو اشتراكات
                       </div>
                     </div>
                   </div>
@@ -800,7 +800,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent mb-2">
                   إشعارات Email
                 </h3>
-                <p className="text-text-secondary">خدمة إشعارات freeة مع نظام احتياطي موثوق</p>
+                <p className="text-text-secondary">خدمة إشعارات freeة with نظام احتياطي موثوق</p>
               </div>
               
               <div className="grid lg:grid-cols-2 gap-8">
@@ -809,17 +809,17 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div className="p-3 bg-neon-purple/20 rounded-full">
                       <Mail className="w-6 h-6 text-neon-purple" />
                     </div>
-                    <h4 className="font-semibold text-white text-xl">Quiz الخدمة</h4>
+                    <h4 className="font-semibold text-white text-xl">Quiz Service</h4>
                   </div>
                   
                   <div className="space-y-6">
                     <div className="p-4 glass rounded-lg border border-glass-border bg-secondary-bg/30">
                       <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                        تأكد من أن خدمة Email تعمل بشكل صحيح عن طريق Submit Thesis Quiz إلى عنوانك.
+                        Ensure from أن خدمة Email تعمل correctly صحيح about طريق Submit Thesis Quiz to aboutوانك.
                       </p>
                       <div className="flex items-center gap-2 text-xs text-neon-green">
                         <CheckCircle className="w-4 h-4" />
-                        <span>200 free emails monthly مع EmailJS</span>
+                        <span>200 free emails monthly with EmailJS</span>
                       </div>
                     </div>
                     
@@ -849,7 +849,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <div>
                           <p className="text-sm font-semibold text-yellow-400 mb-1">خدمة Email Not readyة</p>
                           <p className="text-xs text-text-secondary leading-relaxed">
-                            سيتم استخدام إشعارات المBrowse كبديل free. يمكنك إعداد EmailJS للحصول على 200 free emails monthly
+                            سيتم استخدام Transaction Notifications كبديل free. يمكنك Setup EmailJS للحصول on 200 free emails monthly
                           </p>
                         </div>
                       </div>
@@ -871,7 +871,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                       </div>
                       <div>
                         <p className="font-semibold text-white mb-1">طلب السحب</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">Confirm استلام طلب السحب مع Details المبلغ والرسوم</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">Confirm استلام طلب السحب with Details Amount والرسوم</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -880,7 +880,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                       </div>
                       <div>
                         <p className="font-semibold text-white mb-1">إتمام السحب</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">Confirm Success عملية التحويل مع معرف المعاملة</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">Confirm Success process التحويل with withرف المyearلة</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -889,7 +889,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                       </div>
                       <div>
                         <p className="font-semibold text-white mb-1">Failure السحب</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">إشعار بFailure العملية مع السبب والخطوات Nextة</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">إشعار بFailure الprocess with Reason والخطوات Nextة</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -897,8 +897,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <TrendingUp className="w-5 h-5 text-neon-purple" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">Reports الmonthية</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">Summary monthي شامل للأرباح والضرائب وStatistics</p>
+                        <p className="font-semibold text-white mb-1">Reports الmonthlyة</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">Summary monthly شامل للأرباح والضرائب وStatistics</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3 space-x-reverse group">
@@ -906,8 +906,8 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <FileText className="w-5 h-5 text-yellow-400" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white mb-1">Reports الضريبية</p>
-                        <p className="text-sm text-text-secondary leading-relaxed">تقارير سنوية وربع سنوية Readyة للتOld</p>
+                        <p className="font-semibold text-white mb-1">Tax Reports</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">تقارير سنوية وربع سنوية ready للتOld</p>
                       </div>
                     </div>
                   </div>
@@ -918,7 +918,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                       📧 نظام إشعارات free
                     </div>
                     <div className="text-sm text-text-secondary leading-relaxed">
-                      إشعارات المBrowse freeة دائماً، وEmailJS يوفر 200 free emails monthly
+                      Transaction Notifications freeة دائماً، وEmailJS يوفر 200 free emails monthly
                     </div>
                   </div>
                 </div>
@@ -930,9 +930,9 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent mb-2">
-                  إعدادات النظام المتطور
+                  Setupات System Advanced
                 </h3>
-                <p className="text-text-secondary">تكوين النظام والAnalysis المالي للخدمات الfreeة</p>
+                <p className="text-text-secondary">تكوين System والAnalysis المالي للخدمات الfreeة</p>
               </div>
               
               <div className="space-y-8">
@@ -948,7 +948,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                   <div className="grid md:grid-cols-3 gap-6 mb-6">
                     <div className="text-center p-6 glass rounded-xl border border-glass-border bg-secondary-bg/50 hover:scale-105 transition-transform duration-300">
                       <div className="text-3xl font-bold text-neon-green mb-2">$0</div>
-                      <div className="text-text-secondary text-sm mb-1">تكلفة التشغيل الmonthية</div>
+                      <div className="text-text-secondary text-sm mb-1">تallفة التشغيل الmonthlyة</div>
                       <div className="text-xs text-neon-green font-medium">100% free</div>
                     </div>
                     <div className="text-center p-6 glass rounded-xl border border-glass-border bg-secondary-bg/50 hover:scale-105 transition-transform duration-300">
@@ -975,7 +975,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                           <span className="font-semibold text-neon-green">Completely free ✓</span>
                         </div>
                         <div className="flex justify-between items-center p-3 glass rounded-lg border border-glass-border">
-                          <span className="text-text-secondary">إشعارات المBrowse:</span>
+                          <span className="text-text-secondary">Transaction Notifications:</span>
                           <span className="font-semibold text-neon-green">Completely free ✓</span>
                         </div>
                         <div className="flex justify-between items-center p-3 glass rounded-lg border border-glass-border">
@@ -983,7 +983,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                           <span className="font-semibold text-neon-green">Completely free ✓</span>
                         </div>
                         <div className="flex justify-between items-center p-3 glass rounded-lg border border-glass-border">
-                          <span className="text-text-secondary">النظام الأساسي:</span>
+                          <span className="text-text-secondary">System Basic:</span>
                           <span className="font-semibold text-neon-green">Completely free ✓</span>
                         </div>
                       </div>
@@ -992,7 +992,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div>
                       <h5 className="font-semibold text-white mb-4 flex items-center gap-2">
                         <CreditCard className="w-5 h-5 text-yellow-400" />
-                        رسوم بوابات الدفع (على User)
+                        رسوم بوابات الدفع (on User)
                       </h5>
                       <div className="space-y-3">
                         {paymentGateways.filter(g => g.type !== 'bank').map(gateway => (
@@ -1011,7 +1011,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         ))}
                         <div className="border-t border-glass-border pt-3 mt-3">
                           <div className="flex justify-between items-center p-3 glass rounded-lg border border-neon-green/30 bg-neon-green/10">
-                            <span className="font-semibold text-white">تكلفة المنصة الmonthية:</span>
+                            <span className="font-semibold text-white">تallفة platform الmonthlyة:</span>
                             <span className="text-neon-green font-bold">0 EGP</span>
                           </div>
                         </div>
@@ -1022,10 +1022,10 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                   <div className="mt-6 p-4 bg-neon-green/10 rounded-xl border border-neon-green/30">
                     <div className="flex items-center gap-2 text-neon-green font-medium mb-2">
                       <CheckCircle className="w-4 h-4" />
-                      💡 توفير سنوي: $180+ مقارنة بالخدمات الPaidة
+                      💡 توinر سنوي: $180+ مقارنة بالخدمات الPaidة
                     </div>
                     <div className="text-sm text-text-secondary leading-relaxed">
-                      النظام يعتمد على الحلول الfreeة بنسبة 90% - الرسوم فقط على المعاملات التي يدفعها User النهائي
+                      System يعتمد on الحلول الfreeة بنسبة 90% - الرسوم فقط on المyearلات التي يدفعها User النهائي
                     </div>
                   </div>
                 </div>
@@ -1050,7 +1050,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                         <div className="text-purple-400">VITE_EMAILJS_SERVICE_ID=<span className="text-white">your_service_id</span></div>
                         <div className="text-purple-400">VITE_EMAILJS_TEMPLATE_ID=<span className="text-white">your_template_id</span></div>
                         <div className="text-purple-400">VITE_EMAILJS_PUBLIC_KEY=<span className="text-white">your_public_key</span></div>
-                        <div className="text-neon-green mt-3 mb-2"># Payment Gateways (للرسوم على User)</div>
+                        <div className="text-neon-green mt-3 mb-2"># Payment Gateways (للرسوم on User)</div>
                         <div className="text-purple-400">VITE_STRIPE_PUBLIC_KEY=<span className="text-white">pk_...</span></div>
                         <div className="text-purple-400">VITE_PAYPAL_CLIENT_ID=<span className="text-white">...</span></div>
                         <div className="text-purple-400">VITE_FAWRY_MERCHANT_CODE=<span className="text-white">...</span></div>
@@ -1062,30 +1062,30 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                     <div>
                       <h5 className="font-semibold text-white mb-4 flex items-center gap-2">
                         <div className="w-2 h-2 bg-neon-green rounded-full"></div>
-                        الخطوات Nextة (حلول freeة Availableة)
+                        الخطوات Nextة (حلول freeة Available)
                       </h5>
                       <div className="space-y-4">
                         <div className="flex items-start space-x-3 space-x-reverse group">
                           <div className="w-8 h-8 bg-neon-green/20 text-neon-green rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">✓</div>
                           <div>
-                            <p className="font-semibold text-white mb-1">النظام الأساسي Ready</p>
-                            <p className="text-sm text-text-secondary leading-relaxed">Bank Transfer وإشعارات freeة تعمل الآن بدون إعداد</p>
+                            <p className="font-semibold text-white mb-1">System Basic Ready</p>
+                            <p className="text-sm text-text-secondary leading-relaxed">Bank Transfer وإشعارات freeة تعمل Now بدون Setup</p>
                           </div>
                         </div>
                         
                         <div className="flex items-start space-x-3 space-x-reverse group">
                           <div className="w-8 h-8 bg-neon-blue/20 text-neon-blue rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">1</div>
                           <div>
-                            <p className="font-semibold text-white mb-1">إعداد EmailJS (اختياري - free)</p>
-                            <p className="text-sm text-text-secondary leading-relaxed">200 Thesis monthly مجاناً للإشعارات الاحترافية</p>
+                            <p className="font-semibold text-white mb-1">Setup EmailJS (اختياري - free)</p>
+                            <p className="text-sm text-text-secondary leading-relaxed">200 Thesis monthly مجاناً للإشعارات الاحتراinة</p>
                           </div>
                         </div>
                         
                         <div className="flex items-start space-x-3 space-x-reverse group">
                           <div className="w-8 h-8 bg-neon-purple/20 text-neon-purple rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">2</div>
                           <div>
-                            <p className="font-semibold text-white mb-1">إعداد بوابات دفع (اختياري)</p>
-                            <p className="text-sm text-text-secondary leading-relaxed">الرسوم على Userين النهائيين فقط، لا توجد رسوم ثابتة</p>
+                            <p className="font-semibold text-white mb-1">Setup بوابات دفع (اختياري)</p>
+                            <p className="text-sm text-text-secondary leading-relaxed">الرسوم on Userين النهائيين فقط، لا توجد رسوم ثابتة</p>
                           </div>
                         </div>
                         
@@ -1093,7 +1093,7 @@ const AdvancedPaymentGateway = ({ instructorData, onClose }) => {
                           <div className="w-8 h-8 bg-neon-green/20 text-neon-green rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">✓</div>
                           <div>
                             <p className="font-semibold text-white mb-1">التشغيل المباشر</p>
-                            <p className="text-sm text-text-secondary leading-relaxed">النظام Ready للاستخدام الآن دون أي تكاليف تشغيل</p>
+                            <p className="text-sm text-text-secondary leading-relaxed">System Ready للاستخدام Now دون any تكاليف تشغيل</p>
                           </div>
                         </div>
                       </div>

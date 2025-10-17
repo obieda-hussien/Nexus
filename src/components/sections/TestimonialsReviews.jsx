@@ -8,22 +8,22 @@ const TestimonialsReviews = () => {
       id: 1,
       name: "Ahmed Mohamed Ali",
       nameEn: "Ahmed Mohamed Ali",
-      role: "student هندسة - University القاهرة",
+      role: "student هندسة - Cairo University",
       roleEn: "Engineering student - Cairo University",
       avatar: "👨‍🎓",
       rating: 5,
-      review: "منصة رائعة ساعدتني في فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والExamples عملية.",
+      review: "fromصة رائعة ساعدتني in فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والExamples process.",
       reviewEn: "Amazing platform that helped me understand physics in an easy and simplified way. Clear explanations and practical examples."
     },
     {
       id: 2,
       name: "فاطمة أحمد حسن",
       nameEn: "Fatma Ahmed Hassan",
-      role: "studentة Mathematics - University الأزهر",
+      role: "studentة Mathematics - Al-Azhar University",
       roleEn: "Mathematics student - Al-Azhar University",
       avatar: "👩‍🎓",
       rating: 5,
-      review: "أفضل منصة تعليمية جربتها. Content غني والتفاعل مع Instructorين ممتاز.",
+      review: "أفضل fromصة تعليمية جربتها. Content غني والتفاعل with Instructorين ممتاز.",
       reviewEn: "The best educational platform I've tried. Rich content and excellent interaction with instructors."
     },
     {
@@ -34,7 +34,7 @@ const TestimonialsReviews = () => {
       roleEn: "Physics Teacher - Ministry of Education",
       avatar: "👨‍🏫",
       rating: 5,
-      review: "استخدم المنصة في التدريس لطلابي. أدوات رائعة وطرق تدريس حديثة.",
+      review: "استخدم platform in التدريس لطلابي. أدوات رائعة وطرق تدريس Recentة.",
       reviewEn: "I use the platform for teaching my students. Great tools and modern teaching methods."
     },
     {
@@ -45,18 +45,18 @@ const TestimonialsReviews = () => {
       roleEn: "High School student",
       avatar: "👩‍💼",
       rating: 5,
-      review: "ساعدتني المنصة في التحضير للثانوية العامة وحصلت على درجات ممتازة في Physics وMathematics.",
+      review: "ساعدتني platform in التحضير للثانوية الyearة وحصلت on درجات ممتازة in Physics وMathematics.",
       reviewEn: "The platform helped me prepare for high school exams and I got excellent grades in physics and mathematics."
     },
     {
       id: 5,
       name: "عمر حسام الدين",
       nameEn: "Omar Hossam El-Din",
-      role: "student دراسات عليا - University عين شمس",
+      role: "student دراسات عليا - Ain Shams University",
       roleEn: "Graduate student - Ain Shams University",
       avatar: "👨‍🔬",
       rating: 5,
-      review: "Content الAdvanced في Physics النظرية ممتاز. استفدت كثيراً في Thesis الماجستير.",
+      review: "Content الAdvanced in Theoretical Physics ممتاز. استفدت كثيراً in Thesis الMaster.",
       reviewEn: "The advanced content in theoretical physics is excellent. It helped me a lot with my master's thesis."
     },
     {
@@ -67,7 +67,7 @@ const TestimonialsReviews = () => {
       roleEn: "Computer Engineer",
       avatar: "👩‍💻",
       rating: 4,
-      review: "منصة متميزة لتعلم Applied Mathematics. أنصح بها كل المهندسين.",
+      review: "fromصة متميزة لتعلم Applied Mathematics. أنصح بها all المهندسين.",
       reviewEn: "Excellent platform for learning applied mathematics. I recommend it to all engineers."
     }
   ];
@@ -76,7 +76,7 @@ const TestimonialsReviews = () => {
     {
       icon: <Award className="w-8 h-8" />,
       title: "Best Educational Platform",
-      titleAr: "أفضل منصة تعليمية",
+      titleAr: "أفضل fromصة تعليمية",
       subtitle: "Egypt Education Awards 2024",
       subtitleAr: "جوائز التعليم المصري ٢٠٢٤"
     },
@@ -85,14 +85,14 @@ const TestimonialsReviews = () => {
       title: "98% student Satisfaction",
       titleAr: "٩٨٪ رضا students",
       subtitle: "Based on 10,000+ reviews",
-      subtitleAr: "بناءً على أكثر من ١٠٠٠٠ تقييم"
+      subtitleAr: "بناءً on أكثر from ١٠٠٠٠ تقييم"
     },
     {
       icon: <Star className="w-8 h-8" />,
       title: "5-Star Rating",
       titleAr: "تقييم ٥ نجوم",
       subtitle: "Top-rated in Egypt",
-      subtitleAr: "Highest Rated في مصر"
+      subtitleAr: "Highest Rated in مصر"
     }
   ];
 
@@ -119,13 +119,13 @@ const TestimonialsReviews = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">
             <span className="block">What Our students Say</span>
-            <span className="block text-2xl text-purple-300 mt-2">ماذا يقول طلابنا</span>
+            <span className="block text-2xl text-purple-300 mt-2">what يقول طلابنا</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Real feedback from thousands of successful students across Egypt
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            تقييمات حقيقية من آلاف students الناجحين في جميع أنحاء مصر
+            تقييمات حقيقية from آلاف students الناجحين in جميع أنحاء مصر
           </p>
         </motion.div>
 
@@ -225,7 +225,7 @@ const TestimonialsReviews = () => {
               Join 10,000+ Successful students
             </h3>
             <p className="text-lg text-purple-300 mb-6">
-              انضم إلى أكثر من ١٠٠٠٠ student ناجح
+              انضم to أكثر from ١٠٠٠٠ student ناجح
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
