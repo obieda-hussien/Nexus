@@ -12,13 +12,13 @@ import {
 
 const InstructorNavigation = ({ activeTab, setActiveTab, notificationCount = 0 }) => {
   const tabs = [
-    { id: 'overview', label: 'نظرة عامة', icon: BarChart3 },
-    { id: 'courses', label: 'الكورسات', icon: BookOpen },
-    { id: 'students', label: 'الطلاب', icon: Users },
-    { id: 'reviews', label: 'المراجعات', icon: MessageSquare },
-    { id: 'earnings', label: 'الأرباح', icon: DollarSign },
-    { id: 'notifications', label: 'الإشعارات', icon: Bell, badge: notificationCount },
-    { id: 'settings', label: 'الإعدادات', icon: Settings }
+    { id: 'overview', label: 'Overview', icon: BarChart3 },
+    { id: 'courses', label: 'Courses', icon: BookOpen },
+    { id: 'students', label: 'Students', icon: Users },
+    { id: 'reviews', label: 'Reviews', icon: MessageSquare },
+    { id: 'earnings', label: 'Earnings', icon: DollarSign },
+    { id: 'notifications', label: 'Notifications', icon: Bell, badge: notificationCount },
+    { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
   return (

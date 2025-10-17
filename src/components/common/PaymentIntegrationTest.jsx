@@ -34,15 +34,15 @@ const PaymentIntegrationTest = () => {
       // Test with a sample email (replace with actual test email)
       const result = await EmailJSNotificationService.sendTestEmail(
         'bodybody15151@gmail.com',
-        'مختبر النظام'
+        'System Lab'
       );
       
       setTestResults(prev => ({
         ...prev,
-        email: { success: true, message: 'تم إرسال رسالة الاختبار بنجاح!' }
+        email: { success: true, message: 'Test email sent successfully!' }
       }));
       
-      toast.success('تم إرسال رسالة الاختبار بنجاح!');
+      toast.success('Test email sent successfully!');
     } catch (error) {
       setTestResults(prev => ({
         ...prev,
@@ -57,9 +57,9 @@ const PaymentIntegrationTest = () => {
   const handlePayPalSuccess = (result) => {
     setTestResults(prev => ({
       ...prev,
-      paypal: { success: true, message: 'تم اختبار PayPal بنجاح!', result }
+      paypal: { success: true, message: 'PayPal tested successfully!', result }
     }));
-    toast.success('تم اختبار PayPal بنجاح!');
+    toast.success('PayPal tested successfully!');
   };
 
   const handlePayPalError = (error) => {
@@ -73,7 +73,7 @@ const PaymentIntegrationTest = () => {
   // Sample course data for testing
   const testCourse = {
     id: 'test-course-123',
-    title: 'كورس اختبار الدفع',
+    title: 'Payment Test Course',
     price: 100
   };
 
@@ -81,7 +81,7 @@ const PaymentIntegrationTest = () => {
   const testUser = {
     uid: 'test-user-123',
     email: 'test@example.com',
-    displayName: 'مستخدم الاختبار'
+    displayName: 'Test User'
   };
 
   const StatusCard = ({ title, status, icon: Icon, isConfigured }) => (
@@ -100,13 +100,13 @@ const PaymentIntegrationTest = () => {
       </div>
       <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <span className="text-text-secondary">الحالة:</span>
+          <span className="text-text-secondary">Status:</span>
           <span className={`font-semibold px-3 py-1 rounded-full text-sm ${
             isConfigured 
               ? 'bg-neon-green/20 text-neon-green border border-neon-green/30' 
               : 'bg-red-500/20 text-red-400 border border-red-500/30'
           }`}>
-            {isConfigured ? 'مُعدّ بشكل صحيح ✓' : 'غير مُعدّ ✗'}
+            {isConfigured ? 'Configured Correctly ✓' : 'Not Configured ✗'}
           </span>
         </div>
         {status && Object.entries(status).map(([key, value]) => (
@@ -137,29 +137,29 @@ const PaymentIntegrationTest = () => {
               <Play className="w-8 h-8 text-neon-blue" />
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
-              اختبار تكامل الدفع والإشعارات
+              Payment & Notifications Integration Test
             </h1>
           </div>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            تحقق من أن PayPal وEmailJS يعملان بشكل صحيح مع البيانات المقدمة
+            Verify that PayPal and EmailJS work correctly with the provided credentials
           </p>
           <div className="mt-6 inline-flex items-center gap-2 glass px-4 py-2 rounded-full border border-glass-border">
             <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-            <span className="text-sm text-text-secondary">النظام يعمل بدون رسوم شهرية</span>
+            <span className="text-sm text-text-secondary">System works with no monthly fees</span>
           </div>
         </div>
 
         {/* Configuration Status Cards */}
         <div className="grid lg:grid-cols-2 gap-8">
           <StatusCard
-            title="تكوين PayPal"
+            title="PayPal Configuration"
             status={paypalStatus}
             icon={CreditCard}
             isConfigured={paypalStatus?.configured}
           />
 
           <StatusCard
-            title="تكوين EmailJS"
+            title="EmailJS Configuration"
             status={emailjsStatus}
             icon={Mail}
             isConfigured={emailjsStatus?.configured}
@@ -174,7 +174,7 @@ const PaymentIntegrationTest = () => {
               <div className="p-2 bg-blue-500/20 rounded-lg">
                 <Mail className="w-6 h-6 text-blue-400" />
               </div>
-              <h3 className="font-semibold text-white text-xl">اختبار EmailJS</h3>
+              <h3 className="font-semibold text-white text-xl">EmailJS Test</h3>
             </div>
             
             {/* Development Environment Notice */}
@@ -183,11 +183,11 @@ const PaymentIntegrationTest = () => {
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5" />
                   <div>
-                    <div className="text-yellow-400 font-medium mb-1">ملاحظة البيئة التطويرية</div>
+                    <div className="text-yellow-400 font-medium mb-1">Development Environment Note</div>
                     <div className="text-sm text-text-secondary">
-                      في البيئة التطويرية، قد يتم حجب الطلبات الخارجية بواسطة مانع الإعلانات أو CORS. 
+                      In development, external requests may be blocked by ad blockers or CORS. 
                       <br />
-                      <strong className="text-yellow-400">سيعمل النظام بشكل مثالي في الإنتاج!</strong>
+                      <strong className="text-yellow-400">The system will work perfectly in production!</strong>
                     </div>
                   </div>
                 </div>
@@ -195,7 +195,7 @@ const PaymentIntegrationTest = () => {
             )}
             
             <p className="text-text-secondary mb-6 leading-relaxed">
-              اختبر إرسال رسالة إلكترونية باستخدام الإعدادات المُقدمة
+              Test sending an email using the provided configuration
             </p>
             
             <button
@@ -206,12 +206,12 @@ const PaymentIntegrationTest = () => {
               {isTestingEmail ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  جاري الإرسال...
+                  Sending...
                 </>
               ) : (
                 <>
                   <Mail className="w-5 h-5" />
-                  اختبار إرسال رسالة
+                  Test Send Email
                 </>
               )}
             </button>
@@ -240,7 +240,7 @@ const PaymentIntegrationTest = () => {
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-neon-green" />
                 <span className="text-sm text-neon-green font-medium">
-                  التكوين صحيح - جاهز للإنتاج ✓
+                  Configuration is correct - Ready for production ✓
                 </span>
               </div>
             </div>
@@ -252,7 +252,7 @@ const PaymentIntegrationTest = () => {
               <div className="p-2 bg-yellow-500/20 rounded-lg">
                 <CreditCard className="w-6 h-6 text-yellow-400" />
               </div>
-              <h3 className="font-semibold text-white text-xl">اختبار PayPal</h3>
+              <h3 className="font-semibold text-white text-xl">PayPal Test</h3>
             </div>
             
             {/* Development Environment Notice for PayPal */}
@@ -260,35 +260,35 @@ const PaymentIntegrationTest = () => {
               <div className="flex items-start gap-3">
                 <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5" />
                 <div>
-                  <div className="text-yellow-400 font-medium mb-1">PayPal في البيئة التطويرية</div>
+                  <div className="text-yellow-400 font-medium mb-1">PayPal in Development Environment</div>
                   <div className="text-sm text-text-secondary">
-                    مانع الإعلانات يحجب PayPal SDK في البيئة التطويرية.
+                    Ad blockers block PayPal SDK in development environment.
                     <br />
-                    <strong className="text-yellow-400">سيعمل بشكل مثالي في الإنتاج بدون مشاكل!</strong>
+                    <strong className="text-yellow-400">Will work perfectly in production without issues!</strong>
                   </div>
                 </div>
               </div>
             </div>
             
             <p className="text-text-secondary mb-6 leading-relaxed">
-              اختبر عملية دفع تجريبية باستخدام PayPal Sandbox
+              Test a trial payment using PayPal Sandbox
             </p>
 
             {paypalStatus?.configured ? (
               <div className="space-y-4">
                 <div className="bg-secondary-bg/50 rounded-lg p-4 border border-glass-border">
-                  <div className="text-sm text-text-secondary mb-2">معلومات الاختبار:</div>
+                  <div className="text-sm text-text-secondary mb-2">Test Information:</div>
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
-                      <span>الكورس:</span>
+                      <span>Course:</span>
                       <span className="text-white">{testCourse.title}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>السعر:</span>
-                      <span className="text-white">{testCourse.price} ج.م</span>
+                      <span>Price:</span>
+                      <span className="text-white">{testCourse.price} EGP</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>بالدولار:</span>
+                      <span>In USD:</span>
                       <span className="text-yellow-400">${(testCourse.price / 31).toFixed(2)} USD</span>
                     </div>
                   </div>
@@ -305,11 +305,11 @@ const PaymentIntegrationTest = () => {
               <div className="text-red-400 p-4 bg-red-500/10 rounded-xl border border-red-500/30 flex items-center gap-3">
                 <AlertTriangle className="w-5 h-5" />
                 <div>
-                  <div className="font-medium">PayPal غير متاح حالياً</div>
+                  <div className="font-medium">PayPal Currently Unavailable</div>
                   <div className="text-sm text-text-secondary mt-1">
                     {paypalStatus?.configured ? 
-                      'قد يكون محجوب بواسطة مانع الإعلانات. سيعمل في البيئة الحقيقية.' : 
-                      'يحتاج إعداد البيانات المطلوبة'
+                      'May be blocked by ad blockers. Will work in production.' : 
+                      'Requires configuration setup'
                     }
                   </div>
                 </div>
@@ -340,7 +340,7 @@ const PaymentIntegrationTest = () => {
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-neon-green" />
                 <span className="text-sm text-neon-green font-medium">
-                  التكوين صحيح - جاهز للإنتاج ✓
+                  Configuration is correct - Ready for production ✓
                 </span>
               </div>
             </div>
@@ -353,37 +353,37 @@ const PaymentIntegrationTest = () => {
             <div className="p-2 bg-purple-500/20 rounded-lg">
               <CheckCircle className="w-6 h-6 text-purple-400" />
             </div>
-            <h3 className="font-semibold text-white text-xl">ملخص التكامل</h3>
+            <h3 className="font-semibold text-white text-xl">Integration Summary</h3>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-4">
               <h4 className="font-medium text-neon-blue text-lg flex items-center gap-2">
                 <CreditCard className="w-5 h-5" />
-                بيانات PayPal
+                PayPal Credentials
               </h4>
               <div className="space-y-3 text-sm">
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-blue rounded-full"></div>
-                  Client ID: AQ7ymS-... (مخفي للأمان)
+                  Client ID: AQ7ymS-... (hidden for security)
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-blue rounded-full"></div>
-                  البيئة: Sandbox (اختبار)
+                  Environment: Sandbox (testing)
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-blue rounded-full"></div>
-                  العملة: USD
+                  Currency: USD
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-blue rounded-full"></div>
-                  الحماية: SSL + PayPal Protection
+                  Security: SSL + PayPal Protection
                 </div>
               </div>
             </div>
             <div className="space-y-4">
               <h4 className="font-medium text-neon-purple text-lg flex items-center gap-2">
                 <Mail className="w-5 h-5" />
-                بيانات EmailJS
+                EmailJS Credentials
               </h4>
               <div className="space-y-3 text-sm">
                 <div className="flex items-center gap-2 text-text-secondary">
@@ -396,11 +396,11 @@ const PaymentIntegrationTest = () => {
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>
-                  الحد الشهري: 200 رسالة مجانية
+                  Monthly Limit: 200 free emails
                 </div>
                 <div className="flex items-center gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>
-                  بديل: إشعارات المتصفح
+                  Alternative: Browser notifications
                 </div>
               </div>
             </div>
@@ -413,7 +413,7 @@ const PaymentIntegrationTest = () => {
             <div className="p-2 bg-neon-green/20 rounded-lg">
               <CheckCircle className="w-6 h-6 text-neon-green" />
             </div>
-            <h3 className="font-semibold text-white text-xl">🚀 حالة الجاهزية للإنتاج</h3>
+            <h3 className="font-semibold text-white text-xl">🚀 Production Readiness Status</h3>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -421,25 +421,25 @@ const PaymentIntegrationTest = () => {
             <div className="space-y-4">
               <h4 className="font-medium text-yellow-400 text-lg flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5" />
-                البيئة التطويرية الحالية
+                Current Development Environment
               </h4>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mt-2"></div>
                   <div>
-                    <span className="text-yellow-400">PayPal SDK محجوب:</span> مانع الإعلانات يحجب السكريبت الخارجي
+                    <span className="text-yellow-400">PayPal SDK Blocked:</span> Ad blocker blocks external script
                   </div>
                 </div>
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mt-2"></div>
                   <div>
-                    <span className="text-yellow-400">EmailJS API محجوب:</span> CORS أو مانع الإعلانات يحجب الطلبات
+                    <span className="text-yellow-400">EmailJS API Blocked:</span> CORS or ad blocker blocks requests
                   </div>
                 </div>
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-green rounded-full mt-2"></div>
                   <div>
-                    <span className="text-neon-green">التكوين صحيح:</span> جميع المتغيرات والإعدادات مضبوطة
+                    <span className="text-neon-green">Configuration Correct:</span> All variables and settings are configured
                   </div>
                 </div>
               </div>
@@ -449,25 +449,25 @@ const PaymentIntegrationTest = () => {
             <div className="space-y-4">
               <h4 className="font-medium text-neon-green text-lg flex items-center gap-2">
                 <CheckCircle className="w-5 h-5" />
-                البيئة الإنتاجية
+                Production Environment
               </h4>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-green rounded-full mt-2"></div>
                   <div>
-                    <span className="text-neon-green">PayPal يعمل بالكامل:</span> لا توجد حجب للسكريبت الخارجي
+                    <span className="text-neon-green">PayPal Fully Functional:</span> No blocking of external script
                   </div>
                 </div>
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-green rounded-full mt-2"></div>
                   <div>
-                    <span className="text-neon-green">EmailJS متاح:</span> جميع الطلبات مسموحة ولا توجد قيود CORS
+                    <span className="text-neon-green">EmailJS Available:</span> All requests allowed, no CORS restrictions
                   </div>
                 </div>
                 <div className="flex items-start gap-2 text-text-secondary">
                   <div className="w-1.5 h-1.5 bg-neon-green rounded-full mt-2"></div>
                   <div>
-                    <span className="text-neon-green">200 رسالة مجانية:</span> شهرياً من EmailJS بدون تكلفة
+                    <span className="text-neon-green">200 Free Emails:</span> Monthly from EmailJS at no cost
                   </div>
                 </div>
               </div>
@@ -477,10 +477,10 @@ const PaymentIntegrationTest = () => {
           <div className="mt-6 p-4 bg-neon-green/10 rounded-xl border border-neon-green/30">
             <div className="flex items-center gap-2 text-neon-green font-medium mb-2">
               <CheckCircle className="w-4 h-4" />
-              ✅ جاهز للنشر في الإنتاج - جميع الخدمات ستعمل بشكل مثالي
+              ✅ Ready for production deployment - All services will work perfectly
             </div>
             <div className="text-sm text-text-secondary">
-              التكوين الحالي صحيح 100% ومختبر. في بيئة الإنتاج، ستعمل جميع الخدمات بدون أي مشاكل أو قيود.
+              Current configuration is 100% correct and tested. In production, all services will work without any issues or restrictions.
             </div>
           </div>
         </div>
@@ -491,23 +491,23 @@ const PaymentIntegrationTest = () => {
             <div className="p-2 bg-purple-500/20 rounded-lg">
               <CheckCircle className="w-6 h-6 text-purple-400" />
             </div>
-            <h3 className="font-semibold text-white text-xl">💰 تحليل التكلفة</h3>
+            <h3 className="font-semibold text-white text-xl">💰 Cost Analysis</h3>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-neon-green mb-2">$0</div>
-              <div className="text-text-secondary text-sm">تكلفة التشغيل الشهرية</div>
-              <div className="text-xs text-neon-green mt-1">100% مجاني</div>
+              <div className="text-text-secondary text-sm">Monthly Operating Cost</div>
+              <div className="text-xs text-neon-green mt-1">100% Free</div>
             </div>
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-yellow-400 mb-2">3.4%</div>
-              <div className="text-text-secondary text-sm">رسوم PayPal</div>
-              <div className="text-xs text-yellow-400 mt-1">يدفعها الطالب</div>
+              <div className="text-text-secondary text-sm">PayPal Fees</div>
+              <div className="text-xs text-yellow-400 mt-1">Paid by student</div>
             </div>
             <div className="text-center p-6 bg-secondary-bg/50 rounded-xl border border-glass-border">
               <div className="text-3xl font-bold text-purple-400 mb-2">200</div>
-              <div className="text-text-secondary text-sm">رسالة مجانية شهرياً</div>
+              <div className="text-text-secondary text-sm">Free emails monthly</div>
               <div className="text-xs text-purple-400 mt-1">EmailJS</div>
             </div>
           </div>
@@ -515,10 +515,10 @@ const PaymentIntegrationTest = () => {
           <div className="mt-6 p-4 bg-neon-green/10 rounded-xl border border-neon-green/30">
             <div className="flex items-center gap-2 text-neon-green font-medium mb-2">
               <CheckCircle className="w-4 h-4" />
-              توفير سنوي: $180+ مقارنة بالخدمات المدفوعة
+              Annual savings: $180+ compared to paid services
             </div>
             <div className="text-sm text-text-secondary">
-              النظام يعمل بدون أي رسوم ثابتة مع إمكانية التوسع بدون زيادة التكاليف
+              System operates without any fixed fees with ability to scale without cost increases
             </div>
           </div>
         </div>
@@ -527,22 +527,22 @@ const PaymentIntegrationTest = () => {
         <div className="glass rounded-xl p-8 border border-glass-border backdrop-blur-xl">
           <h3 className="font-semibold text-white text-xl mb-6 flex items-center gap-2">
             <Play className="w-5 h-5 text-neon-blue" />
-            الخطوات التالية
+            Next Steps
           </h3>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-neon-green mt-0.5" />
                 <div>
-                  <div className="text-white font-medium">PayPal جاهز للاستخدام</div>
-                  <div className="text-text-secondary text-sm">يعمل في بيئة Sandbox للاختبار</div>
+                  <div className="text-white font-medium">PayPal Ready to Use</div>
+                  <div className="text-text-secondary text-sm">Works in Sandbox environment for testing</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-neon-green mt-0.5" />
                 <div>
-                  <div className="text-white font-medium">EmailJS نشط</div>
-                  <div className="text-text-secondary text-sm">200 رسالة شهرياً مجاناً</div>
+                  <div className="text-white font-medium">EmailJS Active</div>
+                  <div className="text-text-secondary text-sm">200 emails monthly for free</div>
                 </div>
               </div>
             </div>
@@ -552,8 +552,8 @@ const PaymentIntegrationTest = () => {
                   <div className="w-1.5 h-1.5 bg-neon-blue rounded-full"></div>
                 </div>
                 <div>
-                  <div className="text-white font-medium">للإنتاج المباشر</div>
-                  <div className="text-text-secondary text-sm">تحويل PayPal إلى Live Environment</div>
+                  <div className="text-white font-medium">For Live Production</div>
+                  <div className="text-text-secondary text-sm">Switch PayPal to Live Environment</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -561,8 +561,8 @@ const PaymentIntegrationTest = () => {
                   <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
                 </div>
                 <div>
-                  <div className="text-white font-medium">زيادة حد البريد</div>
-                  <div className="text-text-secondary text-sm">يمكن ترقية EmailJS حسب الحاجة</div>
+                  <div className="text-white font-medium">Increase Email Limit</div>
+                  <div className="text-text-secondary text-sm">Can upgrade EmailJS as needed</div>
                 </div>
               </div>
             </div>
