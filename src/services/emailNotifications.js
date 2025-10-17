@@ -158,7 +158,7 @@ export class EmailNotificationService {
   }
 
   // Send monthly earnings report
-  static async sendMonthlyEarningsReport(instructorData, reportData) {
+  static async sendmonthlyEarningsReport(instructorData, reportData) {
     try {
       const emailData = {
         to: instructorData.email,
@@ -179,7 +179,7 @@ export class EmailNotificationService {
           pendingBalance: reportData.pendingBalance,
           availableBalance: reportData.availableBalance,
           coursesSold: reportData.coursesSold,
-          newStudents: reportData.newStudents,
+          newstudents: reportData.newstudents,
           coursesData: reportData.coursesData,
           withdrawalHistory: reportData.withdrawalHistory,
           currency: 'EGP',
@@ -195,7 +195,7 @@ export class EmailNotificationService {
         await this.sendViaSMTP(emailData);
       }
 
-      console.log('Monthly earnings report sent successfully');
+      console.log('monthly earnings report sent successfully');
       return { success: true };
 
     } catch (error) {
@@ -342,7 +342,7 @@ export class EmailNotificationService {
             <strong>صافي المبلغ:</strong> ${data.netAmount} ${data.currency}
           </div>
           <div class="info-row">
-            <strong>طريقة الدفع:</strong> ${data.paymentMethod}
+            <strong>Payment Method:</strong> ${data.paymentMethod}
           </div>
           <div class="info-row">
             <strong>معرف الطلب:</strong> ${data.withdrawalId}
@@ -363,7 +363,7 @@ export class EmailNotificationService {
             <strong>رقم المعاملة:</strong> ${data.transactionId}
           </div>
           <div class="info-row">
-            <strong>طريقة الدفع:</strong> ${data.paymentMethod}
+            <strong>Payment Method:</strong> ${data.paymentMethod}
           </div>
           <div class="info-row">
             <strong>تاريخ الإتمام:</strong> ${data.completedDate}
@@ -397,7 +397,7 @@ export class EmailNotificationService {
     const names = {
       stripe: 'Stripe',
       paypal: 'PayPal',
-      fawry: 'Instant',
+      fawry: 'instant',
       vodafone: 'Vodafone Cash',
       bank: 'Bank Transfer'
     };
@@ -422,7 +422,7 @@ export class EmailNotificationService {
       bank: 'تحقق من بيانات الحساب البنكي وتأكد من صحة IBAN',
       paypal: 'تحقق من صحة Email المرتبط بـ PayPal',
       vodafone: 'تحقق من رقم Vodafone Cash وتأكد من تفعيل الخدمة',
-      fawry: 'تحقق من بيانات مSaveة Instant',
+      fawry: 'تحقق من بيانات مSaveة instant',
       stripe: 'تحقق من بيانات البطاقة الائتمانية'
     };
     return steps[paymentMethodType] || 'تواصل مع الدعم الفني للمساعدة';
@@ -439,7 +439,7 @@ export class EmailNotificationService {
 
   static getEmailSubject(templateId) {
     const subjects = {
-      [EMAIL_CONFIG.templates.withdrawalRequested]: 'تم استلام طلب سحب Earnings - Nexus Platform',
+      [EMAIL_CONFIG.templates.withdrawalRequested]: 'Withdrawal request received Earnings - Nexus Platform',
       [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب Earnings بنجاح - Nexus Platform',
       [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: فشل في عملية سحب Earnings - Nexus Platform',
       [EMAIL_CONFIG.templates.monthlyReport]: 'التقرير الشهري للأرباح - Nexus Platform',

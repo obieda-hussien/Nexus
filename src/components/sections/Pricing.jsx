@@ -27,7 +27,7 @@ const Pricing = () => {
       id: 'basic',
       name: isRTL ? 'الباقة الأساسية' : 'Basic Plan',
       price: isRTL ? '199 ريال' : '$199',
-      period: isRTL ? 'Monthly' : '/month',
+      period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'مثالية للBeginnerين' : 'Perfect for beginners',
       features: [
         isRTL ? 'الوصول إلى 10 دورات' : 'Access to 10 courses',
@@ -37,7 +37,7 @@ const Pricing = () => {
       ],
       notIncluded: [
         isRTL ? 'جلسات مباشرة' : 'Live sessions',
-        isRTL ? 'Project تخرج' : 'Capstone project'
+        isRTL ? 'Graduation Project' : 'Capstone project'
       ],
       popular: false,
       color: 'from-blue-500 to-purple-600'
@@ -46,14 +46,14 @@ const Pricing = () => {
       id: 'premium',
       name: isRTL ? 'الباقة المتميزة' : 'Premium Plan',
       price: isRTL ? '399 ريال' : '$399',
-      period: isRTL ? 'Monthly' : '/month',
-      description: isRTL ? 'الأكثر شعبية' : 'Most popular',
+      period: isRTL ? 'monthly' : '/month',
+      description: isRTL ? 'Most Popular' : 'Most popular',
       features: [
         isRTL ? 'الوصول إلى جميع الدورات' : 'Access to all courses',
         isRTL ? 'جلسات مباشرة أسبوعية' : 'Weekly live sessions',
         isRTL ? 'شهادة معتمدة' : 'Certified certificate',
         isRTL ? 'دعم 24/7' : '24/7 support',
-        isRTL ? 'Project تخرج' : 'Capstone project',
+        isRTL ? 'Graduation Project' : 'Capstone project',
         isRTL ? 'مجتمع طلابي خاص' : 'Private student community'
       ],
       notIncluded: [],
@@ -64,7 +64,7 @@ const Pricing = () => {
       id: 'enterprise',
       name: isRTL ? 'الباقة المؤسسية' : 'Enterprise Plan',
       price: isRTL ? '799 ريال' : '$799',
-      period: isRTL ? 'Monthly' : '/month',
+      period: isRTL ? 'monthly' : '/month',
       description: isRTL ? 'للفرق والمؤسسات' : 'For teams & organizations',
       features: [
         isRTL ? 'كل ما في الباقة المتميزة' : 'Everything in Premium',
@@ -158,7 +158,7 @@ const Pricing = () => {
                 >
                   <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-bg px-4 py-1 rounded-full text-sm font-bold flex items-center">
                     <Star className="w-4 h-4 mr-1" aria-hidden="true" />
-                    {isRTL ? 'الأكثر شعبية' : 'Most Popular'}
+                    {isRTL ? 'Most Popular' : 'Most Popular'}
                   </div>
                 </motion.div>
               )}

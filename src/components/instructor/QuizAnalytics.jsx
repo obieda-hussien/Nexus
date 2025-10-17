@@ -7,7 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
   const [analytics, setAnalytics] = useState({
     totalAttempts: 0,
-    uniqueStudents: 0,
+    uniquestudents: 0,
     averageScore: 0,
     passingRate: 0,
     averageTime: 0,
@@ -59,7 +59,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
     if (submissions.length === 0) {
       return {
         totalAttempts: 0,
-        uniqueStudents: 0,
+        uniquestudents: 0,
         averageScore: 0,
         passingRate: 0,
         averageTime: 0,
@@ -71,7 +71,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
     // Filter by timeframe
     const filteredSubmissions = filterByTimeframe(submissions, selectedTimeframe);
     
-    const uniqueStudents = new Set(filteredSubmissions.map(s => s.studentId)).size;
+    const uniquestudents = new Set(filteredSubmissions.map(s => s.studentId)).size;
     const totalAttempts = filteredSubmissions.length;
     const totalScore = filteredSubmissions.reduce((sum, s) => sum + (s.score || 0), 0);
     const averageScore = totalAttempts > 0 ? Math.round(totalScore / totalAttempts) : 0;
@@ -87,7 +87,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
 
     return {
       totalAttempts,
-      uniqueStudents,
+      uniquestudents,
       averageScore,
       passingRate,
       averageTime,
@@ -156,7 +156,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
 
   const exportData = () => {
     const csvContent = [
-      ['Student ID', 'Score', 'Time Spent (min)', 'Submitted At', 'Passed'],
+      ['student ID', 'Score', 'Time Spent (min)', 'Submitted At', 'Passed'],
       ...analytics.submissions.map(s => [
         s.studentId,
         s.score,
@@ -195,7 +195,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <div>
           <h3 className="text-xl font-semibold text-white flex items-center space-x-2 space-x-reverse">
             <BarChart3 className="w-6 h-6 text-blue-400" />
-            <span>Analytics الكويز</span>
+            <span>Analytics الQuiz</span>
           </h3>
           <p className="text-gray-400 text-sm mt-1">{quizTitle}</p>
         </div>
@@ -226,8 +226,8 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           icon={<Users className="w-6 h-6" />}
-          title="Students المشاركون"
-          value={analytics.uniqueStudents}
+          title="students المشاركون"
+          value={analytics.uniquestudents}
           color="blue"
         />
         <MetricCard
@@ -289,7 +289,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             {analytics.questionStats.map((stat, index) => (
               <div key={stat.questionId} className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                 <div>
-                  <span className="text-white font-medium">السؤال {index + 1}</span>
+                  <span className="text-white font-medium">الQuestion {index + 1}</span>
                   <div className="text-gray-400 text-sm">
                     {stat.totalAttempts} محاولة • {stat.correctRate}% إجابات صحيحة
                   </div>
@@ -320,7 +320,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             {analytics.submissions.slice(0, 10).map((submission) => (
               <div key={submission.id} className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                 <div>
-                  <span className="text-white font-medium">Student {submission.studentId}</span>
+                  <span className="text-white font-medium">student {submission.studentId}</span>
                   <div className="text-gray-400 text-sm">
                     {new Date(submission.submittedAt).toLocaleDateString('ar-EG')} • 
                     {Math.round(submission.timeSpent / 60)} دقيقة
@@ -348,7 +348,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <div className="text-center py-8 text-gray-400">
           <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
           <p className="text-lg mb-2">لا توجد محاولات بعد</p>
-          <p className="text-sm">سيتم View الAnalytics عندما يبدأ Students في حل الكويز</p>
+          <p className="text-sm">سيتم View الAnalytics عندما يبدأ students في حل الQuiz</p>
         </div>
       )}
     </div>

@@ -6,10 +6,10 @@ const TestimonialsReviews = () => {
   const testimonials = [
     {
       id: 1,
-      name: "أحمد محمد علي",
+      name: "Ahmed Mohamed Ali",
       nameEn: "Ahmed Mohamed Ali",
-      role: "Student هندسة - University القاهرة",
-      roleEn: "Engineering Student - Cairo University",
+      role: "student هندسة - University القاهرة",
+      roleEn: "Engineering student - Cairo University",
       avatar: "👨‍🎓",
       rating: 5,
       review: "منصة رائعة ساعدتني في فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والأمثلة عملية.",
@@ -19,8 +19,8 @@ const TestimonialsReviews = () => {
       id: 2,
       name: "فاطمة أحمد حسن",
       nameEn: "Fatma Ahmed Hassan",
-      role: "Studentة Mathematics - University الأزهر",
-      roleEn: "Mathematics Student - Al-Azhar University",
+      role: "studentة Mathematics - University الأزهر",
+      roleEn: "Mathematics student - Al-Azhar University",
       avatar: "👩‍🎓",
       rating: 5,
       review: "أفضل منصة تعليمية جربتها. المحتوى غني والتفاعل مع Instructorين ممتاز.",
@@ -30,7 +30,7 @@ const TestimonialsReviews = () => {
       id: 3,
       name: "محمد أشرف سالم",
       nameEn: "Mohamed Ashraf Salem",
-      role: "مدرس Physics - وزارة التربية والتعليم",
+      role: "Instructor Physics - وزارة التربية والتعليم",
       roleEn: "Physics Teacher - Ministry of Education",
       avatar: "👨‍🏫",
       rating: 5,
@@ -41,8 +41,8 @@ const TestimonialsReviews = () => {
       id: 4,
       name: "سارة محمود عبدالله",
       nameEn: "Sara Mahmoud Abdullah",
-      role: "Studentة ثانوية عامة",
-      roleEn: "High School Student",
+      role: "studentة High School",
+      roleEn: "High School student",
       avatar: "👩‍💼",
       rating: 5,
       review: "ساعدتني المنصة في التحضير للثانوية العامة وحصلت على درجات ممتازة في Physics وMathematics.",
@@ -52,8 +52,8 @@ const TestimonialsReviews = () => {
       id: 5,
       name: "عمر حسام الدين",
       nameEn: "Omar Hossam El-Din",
-      role: "Student دراسات عليا - University عين شمس",
-      roleEn: "Graduate Student - Ain Shams University",
+      role: "student دراسات عليا - University عين شمس",
+      roleEn: "Graduate student - Ain Shams University",
       avatar: "👨‍🔬",
       rating: 5,
       review: "المحتوى الAdvanced في Physics النظرية ممتاز. استفدت كثيراً في رسالة الماجستير.",
@@ -82,8 +82,8 @@ const TestimonialsReviews = () => {
     },
     {
       icon: <ThumbsUp className="w-8 h-8" />,
-      title: "98% Student Satisfaction",
-      titleAr: "٩٨٪ رضا Students",
+      title: "98% student Satisfaction",
+      titleAr: "٩٨٪ رضا students",
       subtitle: "Based on 10,000+ reviews",
       subtitleAr: "بناءً على أكثر من ١٠٠٠٠ تقييم"
     },
@@ -92,7 +92,7 @@ const TestimonialsReviews = () => {
       title: "5-Star Rating",
       titleAr: "تقييم ٥ نجوم",
       subtitle: "Top-rated in Egypt",
-      subtitleAr: "الأعلى تقييماً في مصر"
+      subtitleAr: "Highest Rated في مصر"
     }
   ];
 
@@ -118,14 +118,14 @@ const TestimonialsReviews = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-white mb-4">
-            <span className="block">What Our Students Say</span>
+            <span className="block">What Our students Say</span>
             <span className="block text-2xl text-purple-300 mt-2">ماذا يقول طلابنا</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Real feedback from thousands of successful students across Egypt
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            تقييمات حقيقية من آلاف Students الناجحين في جميع أنحاء مصر
+            تقييمات حقيقية من آلاف students الناجحين في جميع أنحاء مصر
           </p>
         </motion.div>
 
@@ -222,10 +222,10 @@ const TestimonialsReviews = () => {
         >
           <div className="glass-card p-8 rounded-2xl backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-white/20">
             <h3 className="text-2xl font-bold text-white mb-4">
-              Join 10,000+ Successful Students
+              Join 10,000+ Successful students
             </h3>
             <p className="text-lg text-purple-300 mb-6">
-              انضم إلى أكثر من ١٠٠٠٠ Student ناجح
+              انضم إلى أكثر من ١٠٠٠٠ student ناجح
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}

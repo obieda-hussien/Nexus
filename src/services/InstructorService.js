@@ -137,7 +137,7 @@ class InstructorService {
       await this.sendNotification(application.userId, {
         type: 'application_approved',
         title: 'Your request has been accepted!',
-        message: 'تهانينا! تم قبولك كمدرس في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.',
+        message: 'تهانينا! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.',
         data: { applicationId }
       });
       
@@ -179,7 +179,7 @@ class InstructorService {
       await this.sendNotification(application.userId, {
         type: 'application_rejected',
         title: 'طلبك مرفوض',
-        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح مدرس في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.',
+        message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح Instructor في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.',
         data: { applicationId }
       });
       
@@ -199,7 +199,7 @@ class InstructorService {
       const coursesQuery = query(coursesRef, orderByChild('instructorId'), equalTo(instructorId));
       const coursesSnapshot = await get(coursesQuery);
       
-      let totalStudents = 0;
+      let totalstudents = 0;
       let totalEarnings = 0;
       let totalCourses = 0;
       let totalRating = 0;
@@ -210,7 +210,7 @@ class InstructorService {
         totalCourses = courses.length;
         
         for (const course of courses) {
-          totalStudents += course.studentsCount || 0;
+          totalstudents += course.studentsCount || 0;
           totalEarnings += course.totalRevenue || 0;
           totalRating += course.rating || 0;
           totalReviews += course.reviewsCount || 0;
@@ -223,7 +223,7 @@ class InstructorService {
         success: true,
         stats: {
           totalCourses,
-          totalStudents,
+          totalstudents,
           totalEarnings,
           averageRating: Math.round(averageRating * 10) / 10,
           totalReviews
@@ -320,7 +320,7 @@ class InstructorService {
         return { 
           success: true, 
           canApply: false, 
-          reason: 'أنت مدرس معتمد بالفعل' 
+          reason: 'أنت Instructor معتمد بالفعل' 
         };
       }
       

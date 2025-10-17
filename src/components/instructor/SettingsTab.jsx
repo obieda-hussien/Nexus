@@ -218,7 +218,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
 
   const handleWithdrawalRequest = async (amount) => {
     if (amount < formData.minimumWithdrawal) {
-      toast.error(`Minimum للسحب هو ${formData.minimumWithdrawal} ج.م`);
+      toast.error(`Minimum للسحب هو ${formData.minimumWithdrawal} EGP`);
       return;
     }
 
@@ -321,7 +321,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
 
       {/* Profile Information */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-6">المعلومات الشخصية</h3>
+        <h3 className="text-xl font-semibold text-white mb-6">المScienceات الشخصية</h3>
         
         <div className="grid md:grid-cols-2 gap-6">
           <div>
@@ -429,16 +429,16 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           />
           
           <NotificationToggle
-            label="Notifications الInstantة"
-            description="إشعارات Instantة في المتصفح"
+            label="Notifications الinstantة"
+            description="إشعارات instantة في المتصفح"
             checked={formData.pushNotifications}
             onChange={(checked) => handleInputChange('pushNotifications', checked)}
             disabled={!isEditing}
           />
           
           <NotificationToggle
-            label="رسائل Students"
-            description="إشعارات عند وصول رسائل من Students"
+            label="رسائل students"
+            description="إشعارات عند وصول رسائل من students"
             checked={formData.studentMessages}
             onChange={(checked) => handleInputChange('studentMessages', checked)}
             disabled={!isEditing}
@@ -461,7 +461,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
         <div className="space-y-4">
           <NotificationToggle
             label="إظهار Profile"
-            description="السماح للطلاب برؤية ملفك الشخصي"
+            description="السماح For students برؤية ملفك الشخصي"
             checked={formData.showProfile}
             onChange={(checked) => handleInputChange('showProfile', checked)}
             disabled={!isEditing}
@@ -496,11 +496,11 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
         <div className="grid md:grid-cols-3 gap-6 mb-6">
           <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-400/30 rounded-xl p-4">
             <h4 className="text-green-300 text-sm font-medium">الرصيد المتاح للسحب</h4>
-            <p className="text-white font-bold text-2xl">{availableBalance.toLocaleString()} ج.م</p>
+            <p className="text-white font-bold text-2xl">{availableBalance.toLocaleString()} EGP</p>
           </div>
           <div className="bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-400/30 rounded-xl p-4">
             <h4 className="text-blue-300 text-sm font-medium">Minimum للسحب</h4>
-            <p className="text-white font-bold text-2xl">{formData.minimumWithdrawal} ج.م</p>
+            <p className="text-white font-bold text-2xl">{formData.minimumWithdrawal} EGP</p>
           </div>
           <div className="bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-400/30 rounded-xl p-4">
             <h4 className="text-purple-300 text-sm font-medium">طلبات السحب الSuspendedة</h4>
@@ -519,25 +519,25 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
                 onClick={() => handleWithdrawalRequest(Math.floor(availableBalance * 0.25))}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
               >
-                25% ({Math.floor(availableBalance * 0.25)} ج.م)
+                25% ({Math.floor(availableBalance * 0.25)} EGP)
               </button>
               <button
                 onClick={() => handleWithdrawalRequest(Math.floor(availableBalance * 0.5))}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
               >
-                50% ({Math.floor(availableBalance * 0.5)} ج.م)
+                50% ({Math.floor(availableBalance * 0.5)} EGP)
               </button>
               <button
                 onClick={() => handleWithdrawalRequest(Math.floor(availableBalance * 0.75))}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
               >
-                75% ({Math.floor(availableBalance * 0.75)} ج.م)
+                75% ({Math.floor(availableBalance * 0.75)} EGP)
               </button>
               <button
                 onClick={() => handleWithdrawalRequest(availableBalance)}
                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm"
               >
-                All ({availableBalance.toLocaleString()} ج.م)
+                All ({availableBalance.toLocaleString()} EGP)
               </button>
             </div>
           </div>
@@ -588,7 +588,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
               </p>
               <div className="flex items-center space-x-4 space-x-reverse mt-3 text-xs">
                 <span className="bg-green-500/20 text-green-300 px-2 py-1 rounded-full">✓ Stripe & PayPal</span>
-                <span className="bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">✓ Instant وVodafone Cash</span>
+                <span className="bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">✓ instant وVodafone Cash</span>
                 <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">✓ تقارير PDF & Excel</span>
               </div>
             </div>
@@ -609,7 +609,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                Minimum للسحب (ج.م)
+                Minimum للسحب (EGP)
               </label>
               {isEditing ? (
                 <input
@@ -621,7 +621,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
                   className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
                 />
               ) : (
-                <p className="text-white bg-white/5 px-4 py-3 rounded-xl">{formData.minimumWithdrawal} ج.م</p>
+                <p className="text-white bg-white/5 px-4 py-3 rounded-xl">{formData.minimumWithdrawal} EGP</p>
               )}
             </div>
 
@@ -731,7 +731,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
                       value={newPaymentMethod.accountHolderName}
                       onChange={(e) => setNewPaymentMethod({...newPaymentMethod, accountHolderName: e.target.value})}
                       className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-                      placeholder="أحمد محمد علي"
+                      placeholder="Ahmed Mohamed Ali"
                     />
                   </div>
                   <div>
@@ -942,7 +942,7 @@ const WithdrawalHistoryItem = ({ withdrawal }) => {
       <div className="flex items-center space-x-3 space-x-reverse">
         {getStatusIcon()}
         <div>
-          <p className="text-white font-medium">{withdrawal.amount?.toLocaleString()} ج.م</p>
+          <p className="text-white font-medium">{withdrawal.amount?.toLocaleString()} EGP</p>
           <p className="text-purple-200 text-sm">
             {new Date(withdrawal.requestedAt).toLocaleDateString('ar-EG')}
           </p>

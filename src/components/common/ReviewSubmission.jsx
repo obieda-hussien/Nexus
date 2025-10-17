@@ -53,7 +53,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
     try {
       const reviewData = {
         studentId: currentUser.uid,
-        studentName: currentUser.displayName || currentUser.email?.split('@')[0] || 'Student',
+        studentName: currentUser.displayName || currentUser.email?.split('@')[0] || 'student',
         rating: rating,
         comment: comment.trim(),
         createdAt: new Date().toISOString(),

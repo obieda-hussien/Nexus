@@ -22,10 +22,10 @@ import {
   BarChart3
 } from 'lucide-react';
 
-const StudentDashboard = () => {
+const studentDashboard = () => {
   const { currentUser, userProfile } = useAuth();
   
-  const [studentStats, setStudentStats] = useState({
+  const [studentStats, setstudentStats] = useState({
     enrolledCourses: 8,
     completedCourses: 3,
     totalHours: 156,
@@ -118,7 +118,7 @@ const StudentDashboard = () => {
 
   const [achievements] = useState([
     { name: 'Active Learner', description: 'Complete 10 consecutive lessons', earned: true },
-    { name: 'Model Student', description: 'Maintain average of 95% or higher', earned: true },
+    { name: 'Model student', description: 'Maintain average of 95% or higher', earned: true },
     { name: 'Distinguished Discussant', description: 'Participate in 50 discussions', earned: false },
     { name: 'Physics Expert', description: 'Complete 5 physics courses', earned: false }
   ]);
@@ -126,7 +126,7 @@ const StudentDashboard = () => {
   useEffect(() => {
     // Simulate real-time updates
     const interval = setInterval(() => {
-      setStudentStats(prev => ({
+      setstudentStats(prev => ({
         ...prev,
         skillPoints: prev.skillPoints + Math.floor(Math.random() * 10),
         totalHours: prev.totalHours + (Math.random() > 0.8 ? 1 : 0)
@@ -144,7 +144,7 @@ const StudentDashboard = () => {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-white mb-2">
-              Welcome, {currentUser?.displayName || 'Student'}
+              Welcome, {currentUser?.displayName || 'student'}
             </h1>
             <p className="text-gray-300">Continue your educational journey and achieve your academic goals</p>
           </div>
@@ -422,4 +422,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default studentDashboard;

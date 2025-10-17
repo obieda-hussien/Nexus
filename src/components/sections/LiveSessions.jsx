@@ -66,7 +66,7 @@ const LiveSessions = () => {
     {
       icon: <Award className="w-6 h-6" />,
       title: "Live Certificates",
-      description: "Instant participation certificates"
+      description: "instant participation certificates"
     }
   ];
 
@@ -118,7 +118,7 @@ const LiveSessions = () => {
             Join live sessions with expert instructors and connect with students worldwide
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-2">
-            انضم إلى جلسات مباشرة مع مدرسين خبراء وتواصل مع طلاب من جميع أنحاء العالم
+            انضم إلى جلسات مباشرة مع Instructorين خبراء وتواصل مع طلاب من جميع أنحاء العالم
           </p>
         </motion.div>
 

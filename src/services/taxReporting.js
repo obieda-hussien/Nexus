@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import FreeExportService from './freeExportService';
+import freeExportService from './freeExportService';
 import { ref, get, query, orderByChild, startAt, endAt } from 'firebase/database';
 import { db } from '../config/firebase';
 
@@ -122,7 +122,7 @@ export class TaxReportingService {
         throw new Error(`${error.message}\n\nخطوات الحل:\n1. اذهب إلى Firebase Console\n2. اOpen Realtime Database → Rules\n3. اCopy المحتوى من ملف firebase-rules-withdrawal.json\n4. انتظر 2-3 دقائق لبناء الفهارس\n5. أعد المحاولة`);
       }
       
-      throw new Error(`Report generation failed الضريبي السنوي: ${error.message}`);
+      throw new Error(`Annual tax report generation failed: ${error.message}`);
     }
   }
   
@@ -345,11 +345,11 @@ export class TaxReportingService {
   // Determine which tax form is required
   static determineTaxFormRequired(taxableIncome) {
     if (taxableIncome === 0) {
-      return { form: 'لا يتطلب إقرار ضريبي', reason: 'None دخل خاضع للضريبة' };
+      return { form: 'No tax return required', reason: 'No taxable income' };
     } else if (taxableIncome < TAX_CONFIG.egypt.businessTax.threshold) {
-      return { form: 'نموذج 1 (الأفراد)', reason: 'دخل شخصي Less من Minimum للنشاط التجاري' };
+      return { form: 'Form 1 (Individuals)', reason: 'Personal income below business activity minimum' };
     } else {
-      return { form: 'نموذج 2 (النشاط التجاري)', reason: 'دخل من نشاط تجاري' };
+      return { form: 'Form 2 (Business Activity)', reason: 'Income from business activity' };
     }
   }
   
@@ -371,18 +371,18 @@ export class TaxReportingService {
     const recommendations = [];
     
     if (taxCalculations.estimatedTax > 0) {
-      recommendations.push('يُنصح بسداد الضريبة على أقساط ربع سنوية لتجنب الغرامات');
+      recommendations.push('It is recommended to pay taxes in quarterly installments to avoid penalties');
     }
     
     if (financialData.businessExpenses < financialData.totalIncome * 0.15) {
-      recommendations.push('قم بتوثيق المصروفات المتعلقة بالعمل لتقليل الضريبة المستحقة');
+      recommendations.push('Document work-related expenses to reduce tax liability');
     }
     
     if (financialData.totalIncome > TAX_CONFIG.egypt.businessTax.threshold) {
-      recommendations.push('فكر في تسجيل نشاط تجاري للاستفادة من المزايا الضريبية');
+      recommendations.push('Consider registering a business to benefit from tax advantages');
     }
     
-    recommendations.push('احتفظ بجميع الإيصالات والوثائق المالية لمدة 5 سنوات');
+    recommendations.push('Keep all receipts and financial documents for 5 years');
     recommendations.push('Consult a qualified tax accountant to review your tax return');
     
     return recommendations;
@@ -402,56 +402,56 @@ export class TaxReportingService {
       
       // Header in Arabic
       pdf.setFontSize(20);
-      pdf.text('التقرير الضريبي السنوي', 105, 20, { align: 'center' });
+      pdf.text('Annual Tax Report', 105, 20, { align: 'center' });
       pdf.text(`Nexus Educational Platform - ${reportData.year}`, 105, 30, { align: 'center' });
       
       // Income Summary
       let yPos = 50;
       pdf.setFontSize(14);
-      pdf.text('ملخص الدخل:', 20, yPos);
+      pdf.text('Income Summary:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`Total الدخل الTotal: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total Gross Income: ${reportData.income.totalGrossIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`مبيعات الدورات: ${reportData.income.coursesSales.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Course Sales: ${reportData.income.coursesSales.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Deductions
       yPos += 10;
       pdf.setFontSize(14);
-      pdf.text('الخصومات:', 20, yPos);
+      pdf.text('Deductions:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`عمولة المنصة: ${reportData.deductions.platformCommission.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Platform Commission: ${reportData.deductions.platformCommission.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`رسوم الدفع: ${reportData.deductions.paymentFees?.toLocaleString() || 0} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Payment Fees: ${reportData.deductions.paymentFees?.toLocaleString() || 0} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الخصم المعياري: ${reportData.deductions.standardDeduction.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Standard Deduction: ${reportData.deductions.standardDeduction.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`Total الخصومات: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Total Deductions: ${reportData.deductions.totalDeductions.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Tax Calculations
       yPos += 10;
       pdf.setFontSize(14);
-      pdf.text('حسابات الضرائب:', 20, yPos);
+      pdf.text('Tax Calculations:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`الدخل الخاضع للضريبة: ${reportData.tax.taxableIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Taxable Income: ${reportData.tax.taxableIncome.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الضريبة المقدرة: ${reportData.tax.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Estimated Tax: ${reportData.tax.estimatedTax.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
-      pdf.text(`الدفعة الربع سنوية: ${reportData.tax.quarterlyPayments.toLocaleString()} ${reportData.currency}`, 20, yPos);
+      pdf.text(`Quarterly Payment: ${reportData.tax.quarterlyPayments.toLocaleString()} ${reportData.currency}`, 20, yPos);
       yPos += 7;
       
       // Quarterly Breakdown
       if (reportData.quarterly && reportData.quarterly.length > 0) {
         yPos += 15;
         pdf.setFontSize(14);
-        pdf.text('التفاصيل الربع سنوية:', 20, yPos);
+        pdf.text('Quarterly Details:', 20, yPos);
         yPos += 10;
         
         pdf.setFontSize(10);
@@ -464,29 +464,29 @@ export class TaxReportingService {
       // Compliance Information
       yPos += 15;
       pdf.setFontSize(14);
-      pdf.text('معلومات الامتثال:', 20, yPos);
+      pdf.text('Compliance Information:', 20, yPos);
       yPos += 10;
       
       pdf.setFontSize(12);
-      pdf.text(`النموذج المطلوب: ${reportData.compliance.taxFormRequired.form}`, 20, yPos);
+      pdf.text(`Required Form: ${reportData.compliance.taxFormRequired.form}`, 20, yPos);
       yPos += 7;
-      pdf.text(`موعد الإقرار السنوي: ${reportData.compliance.deadlines.annualReturn}`, 20, yPos);
+      pdf.text(`Annual Return Deadline: ${reportData.compliance.deadlines.annualReturn}`, 20, yPos);
       yPos += 7;
       
       // Recommendations in Arabic
       if (reportData.compliance.recommendations && reportData.compliance.recommendations.length > 0) {
         yPos += 10;
         pdf.setFontSize(14);
-        pdf.text('التوصيات:', 20, yPos);
+        pdf.text('Recommendations:', 20, yPos);
         yPos += 10;
         
         pdf.setFontSize(10);
         const arabicRecommendations = [
-          '١. يُنصح بسداد الضريبة على أقساط ربع سنوية لتجنب الغرامات',
-          '٢. قم بتوثيق المصروفات المتعلقة بالعمل لتقليل الضريبة المستحقة',
-          '٣. فكر في تسجيل نشاط تجاري للاستفادة من المزايا الضريبية',
-          '٤. احتفظ بجميع الإيصالات والوثائق المالية لمدة ٥ سنوات',
-          '٥. Consult a qualified tax accountant to review your tax return'
+          '1. It is recommended to pay taxes in quarterly installments to avoid penalties',
+          '2. Document work-related expenses to reduce tax liability',
+          '3. Consider registering a business to benefit from tax advantages',
+          '4. Keep all receipts and financial documents for 5 years',
+          '5. Consult a qualified tax accountant to review your tax return'
         ];
         
         arabicRecommendations.forEach((recommendation) => {
@@ -498,14 +498,14 @@ export class TaxReportingService {
       
       // Footer in Arabic
       pdf.setFontSize(8);
-      pdf.text(`تم إنشاء التقرير في: ${new Date().toLocaleDateString('ar-EG')}`, 20, 280);
-      pdf.text('هذا التقرير للأغراض الإعلامية فقط - استشر محاسب ضرائب مؤهل', 20, 285);
+      pdf.text(`Report generated on: ${new Date().toLocaleDateString('ar-EG')}`, 20, 280);
+      pdf.text('This report is for informational purposes only - consult a qualified tax accountant', 20, 285);
       
       return pdf.output('blob');
       
     } catch (error) {
       console.error('Error generating PDF report:', error);
-      throw new Error(`فشل في إنتاج تقرير PDF: ${error.message}`);
+      throw new Error(`Failed to generate PDF report: ${error.message}`);
     }
   }
   
@@ -585,7 +585,7 @@ export class TaxReportingService {
       if (reportData.income.monthlyBreakdown) {
         Object.entries(reportData.income.monthlyBreakdown).forEach(([month, data]) => {
           exportData.push({
-            'Statement Category': 'Monthly Breakdown',
+            'Statement Category': 'monthly Breakdown',
             'Statement Type': `Month ${month}`,
             'Amount': data.revenue,
             'Currency': reportData.currency,
@@ -611,7 +611,7 @@ export class TaxReportingService {
       
       // Use our free export service to generate the Excel file
       const filename = `tax-report-${reportData.year}.xlsx`;
-      const result = FreeExportService.exportToExcel(exportData, filename, `Tax Report ${reportData.year}`);
+      const result = freeExportService.exportToExcel(exportData, filename, `Tax Report ${reportData.year}`);
       
       if (result.success) {
         return { success: true, filename: result.filename };
@@ -626,15 +626,15 @@ export class TaxReportingService {
   }
   
   // Generate monthly tax summary for regular reporting
-  static async generateMonthlySummary(instructorId, year, month) {
+  static async generatemonthlySummary(instructorId, year, month) {
     try {
       const startDate = new Date(year, month - 1, 1).getTime();
       const endDate = new Date(year, month, 0, 23, 59, 59).getTime();
       
       // Get monthly data (simplified)
-      const monthlyIncome = await this.getMonthlyIncome(instructorId, year, month);
+      const monthlyIncome = await this.getmonthlyIncome(instructorId, year, month);
       const monthlyExpenses = monthlyIncome * 0.10; // Estimated expenses
-      const monthlyTax = this.calculateMonthlyTax(monthlyIncome - monthlyExpenses);
+      const monthlyTax = this.calculatemonthlyTax(monthlyIncome - monthlyExpenses);
       
       return {
         month,
@@ -653,14 +653,14 @@ export class TaxReportingService {
   }
   
   // Calculate monthly tax (simplified)
-  static calculateMonthlyTax(monthlyNetIncome) {
+  static calculatemonthlyTax(monthlyNetIncome) {
     const annualizedIncome = monthlyNetIncome * 12;
     const annualTax = this.calculateTaxObligations({ totalIncome: annualizedIncome, businessExpenses: 0, platformCommission: 0 }).estimatedTax;
     return Math.round(annualTax / 12);
   }
   
   // Get monthly income (simplified)
-  static async getMonthlyIncome(instructorId, year, month) {
+  static async getmonthlyIncome(instructorId, year, month) {
     // This would connect to actual sales/enrollment data
     // For now, returning a placeholder
     return Math.random() * 5000;
@@ -680,7 +680,7 @@ export class TaxReportingService {
         case 'json':
           return new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
         default:
-          throw new Error(`نسق غير مدعوم: ${format}`);
+          throw new Error(`Unsupported format: ${format}`);
       }
       
     } catch (error) {
@@ -690,7 +690,7 @@ export class TaxReportingService {
   }
   
   // Schedule automated monthly reports
-  static scheduleMonthlyReports(instructorId, emailService) {
+  static schedulemonthlyReports(instructorId, emailService) {
     // This would be implemented with a scheduling system
     // For now, we'll return the configuration
     return {

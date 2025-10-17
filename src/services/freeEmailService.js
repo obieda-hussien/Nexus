@@ -1,9 +1,9 @@
-// Free Email Service for Nexus LMS
+// free Email Service for Nexus LMS
 // Uses EmailJS and native browser APIs for free email notifications
 
 import EmailJSNotificationService from './EmailJSNotificationService';
 
-// Free Email Configuration
+// free Email Configuration
 const FREE_EMAIL_CONFIG = {
   emailjs: {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_nexus_free',
@@ -17,7 +17,7 @@ const FREE_EMAIL_CONFIG = {
   }
 };
 
-export class FreeEmailService {
+export class freeEmailService {
   
   // Check if free email service is configured
   static checkConfiguration() {
@@ -35,15 +35,15 @@ export class FreeEmailService {
         },
         browserNotifications: {
           configured: true,
-          status: 'Ready دائماً',
+          status: 'Always ready',
           cost: 'Completely free'
         }
       },
       recommendation: emailjsStatus.configured 
-        ? 'EmailJS مُعد بنجاح - خدمة Freeة موثوقة (200 رسالة/شهر)'
-        : 'للحصول على إشعارات بريد إلكتروني، قم بإعداد EmailJS (Free 100%)',
-      totalMonthlyCost: '$0 (Free بالكامل)',
-      savings: '$15/month (مقارنة بـ SendGrid)'
+        ? 'EmailJS configured successfully - reliable free service (200 emails/month)'
+        : 'To get email notifications, set up EmailJS (100% free)',
+      totalmonthlyCost: '$0 (Completely free)',
+      savings: '$15/month (compared to SendGrid)'
     };
   }
 
@@ -73,7 +73,7 @@ export class FreeEmailService {
       await this.sendBrowserNotification(instructorData, {
         type: 'withdrawal_requested',
         title: 'New Withdrawal Request',
-        message: `تم استلام طلب سحب ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
+        message: `Withdrawal request received ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
         withdrawalData
       });
       
@@ -92,7 +92,7 @@ export class FreeEmailService {
         await this.sendBrowserNotification(instructorData, {
           type: 'withdrawal_requested',
           title: 'New Withdrawal Request',
-          message: `طلب سحب: ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
+          message: `Withdrawal request: ${withdrawalData.amount} ${withdrawalData.currency || 'EGP'}`,
           withdrawalData
         });
         
@@ -106,7 +106,7 @@ export class FreeEmailService {
         console.error('❌ All notification methods failed:', fallbackError);
         return {
           success: false,
-          error: 'فشل في Submit الإشعار',
+          error: 'Failed to submit notification',
           allMethodsFailed: true
         };
       }
@@ -152,7 +152,7 @@ export class FreeEmailService {
       // Fallback: Browser notification
       await this.sendBrowserNotification(instructorData, {
         title: 'New Sale!',
-        message: `تم شراء ${courseData.title} بواسطة ${studentData.displayName}`
+        message: `Purchased ${courseData.title} by ${studentData.displayName}`
       });
       
       return {
@@ -189,14 +189,14 @@ export class FreeEmailService {
       savings: '$15/month',
       annualSavings: '$180/year',
       features: [
-        '200 رسالة Freeة Monthly',
-        'قوالب احترافية باللغة Arabic',
-        'تسليم Instant',
-        'تتبع حالة الSubmit',
-        'بديل Free للمتصفح'
+        '200 free emails monthly',
+        'Professional templates in Arabic',
+        'instant delivery',
+        'Submission status tracking',
+        'free browser alternative'
       ]
     };
   }
 }
 
-export default FreeEmailService;
+export default freeEmailService;

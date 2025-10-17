@@ -9,7 +9,7 @@ export const addSampleReviews = async () => {
     const sampleReviews = [
       {
         studentId: 'student1',
-        studentName: 'أحمد محمد',
+        studentName: 'Ahmed Mohamed',
         rating: 5,
         comment: 'كورس ممتاز وشرح واضح جداً! استفدت كثيراً من المحتوى المقدم والأمثلة العملية.',
         createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days ago

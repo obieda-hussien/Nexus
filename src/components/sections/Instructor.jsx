@@ -21,7 +21,7 @@ const Instructor = () => {
     {
       icon: Users,
       value: '10K+',
-      label: 'Students Taught',
+      label: 'students Taught',
       color: 'text-green-400'
     },
     {

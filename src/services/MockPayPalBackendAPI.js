@@ -248,7 +248,7 @@ export class MockPayPalBackendAPI {
         student: {
           id: 'user_456',
           email: 'student@example.com',
-          name: 'Jane Student'
+          name: 'Jane student'
         }
       };
       

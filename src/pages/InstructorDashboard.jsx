@@ -45,7 +45,7 @@ const InstructorDashboard = () => {
     if (currentUser?.uid) {
       loadInstructorData();
       loadCourses();
-      loadStudents();
+      loadstudents();
       loadEarnings();
       loadNotifications();
     }
@@ -76,7 +76,7 @@ const InstructorDashboard = () => {
     });
   };
 
-  const loadStudents = () => {
+  const loadstudents = () => {
     const enrollmentsRef = ref(db, 'enrollments');
     onValue(enrollmentsRef, (snapshot) => {
       const studentsData = [];

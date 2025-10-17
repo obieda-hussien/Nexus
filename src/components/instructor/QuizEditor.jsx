@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Plus, Trash2, Save, Eye, Settings, Clock, Trophy, HelpCircle, CheckCircle, X, ChevronUp, ChevronDown, Edit3, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز تفاعلي..." }) => {
+const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء Quiz تفاعلي..." }) => {
   const [quiz, setQuiz] = useState({
     questions: [],
     timeLimit: 30,
@@ -99,13 +99,13 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
   };
 
   const deleteQuestion = (questionId) => {
-    if (!window.confirm('هل أنت متأكد من Delete هذا السؤال؟')) return;
+    if (!window.confirm('هل أنت متأكد من Delete هذا الQuestion؟')) return;
     
     setQuiz(prev => ({
       ...prev,
       questions: prev.questions.filter(q => q.id !== questionId)
     }));
-    toast.success('تم Delete السؤال');
+    toast.success('تم Delete الQuestion');
   };
 
   const moveQuestion = (questionId, direction) => {
@@ -157,9 +157,9 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 space-x-reverse">
           <HelpCircle className="w-5 h-5 text-blue-400" />
-          <h3 className="text-lg font-semibold text-white">محرر الكويز</h3>
+          <h3 className="text-lg font-semibold text-white">محرر الQuiz</h3>
           <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-            {quiz.questions.length} سؤال
+            {quiz.questions.length} Question
           </span>
         </div>
         <div className="flex items-center space-x-2 space-x-reverse">
@@ -207,7 +207,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
                 <div className="text-center py-8 text-gray-400">
                   <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
                   <p className="text-lg mb-2">لا توجد أسئلة بعد</p>
-                  <p className="text-sm">ابدأ بAdd أول سؤال للكويز</p>
+                  <p className="text-sm">ابدأ بAdd أول Question للQuiz</p>
                 </div>
               ) : (
                 quiz.questions.map((question, index) => renderQuestionEditor(question, index))
@@ -215,7 +215,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
 
               {/* Add Question Buttons */}
               <div className="border-t border-gray-600 pt-4">
-                <h4 className="text-white font-medium mb-3">Add سؤال New:</h4>
+                <h4 className="text-white font-medium mb-3">Add Question New:</h4>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => addQuestion('multiple_choice')}
@@ -236,7 +236,7 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء كويز ت�
                     className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                   >
                     <Edit3 className="w-4 h-4" />
-                    <span>إجابة قصيرة</span>
+                    <span>Answer قصيرة</span>
                   </button>
                 </div>
               </div>
@@ -308,10 +308,10 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           >
             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
-          <span className="text-white font-medium">السؤال {index + 1}</span>
+          <span className="text-white font-medium">الQuestion {index + 1}</span>
           <span className="text-gray-400 text-sm">
             ({question.type === 'multiple_choice' ? 'اختيار متعدد' : 
-              question.type === 'true_false' ? 'صح أم خطأ' : 'إجابة قصيرة'})
+              question.type === 'true_false' ? 'صح أم خطأ' : 'Answer قصيرة'})
           </span>
         </div>
         
@@ -344,12 +344,12 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           {/* Question Text */}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">
-              نص السؤال *
+              نص الQuestion *
             </label>
             <textarea
               value={question.question}
               onChange={(e) => updateQuestion('question', e.target.value)}
-              placeholder="اكتب السؤال هنا..."
+              placeholder="اكتب الQuestion هنا..."
               rows="3"
               className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
             />
@@ -359,7 +359,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           {question.type === 'multiple_choice' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">
-                خيارات الإجابة
+                خيارات الAnswer
               </label>
               <div className="space-y-2">
                 {question.options.map((option, optionIndex) => (
@@ -407,7 +407,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           {question.type === 'true_false' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">
-                الإجابة الصحيحة
+                Correct answer
               </label>
               <div className="flex space-x-4 space-x-reverse">
                 <button
@@ -437,13 +437,13 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           {question.type === 'short_answer' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">
-                الإجابة النموذجية
+                الAnswer النموذجية
               </label>
               <input
                 type="text"
                 value={question.correctAnswer}
                 onChange={(e) => updateQuestion('correctAnswer', e.target.value)}
-                placeholder="الإجابة المتوقعة..."
+                placeholder="الAnswer المتوقعة..."
                 className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
               />
             </div>
@@ -473,7 +473,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
                 className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
               />
               <label htmlFor={`required-${question.id}`} className="mr-2 text-gray-300 text-sm">
-                سؤال إجباري
+                Question إجباري
               </label>
             </div>
           </div>
@@ -481,12 +481,12 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           {/* Explanation */}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">
-              شرح الإجابة (اختياري)
+              شرح الAnswer (اختياري)
             </label>
             <textarea
               value={question.explanation}
               onChange={(e) => updateQuestion('explanation', e.target.value)}
-              placeholder="اكتب شرح للإجابة الصحيحة..."
+              placeholder="اكتب شرح للAnswer الصحيحة..."
               rows="2"
               className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
             />
@@ -536,7 +536,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
         {/* Passing Score */}
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-2">
-            درجة النجاح (%)
+            Score النجاح (%)
           </label>
           <input
             type="number"
@@ -552,12 +552,12 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
       {/* Description */}
       <div>
         <label className="block text-gray-300 text-sm font-medium mb-2">
-          وصف الكويز
+          وصف الQuiz
         </label>
         <textarea
           value={quiz.settings.description}
           onChange={(e) => onUpdateQuizSetting('description', e.target.value)}
-          placeholder="وصف مختصر للكويز..."
+          placeholder="Short description للQuiz..."
           rows="3"
           className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
         />
@@ -566,7 +566,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
       {/* Instructions */}
       <div>
         <label className="block text-gray-300 text-sm font-medium mb-2">
-          تعليمات الكويز
+          تعليمات الQuiz
         </label>
         <textarea
           value={quiz.settings.instructions}
@@ -578,7 +578,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
 
       {/* Options */}
       <div className="space-y-4">
-        <h4 className="text-white font-medium">خيارات الكويز</h4>
+        <h4 className="text-white font-medium">خيارات الQuiz</h4>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="flex items-center space-x-2 space-x-reverse">
@@ -640,7 +640,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
             type="text"
             value={quiz.settings.password}
             onChange={(e) => onUpdateQuizSetting('password', e.target.value)}
-            placeholder="كلمة مرور الكويز"
+            placeholder="كلمة مرور الQuiz"
             className="w-full bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
           />
         )}
@@ -700,7 +700,7 @@ const QuizPreview = ({ quiz, onClose }) => {
           
           {/* Results Title */}
           <h3 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            نتائج الكويز
+            نتائج الQuiz
           </h3>
           
           {/* Score Display */}
@@ -729,7 +729,7 @@ const QuizPreview = ({ quiz, onClose }) => {
             {score.percentage >= quiz.passingScore ? (
               <>
                 <CheckCircle className="w-5 h-5 ml-2" />
-                نجح
+                Passed
               </>
             ) : (
               <>
@@ -772,7 +772,7 @@ const QuizPreview = ({ quiz, onClose }) => {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <h3 className="text-xl font-bold text-white">معاينة الكويز</h3>
+            <h3 className="text-xl font-bold text-white">معاينة الQuiz</h3>
           </div>
           <button
             onClick={onClose}
@@ -787,7 +787,7 @@ const QuizPreview = ({ quiz, onClose }) => {
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-300 text-sm font-medium">
-                السؤال {currentQuestion + 1} من {quiz.questions.length}
+                الQuestion {currentQuestion + 1} من {quiz.questions.length}
               </span>
               <span className="text-blue-400 text-sm font-semibold">
                 {Math.round(((currentQuestion + 1) / quiz.questions.length) * 100)}%
@@ -920,7 +920,7 @@ const QuizPreview = ({ quiz, onClose }) => {
             className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg shadow-green-500/30 hover:scale-105"
           >
             <Trophy className="w-4 h-4" />
-            <span>إنهاء الكويز</span>
+            <span>إنهاء الQuiz</span>
           </button>
         ) : (
           <button

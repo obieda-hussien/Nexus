@@ -137,7 +137,7 @@ export const AuthProvider = ({ children }) => {
       } else if (error.code === 'auth/weak-password') {
         throw new Error('Password is too weak');
       } else if (error.code === 'auth/invalid-email') {
-        throw new Error('Email غير صالح');
+        throw new Error('Invalid email');
       } else {
         throw new Error('فشل في Create Account. يرجى المحاولة مرة أخرى');
       }
@@ -174,7 +174,7 @@ export const AuthProvider = ({ children }) => {
       } else if (error.code === 'auth/wrong-password') {
         throw new Error('Incorrect password');
       } else if (error.code === 'auth/invalid-email') {
-        throw new Error('Email غير صالح');
+        throw new Error('Invalid email');
       } else {
         throw new Error('فشل في Login');
       }
@@ -339,7 +339,7 @@ export const AuthProvider = ({ children }) => {
             specialization: '',
             experience: '',
             coursesCreated: 0,
-            totalStudents: 0,
+            totalstudents: 0,
             rating: 0,
             joinedAsInstructorAt: new Date().toISOString()
           }
@@ -388,7 +388,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     if (hasRole('instructor') || hasRole('admin')) {
-      throw new Error('أنت مدرس بالفعل');
+      throw new Error('أنت Instructor بالفعل');
     }
 
     const success = await updateUserRole('instructor');
@@ -396,7 +396,7 @@ export const AuthProvider = ({ children }) => {
       console.log('🎉 Successfully became instructor');
       return true;
     } else {
-      throw new Error('فشل في ترقية الحساب لمدرس. يرجى المحاولة مرة أخرى');
+      throw new Error('فشل في ترقية الحساب لInstructor. يرجى المحاولة مرة أخرى');
     }
   };
 

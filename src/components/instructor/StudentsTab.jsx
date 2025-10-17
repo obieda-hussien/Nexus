@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Search, Filter, Users, BookOpen, MessageCircle, Award } from 'lucide-react';
 
-const StudentsTab = ({ students, courses }) => {
+const studentsTab = ({ students, courses }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('all');
   const [sortBy, setSortBy] = useState('recent');
 
-  const filteredStudents = students
+  const filteredstudents = students
     ?.filter(student => {
       const matchesSearch = student.userName?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCourse = selectedCourse === 'all' || student.courseId === selectedCourse;
@@ -40,7 +40,7 @@ const StudentsTab = ({ students, courses }) => {
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h2 className="text-2xl font-bold text-white mb-4">Students Management</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">students Management</h2>
         
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-6">
@@ -83,13 +83,13 @@ const StudentsTab = ({ students, courses }) => {
         <div className="grid md:grid-cols-4 gap-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-white">{students?.length || 0}</p>
-            <p className="text-purple-200">Total Students</p>
+            <p className="text-purple-200">Total students</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
               {students?.filter(s => (s.progress || 0) > 0).length || 0}
             </p>
-            <p className="text-purple-200">Active Students</p>
+            <p className="text-purple-200">Active students</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
@@ -106,11 +106,11 @@ const StudentsTab = ({ students, courses }) => {
         </div>
       </div>
 
-      {/* Students List */}
+      {/* students List */}
       <div className="space-y-4">
-        {filteredStudents.length > 0 ? (
-          filteredStudents.map((student, index) => (
-            <StudentCard
+        {filteredstudents.length > 0 ? (
+          filteredstudents.map((student, index) => (
+            <studentCard
               key={student.id || index}
               student={student}
               courseName={getCourseName(student.courseId)}
@@ -129,7 +129,7 @@ const StudentsTab = ({ students, courses }) => {
   );
 };
 
-const StudentCard = ({ student, courseName, getProgressColor }) => {
+const studentCard = ({ student, courseName, getProgressColor }) => {
   const progress = student.progress || 0;
   const enrolledDate = student.enrolledAt 
     ? new Date(student.enrolledAt).toLocaleDateString('en-US')
@@ -139,15 +139,15 @@ const StudentCard = ({ student, courseName, getProgressColor }) => {
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4 space-x-reverse">
-          {/* Student Avatar */}
+          {/* student Avatar */}
           <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-semibold text-lg">
             {student.userName?.charAt(0) || 'S'}
           </div>
           
-          {/* Student Info */}
+          {/* student Info */}
           <div>
             <h3 className="text-lg font-semibold text-white">
-              {student.userName || 'New Student'}
+              {student.userName || 'New student'}
             </h3>
             <p className="text-purple-200 text-sm">{courseName}</p>
             <p className="text-gray-400 text-xs">Enrollment Date: {enrolledDate}</p>
@@ -197,7 +197,7 @@ const StudentCard = ({ student, courseName, getProgressColor }) => {
         </div>
       </div>
 
-      {/* Additional Student Stats */}
+      {/* Additional student Stats */}
       {student.timeSpent && (
         <div className="mt-4 grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
           <div className="text-center">
@@ -223,4 +223,4 @@ const StudentCard = ({ student, courseName, getProgressColor }) => {
   );
 };
 
-export default StudentsTab;
+export default studentsTab;

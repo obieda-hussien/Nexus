@@ -146,7 +146,7 @@ const Hero = () => {
           {[
             { 
               number: '10K+', 
-              label: 'Active Students' 
+              label: 'Active students' 
             },
             { 
               number: '500+', 

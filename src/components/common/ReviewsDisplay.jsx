@@ -97,7 +97,7 @@ const ReviewsDisplay = ({ courseId }) => {
       <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
           <MessageSquare className="w-5 h-5 ml-2 text-blue-400" />
-          تقييمات Students ({stats.totalReviews})
+          تقييمات students ({stats.totalReviews})
         </h3>
 
         {stats.totalReviews > 0 ? (
@@ -147,7 +147,7 @@ const ReviewsDisplay = ({ courseId }) => {
       {/* Individual Reviews */}
       {reviews.length > 0 && (
         <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-white">آراء Students</h4>
+          <h4 className="text-lg font-semibold text-white">آراء students</h4>
           {reviews.map((review) => (
             <div key={review.id} className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               {/* Review Header */}
@@ -157,7 +157,7 @@ const ReviewsDisplay = ({ courseId }) => {
                     <User className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h5 className="text-white font-semibold">{review.studentName || 'Student'}</h5>
+                    <h5 className="text-white font-semibold">{review.studentName || 'student'}</h5>
                     <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-400">
                       <Calendar className="w-4 h-4" />
                       <span>{new Date(review.createdAt).toLocaleDateString('ar-EG')}</span>
@@ -186,7 +186,7 @@ const ReviewsDisplay = ({ courseId }) => {
                 <div className="mt-4 p-4 bg-blue-500/20 rounded-lg border-r-4 border-blue-400">
                   <div className="flex items-center mb-2">
                     <Reply className="w-4 h-4 text-blue-400 ml-2" />
-                    <span className="text-blue-300 font-semibold">رد Instructor</span>
+                    <span className="text-blue-300 font-semibold">Instructor Reply</span>
                     <span className="text-gray-400 text-sm mr-auto">
                       {new Date(review.instructorReply.timestamp).toLocaleDateString('ar-EG')}
                     </span>

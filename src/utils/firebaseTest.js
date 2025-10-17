@@ -82,7 +82,7 @@ async function testCourseCreation(user) {
       level: 'beginner',
       language: 'ar',
       price: 0,
-      isFree: true,
+      isfree: true,
       instructorId: user.uid,
       instructorName: user.displayName || 'Test Instructor',
       status: 'draft',

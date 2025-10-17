@@ -131,7 +131,7 @@ const BecomeInstructorPage = () => {
           <div className="container mx-auto px-4 py-8 text-center">
             <GraduationCap className="w-16 h-16 text-gray-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-white mb-2">يرجى Login</h1>
-            <p className="text-gray-400 mb-6">يجب Login للتOld كمدرس</p>
+            <p className="text-gray-400 mb-6">يجب Login للتOld كInstructor</p>
           </div>
         </main>
         <Footer />
@@ -147,10 +147,10 @@ const BecomeInstructorPage = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              كن مدرساً في Nexus
+              كن Instructorاً في Nexus
             </h1>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              انضم إلى فريق Instructorين المعتمدين وشارك خبرتك مع آلاف Students حول العالم
+              انضم إلى فريق Instructorين المعتمدين وشارك خبرتك مع آلاف students حول العالم
             </p>
           </div>
 
@@ -186,7 +186,7 @@ const BecomeInstructorPage = () => {
                   {applicationStatus.status === 'pending' 
                     ? 'تم استلام طلبك وهو قيد المراجعة من قبل فريقنا. سيتم الرد عليك خلال 48 ساعة.'
                     : applicationStatus.status === 'approved'
-                    ? 'مبروك! تم قبولك كمدرس في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.'
+                    ? 'مبروك! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.'
                     : 'عذراً، لم يتم قبول طلبك في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.'}
                 </p>
                 {applicationStatus.reviewNotes && (
@@ -211,7 +211,7 @@ const BecomeInstructorPage = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">شارك معرفتك</h3>
               <p className="text-gray-400 text-sm">
-                علم آلاف Students وساعدهم في تحقيق أهدافهم التعليمية
+                علم آلاف students وساعدهم في تحقيق أهدافهم التعليمية
               </p>
             </div>
 
@@ -240,14 +240,14 @@ const BecomeInstructorPage = () => {
           {canApply && !applicationStatus && (
             <div className="max-w-2xl mx-auto">
               <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8">
-                <h2 className="text-2xl font-bold text-white mb-6">طلب أن تصبح مدرس</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">طلب أن تصبح Instructor</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Personal Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                       <User className="w-5 h-5" />
-                      المعلومات الشخصية
+                      المScienceات الشخصية
                     </h3>
                     
                     <div className="grid md:grid-cols-2 gap-4">
@@ -265,7 +265,7 @@ const BecomeInstructorPage = () => {
                           <option value="physics">Physics</option>
                           <option value="math">Mathematics</option>
                           <option value="chemistry">Chemistry</option>
-                          <option value="biology">الأحياء</option>
+                          <option value="biology">Biology</option>
                           <option value="other">أخرى</option>
                         </select>
                       </div>
@@ -302,7 +302,7 @@ const BecomeInstructorPage = () => {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                       <FileText className="w-5 h-5" />
-                      المعلومات المهنية
+                      المScienceات المهنية
                     </h3>
 
                     <div>
@@ -392,7 +392,7 @@ const BecomeInstructorPage = () => {
 
                   {/* Motivation */}
                   <div>
-                    <label className="block text-white font-medium mb-2">لماذا تريد أن تصبح مدرس في Nexus؟ *</label>
+                    <label className="block text-white font-medium mb-2">لماذا تريد أن تصبح Instructor في Nexus؟ *</label>
                     <textarea
                       name="motivation"
                       value={formData.motivation}
@@ -462,7 +462,7 @@ const BecomeInstructorPage = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>تدريب Free على التدريس الإلكتروني</span>
+                    <span>تدريب free على التدريس الإلكتروني</span>
                   </li>
                 </ul>
               </div>

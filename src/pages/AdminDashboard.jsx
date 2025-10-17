@@ -29,9 +29,9 @@ const AdminDashboard = () => {
   });
 
   const [recentActivities] = useState([
-    { id: 1, type: 'user', message: 'أحمد محمد انضم للمنصة', time: '5 دقائق', icon: Users },
-    { id: 2, type: 'course', message: 'تم Create New Course: Physics الAdvancedة', time: '15 دقيقة', icon: BookOpen },
-    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 جنيه', time: '30 minutes', icon: DollarSign },
+    { id: 1, type: 'user', message: 'Ahmed Mohamed انضم للمنصة', time: '5 دقائق', icon: Users },
+    { id: 2, type: 'course', message: 'تم Create New Course: Advanced Physics', time: '15 دقيقة', icon: BookOpen },
+    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 EGP', time: '30 minutes', icon: DollarSign },
     { id: 4, type: 'instructor', message: 'طلب تدريس New من د. سارة أحمد', time: '1 ساعة', icon: UserCheck },
     { id: 5, type: 'alert', message: 'Update أمني مطلوب للنظام', time: '2 hours', icon: AlertCircle }
   ]);
@@ -39,8 +39,8 @@ const AdminDashboard = () => {
   const [topCourses] = useState([
     { name: 'Basic Physics', students: 2340, revenue: 468000, rating: 4.9 },
     { name: 'Applied Mathematics', students: 1890, revenue: 471750, rating: 4.8 },
-    { name: 'Physics الAdvancedة', students: 1650, revenue: 493500, rating: 4.9 },
-    { name: 'الCalculus والIntegration', students: 1420, revenue: 355000, rating: 4.7 }
+    { name: 'Advanced Physics', students: 1650, revenue: 493500, rating: 4.9 },
+    { name: 'Calculus وIntegration', students: 1420, revenue: 355000, rating: 4.7 }
   ]);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-purple-100 text-sm">الإيرادات الشهرية</p>
-                  <p className="text-3xl font-bold">{(stats.monthlyRevenue / 1000).toFixed(0)}K ج.م</p>
+                  <p className="text-3xl font-bold">{(stats.monthlyRevenue / 1000).toFixed(0)}K EGP</p>
                   <p className="text-purple-100 text-xs">+8% نمو</p>
                 </div>
                 <DollarSign className="h-12 w-12 text-purple-200" />
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
                 <button className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg transition-colors">
                   <BarChart3 className="h-6 w-6 mx-auto mb-2" />
                   <span className="text-sm">Reports المالية</span>
-                  <span className="block text-xs text-purple-200">{(stats.totalRevenue / 1000000).toFixed(1)}M ج.م</span>
+                  <span className="block text-xs text-purple-200">{(stats.totalRevenue / 1000000).toFixed(1)}M EGP</span>
                 </button>
                 <button className="bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-lg transition-colors">
                   <Award className="h-6 w-6 mx-auto mb-2" />
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
                 <thead>
                   <tr className="border-b border-gray-700">
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">اسم الكورس</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد Students</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد students</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">الإيرادات</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">التقييم</th>
                   </tr>
@@ -194,7 +194,7 @@ const AdminDashboard = () => {
                     <tr key={index} className="border-b border-gray-700/50 hover:bg-gray-700/30">
                       <td className="py-3 px-4 text-white font-medium">{course.name}</td>
                       <td className="py-3 px-4 text-gray-300">{course.students.toLocaleString()}</td>
-                      <td className="py-3 px-4 text-green-400 font-medium">{course.revenue.toLocaleString()} ج.م</td>
+                      <td className="py-3 px-4 text-green-400 font-medium">{course.revenue.toLocaleString()} EGP</td>
                       <td className="py-3 px-4">
                         <div className="flex items-center">
                           <Award className="h-4 w-4 text-yellow-400 ml-1" />
@@ -225,7 +225,7 @@ const AdminDashboard = () => {
                 <Calendar className="h-5 w-5 text-blue-400" />
               </div>
               <p className="text-3xl font-bold text-blue-400">{stats.activeInstructors}</p>
-              <p className="text-gray-400 text-xs">من أصل 32 مدرس</p>
+              <p className="text-gray-400 text-xs">من أصل 32 Instructor</p>
             </div>
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">

@@ -98,7 +98,7 @@ export class EmailJSNotificationService {
         console.warn('EmailJS not configured, using browser notification');
         await this.sendBrowserNotification({
           title: 'New Sale!',
-          body: `تم شراء كورس ${courseData.title} بواسطة ${studentData.displayName}`,
+          body: `Purchased كورس ${courseData.title} by ${studentData.displayName}`,
           icon: '/favicon.ico'
         });
         return { success: false, reason: 'service_not_configured', fallback: 'browser_notification' };
@@ -113,7 +113,7 @@ export class EmailJSNotificationService {
         course_title: courseData.title,
         course_price: paymentData.amount,
         currency: paymentData.currency || 'EGP',
-        student_name: studentData.displayName || 'الStudent',
+        student_name: studentData.displayName || 'الstudent',
         student_email: studentData.email,
         payment_method: this.getPaymentMethodNameAr(paymentData.paymentMethod || 'paypal'),
         sale_date: new Date().toLocaleDateString('ar-EG'),
@@ -146,7 +146,7 @@ export class EmailJSNotificationService {
       // Browser notification fallback
       await this.sendBrowserNotification({
         title: 'New Sale!',
-        body: `تم شراء كورس ${courseData.title} - ربح: ${(paymentData.amount * 0.9).toFixed(2)} ج.م`,
+        body: `Purchased كورس ${courseData.title} - ربح: ${(paymentData.amount * 0.9).toFixed(2)} EGP`,
         icon: '/favicon.ico'
       });
 
@@ -155,7 +155,7 @@ export class EmailJSNotificationService {
   }
 
   // Send monthly earnings report
-  static async sendMonthlyEarningsReport(instructorData, reportData) {
+  static async sendmonthlyEarningsReport(instructorData, reportData) {
     try {
       if (!this.isConfigured()) {
         console.warn('EmailJS not configured, skipping monthly report');
@@ -175,7 +175,7 @@ export class EmailJSNotificationService {
         total_withdrawals: reportData.totalWithdrawals || 0,
         available_balance: reportData.availableBalance || 0,
         courses_sold: reportData.coursesSold || 0,
-        new_students: reportData.newStudents || 0,
+        new_students: reportData.newstudents || 0,
         top_course: reportData.topCourse || 'غير متاح',
         platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
@@ -194,7 +194,7 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ Monthly report sent successfully:', response);
+      console.log('✅ monthly report sent successfully:', response);
       return { success: true, messageId: response.text };
 
     } catch (error) {
@@ -329,7 +329,7 @@ export class EmailJSNotificationService {
         total_earnings: '0.00',
         account_details: 'حساب Quiz',
         payout_status: 'test',
-        estimated_arrival: 'Instant',
+        estimated_arrival: 'instant',
         // Generic fields
         test_message: 'هذه رسالة Quiz للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
         platform_name: 'Nexus Educational Platform',
@@ -395,7 +395,7 @@ export class EmailJSNotificationService {
       stripe: 'Stripe',
       bank: 'Bank Transfer',
       vodafone: 'Vodafone Cash',
-      fawry: 'Instant'
+      fawry: 'instant'
     };
     return names[type] || type;
   }
@@ -418,10 +418,10 @@ export class EmailJSNotificationService {
   static getEstimatedArrival(paymentMethodType) {
     const arrivals = {
       bank: '3-5 business days',
-      paypal: 'Instant',
+      paypal: 'instant',
       vodafone: '24 ساعة',
       fawry: '24-48 ساعة',
-      stripe: 'Instant'
+      stripe: 'instant'
     };
     return arrivals[paymentMethodType] || '1-3 business days';
   }

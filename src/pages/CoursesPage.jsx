@@ -12,7 +12,7 @@ const CoursesPage = () => {
   const [filters, setFilters] = useState({
     category: '',
     level: '',
-    isFree: '',
+    isfree: '',
     sortBy: 'newest'
   });
 
@@ -29,7 +29,7 @@ const CoursesPage = () => {
       } else {
         const queryFilters = {
           ...filters,
-          isFree: filters.isFree === 'true' ? true : filters.isFree === 'false' ? false : undefined,
+          isfree: filters.isfree === 'true' ? true : filters.isfree === 'false' ? false : undefined,
           status: 'published' // Only show published courses
         };
         result = await CourseService.getCourses(queryFilters);
@@ -62,9 +62,9 @@ const CoursesPage = () => {
       shortDescription: 'كورس شامل لتعلم Programming بـ Python للBeginnerين',
       price: 299,
       originalPrice: 399,
-      isFree: false,
+      isfree: false,
       thumbnail: '/placeholder-course.jpg',
-      instructorName: 'أحمد محمد',
+      instructorName: 'Ahmed Mohamed',
       instructorAvatar: '',
       category: 'programming',
       duration: 120,
@@ -81,7 +81,7 @@ const CoursesPage = () => {
       description: 'شرح مفصل ومبسط لمنهج Physics للصف الثالث الثانوي مع حل المسائل',
       shortDescription: 'منهج Physics كامل للثانوية العامة',
       price: 0,
-      isFree: true,
+      isfree: true,
       thumbnail: '/placeholder-course.jpg',
       instructorName: 'د. سارة أحمد',
       instructorAvatar: '',
@@ -98,10 +98,10 @@ const CoursesPage = () => {
       id: '3',
       title: 'تصميم المواقع بـ HTML & CSS',
       description: 'تعلم تصميم المواقع الحديثة والمتجاوبة باستخدام HTML و CSS',
-      shortDescription: 'أساسيات تصميم المواقع للBeginnerين',
+      shortDescription: 'Basics تصميم المواقع للBeginnerين',
       price: 199,
       originalPrice: 299,
-      isFree: false,
+      isfree: false,
       thumbnail: '/placeholder-course.jpg',
       instructorName: 'محمد علي',
       instructorAvatar: '',
@@ -164,7 +164,7 @@ const CoursesPage = () => {
                 <option value="physics">Physics</option>
                 <option value="math">Mathematics</option>
                 <option value="chemistry">Chemistry</option>
-                <option value="biology">الأحياء</option>
+                <option value="biology">Biology</option>
               </select>
 
               <select
@@ -179,12 +179,12 @@ const CoursesPage = () => {
               </select>
 
               <select
-                value={filters.isFree}
-                onChange={(e) => setFilters(prev => ({ ...prev, isFree: e.target.value }))}
+                value={filters.isfree}
+                onChange={(e) => setFilters(prev => ({ ...prev, isfree: e.target.value }))}
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="">Free وPaid</option>
-                <option value="true">Free فقط</option>
+                <option value="">free وPaid</option>
+                <option value="true">free فقط</option>
                 <option value="false">Paid فقط</option>
               </select>
 
@@ -194,10 +194,10 @@ const CoursesPage = () => {
                 className="bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="newest">Newest</option>
-                <option value="popular">الأكثر شعبية</option>
-                <option value="rating">الأعلى تقييماً</option>
-                <option value="price_low">Price: منخفض إلى مرتفع</option>
-                <option value="price_high">Price: مرتفع إلى منخفض</option>
+                <option value="popular">Most Popular</option>
+                <option value="rating">Highest Rated</option>
+                <option value="price_low">Price: Low إلى مرتفع</option>
+                <option value="price_high">Price: مرتفع إلى Low</option>
               </select>
             </div>
           </div>
@@ -230,9 +230,9 @@ const CoursesPage = () => {
                     <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 h-48 flex items-center justify-center">
                       <BookOpen className="w-16 h-16 text-blue-400" />
                     </div>
-                    {course.isFree && (
+                    {course.isfree && (
                       <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm font-medium">
-                        Free
+                        free
                       </div>
                     )}
                   </div>
@@ -255,7 +255,7 @@ const CoursesPage = () => {
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        <span>{course.studentsCount?.toLocaleString()} Student</span>
+                        <span>{course.studentsCount?.toLocaleString()} student</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -265,15 +265,15 @@ const CoursesPage = () => {
                     
                     <div className="flex justify-between items-center">
                       <div className="price-section">
-                        {!course.isFree ? (
+                        {!course.isfree ? (
                           <div className="flex items-center gap-2">
-                            <span className="text-2xl font-bold text-white">{course.price} جنيه</span>
+                            <span className="text-2xl font-bold text-white">{course.price} EGP</span>
                             {course.originalPrice && course.originalPrice > course.price && (
                               <span className="text-gray-500 line-through">{course.originalPrice}</span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-2xl font-bold text-green-400">Free</span>
+                          <span className="text-2xl font-bold text-green-400">free</span>
                         )}
                       </div>
                       

@@ -1,7 +1,7 @@
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
-// Payment Gateway Configuration - Free and Paid Options
+// Payment Gateway Configuration - free and Paid Options
 const PAYMENT_CONFIG = {
   // FREE OPTIONS (No monthly fees - only transaction fees paid by users)
   bank: {
@@ -33,7 +33,7 @@ const PAYMENT_CONFIG = {
     fees: {
       rate: 0.035, // 3.5%
       fixedFee: 0.15, // $0.15
-      description: 'رسوم على User - حساب Free'
+      description: 'User fees - free account'
     }
   },
   fawry: {
@@ -43,7 +43,7 @@ const PAYMENT_CONFIG = {
     fees: {
       rate: 0.02, // 2%
       fixedFee: 1.0, // 1 EGP
-      description: 'Less الرسوم في مصر - رسوم على User'
+      description: 'Lowest fees in Egypt - User fees'
     }
   },
   vodafone: {
@@ -53,7 +53,7 @@ const PAYMENT_CONFIG = {
     fees: {
       rate: 0.015, // 1.5%
       maxFee: 20.0, // Max 20 EGP
-      description: 'رسوم منخفضة - رسوم على User'
+      description: 'Low fees - User fees'
     }
   }
 };
@@ -81,27 +81,27 @@ export class PaymentGatewayService {
     switch (method) {
       case 'stripe':
         fee = (amount * config.fees.international) + config.fees.fixedFee;
-        description = `رسوم Stripe: ${(config.fees.international * 100)}% + ${config.fees.fixedFee} دولار`;
+        description = `Stripe fees: ${(config.fees.international * 100)}% + ${config.fees.fixedFee} USD`;
         break;
         
       case 'paypal':
         fee = (amount * config.fees.rate) + config.fees.fixedFee;
-        description = `رسوم PayPal: ${(config.fees.rate * 100)}% + ${config.fees.fixedFee} دولار`;
+        description = `PayPal fees: ${(config.fees.rate * 100)}% + ${config.fees.fixedFee} USD`;
         break;
         
       case 'fawry':
         fee = (amount * config.fees.rate) + config.fees.fixedFee;
-        description = `رسوم Instant: ${(config.fees.rate * 100)}% + ${config.fees.fixedFee} جنيه`;
+        description = `instant fees: ${(config.fees.rate * 100)}% + ${config.fees.fixedFee} EGP`;
         break;
         
       case 'vodafone':
         fee = Math.min((amount * config.fees.rate), config.fees.maxFee);
-        description = `رسوم Vodafone Cash: ${(config.fees.rate * 100)}% (حد أقصى ${config.fees.maxFee} جنيه)`;
+        description = `Vodafone Cash fees: ${(config.fees.rate * 100)}% (maximum ${config.fees.maxFee} EGP)`;
         break;
         
       default:
         fee = 0;
-        description = 'بدون رسوم إضافية';
+        description = 'No additional fees';
     }
 
     return {
@@ -154,7 +154,7 @@ export class PaymentGatewayService {
 
     } catch (error) {
       console.error('Stripe payment error:', error);
-      throw new Error(`Payment processing failed عبر Stripe: ${error.message}`);
+      throw new Error(`Payment processing failed via Stripe: ${error.message}`);
     }
   }
 
@@ -186,7 +186,7 @@ export class PaymentGatewayService {
           sender_batch_header: {
             sender_batch_id: `batch_${Date.now()}`,
             email_subject: "Earnings Payment from Nexus Platform",
-            email_message: "تم تحويل أرباحك بنجاح"
+            email_message: "Your earnings have been transferred successfully"
           },
           items: [{
             recipient_type: "EMAIL",
@@ -195,7 +195,7 @@ export class PaymentGatewayService {
               currency: paymentData.currency || 'USD'
             },
             receiver: paymentData.paypalEmail,
-            note: `دفع أرباح - معرف السحب: ${paymentData.withdrawalId}`,
+            note: `Earnings Payment - Withdrawal ID: ${paymentData.withdrawalId}`,
             sender_item_id: paymentData.withdrawalId
           }]
         },
@@ -217,7 +217,7 @@ export class PaymentGatewayService {
 
     } catch (error) {
       console.error('PayPal payment error:', error);
-      throw new Error(`Payment processing failed عبر PayPal: ${error.response?.data?.message || error.message}`);
+      throw new Error(`Payment processing failed via PayPal: ${error.response?.data?.message || error.message}`);
     }
   }
 
@@ -228,7 +228,7 @@ export class PaymentGatewayService {
         merchantCode: PAYMENT_CONFIG.fawry.merchantCode,
         merchantRefNum: paymentData.withdrawalId,
         amount: paymentData.amount,
-        description: `دفع أرباح - ${paymentData.instructorName}`,
+        description: `Earnings Payment - ${paymentData.instructorName}`,
         customerMobile: paymentData.phone,
         customerEmail: paymentData.email,
         customerName: paymentData.accountHolderName
@@ -258,7 +258,7 @@ export class PaymentGatewayService {
 
     } catch (error) {
       console.error('Fawry payment error:', error);
-      throw new Error(`Payment processing failed عبر Instant: ${error.response?.data?.message || error.message}`);
+      throw new Error(`Payment processing failed via instant: ${error.response?.data?.message || error.message}`);
     }
   }
 
@@ -296,7 +296,7 @@ export class PaymentGatewayService {
 
     } catch (error) {
       console.error('Vodafone Cash payment error:', error);
-      throw new Error(`Payment processing failed عبر Vodafone Cash: ${error.response?.data?.message || error.message}`);
+      throw new Error(`Payment processing failed via Vodafone Cash: ${error.response?.data?.message || error.message}`);
     }
   }
 
@@ -369,7 +369,7 @@ export class PaymentGatewayService {
         break;
         
       default:
-        throw new Error(`نوع الدفع غير مدعوم: ${paymentMethod.type}`);
+        throw new Error(`Payment type not supported: ${paymentMethod.type}`);
     }
 
     return {
@@ -403,9 +403,9 @@ export class PaymentGatewayService {
   static getPaymentMethodName(type) {
     const names = {
       bank: '🆓 Bank Transfer (Completely free)',
-      vodafone: 'Vodafone Cash (Less الرسوم)',
-      fawry: 'Instant',
-      stripe: 'Stripe (بطاقات ائتمان دولية)',
+      vodafone: 'Vodafone Cash (Lowest fees)',
+      fawry: 'instant',
+      stripe: 'Stripe (International credit cards)',
       paypal: 'PayPal'
     };
     return names[type] || type;
@@ -413,11 +413,11 @@ export class PaymentGatewayService {
 
   static getPaymentMethodDescription(type) {
     const descriptions = {
-      bank: 'Bank Transfer Completely free - بدون أي رسوم (3-5 business days)',
-      vodafone: 'Less رسوم في السوق - 1.5% فقط (حد أقصى 20 ج.م)',
-      fawry: 'دفع عبر نقاط Instant - رسوم منخفضة 2% + 1 ج.م',
-      stripe: 'دفع Instant عبر بطاقات الائتمان الدولية - رسوم 2.9%',
-      paypal: 'دفع Instant عبر PayPal - رسوم 3.5%'
+      bank: 'Bank Transfer - Completely free with no fees (3-5 business days)',
+      vodafone: 'Lowest market fees - only 1.5% (max 20 EGP)',
+      fawry: 'instant payment - low fees 2% + 1 EGP',
+      stripe: 'instant payment via international credit cards - 2.9% fees',
+      paypal: 'instant payment via PayPal - 3.5% fees'
     };
     return descriptions[type] || '';
   }
@@ -429,15 +429,15 @@ export class PaymentGatewayService {
     if (config.fees.rate) {
       const percentage = (config.fees.rate * 100).toFixed(1) + '%';
       if (config.fees.fixedFee) {
-        return `${percentage} + ${config.fees.fixedFee} ${type === 'fawry' ? 'ج.م' : '$'}`;
+        return `${percentage} + ${config.fees.fixedFee} ${type === 'fawry' ? 'EGP' : '$'}`;
       }
       if (config.fees.maxFee) {
-        return `${percentage} (حد أقصى ${config.fees.maxFee} ج.م)`;
+        return `${percentage} (maximum ${config.fees.maxFee} EGP)`;
       }
       return percentage;
     }
     
-    return 'متغيرة';
+    return 'Variable';
   }
 
   static isPaymentMethodConfigured(type) {

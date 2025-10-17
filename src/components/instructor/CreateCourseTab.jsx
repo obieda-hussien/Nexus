@@ -18,7 +18,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
     level: 'beginner',
     language: 'ar',
     price: 0,
-    isFree: true,
+    isfree: true,
     thumbnail: '',
     tags: [],
     requirements: [],
@@ -44,7 +44,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
 
       // Check if user has instructor permissions
       if (!canCreateCourses()) {
-        toast.error('You do not have permission إنشاء كورسات. يجب أن تكون مدرساً أولاً');
+        toast.error('You do not have permission إنشاء كورسات. يجب أن تكون Instructorاً أولاً');
         console.error('❌ User does not have instructor role:', {
           userId: currentUser.uid,
           userRole: userProfile?.role,
@@ -80,7 +80,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         ...courseData,
         id: courseRef.key,
         instructorId: currentUser.uid,
-        instructorName: currentUser.displayName || 'مدرس',
+        instructorName: currentUser.displayName || 'Instructor',
         instructorAvatar: currentUser.photoURL || '',
         status: 'draft',
         createdAt: new Date().toISOString(),
@@ -107,7 +107,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       let errorMessage = 'An error occurred في إنشاء الكورس';
       
       if (error.code === 'permission-denied') {
-        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تأكد من أن دورك "مدرس" في النظام';
+        errorMessage = 'ليس لديك الصلاحية لإنشاء كورس. تأكد من أن دورك "Instructor" في النظام';
         console.error('💡 Troubleshooting: Check user role in Firebase Realtime Database');
         console.error('📋 Current user role:', userProfile?.role);
         console.error('📋 Required role: instructor or admin');
@@ -265,11 +265,11 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
             onChange={(e) => handleInputChange('category', e.target.value)}
             className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="">اختر التصنيف</option>
+            <option value="">Select Category</option>
             <option value="physics">Physics</option>
             <option value="math">Mathematics</option>
             <option value="chemistry">Chemistry</option>
-            <option value="biology">الأحياء</option>
+            <option value="biology">Biology</option>
             <option value="programming">Programming</option>
           </select>
         </div>
@@ -277,7 +277,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
 
       <div>
         <label className="block text-purple-200 text-sm font-semibold mb-2">
-          وصف مختصر *
+          Short description *
         </label>
         <input
           type="text"
@@ -298,7 +298,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           onChange={(e) => handleInputChange('description', e.target.value)}
           rows="6"
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه Students، والفوائد المتوقعة..."
+          placeholder="اكتب وصفاً مفصلاً عن الكورس، ما سيتعلمه students، والفوائد المتوقعة..."
         />
       </div>
 
@@ -354,7 +354,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
 
   const addSection = () => {
     if (!newSectionTitle.trim()) {
-      toast.error('يرجى إدخال عنوان الوحدة');
+      toast.error('Please enter section title');
       return;
     }
 
@@ -371,7 +371,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     onChange({ sections: updatedSections });
     setNewSectionTitle('');
     setShowAddSection(false);
-    toast.success('تم Add الوحدة بنجاح');
+    toast.success('Section added successfully');
   };
 
   const updateSection = (sectionId, updates) => {
@@ -383,12 +383,12 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
   };
 
   const deleteSection = (sectionId) => {
-    if (!window.confirm('هل أنت متأكد من Delete هذه الوحدة؟')) return;
+    if (!window.confirm('Are you sure you want to delete this section?')) return;
     
     const updatedSections = sections.filter(section => section.id !== sectionId);
     setSections(updatedSections);
     onChange({ sections: updatedSections });
-    toast.success('تم Delete الوحدة');
+    toast.success('Section deleted');
   };
 
   const addLesson = (sectionId) => {
@@ -452,14 +452,14 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
   };
 
   const deleteLesson = (sectionId, lessonId) => {
-    if (!window.confirm('هل أنت متأكد من Delete هذا الدرس؟')) return;
+    if (!window.confirm('Are you sure you want to delete this lesson?')) return;
 
     const section = sections.find(s => s.id === sectionId);
     if (!section) return;
 
     const updatedLessons = section.lessons.filter(lesson => lesson.id !== lessonId);
     updateSection(sectionId, { lessons: updatedLessons });
-    toast.success('تم Delete الدرس');
+    toast.success('Lesson deleted');
   };
 
   const toggleSectionExpansion = (sectionId) => {
@@ -489,7 +489,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold text-white">منهج الكورس</h3>
+        <h3 className="text-xl font-semibold text-white">Course Curriculum</h3>
         <button
           onClick={() => setShowAddSection(true)}
           className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 space-x-reverse hover:bg-green-600 transition-colors"
@@ -507,7 +507,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
               type="text"
               value={newSectionTitle}
               onChange={(e) => setNewSectionTitle(e.target.value)}
-              placeholder="عنوان الوحدة الNewة"
+              placeholder="New Section Title"
               className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               onKeyPress={(e) => e.key === 'Enter' && addSection()}
             />
@@ -534,8 +534,8 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
       {sections.length === 0 ? (
         <div className="text-center py-12">
           <BookOpen className="w-16 h-16 text-purple-300 mx-auto mb-4" />
-          <p className="text-purple-200">لم تقم بAdd أي وحدات بعد</p>
-          <p className="text-purple-300 text-sm">ابدأ بAdd الوحدة الأولى لكورسك</p>
+          <p className="text-purple-200">You haven't added any sections yet</p>
+          <p className="text-purple-300 text-sm">Start by adding the first section to your course</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -596,7 +596,7 @@ const SectionCard = ({
     }
     onUpdate({ title: editTitle });
     setIsEditing(false);
-    toast.success('تم Update عنوان الوحدة');
+    toast.success('Section title updated');
   };
 
   return (
@@ -693,7 +693,7 @@ const SectionCard = ({
               className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-3 text-blue-200 hover:text-white hover:bg-blue-500/30 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
             >
               <HelpCircle className="w-4 h-4" />
-              <span>Add كويز</span>
+              <span>Add Quiz</span>
             </button>
           </div>
         </div>
@@ -736,23 +736,23 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
 
   const handleSave = () => {
     if (!formData.title.trim()) {
-      toast.error('عنوان الدرس مطلوب');
+      toast.error('Lesson title required');
       return;
     }
 
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
-      toast.error('رابط الVideo مطلوب');
+      toast.error('Video link required');
       return;
     }
 
     if (formData.type === 'quiz' && (!formData.quizData.questions || formData.quizData.questions.length === 0)) {
-      toast.error('يجب Add سؤال واحد على الLess للكويز');
+      toast.error('Must add at least one question to the quiz');
       return;
     }
 
     onUpdate(formData);
     setIsEditing(false);
-    toast.success('تم Save الدرس');
+    toast.success('Lesson saved');
   };
 
   const handleCancel = () => {
@@ -806,7 +806,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
       case 'article':
         return 'Article';
       case 'quiz':
-        return 'كويز';
+        return 'Quiz';
       default:
         return 'Article';
     }
@@ -821,7 +821,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
             type="text"
             value={formData.title}
             onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-            placeholder="عنوان الدرس"
+            placeholder="Lesson Title"
             className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
           />
 
@@ -833,7 +833,7 @@ const LessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
           >
             <option value="article">Article</option>
             <option value="video">Video</option>
-            <option value="quiz">كويز</option>
+            <option value="quiz">Quiz</option>
           </select>
 
           {/* Content based on type */}
@@ -871,26 +871,26 @@ console.log('مرحباً بالعالم');
                 type="url"
                 value={formData.videoUrl}
                 onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
-                placeholder="رابط الVideo (YouTube أو رابط مباشر)"
+                placeholder="Video Link (YouTube or direct link)"
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               />
               <input
                 type="number"
                 value={formData.duration}
                 onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
-                placeholder="مدة الVideo (بالدقائق)"
+                placeholder="Video Duration (in minutes)"
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
               />
             </div>
           ) : formData.type === 'quiz' ? (
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                إعداد الكويز
+                إعداد الQuiz
               </label>
               <QuizEditor
                 quizData={formData.quizData}
                 onChange={handleQuizDataChange}
-                placeholder="إنشاء كويز تفاعلي..."
+                placeholder="إنشاء Quiz تفاعلي..."
               />
             </div>
           ) : null}
@@ -925,7 +925,7 @@ console.log('مرحباً بالعالم');
               <p className="text-purple-300 text-sm">
                 {getTypeLabel(lesson.type)}
                 {lesson.type === 'video' && lesson.duration > 0 && ` • ${lesson.duration} دقيقة`}
-                {lesson.type === 'quiz' && lesson.quizData?.questions?.length > 0 && ` • ${lesson.quizData.questions.length} سؤال`}
+                {lesson.type === 'quiz' && lesson.quizData?.questions?.length > 0 && ` • ${lesson.quizData.questions.length} Question`}
               </p>
             </div>
           </div>
@@ -974,20 +974,20 @@ const PricingStep = ({ data, onChange, onNext, onBack }) => {
         <div className="flex items-center space-x-3 space-x-reverse">
           <input
             type="checkbox"
-            id="isFree"
-            checked={data.isFree}
-            onChange={(e) => handlePriceChange('isFree', e.target.checked)}
+            id="isfree"
+            checked={data.isfree}
+            onChange={(e) => handlePriceChange('isfree', e.target.checked)}
             className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
           />
-          <label htmlFor="isFree" className="text-white font-medium">
-            كورس Free
+          <label htmlFor="isfree" className="text-white font-medium">
+            كورس free
           </label>
         </div>
 
-        {!data.isFree && (
+        {!data.isfree && (
           <div>
             <label className="block text-purple-200 text-sm font-semibold mb-2">
-              Price (بالجنيه المصري)
+              Price (بالEGP المصري)
             </label>
             <input
               type="number"
@@ -1023,7 +1023,7 @@ const PricingStep = ({ data, onChange, onNext, onBack }) => {
 const ReviewStep = ({ data, onSubmit, onBack }) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white">مراجعة معلومات الكورس</h3>
+      <h3 className="text-xl font-semibold text-white">مراجعة مScienceات الكورس</h3>
       
       <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
         <div>
@@ -1047,7 +1047,7 @@ const ReviewStep = ({ data, onSubmit, onBack }) => {
         <div>
           <h4 className="text-purple-200 text-sm">Price</h4>
           <p className="text-white">
-            {data.isFree ? 'Free' : `${data.price} جنيه`}
+            {data.isfree ? 'free' : `${data.price} EGP`}
           </p>
         </div>
       </div>
@@ -1079,7 +1079,7 @@ const InstructorUpgradePrompt = () => {
     try {
       setIsUpgrading(true);
       await becomeInstructor();
-      toast.success('🎉 تم ترقية حسابك لمدرس بنجاح! يمكنك الآن إنشاء Courses');
+      toast.success('🎉 تم ترقية حسابك لInstructor بنجاح! يمكنك الآن إنشاء Courses');
       // The page will automatically update due to role change
     } catch (error) {
       console.error('❌ Error becoming instructor:', error);
@@ -1097,15 +1097,15 @@ const InstructorUpgradePrompt = () => {
         </div>
         
         <h2 className="text-2xl font-bold text-white mb-4">
-          ترقية الحساب إلى مدرس
+          ترقية الحساب إلى Instructor
         </h2>
         
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
           <p className="text-purple-200 mb-4">
-            حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'Student'}</span>
+            حسابك الحالي مسجل كـ <span className="font-semibold text-orange-400">{userProfile?.role || 'student'}</span>
           </p>
           <p className="text-purple-200 mb-4">
-            لإنشاء وCourse Management، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">مدرس</span>
+            لإنشاء وCourse Management، يجب ترقية حسابك إلى <span className="font-semibold text-green-400">Instructor</span>
           </p>
         </div>
 
@@ -1122,7 +1122,7 @@ const InstructorUpgradePrompt = () => {
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-purple-200">متابعة تقدم Students</span>
+              <span className="text-purple-200">متابعة تقدم students</span>
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -1148,14 +1148,14 @@ const InstructorUpgradePrompt = () => {
           ) : (
             <>
               <UserCheck className="w-5 h-5" />
-              <span>ترقية إلى مدرس</span>
+              <span>ترقية إلى Instructor</span>
               <ArrowRight className="w-5 h-5" />
             </>
           )}
         </button>
 
         <p className="text-purple-300 text-sm mt-4">
-          الترقية Freeة وInstantة - لا توجد رسوم إضافية
+          الترقية freeة وinstantة - لا توجد additional fees
         </p>
       </div>
     </div>

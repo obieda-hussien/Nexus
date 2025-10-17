@@ -443,7 +443,7 @@ const ReviewsTab = ({ courses = [] }) => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">لا توجد كورسات Publishedة</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    يجب Publish Courses أولاً حتى يتمكن Students من تقييمها وكتابة المراجعات
+                    يجب Publish Courses أولاً حتى يتمكن students من تقييمها وكتابة المراجعات
                   </p>
                   <div className="flex items-center justify-center space-x-6 space-x-reverse text-sm text-gray-500">
                     <div className="flex items-center space-x-2 space-x-reverse">
@@ -452,7 +452,7 @@ const ReviewsTab = ({ courses = [] }) => {
                     </div>
                     <div className="flex items-center space-x-2 space-x-reverse">
                       <Users className="w-4 h-4" />
-                      <span>جذب Students</span>
+                      <span>جذب students</span>
                     </div>
                     <div className="flex items-center space-x-2 space-x-reverse">
                       <Star className="w-4 h-4" />
@@ -472,7 +472,7 @@ const ReviewsTab = ({ courses = [] }) => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">لا توجد مراجعات حتى الآن</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    لم يقم أي Student بكتابة مراجعة أو تقييم لكورساتك بعد. عندما يبدأ Students في التفاعل مع المحتوى ستظهر مراجعاتهم هنا.
+                    لم يقم أي student بكتابة مراجعة أو تقييم لكورساتك بعد. عندما يبدأ students في التفاعل مع المحتوى ستظهر مراجعاتهم هنا.
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 max-w-lg mx-auto">
                     <div className="flex items-start space-x-3 space-x-reverse">
@@ -482,7 +482,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       <div className="text-right">
                         <h4 className="text-blue-300 font-semibold mb-1">نصيحة</h4>
                         <p className="text-blue-200 text-sm">
-                          تفاعل مع طلابك وقدم محتوى عالي الجودة لتشجيعهم على ترك تقييمات إيجابية
+                          تفاعل مع طلابك وقدم محتوى High الجودة لتشجيعهم على ترك تقييمات إيجابية
                         </p>
                       </div>
                     </div>
@@ -528,7 +528,7 @@ const ReviewsTab = ({ courses = [] }) => {
                     <User className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold">{review.studentName || 'Student'}</h4>
+                    <h4 className="text-white font-semibold">{review.studentName || 'student'}</h4>
                     <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-400">
                       <BookOpen className="w-4 h-4" />
                       <span>{review.courseTitle}</span>
@@ -559,7 +559,7 @@ const ReviewsTab = ({ courses = [] }) => {
                 <div className="mt-4 p-4 bg-blue-500/20 rounded-lg border-r-4 border-blue-400">
                   <div className="flex items-center mb-2">
                     <Reply className="w-4 h-4 text-blue-400 ml-2" />
-                    <span className="text-blue-300 font-semibold">رد Instructor</span>
+                    <span className="text-blue-300 font-semibold">Instructor Reply</span>
                     <span className="text-gray-400 text-sm mr-auto">
                       {new Date(review.instructorReply.timestamp).toLocaleDateString('ar-EG')}
                     </span>

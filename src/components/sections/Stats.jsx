@@ -57,7 +57,7 @@ const Stats = () => {
       id: 'students',
       value: counters.students,
       suffix: '+',
-      label: 'Registered Students',
+      label: 'Registered students',
       icon: '👥',
       color: 'from-blue-500 to-purple-600'
     },

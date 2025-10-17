@@ -80,7 +80,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           id: 'math-201',
-          title: 'Mathematics الAdvancedة',
+          title: 'Advanced Mathematics',
           progress: 45,
           totalLessons: 25,
           completedLessons: 11,
@@ -108,15 +108,15 @@ const UserDashboard = ({ isOpen, onClose }) => {
         },
         {
           type: 'quiz_passed',
-          title: 'نجح في Quiz: الحركة الدائرية',
+          title: 'Passed في Quiz: الحركة الدائرية',
           time: '2024-12-29T09:15:00',
           course: 'Physics Basics'
         },
         {
           type: 'course_enrolled',
-          title: 'انضم إلى: Mathematics الAdvancedة',
+          title: 'انضم إلى: Advanced Mathematics',
           time: '2024-12-28T14:20:00',
-          course: 'Mathematics الAdvancedة'
+          course: 'Advanced Mathematics'
         }
       ];
       

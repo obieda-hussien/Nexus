@@ -10,7 +10,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       id: 1,
       type: 'review',
       title: 'تقييم New على كورسك',
-      message: 'حصل كورس "Basic Physics" على تقييم 5 نجوم من الStudent أحمد محمد',
+      message: 'حصل كورس "Basic Physics" على تقييم 5 نجوم من الstudent Ahmed Mohamed',
       time: '10 دقائق',
       isRead: false,
       icon: Star
@@ -19,7 +19,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       id: 2,
       type: 'enrollment',
       title: 'تسجيل طلاب جدد',
-      message: '15 Student New انضموا لكورس "النسبية المتخصصة"',
+      message: '15 student New انضموا لكورس "النسبية المتخصصة"',
       time: '30 minutes',
       isRead: false,
       icon: Users

@@ -8,8 +8,8 @@ class DataSetupService {
     try {
       const courses = [
         {
-          title: 'Physics Basics للثانوية العامة',
-          description: 'كورس شامل يغطي جميع Physics Basics المطلوبة للثانوية العامة',
+          title: 'Physics Basics for High School',
+          description: 'Comprehensive course covering all required Physics Basics for high school',
           subject: 'physics',
           level: 'high_school',
           instructor_id: 'instructor_1',
@@ -17,19 +17,19 @@ class DataSetupService {
           price: 299,
           currency: 'EGP',
           thumbnail: '/images/physics-course.jpg',
-          tags: ['Physics', 'ثانوية عامة', 'أساسيات'],
+          tags: ['Physics', 'High School', 'Basics'],
           modules: [
-            'الميكانيكا',
-            'الحرارة والغازات',
-            'الكهرباء والمغناطيسية',
-            'الضوء والبصريات',
-            'Physics الحديثة'
+            'Mechanics',
+            'Heat and Gases',
+            'Electricity and Magnetism',
+            'Light and Optics',
+            'Modern Physics'
           ],
-          requirements: ['معرفة أساسية بMathematics', 'آلة حاسبة علمية'],
+          requirements: ['Basic knowledge of Mathematics', 'Scientific calculator'],
           learning_outcomes: [
-            'فهم القوانين الأساسية للPhysics',
-            'حل المسائل الفيزيائية بطريقة منهجية',
-            'تطبيق المفاهيم النظرية عملياً'
+            'Understanding basic Physics laws',
+            'Solving physics problems systematically',
+            'Applying theoretical concepts practically'
           ],
           status: 'active',
           featured: true,
@@ -37,8 +37,8 @@ class DataSetupService {
           updated_at: new Date().toISOString()
         },
         {
-          title: 'Mathematics الAdvancedة - الCalculus والIntegration',
-          description: 'دراسة معمقة للCalculus والIntegration مع التطبيقات العملية',
+          title: 'Advanced Mathematics - Calculus and Integration',
+          description: 'In-depth study of Calculus and Integration with practical applications',
           subject: 'mathematics',
           level: 'university',
           instructor_id: 'instructor_2',
@@ -48,17 +48,17 @@ class DataSetupService {
           thumbnail: '/images/math-course.jpg',
           tags: ['Mathematics', 'Calculus', 'Integration', 'University'],
           modules: [
-            'النهايات والاتصال',
-            'الCalculus',
-            'تطبيقات الCalculus',
-            'الIntegration',
-            'تطبيقات الIntegration',
-            'المعادلات الCalculusية'
+            'Limits and Continuity',
+            'Calculus',
+            'Calculus Applications',
+            'Integration',
+            'Integration Applications',
+            'المعادلات Calculusية'
           ],
           requirements: ['إتمام الجبر والهندسة بنجاح', 'معرفة جيدة بالدوال'],
           learning_outcomes: [
-            'إتقان مفاهيم الCalculus والIntegration',
-            'حل المعادلات الCalculusية',
+            'إتقان مفاهيم Calculus وIntegration',
+            'حل المعادلات Calculusية',
             'تطبيق المفاهيم في المسائل العملية'
           ],
           status: 'active',
@@ -85,7 +85,7 @@ class DataSetupService {
             'المركبات الأروماتية',
             'المجموعات الوظيفية'
           ],
-          requirements: ['أساسيات Chemistry العامة', 'معرفة بالجدول الدوري'],
+          requirements: ['Basics Chemistry العامة', 'معرفة بالجدول الدوري'],
           learning_outcomes: [
             'فهم بنية المركبات العضوية',
             'توقع نتائج التفاعلات العضوية',
@@ -119,8 +119,8 @@ class DataSetupService {
         // Physics Course Lessons
         {
           course_id: courseIds[0],
-          title: 'مقدمة في الميكانيكا',
-          description: 'التعرف على أساسيات الحركة والقوة',
+          title: 'مقدمة في Mechanics',
+          description: 'التعرف على Basics الحركة والقوة',
           order: 1,
           duration_minutes: 45,
           type: 'video',
@@ -201,8 +201,8 @@ class DataSetupService {
       const quizzes = [
         {
           course_id: courseIds[0],
-          title: 'Quiz أساسيات الميكانيكا',
-          description: 'Quiz شامل على أساسيات الميكانيكا',
+          title: 'Quiz Basics Mechanics',
+          description: 'Quiz شامل على Basics Mechanics',
           order: 1,
           time_limit_minutes: 30,
           total_questions: 10,
@@ -248,7 +248,7 @@ class DataSetupService {
       const sessions = [
         {
           title: 'مراجعة شاملة في Physics',
-          instructor_name: 'د. أحمد محمد',
+          instructor_name: 'د. Ahmed Mohamed',
           subject: 'physics',
           scheduled_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
           duration_minutes: 90,
@@ -261,14 +261,14 @@ class DataSetupService {
           created_at: new Date().toISOString()
         },
         {
-          title: 'حل مسائل الCalculus والIntegration',
+          title: 'حل مسائل Calculus وIntegration',
           instructor_name: 'د. فاطمة علي',
           subject: 'mathematics',
           scheduled_at: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // Day after tomorrow
           duration_minutes: 120,
           max_participants: 80,
           current_participants: 32,
-          description: 'جلسة تفاعلية لحل مسائل متنوعة في الCalculus والIntegration',
+          description: 'جلسة تفاعلية لحل مسائل متنوعة في Calculus وIntegration',
           meeting_url: 'https://meet.nexus.com/calculus-problems',
           status: 'scheduled',
           tags: ['Calculus', 'Integration', 'مسائل'],
@@ -306,7 +306,7 @@ class DataSetupService {
       const instructors = [
         {
           id: 'instructor_1',
-          name: 'د. أحمد محمد علي',
+          name: 'د. Ahmed Mohamed Ali',
           title: 'أستاذ Physics - University القاهرة',
           bio: 'دكتوراه في Physics النظرية مع خبرة 15 عام في التدريس الجامعي والثانوي',
           specialties: ['Physics', 'Mathematics', 'Physics نووية'],
@@ -322,7 +322,7 @@ class DataSetupService {
           id: 'instructor_2',
           name: 'د. فاطمة علي محمود',
           title: 'أستاذة Mathematics - University الأزهر',
-          bio: 'خبيرة في Applied Mathematics مع التركيز على الCalculus والIntegration والإحصاء',
+          bio: 'خبيرة في Applied Mathematics مع التركيز على Calculus وIntegration والإحصاء',
           specialties: ['Mathematics', 'إحصاء', 'تحليل عددي'],
           experience_years: 12,
           education: ['دكتوراه Mathematics - University الأزهر', 'ماجستير Mathematics تطبيقية - University القاهرة'],

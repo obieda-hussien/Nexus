@@ -142,19 +142,19 @@ const PayPalPaymentButton = ({
           <div className="space-y-3">
             <div className="flex justify-between items-center py-2">
               <span className="text-text-secondary">سعر الكورس:</span>
-              <span className="text-white font-medium">{paymentSummary.originalPrice} ج.م</span>
+              <span className="text-white font-medium">{paymentSummary.originalPrice} EGP</span>
             </div>
             <div className="flex justify-between items-center py-2">
-              <span className="text-text-secondary">المبلغ بالدولار:</span>
+              <span className="text-text-secondary">المبلغ بالUSD:</span>
               <span className="text-white font-medium">${paymentSummary.usdAmount}</span>
             </div>
             <div className="flex justify-between items-center py-2">
-              <span className="text-text-secondary">رسوم PayPal:</span>
+              <span className="text-text-secondary">PayPal fees:</span>
               <span className="text-yellow-400 font-medium">${paymentSummary.paypalFee}</span>
             </div>
             <div className="border-t border-glass-border pt-3">
               <div className="flex justify-between items-center">
-                <span className="text-white font-semibold">الTotal:</span>
+                <span className="text-white font-semibold">Total:</span>
                 <span className="text-neon-blue font-bold text-lg">${paymentSummary.totalUSD}</span>
               </div>
             </div>
@@ -163,7 +163,7 @@ const PayPalPaymentButton = ({
           <div className="mt-4 p-3 glass rounded-lg border border-neon-blue/20">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-neon-blue" />
-              <span className="text-sm text-neon-blue">الرسوم يدفعها الStudent - لا توجد رسوم على المنصة</span>
+              <span className="text-sm text-neon-blue">الرسوم paid by student - لا توجد رسوم على المنصة</span>
             </div>
           </div>
         </div>

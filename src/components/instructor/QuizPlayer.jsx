@@ -64,7 +64,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
   }, [quizStarted, quizCompleted, timeRemaining]);
 
   const handleTimeUp = () => {
-    toast.error('انتهى الوقت المحدد للكويز');
+    toast.error('انتهى الوقت المحدد للQuiz');
     submitQuiz();
   };
 
@@ -246,7 +246,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
       <div className="bg-white rounded-lg p-8 max-w-md mx-auto text-center">
         <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
         <h3 className="text-xl font-bold text-gray-900 mb-4">كلمة مرور مطلوبة</h3>
-        <p className="text-gray-600 mb-4">يتطلب هذا الكويز كلمة مرور للمتابعة</p>
+        <p className="text-gray-600 mb-4">يتطلب هذا الQuiz كلمة مرور للمتابعة</p>
         <input
           type="password"
           value={passwordInput}
@@ -259,7 +259,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
             onClick={startQuiz}
             className="flex-1 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
           >
-            بدء الكويز
+            بدء الQuiz
           </button>
           <button
             onClick={onClose}
@@ -317,9 +317,9 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">الكويز</h2>
+          <h2 className="text-xl font-bold text-gray-900">الQuiz</h2>
           <p className="text-gray-600 text-sm">
-            السؤال {currentQuestion + 1} من {quiz.questions.length}
+            الQuestion {currentQuestion + 1} من {quiz.questions.length}
           </p>
         </div>
         
@@ -350,7 +350,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           </div>
           <div className="flex justify-between text-sm text-gray-500 mt-2">
             <span>التقدم: {Math.round(getQuestionProgress())}%</span>
-            <span>تم الإجابة على {quiz.questions.filter(q => answers[q.id] !== undefined).length} من {quiz.questions.length}</span>
+            <span>تم الAnswer على {quiz.questions.filter(q => answers[q.id] !== undefined).length} من {quiz.questions.length}</span>
           </div>
         </div>
       )}
@@ -441,7 +441,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
               className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               <Trophy className="w-4 h-4" />
-              <span>إنهاء الكويز</span>
+              <span>إنهاء الQuiz</span>
             </button>
           ) : (
             <button
@@ -463,7 +463,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
     <div className="bg-white rounded-lg max-w-2xl mx-auto p-8">
       <div className="text-center mb-8">
         <Trophy className="w-16 h-16 text-blue-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">مرحباً بك في الكويز</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">مرحباً بك في الQuiz</h2>
         {quiz.settings?.description && (
           <p className="text-gray-600">{quiz.settings.description}</p>
         )}
@@ -481,7 +481,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{quiz.passingScore}%</div>
-          <div className="text-gray-600 text-sm">درجة النجاح</div>
+          <div className="text-gray-600 text-sm">Score النجاح</div>
         </div>
       </div>
 
@@ -500,7 +500,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
               <div key={index} className="flex justify-between text-sm text-yellow-800">
                 <span>المحاولة {previousAttempts.length - index}</span>
                 <span className={attempt.passed ? 'text-green-600' : 'text-red-600'}>
-                  {attempt.score}% {attempt.passed ? '(نجح)' : '(راسب)'}
+                  {attempt.score}% {attempt.passed ? '(Passed)' : '(راسب)'}
                 </span>
               </div>
             ))}
@@ -518,7 +518,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
           className="flex items-center space-x-2 space-x-reverse px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold"
         >
           <Play className="w-5 h-5" />
-          <span>بدء الكويز</span>
+          <span>بدء الQuiz</span>
         </button>
         <button
           onClick={onClose}
@@ -540,7 +540,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
         <div className="mb-4">
           <Trophy className={`w-20 h-20 mx-auto ${passed ? 'text-green-500' : 'text-red-500'}`} />
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">نتائج الكويز</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">نتائج الQuiz</h2>
         <div className="text-6xl font-bold mb-4 text-gray-900">
           {score}%
         </div>
@@ -549,7 +549,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
             ? 'bg-green-100 text-green-800' 
             : 'bg-red-100 text-red-800'
         }`}>
-          {passed ? 'مبروك! لقد نجحت' : 'للأسف لم تنجح'}
+          {passed ? 'مبروك! لقد Passedت' : 'للأسف لم تPassed'}
         </div>
       </div>
 
@@ -587,7 +587,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
 
       {!canRetry && !passed && (
         <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-center">
-          <p className="text-red-800">لقد استنفدت جميع المحاولات المتاحة لهذا الكويز</p>
+          <p className="text-red-800">لقد استنفدت جميع المحاولات المتاحة لهذا الQuiz</p>
         </div>
       )}
     </div>

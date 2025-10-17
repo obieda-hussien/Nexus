@@ -119,7 +119,7 @@ export class QuizService {
     if (submissions.length === 0) {
       return {
         totalAttempts: 0,
-        uniqueStudents: 0,
+        uniquestudents: 0,
         averageScore: 0,
         passingRate: 0,
         averageTime: 0,
@@ -131,7 +131,7 @@ export class QuizService {
       };
     }
 
-    const uniqueStudents = new Set(submissions.map(s => s.studentId)).size;
+    const uniquestudents = new Set(submissions.map(s => s.studentId)).size;
     const totalAttempts = submissions.length;
     const totalScore = submissions.reduce((sum, s) => sum + (s.score || 0), 0);
     const averageScore = Math.round(totalScore / totalAttempts);
@@ -153,7 +153,7 @@ export class QuizService {
 
     return {
       totalAttempts,
-      uniqueStudents,
+      uniquestudents,
       averageScore,
       passingRate,
       averageTime,
@@ -161,7 +161,7 @@ export class QuizService {
       questionStats,
       timeDistribution,
       scoreDistribution,
-      completionRate: Math.round((uniqueStudents / Math.max(uniqueStudents, 1)) * 100)
+      completionRate: Math.round((uniquestudents / Math.max(uniquestudents, 1)) * 100)
     };
   }
 
@@ -216,7 +216,7 @@ export class QuizService {
       { label: 'Less than 5 minutes', min: 0, max: 300 },
       { label: '5-10 minutes', min: 300, max: 600 },
       { label: '10-20 minutes', min: 600, max: 1200 },
-      { label: '20-30 دقائق', min: 1200, max: 1800 },
+      { label: '20-30 minutes', min: 1200, max: 1800 },
       { label: 'More than 30 minutes', min: 1800, max: Infinity }
     ];
 
@@ -339,7 +339,7 @@ export class QuizService {
    */
   static exportToCSV(analytics) {
     const headers = [
-      'Student ID',
+      'student ID',
       'Submission ID', 
       'Score (%)',
       'Time Spent (seconds)',

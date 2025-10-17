@@ -124,7 +124,7 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
             className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
             <option value="recent">Most Recent</option>
-            <option value="students">Student Count</option>
+            <option value="students">student Count</option>
             <option value="rating">Rating</option>
             <option value="revenue">Revenue</option>
           </select>
@@ -146,7 +146,7 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
             <p className="text-2xl font-bold text-white">
               {courses?.reduce((total, course) => total + (course.studentsCount || 0), 0) || 0}
             </p>
-            <p className="text-purple-200">Total Students</p>
+            <p className="text-purple-200">Total students</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">

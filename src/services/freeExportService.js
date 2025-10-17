@@ -1,7 +1,7 @@
-// Free Export Service for Nexus LMS
+// free Export Service for Nexus LMS
 // Uses native browser APIs for CSV and Excel export (100% free)
 
-export class FreeExportService {
+export class freeExportService {
   
   // Export data to CSV format (completely free)
   static exportToCSV(data, filename = 'export.csv', headers = null) {
@@ -198,7 +198,7 @@ export class FreeExportService {
       // Add monthly breakdown if available
       if (taxData.monthlyBreakdown) {
         exportData.push({
-          'Category': '--- Monthly Details ---',
+          'Category': '--- monthly Details ---',
           'Amount (EGP)': '',
           'Percentage': '',
           'Notes': ''
@@ -409,7 +409,7 @@ export class FreeExportService {
     const names = {
       stripe: 'بطاقة ائتمانية',
       paypal: 'PayPal',
-      fawry: 'Instant',
+      fawry: 'instant',
       vodafone: 'Vodafone Cash',
       bank: 'Bank Transfer'
     };
@@ -454,7 +454,7 @@ export class FreeExportService {
     return {
       available: true,
       formats: ['CSV', 'Excel'],
-      cost: 'Free 100%',
+      cost: 'free 100%',
       features: [
         'Export CSV محلي',
         'Export Excel متوافق', 
@@ -466,4 +466,4 @@ export class FreeExportService {
   }
 }
 
-export default FreeExportService;
+export default freeExportService;

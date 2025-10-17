@@ -57,8 +57,8 @@ class CourseService {
         courses = courses.filter(course => course.level === filters.level);
       }
       
-      if (filters.isFree !== undefined) {
-        courses = courses.filter(course => course.isFree === filters.isFree);
+      if (filters.isfree !== undefined) {
+        courses = courses.filter(course => course.isfree === filters.isfree);
       }
       
       if (filters.status) {
@@ -160,7 +160,7 @@ class CourseService {
   }
   
   // Enroll student in course
-  static async enrollStudent(userId, courseId, paymentData = null) {
+  static async enrollstudent(userId, courseId, paymentData = null) {
     try {
       const enrollmentRef = push(ref(db, 'enrollments'));
       const enrollmentId = enrollmentRef.key;
@@ -198,7 +198,7 @@ class CourseService {
         });
       }
       
-      console.log('✅ Student enrolled successfully:', enrollmentId);
+      console.log('✅ student enrolled successfully:', enrollmentId);
       return { success: true, enrollmentId, enrollment };
     } catch (error) {
       console.error('❌ Error enrolling student:', error);
@@ -207,7 +207,7 @@ class CourseService {
   }
   
   // Get student enrollments
-  static async getStudentEnrollments(userId) {
+  static async getstudentEnrollments(userId) {
     try {
       const enrollmentsRef = ref(db, 'enrollments');
       const enrollmentsQuery = query(enrollmentsRef, orderByChild('userId'), equalTo(userId));
@@ -290,7 +290,7 @@ class CourseService {
           success: true,
           stats: {
             totalEnrollments: 0,
-            completedStudents: 0,
+            completedstudents: 0,
             averageProgress: 0,
             totalRevenue: 0
           }
@@ -298,7 +298,7 @@ class CourseService {
       }
       
       const enrollments = Object.values(snapshot.val());
-      const completedStudents = enrollments.filter(e => e.progress >= 100).length;
+      const completedstudents = enrollments.filter(e => e.progress >= 100).length;
       const averageProgress = enrollments.reduce((sum, e) => sum + e.progress, 0) / enrollments.length;
       const totalRevenue = enrollments.reduce((sum, e) => sum + (e.amount || 0), 0);
       
@@ -306,7 +306,7 @@ class CourseService {
         success: true,
         stats: {
           totalEnrollments: enrollments.length,
-          completedStudents,
+          completedstudents,
           averageProgress: Math.round(averageProgress),
           totalRevenue
         }

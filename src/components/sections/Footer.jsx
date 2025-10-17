@@ -41,9 +41,9 @@ const Footer = () => {
       title: isRTL ? 'الدورات' : 'Courses',
       links: [
         { name: isRTL ? 'Basic Physics' : 'Basic Physics', href: '#' },
-        { name: isRTL ? 'Physics الAdvancedة' : 'Advanced Physics', href: '#' },
+        { name: isRTL ? 'Advanced Physics' : 'Advanced Physics', href: '#' },
         { name: isRTL ? 'Applied Mathematics' : 'Applied Mathematics', href: '#' },
-        { name: isRTL ? 'العلوم التجريبية' : 'Experimental Sciences', href: '#' }
+        { name: isRTL ? 'الScience التجريبية' : 'Experimental Sciences', href: '#' }
       ]
     },
     {
@@ -105,7 +105,7 @@ const Footer = () => {
   ];
 
   const stats = [
-    { icon: Users, value: '10K+', label: isRTL ? 'Student' : 'Students' },
+    { icon: Users, value: '10K+', label: isRTL ? 'student' : 'students' },
     { icon: BookOpen, value: '50+', label: isRTL ? 'دورة' : 'Courses' },
     { icon: Award, value: '25+', label: isRTL ? 'جائزة' : 'Awards' }
   ];
@@ -250,7 +250,7 @@ const Footer = () => {
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
             <h4 className="text-white font-semibold mb-4">
-              {isRTL ? 'معلومات التواصل' : 'Contact Info'}
+              {isRTL ? 'مScienceات التواصل' : 'Contact Info'}
             </h4>
             <div className="space-y-4">
               {contactInfo.map((contact, index) => {

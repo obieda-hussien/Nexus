@@ -85,28 +85,28 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
         <div className="grid md:grid-cols-4 gap-6">
           <EarningsCard
             title="Total Earnings"
-            value={`${totalEarnings.toLocaleString()} ج.م`}
+            value={`${totalEarnings.toLocaleString()} EGP`}
             icon={<DollarSign className="w-6 h-6" />}
             color="from-green-500 to-green-600"
             trend="+12%"
           />
           <EarningsCard
             title="الرصيد المتاح للسحب"
-            value={`${availableBalance.toLocaleString()} ج.م`}
+            value={`${availableBalance.toLocaleString()} EGP`}
             icon={<ArrowDown className="w-6 h-6" />}
             color="from-blue-500 to-blue-600"
             trend="+8%"
           />
           <EarningsCard
             title="Total المسحوب"
-            value={`${totalWithdrawn.toLocaleString()} ج.م`}
+            value={`${totalWithdrawn.toLocaleString()} EGP`}
             icon={<BarChart3 className="w-6 h-6" />}
             color="from-purple-500 to-purple-600"
             trend="+15%"
           />
           <EarningsCard
             title="طلبات Suspendedة"
-            value={`${pendingWithdrawals.toLocaleString()} ج.م`}
+            value={`${pendingWithdrawals.toLocaleString()} EGP`}
             icon={<Calendar className="w-6 h-6" />}
             color="from-orange-500 to-orange-600"
             trend="+3%"
@@ -121,7 +121,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 space-x-reverse transition-all"
             >
               <ArrowDown className="w-5 h-5" />
-              <span>طلب سحب أرباح</span>
+              <span>Withdrawal request أرباح</span>
             </button>
             <button
               onClick={() => onSwitchToSettings && onSwitchToSettings()}
@@ -150,7 +150,7 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
                 </div>
               </div>
               <div className="w-24 text-white text-sm font-medium text-left">
-                {data.amount.toLocaleString()} ج.م
+                {data.amount.toLocaleString()} EGP
               </div>
             </div>
           ))}
@@ -170,11 +170,11 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
                   </div>
                   <div>
                     <p className="text-white font-medium text-sm">{course.title}</p>
-                    <p className="text-purple-200 text-xs">{course.studentsCount} Student</p>
+                    <p className="text-purple-200 text-xs">{course.studentsCount} student</p>
                   </div>
                 </div>
                 <div className="text-green-400 font-semibold">
-                  {(course.totalRevenue || 0).toLocaleString()} ج.م
+                  {(course.totalRevenue || 0).toLocaleString()} EGP
                 </div>
               </div>
             ))}
@@ -186,29 +186,29 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">Total المبيعات</span>
-              <span className="text-white font-semibold">{totalEarnings.toLocaleString()} ج.م</span>
+              <span className="text-white font-semibold">{totalEarnings.toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">رسوم المنصة (10%)</span>
-              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.1).toLocaleString()} ج.م</span>
+              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.1).toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">الضرائب (5%)</span>
-              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} ج.م</span>
+              <span className="text-red-400 font-semibold">-{(totalEarnings * 0.05).toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">Total المسحوب</span>
-              <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} ج.م</span>
+              <span className="text-orange-400 font-semibold">-{totalWithdrawn.toLocaleString()} EGP</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-purple-200">طلبات Suspendedة</span>
-              <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} ج.م</span>
+              <span className="text-yellow-400 font-semibold">-{pendingWithdrawals.toLocaleString()} EGP</span>
             </div>
             <div className="border-t border-white/20 pt-3">
               <div className="flex justify-between items-center p-3 bg-green-600/20 rounded-lg">
                 <span className="text-white font-semibold">الرصيد المتاح للسحب</span>
                 <span className="text-green-400 font-bold text-lg">
-                  {availableBalance.toLocaleString()} ج.م
+                  {availableBalance.toLocaleString()} EGP
                 </span>
               </div>
             </div>
@@ -218,14 +218,14 @@ const EarningsTab = ({ earnings, courses, onSwitchToSettings }) => {
 
       {/* Payment Information */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-4">معلومات الدفع</h3>
+        <h3 className="text-xl font-semibold text-white mb-4">مScienceات الدفع</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h4 className="text-purple-200 mb-3">الدفع القادم</h4>
             <div className="bg-white/5 rounded-lg p-4">
-              <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} ج.م</p>
+              <p className="text-white font-semibold text-lg">{availableBalance.toLocaleString()} EGP</p>
               <p className="text-purple-200 text-sm">
-                {availableBalance >= 100 ? 'متاح للسحب الآن' : `Minimum للسحب 100 ج.م`}
+                {availableBalance >= 100 ? 'متاح للسحب الآن' : `Minimum للسحب 100 EGP`}
               </p>
             </div>
           </div>

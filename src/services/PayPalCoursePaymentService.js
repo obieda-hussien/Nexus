@@ -131,20 +131,20 @@ class PayPalCoursePaymentService {
         // Handle errors
         onError: (err) => {
           console.error('PayPal error:', err);
-          onError('An error occurred في عملية الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
+          onError('An error occurred during PayPal payment. Please try again.');
         },
 
         // Handle cancellation
         onCancel: (data) => {
           console.log('PayPal payment cancelled:', data);
-          this.showWarningToast('تم Cancel عملية الدفع');
+          this.showWarningToast('Payment was cancelled');
         }
 
       }).render(`#${containerId}`);
 
     } catch (error) {
       console.error('Error creating PayPal button:', error);
-      throw new Error('فشل في إنشاء زر الدفع. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.');
+      throw new Error('Failed to create payment button. Please check internet connection and try again.');
     }
   }
 
@@ -190,7 +190,7 @@ class PayPalCoursePaymentService {
       console.error('Payment capture error:', error);
       return {
         success: false,
-        error: error.message || 'فشل في Confirm الدفع'
+        error: error.message || 'Failed to confirm payment'
       };
     }
   }
@@ -233,7 +233,7 @@ class PayPalCoursePaymentService {
 
     } catch (error) {
       console.error('Error creating enrollment:', error);
-      throw new Error('فشل في تسجيل الاشتراك في الكورس');
+      throw new Error('Failed to register course enrollment');
     }
   }
 
@@ -343,7 +343,7 @@ class PayPalCoursePaymentService {
       paypalFee: paypalFee.toFixed(2),
       totalUSD: totalUSD.toFixed(2),
       exchangeRate: 31, // Mock rate
-      feeDescription: 'رسوم PayPal (3.4%) - يدفعها الStudent'
+      feeDescription: 'PayPal fees (3.4%) - paid by student'
     };
   }
 }
