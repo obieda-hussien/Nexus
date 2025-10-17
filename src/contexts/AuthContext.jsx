@@ -26,27 +26,19 @@ export const AuthProvider = ({ children }) => {
       const connected = await checkDatabaseConnection();
       setDatabaseConnected(connected);
       
-      if (!connected) {
-        console.warn('⚠️ Realtime Database connection failed. Check Firebase configuration and security rules.');
-      }
+      if (!connected) {      }
     };
     
     testConnection();
   }, []);
 
   // Sign up function with enhanced error handling
-  const signup = async (email, password, displayName) => {
-    console.log('🚀 Starting registration process...', { email, displayName });
-    
+  const signup = async (email, password, displayName) => {    
     try {
       // First create the authentication user
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('✅ User created in Firebase Auth:', user.uid);
-      
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);      
       // Update user profile in Firebase Auth
-      await updateProfile(user, { displayName });
-      console.log('✅ Profile updated in Firebase Auth');
-      
+      await updateProfile(user, { displayName });      
       // Create comprehensive user document in Realtime Database
       const userProfileData = {
         uid: user.uid,
@@ -74,19 +66,14 @@ export const AuthProvider = ({ children }) => {
         coursesCompleted: 0,
         achievementsUnlocked: [],
         learningStreak: 0
-      };
-      
-      console.log('📝 Attempting to save user profile to Realtime Database...', userProfileData);
-      
+      };      
       // Enhanced Realtime Database save with multiple fallback strategies
       let saveSuccess = false;
       
       try {
         // Primary save attempt
         const userRef = ref(db, `users/${user.uid}`);
-        await set(userRef, userProfileData);
-        console.log('✅ User profile saved to Realtime Database successfully');
-        saveSuccess = true;
+        await set(userRef, userProfileData);        saveSuccess = true;
       } catch (databaseError) {
         console.error('❌ Primary Realtime Database save failed:', databaseError);
         
@@ -101,9 +88,7 @@ export const AuthProvider = ({ children }) => {
           };
           
           const userRef = ref(db, `users/${user.uid}`);
-          await set(userRef, minimalProfile);
-          console.log('✅ Minimal user profile saved to Realtime Database');
-          saveSuccess = true;
+          await set(userRef, minimalProfile);          saveSuccess = true;
         } catch (minimalError) {
           console.error('❌ All Realtime Database save attempts failed:', minimalError);
           
@@ -120,12 +105,8 @@ export const AuthProvider = ({ children }) => {
       
       // Update local state regardless of Realtime Database save result
       if (saveSuccess) {
-        setUserProfile(userProfileData);
-        console.log('🎉 Registration completed successfully with data persistence');
-      } else {
-        setUserProfile(null);
-        console.warn('⚠️ Registration completed but profile data not saved. User can create profile manually.');
-      }
+        setUserProfile(userProfileData);      } else {
+        setUserProfile(null);      }
       
       return { user, profileSaved: saveSuccess };
     } catch (error) {
@@ -147,19 +128,13 @@ export const AuthProvider = ({ children }) => {
   // Sign in function with profile sync
   const signin = async (email, password) => {
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log('✅ User signed in:', user.uid);
-      
+      const { user } = await signInWithEmailAndPassword(auth, email, password);      
       // Update last login if possible
       try {
         const userRef = ref(db, `users/${user.uid}`);
         await update(userRef, {
           lastLogin: new Date().toISOString()
-        });
-        console.log('✅ Last login time updated');
-      } catch (error) {
-        console.warn('⚠️ Could not update last login time:', error);
-      }
+        });      } catch (error) {      }
       
       // Fetch and update user profile
       const profile = await getUserProfile(user.uid);
@@ -182,9 +157,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Sign out function
-  const logout = () => {
-    console.log('🚪 User signing out...');
-    return signOut(auth);
+  const logout = () => {    return signOut(auth);
   };
 
   // Reset password function
@@ -194,18 +167,12 @@ export const AuthProvider = ({ children }) => {
 
   // Get user profile from Realtime Database with enhanced error handling
   const getUserProfile = async (userId) => {
-    try {
-      console.log('📖 Fetching user profile for:', userId);
-      const userRef = ref(db, `users/${userId}`);
+    try {      const userRef = ref(db, `users/${userId}`);
       const snapshot = await get(userRef);
       
       if (snapshot.exists()) {
-        const userData = snapshot.val();
-        console.log('✅ User profile fetched successfully:', userData.displayName);
-        return userData;
-      } else {
-        console.log('📭 No user profile found in Realtime Database for:', userId);
-        return null;
+        const userData = snapshot.val();        return userData;
+      } else {        return null;
       }
     } catch (error) {
       console.error('❌ Error fetching user profile:', error);
@@ -253,14 +220,9 @@ export const AuthProvider = ({ children }) => {
         coursesCompleted: userData.coursesCompleted || 0,
         achievementsUnlocked: userData.achievementsUnlocked || [],
         learningStreak: userData.learningStreak || 0
-      };
-      
-      console.log('📝 Creating/updating user profile:', userProfileData.displayName);
-      const userRef = ref(db, `users/${currentUser.uid}`);
+      };      const userRef = ref(db, `users/${currentUser.uid}`);
       await update(userRef, userProfileData);
-      setUserProfile(userProfileData);
-      console.log('✅ User profile created/updated successfully');
-      
+      setUserProfile(userProfileData);      
       return userProfileData;
     } catch (error) {
       console.error('❌ Error creating user profile:', error);
@@ -284,10 +246,7 @@ export const AuthProvider = ({ children }) => {
         completed: progress.completed,
         completedAt: progress.completed ? new Date().toISOString() : null,
         timeSpent: progress.timeSpent || 0
-      });
-      
-      console.log('✅ Progress updated for lesson:', lessonId);
-    } catch (error) {
+      });    } catch (error) {
       console.error('❌ Error updating progress:', error);
     }
   };
@@ -310,9 +269,7 @@ export const AuthProvider = ({ children }) => {
           [`enrolledAt/${courseId}`]: new Date().toISOString()
         };
         
-        await update(userRef, updates);
-        console.log('✅ Enrolled in course:', courseId);
-      }
+        await update(userRef, updates);      }
     } catch (error) {
       console.error('❌ Error enrolling in course:', error);
     }
@@ -325,9 +282,7 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
     
-    try {
-      console.log('🔄 Updating user role to:', newRole);
-      const userRef = ref(db, `users/${currentUser.uid}`);
+    try {      const userRef = ref(db, `users/${currentUser.uid}`);
       
       const updates = {
         role: newRole,
@@ -356,10 +311,7 @@ export const AuthProvider = ({ children }) => {
           roleUpdatedAt: new Date().toISOString(),
           ...(newRole === 'instructor' && { instructorProfile: updates.instructorProfile })
         }));
-      }
-      
-      console.log('✅ User role updated successfully to:', newRole);
-      return true;
+      }      return true;
     } catch (error) {
       console.error('❌ Error updating user role:', error);
       
@@ -392,36 +344,24 @@ export const AuthProvider = ({ children }) => {
     }
 
     const success = await updateUserRole('instructor');
-    if (success) {
-      console.log('🎉 Successfully became instructor');
-      return true;
+    if (success) {      return true;
     } else {
       throw new Error('Failure in ترقية Account لInstructor. Please المحاولة مرة أخرى');
     }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('🔄 Auth state changed:', user?.uid || 'No user');
-      
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {      
       if (user) {
-        setCurrentUser(user);
-        console.log('👤 Loading user profile...');
-        
+        setCurrentUser(user);        
         const profile = await getUserProfile(user.uid);
         
         if (profile) {
-          setUserProfile(profile);
-          console.log('✅ User profile loaded:', profile.displayName);
-        } else {
-          console.log('📭 No profile found - user may need to create one manually');
-          setUserProfile(null);
+          setUserProfile(profile);        } else {          setUserProfile(null);
         }
       } else {
         setCurrentUser(null);
-        setUserProfile(null);
-        console.log('🚪 User logged out');
-      }
+        setUserProfile(null);      }
       
       setLoading(false);
     });

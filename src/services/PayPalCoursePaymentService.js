@@ -30,7 +30,6 @@ class PayPalCoursePaymentService {
         intent: 'capture'
       });
 
-      console.log('✅ PayPal SDK loaded successfully');
       return this.paypalInstance;
     } catch (error) {
       console.error('❌ Failed to load PayPal SDK:', error);
@@ -62,7 +61,6 @@ class PayPalCoursePaymentService {
         // Create order on PayPal
         createOrder: async (data, actions) => {
           try {
-            console.log('Creating PayPal order...');
             
             return actions.order.create({
               purchase_units: [{
@@ -90,7 +88,6 @@ class PayPalCoursePaymentService {
         // Handle approval
         onApprove: async (data, actions) => {
           try {
-            console.log('PayPal payment approved, processing...');
             
             // Show loading state
             const loadingToast = this.showLoadingToast('Processing PayPal payment...');
@@ -116,7 +113,6 @@ class PayPalCoursePaymentService {
               // Update instructor earnings
               await this.updateInstructorEarnings(captureResult.transactionData);
               
-              console.log('✅ PayPal payment completed successfully');
               onSuccess(captureResult);
             } else {
               throw new Error(captureResult.error || 'Payment capture failed');
@@ -136,7 +132,6 @@ class PayPalCoursePaymentService {
 
         // Handle cancellation
         onCancel: (data) => {
-          console.log('PayPal payment cancelled:', data);
           this.showWarningToast('Payment was cancelled');
         }
 
@@ -154,7 +149,6 @@ class PayPalCoursePaymentService {
       // In a real implementation, this would call your backend API
       // For demo purposes, we'll simulate a successful capture
       
-      console.log('Capturing PayPal payment:', orderID);
       
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -228,7 +222,6 @@ class PayPalCoursePaymentService {
         transactionId: transactionData.id
       });
 
-      console.log('✅ Enrollment created successfully:', enrollmentId);
       return { success: true, enrollmentId };
 
     } catch (error) {
@@ -279,7 +272,6 @@ class PayPalCoursePaymentService {
           lastSaleDate: new Date().toISOString()
         });
 
-        console.log('✅ Instructor earnings updated:', instructorShare);
       }
 
     } catch (error) {
@@ -320,14 +312,12 @@ class PayPalCoursePaymentService {
   static showLoadingToast(message) {
     // This would integrate with your existing toast system
     // For now, return a mock object
-    console.log('Loading:', message);
     return {
       close: () => console.log('Loading finished')
     };
   }
 
   static showWarningToast(message) {
-    console.log('Warning:', message);
   }
 
   // Get course purchase summary with PayPal fees

@@ -26,7 +26,6 @@ export class EmailJSNotificationService {
   static async sendPayoutNotification(instructorData, payoutData) {
     try {
       if (!this.isConfigured()) {
-        console.warn('EmailJS not configured, skipping email notification');
         return { success: false, reason: 'service_not_configured' };
       }
 
@@ -65,7 +64,6 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ Payout notification sent successfully via EmailJS:', response);
       return { 
         success: true, 
         messageId: response.text,
@@ -95,7 +93,6 @@ export class EmailJSNotificationService {
   static async sendCoursePaymentNotification(instructorData, courseData, studentData, paymentData) {
     try {
       if (!this.isConfigured()) {
-        console.warn('EmailJS not configured, using browser notification');
         await this.sendBrowserNotification({
           title: 'New Sale!',
           body: `Purchased كورس ${courseData.title} by ${studentData.displayName}`,
@@ -137,7 +134,6 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ Course payment notification sent successfully:', response);
       return { success: true, messageId: response.text };
 
     } catch (error) {
@@ -158,7 +154,6 @@ export class EmailJSNotificationService {
   static async sendmonthlyEarningsReport(instructorData, reportData) {
     try {
       if (!this.isConfigured()) {
-        console.warn('EmailJS not configured, skipping monthly report');
         return { success: false, reason: 'service_not_configured' };
       }
 
@@ -194,7 +189,6 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ monthly report sent successfully:', response);
       return { success: true, messageId: response.text };
 
     } catch (error) {
@@ -207,7 +201,6 @@ export class EmailJSNotificationService {
   static async sendWelcomeInstructor(instructorData) {
     try {
       if (!this.isConfigured()) {
-        console.warn('EmailJS not configured, skipping welcome email');
         return { success: false, reason: 'service_not_configured' };
       }
 
@@ -234,7 +227,6 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ Welcome email sent successfully:', response);
       return { success: true, messageId: response.text };
 
     } catch (error) {
@@ -250,7 +242,6 @@ export class EmailJSNotificationService {
       if (Notification.permission === 'default') {
         const permission = await Notification.requestPermission();
         if (permission !== 'granted') {
-          console.log('Notification permission denied');
           return { success: false, reason: 'permission_denied' };
         }
       }
@@ -268,7 +259,6 @@ export class EmailJSNotificationService {
         // Auto close after 5 seconds
         setTimeout(() => notification.close(), 5000);
 
-        console.log('✅ Browser notification sent successfully');
         return { success: true };
       }
 
@@ -357,7 +347,6 @@ export class EmailJSNotificationService {
         templateParams
       );
 
-      console.log('✅ Test email sent successfully:', response);
       return { 
         success: true, 
         messageId: response.text,
