@@ -26,18 +26,18 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
   };
 
   const handleDeleteCourse = async (courseId) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذا الكورس نهائياً؟ لا يمكن التراجع عن هذا الإجراء.')) {
+    if (!window.confirm('Are you sure you want to permanently delete this course? This action cannot be undone.')) {
       return;
     }
 
     try {
       await remove(ref(db, `courses/${courseId}`));
-      toast.success('تم حذف الكورس بنجاح');
+      toast.success('Course deleted successfully');
       if (onDeleteCourse) {
         onDeleteCourse(courseId);
       }
     } catch (error) {
-      toast.error('حدث خطأ في حذف الكورس');
+      toast.error('Error deleting course');
       console.error(error);
     }
   };
@@ -79,13 +79,13 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
   const getStatusText = (status) => {
     switch (status) {
       case 'published':
-        return 'منشور';
+        return 'Published';
       case 'pending':
-        return 'في المراجعة';
+        return 'Under Review';
       case 'draft':
-        return 'مسودة';
+        return 'Draft';
       default:
-        return 'غير محدد';
+        return 'Undefined';
     }
   };
 
@@ -93,14 +93,14 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h2 className="text-2xl font-bold text-white mb-4">إدارة الكورسات</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">Courses Management</h2>
         
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1 min-w-64">
             <input
               type="text"
-              placeholder="البحث عن كورس..."
+              placeholder="Search for a course..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
@@ -112,10 +112,10 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
             onChange={(e) => setStatusFilter(e.target.value)}
             className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="all">جميع الحالات</option>
-            <option value="published">منشور</option>
-            <option value="pending">في المراجعة</option>
-            <option value="draft">مسودة</option>
+            <option value="all">All Status</option>
+            <option value="published">Published</option>
+            <option value="pending">Under Review</option>
+            <option value="draft">Draft</option>
           </select>
           
           <select
@@ -123,10 +123,10 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
             onChange={(e) => setSortBy(e.target.value)}
             className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
           >
-            <option value="recent">الأحدث</option>
-            <option value="students">عدد الطلاب</option>
-            <option value="rating">التقييم</option>
-            <option value="revenue">الإيرادات</option>
+            <option value="recent">Most Recent</option>
+            <option value="students">Student Count</option>
+            <option value="rating">Rating</option>
+            <option value="revenue">Revenue</option>
           </select>
         </div>
 
@@ -134,25 +134,25 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
         <div className="grid md:grid-cols-4 gap-4">
           <div className="text-center">
             <p className="text-2xl font-bold text-white">{courses?.length || 0}</p>
-            <p className="text-purple-200">إجمالي الكورسات</p>
+            <p className="text-purple-200">Total Courses</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
               {courses?.filter(c => c.status === 'published').length || 0}
             </p>
-            <p className="text-purple-200">كورسات منشورة</p>
+            <p className="text-purple-200">Published Courses</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
               {courses?.reduce((total, course) => total + (course.studentsCount || 0), 0) || 0}
             </p>
-            <p className="text-purple-200">إجمالي الطلاب</p>
+            <p className="text-purple-200">Total Students</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
-              {courses?.reduce((total, course) => total + (course.totalRevenue || 0), 0).toLocaleString() || 0} ج.م
+              {courses?.reduce((total, course) => total + (course.totalRevenue || 0), 0).toLocaleString() || 0} EGP
             </p>
-            <p className="text-purple-200">إجمالي الإيرادات</p>
+            <p className="text-purple-200">Total Revenue</p>
           </div>
         </div>
       </div>
@@ -177,8 +177,8 @@ const CoursesTab = ({ courses, onEditCourse, onDeleteCourse, onUpdateCourse }) =
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <p className="text-white text-xl mb-2">لا توجد كورسات</p>
-            <p className="text-purple-200">ابدأ بإنشاء أول كورس لك</p>
+            <p className="text-white text-xl mb-2">No courses found</p>
+            <p className="text-purple-200">Start by creating your first course</p>
           </div>
         )}
       </div>
@@ -228,16 +228,16 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
           <div className="flex items-center space-x-4 space-x-reverse text-sm text-purple-300 mb-2">
             <div className="flex items-center space-x-1 space-x-reverse">
               <BookOpen className="w-4 h-4" />
-              <span>{stats.sections} وحدة</span>
+              <span>{stats.sections} units</span>
             </div>
             <div className="flex items-center space-x-1 space-x-reverse">
               <span>•</span>
-              <span>{stats.lessons} درس</span>
+              <span>{stats.lessons} lessons</span>
             </div>
             {stats.duration > 0 && (
               <div className="flex items-center space-x-1 space-x-reverse">
                 <span>•</span>
-                <span>{stats.duration} دقيقة</span>
+                <span>{stats.duration} minutes</span>
               </div>
             )}
           </div>
@@ -261,7 +261,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
                 className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Edit3 className="w-4 h-4" />
-                <span>تعديل المحتوى</span>
+                <span>Edit Content</span>
               </button>
               <button
                 onClick={() => {
@@ -272,7 +272,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
                 className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Eye className="w-4 h-4" />
-                <span>معاينة</span>
+                <span>Preview</span>
               </button>
               <button
                 onClick={() => {
@@ -283,7 +283,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
                 className="w-full text-right px-4 py-2 text-white hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Settings className="w-4 h-4" />
-                <span>إعدادات</span>
+                <span>Settings</span>
               </button>
               <hr className="border-gray-700" />
               <button
@@ -294,7 +294,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
                 className="w-full text-right px-4 py-2 text-red-400 hover:bg-gray-700 flex items-center space-x-2 space-x-reverse transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
-                <span>حذف نهائياً</span>
+                <span>Delete Permanently</span>
               </button>
             </div>
           )}
@@ -305,7 +305,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
       <div className="grid md:grid-cols-4 gap-4 mb-4">
         <div className="flex items-center space-x-2 space-x-reverse text-gray-300">
           <Users className="w-4 h-4" />
-          <span className="text-sm">{course.studentsCount || 0} طالب</span>
+          <span className="text-sm">{course.studentsCount || 0} students</span>
         </div>
         <div className="flex items-center space-x-2 space-x-reverse text-yellow-400">
           <Star className="w-4 h-4 fill-current" />
@@ -313,10 +313,10 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
         </div>
         <div className="flex items-center space-x-2 space-x-reverse text-green-400">
           <DollarSign className="w-4 h-4" />
-          <span className="text-sm">{course.totalRevenue?.toLocaleString() || 0} ج.م</span>
+          <span className="text-sm">{course.totalRevenue?.toLocaleString() || 0} EGP</span>
         </div>
         <div className="text-gray-400 text-sm">
-          آخر تحديث: {course.updatedAt ? new Date(course.updatedAt).toLocaleDateString('ar-EG') : 'غير محدد'}
+          Last update: {course.updatedAt ? new Date(course.updatedAt).toLocaleDateString('en-US') : 'Undefined'}
         </div>
       </div>
 

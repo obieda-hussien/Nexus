@@ -5,55 +5,42 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 
 const Courses = () => {
-  const [isRTL, setIsRTL] = useState(false);
-
-  useEffect(() => {
-    const dir = document.documentElement.getAttribute('dir');
-    setIsRTL(dir === 'rtl');
-  }, []);
-
   const courses = [
     {
       id: 1,
-      title: isRTL ? 'الفيزياء الأساسية' : 'Basic Physics',
-      description: isRTL 
-        ? 'تعلم أساسيات الفيزياء من القوانين البسيطة إلى المفاهيم المتقدمة'
-        : 'Learn physics fundamentals from simple laws to advanced concepts',
-      level: isRTL ? 'مبتدئ' : 'Beginner',
-      duration: isRTL ? '8 أسابيع' : '8 weeks',
+      title: 'Basic Physics',
+      description: 'Learn physics fundamentals from simple laws to advanced concepts',
+      level: 'Beginner',
+      duration: '8 weeks',
       students: 1250,
       rating: 4.8,
-      price: isRTL ? '199 ريال' : '$199',
+      price: '$199',
       image: '🔬',
       color: 'from-blue-500 to-purple-600',
       icon: BookOpen
     },
     {
       id: 2,
-      title: isRTL ? 'الفيزياء المتقدمة' : 'Advanced Physics',
-      description: isRTL 
-        ? 'استكشف المفاهيم المتقدمة في الفيزياء النظرية والتطبيقية'
-        : 'Explore advanced concepts in theoretical and applied physics',
-      level: isRTL ? 'متقدم' : 'Advanced',
-      duration: isRTL ? '12 أسبوع' : '12 weeks',
+      title: 'Advanced Physics',
+      description: 'Explore advanced concepts in theoretical and applied physics',
+      level: 'Advanced',
+      duration: '12 weeks',
       students: 875,
       rating: 4.9,
-      price: isRTL ? '299 ريال' : '$299',
+      price: '$299',
       image: '⚛️',
       color: 'from-purple-500 to-pink-600',
       icon: Zap
     },
     {
       id: 3,
-      title: isRTL ? 'الرياضيات التطبيقية' : 'Applied Mathematics',
-      description: isRTL 
-        ? 'طبق الرياضيات في حل المسائل الفيزيائية والهندسية'
-        : 'Apply mathematics to solve physics and engineering problems',
-      level: isRTL ? 'متوسط' : 'Intermediate',
-      duration: isRTL ? '10 أسابيع' : '10 weeks',
+      title: 'Applied Mathematics',
+      description: 'Apply mathematics to solve physics and engineering problems',
+      level: 'Intermediate',
+      duration: '10 weeks',
       students: 950,
       rating: 4.7,
-      price: isRTL ? '249 ريال' : '$249',
+      price: '$249',
       image: '📊',
       color: 'from-green-500 to-blue-600',
       icon: Target
@@ -92,14 +79,11 @@ const Courses = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">
-              {isRTL ? 'دوراتنا التعليمية' : 'Our Courses'}
+              Our Courses
             </span>
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
-            {isRTL 
-              ? 'اختر من مجموعة متنوعة من الدورات المصممة لتناسب جميع المستويات التعليمية'
-              : 'Choose from a variety of courses designed to suit all educational levels'
-            }
+            Choose from a variety of courses designed to suit all educational levels
           </p>
         </motion.div>
 
@@ -160,13 +144,13 @@ const Courses = () => {
                         <Star className="w-4 h-4 text-yellow-400 fill-current" aria-hidden="true" />
                         <span className="text-white font-medium">{course.rating}</span>
                         <span className="text-text-secondary text-sm">
-                          ({course.students} {isRTL ? 'طالب' : 'students'})
+                          ({course.students} students)
                         </span>
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        course.level === 'Beginner' || course.level === 'مبتدئ' 
+                        course.level === 'Beginner'
                           ? 'bg-green-500/20 text-green-400'
-                          : course.level === 'Intermediate' || course.level === 'متوسط'
+                          : course.level === 'Intermediate'
                           ? 'bg-yellow-500/20 text-yellow-400'
                           : 'bg-red-500/20 text-red-400'
                       }`}>
@@ -183,9 +167,9 @@ const Courses = () => {
                         variant="primary" 
                         size="sm" 
                         className="group/btn"
-                        aria-label={`${isRTL ? 'سجل في دورة' : 'Enroll in'} ${course.title}`}
+                        aria-label={`Enroll in ${course.title}`}
                       >
-                        <span>{isRTL ? 'التسجيل' : 'Enroll'}</span>
+                        <span>Enroll</span>
                         <motion.div
                           className="w-0 group-hover/btn:w-4 overflow-hidden transition-all duration-300"
                         >
@@ -209,7 +193,7 @@ const Courses = () => {
           viewport={{ once: true }}
         >
           <Button variant="gradient" size="lg">
-            {isRTL ? 'عرض جميع الدورات' : 'View All Courses'}
+            View All Courses
           </Button>
         </motion.div>
       </div>

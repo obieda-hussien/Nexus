@@ -30,25 +30,25 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
       {/* Stats Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          title="إجمالي الكورسات"
+          title="Total Courses"
           value={stats.totalCourses}
           icon={<BookOpen className="w-6 h-6" />}
           color="from-blue-500 to-blue-600"
         />
         <StatCard
-          title="الطلاب المسجلين"
+          title="Enrolled Students"
           value={stats.totalStudents}
           icon={<Users className="w-6 h-6" />}
           color="from-green-500 to-green-600"
         />
         <StatCard
-          title="إجمالي الأرباح"
-          value={`${stats.totalEarnings} جنيه`}
+          title="Total Earnings"
+          value={`${stats.totalEarnings} EGP`}
           icon={<DollarSign className="w-6 h-6" />}
           color="from-yellow-500 to-orange-500"
         />
         <StatCard
-          title="تقييم الطلاب"
+          title="Student Rating"
           value={stats.averageRating.toFixed(1)}
           icon={<Star className="w-6 h-6" />}
           color="from-purple-500 to-pink-500"
@@ -57,20 +57,20 @@ const OverviewTab = ({ instructorData, courses, students, earnings }) => {
 
       {/* Course Status Overview */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h2 className="text-xl font-semibold text-white mb-4">حالة الكورسات</h2>
+        <h2 className="text-xl font-semibold text-white mb-4">Course Status</h2>
         <div className="grid md:grid-cols-3 gap-4">
           <CourseStatusCard
-            title="كورسات منشورة"
+            title="Published Courses"
             count={stats.publishedCourses}
             color="bg-green-500"
           />
           <CourseStatusCard
-            title="في انتظار المراجعة"
+            title="Pending Review"
             count={stats.pendingCourses}
             color="bg-yellow-500"
           />
           <CourseStatusCard
-            title="مسودات"
+            title="Drafts"
             count={stats.draftCourses}
             color="bg-gray-500"
           />
@@ -110,22 +110,22 @@ const CourseStatusCard = ({ title, count, color }) => (
 
 const RecentEnrollments = ({ students }) => (
   <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-    <h3 className="text-xl font-semibold text-white mb-4">التسجيلات الأخيرة</h3>
+    <h3 className="text-xl font-semibold text-white mb-4">Recent Enrollments</h3>
     <div className="space-y-3">
       {students.length > 0 ? (
         students.map((student, index) => (
           <div key={index} className="flex items-center space-x-3 space-x-reverse p-3 bg-white/5 rounded-lg">
             <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-semibold">
-              {student.userName?.charAt(0) || 'ط'}
+              {student.userName?.charAt(0) || 'S'}
             </div>
             <div className="flex-1">
-              <p className="text-white font-medium">{student.userName || 'طالب جديد'}</p>
-              <p className="text-purple-200 text-sm">{student.enrolledAt ? new Date(student.enrolledAt).toLocaleDateString('ar-EG') : 'اليوم'}</p>
+              <p className="text-white font-medium">{student.userName || 'New Student'}</p>
+              <p className="text-purple-200 text-sm">{student.enrolledAt ? new Date(student.enrolledAt).toLocaleDateString('en-US') : 'Today'}</p>
             </div>
           </div>
         ))
       ) : (
-        <p className="text-purple-200 text-center py-4">لا توجد تسجيلات حديثة</p>
+        <p className="text-purple-200 text-center py-4">No recent enrollments</p>
       )}
     </div>
   </div>
@@ -133,23 +133,23 @@ const RecentEnrollments = ({ students }) => (
 
 const QuickActions = () => (
   <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-    <h3 className="text-xl font-semibold text-white mb-4">إجراءات سريعة</h3>
+    <h3 className="text-xl font-semibold text-white mb-4">Quick Actions</h3>
     <div className="grid grid-cols-2 gap-4">
       <button className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg transition-colors">
         <Video className="h-6 w-6 mx-auto mb-2" />
-        <span className="text-sm">جلسة مباشرة</span>
+        <span className="text-sm">Live Session</span>
       </button>
       <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-lg transition-colors">
         <FileText className="h-6 w-6 mx-auto mb-2" />
-        <span className="text-sm">درس جديد</span>
+        <span className="text-sm">New Lesson</span>
       </button>
       <button className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg transition-colors">
         <MessageSquare className="h-6 w-6 mx-auto mb-2" />
-        <span className="text-sm">الرسائل</span>
+        <span className="text-sm">Messages</span>
       </button>
       <button className="bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-lg transition-colors">
         <Award className="h-6 w-6 mx-auto mb-2" />
-        <span className="text-sm">التقارير</span>
+        <span className="text-sm">Reports</span>
       </button>
     </div>
   </div>

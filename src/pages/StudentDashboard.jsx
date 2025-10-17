@@ -39,88 +39,88 @@ const StudentDashboard = () => {
   const [enrolledCourses] = useState([
     {
       id: 1,
-      title: 'الفيزياء الأساسية',
-      instructor: 'د. أحمد محمد',
+      title: 'Basic Physics',
+      instructor: 'Dr. Ahmed Mohamed',
       progress: 85,
       totalLessons: 24,
       completedLessons: 20,
-      nextLesson: 'قوانين نيوتن للحركة',
+      nextLesson: "Newton's Laws of Motion",
       rating: 4.8,
-      duration: '8 أسابيع',
+      duration: '8 weeks',
       certificate: false,
       lastAccessed: '2024-12-28'
     },
     {
       id: 2,
-      title: 'الرياضيات التطبيقية',
-      instructor: 'أ.د. سارة أحمد',
+      title: 'Applied Mathematics',
+      instructor: 'Prof. Sarah Ahmed',
       progress: 60,
       totalLessons: 30,
       completedLessons: 18,
-      nextLesson: 'التفاضل الجزئي',
+      nextLesson: 'Partial Derivatives',
       rating: 4.9,
-      duration: '10 أسابيع',
+      duration: '10 weeks',
       certificate: false,
       lastAccessed: '2024-12-27'
     },
     {
       id: 3,
-      title: 'الفيزياء المتقدمة',
-      instructor: 'د. محمد حسن',
+      title: 'Advanced Physics',
+      instructor: 'Dr. Mohamed Hassan',
       progress: 100,
       totalLessons: 20,
       completedLessons: 20,
       nextLesson: null,
       rating: 4.7,
-      duration: '12 أسبوع',
+      duration: '12 weeks',
       certificate: true,
       lastAccessed: '2024-12-25'
     }
   ]);
 
   const [recentActivities] = useState([
-    { id: 1, type: 'lesson', message: 'أكملت درس "قوانين نيوتن" في الفيزياء الأساسية', time: '30 دقيقة', icon: Play },
-    { id: 2, type: 'achievement', message: 'حصلت على شارة "المتفوق الأسبوعي"', time: '1 ساعة', icon: Award },
-    { id: 3, type: 'quiz', message: 'نجحت في اختبار الرياضيات بدرجة 95%', time: '2 ساعة', icon: Target },
-    { id: 4, type: 'certificate', message: 'حصلت على شهادة الفيزياء المتقدمة', time: '1 يوم', icon: Trophy },
-    { id: 5, type: 'discussion', message: 'شاركت في نقاش حول نظرية النسبية', time: '2 يوم', icon: MessageSquare }
+    { id: 1, type: 'lesson', message: 'Completed lesson "Newton\'s Laws" in Basic Physics', time: '30 minutes', icon: Play },
+    { id: 2, type: 'achievement', message: 'Earned badge "Weekly Top Performer"', time: '1 hour', icon: Award },
+    { id: 3, type: 'quiz', message: 'Passed Mathematics test with 95%', time: '2 hours', icon: Target },
+    { id: 4, type: 'certificate', message: 'Earned Advanced Physics certificate', time: '1 day', icon: Trophy },
+    { id: 5, type: 'discussion', message: 'Participated in discussion about Theory of Relativity', time: '2 days', icon: MessageSquare }
   ]);
 
   const [upcomingEvents] = useState([
     {
       id: 1,
-      title: 'محاضرة مباشرة: ميكانيكا الكم',
-      course: 'الفيزياء المتقدمة',
+      title: 'Live Lecture: Quantum Mechanics',
+      course: 'Advanced Physics',
       date: '2024-12-29',
       time: '20:00',
-      duration: '2 ساعة',
+      duration: '2 hours',
       type: 'live'
     },
     {
       id: 2,
-      title: 'اختبار نصف الترم',
-      course: 'الرياضيات التطبيقية',
+      title: 'Midterm Exam',
+      course: 'Applied Mathematics',
       date: '2024-12-30',
       time: '18:00',
-      duration: '1.5 ساعة',
+      duration: '1.5 hours',
       type: 'exam'
     },
     {
       id: 3,
-      title: 'ورشة حل المسائل',
-      course: 'الفيزياء الأساسية',
+      title: 'Problem Solving Workshop',
+      course: 'Basic Physics',
       date: '2025-01-02',
       time: '19:00',
-      duration: '1 ساعة',
+      duration: '1 hour',
       type: 'workshop'
     }
   ]);
 
   const [achievements] = useState([
-    { name: 'المتعلم النشط', description: 'أكمل 10 دروس متتالية', earned: true },
-    { name: 'الطالب المثالي', description: 'حافظ على معدل 95% أو أكثر', earned: true },
-    { name: 'المناقش المتميز', description: 'شارك في 50 نقاش', earned: false },
-    { name: 'خبير الفيزياء', description: 'أكمل 5 كورسات فيزياء', earned: false }
+    { name: 'Active Learner', description: 'Complete 10 consecutive lessons', earned: true },
+    { name: 'Model Student', description: 'Maintain average of 95% or higher', earned: true },
+    { name: 'Distinguished Discussant', description: 'Participate in 50 discussions', earned: false },
+    { name: 'Physics Expert', description: 'Complete 5 physics courses', earned: false }
   ]);
 
   useEffect(() => {
@@ -144,9 +144,9 @@ const StudentDashboard = () => {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-white mb-2">
-              مرحباً، {currentUser?.displayName || 'الطالب'}
+              Welcome, {currentUser?.displayName || 'Student'}
             </h1>
-            <p className="text-gray-300">استمر في رحلتك التعليمية واحقق أهدافك الأكاديمية</p>
+            <p className="text-gray-300">Continue your educational journey and achieve your academic goals</p>
           </div>
 
           {/* Key Statistics */}
@@ -154,9 +154,9 @@ const StudentDashboard = () => {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-100 text-sm">الكورسات المسجلة</p>
+                  <p className="text-blue-100 text-sm">Enrolled Courses</p>
                   <p className="text-3xl font-bold">{studentStats.enrolledCourses}</p>
-                  <p className="text-blue-100 text-xs">+2 هذا الشهر</p>
+                  <p className="text-blue-100 text-xs">+2 this month</p>
                 </div>
                 <BookOpen className="h-12 w-12 text-blue-200" />
               </div>
@@ -165,9 +165,9 @@ const StudentDashboard = () => {
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100 text-sm">الكورسات المكتملة</p>
+                  <p className="text-green-100 text-sm">Completed Courses</p>
                   <p className="text-3xl font-bold">{studentStats.completedCourses}</p>
-                  <p className="text-green-100 text-xs">معدل إكمال 87%</p>
+                  <p className="text-green-100 text-xs">87% completion rate</p>
                 </div>
                 <CheckCircle className="h-12 w-12 text-green-200" />
               </div>
@@ -176,9 +176,9 @@ const StudentDashboard = () => {
             <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100 text-sm">ساعات التعلم</p>
+                  <p className="text-purple-100 text-sm">Learning Hours</p>
                   <p className="text-3xl font-bold">{studentStats.totalHours}</p>
-                  <p className="text-purple-100 text-xs">+12 ساعة هذا الأسبوع</p>
+                  <p className="text-purple-100 text-xs">+12 hours this week</p>
                 </div>
                 <Clock className="h-12 w-12 text-purple-200" />
               </div>
@@ -187,9 +187,9 @@ const StudentDashboard = () => {
             <div className="bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-yellow-100 text-sm">الشهادات المكتسبة</p>
+                  <p className="text-yellow-100 text-sm">Certificates Earned</p>
                   <p className="text-3xl font-bold">{studentStats.certificatesEarned}</p>
-                  <p className="text-yellow-100 text-xs">شهادة معتمدة</p>
+                  <p className="text-yellow-100 text-xs">Certified</p>
                 </div>
                 <Award className="h-12 w-12 text-yellow-200" />
               </div>
@@ -201,12 +201,12 @@ const StudentDashboard = () => {
             {/* Weekly Goal */}
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">الهدف الأسبوعي</h3>
+                <h3 className="text-lg font-bold text-white">Weekly Goal</h3>
                 <Target className="h-6 w-6 text-blue-400" />
               </div>
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-300 text-sm">{studentStats.weeklyProgress} / {studentStats.weeklyGoal} ساعة</span>
+                  <span className="text-gray-300 text-sm">{studentStats.weeklyProgress} / {studentStats.weeklyGoal} hours</span>
                   <span className="text-blue-400 font-medium">{Math.round((studentStats.weeklyProgress / studentStats.weeklyGoal) * 100)}%</span>
                 </div>
                 <div className="w-full bg-gray-600 rounded-full h-3">
@@ -216,32 +216,32 @@ const StudentDashboard = () => {
                   ></div>
                 </div>
               </div>
-              <p className="text-gray-400 text-sm">استمر! أنت على الطريق الصحيح لتحقيق هدفك</p>
+              <p className="text-gray-400 text-sm">Keep going! You're on the right track to achieve your goal</p>
             </div>
 
             {/* Learning Streak */}
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">سلسلة التعلم</h3>
+                <h3 className="text-lg font-bold text-white">Learning Streak</h3>
                 <TrendingUp className="h-6 w-6 text-orange-400" />
               </div>
               <div className="text-center">
                 <p className="text-4xl font-bold text-orange-400 mb-2">{studentStats.currentStreak}</p>
-                <p className="text-gray-300 text-sm">يوم متتالي</p>
-                <p className="text-gray-400 text-xs mt-2">رقمك القياسي: 18 يوم</p>
+                <p className="text-gray-300 text-sm">consecutive days</p>
+                <p className="text-gray-400 text-xs mt-2">Your record: 18 days</p>
               </div>
             </div>
 
             {/* Skill Points */}
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">نقاط المهارة</h3>
+                <h3 className="text-lg font-bold text-white">Skill Points</h3>
                 <Brain className="h-6 w-6 text-purple-400" />
               </div>
               <div className="text-center">
                 <p className="text-4xl font-bold text-purple-400 mb-2">{studentStats.skillPoints.toLocaleString()}</p>
-                <p className="text-gray-300 text-sm">نقطة</p>
-                <p className="text-gray-400 text-xs mt-2">المستوى: متقدم</p>
+                <p className="text-gray-300 text-sm">points</p>
+                <p className="text-gray-400 text-xs mt-2">Level: Advanced</p>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@ const StudentDashboard = () => {
           {/* My Courses */}
           <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 mb-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">كورساتي الحالية</h3>
+              <h3 className="text-xl font-bold text-white">My Current Courses</h3>
               <BookOpen className="h-6 w-6 text-blue-400" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -267,7 +267,7 @@ const StudentDashboard = () => {
                   
                   <div className="mb-3">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-300 text-sm">التقدم</span>
+                      <span className="text-gray-300 text-sm">Progress</span>
                       <span className="text-blue-400 text-sm font-medium">{course.progress}%</span>
                     </div>
                     <div className="w-full bg-gray-600 rounded-full h-2">
@@ -278,7 +278,7 @@ const StudentDashboard = () => {
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <span className="text-gray-400 text-xs">
-                        {course.completedLessons} / {course.totalLessons} درس
+                        {course.completedLessons} / {course.totalLessons} lessons
                       </span>
                       <div className="flex items-center text-yellow-400 text-xs">
                         <Star className="h-3 w-3 ml-1" />
@@ -289,7 +289,7 @@ const StudentDashboard = () => {
 
                   {course.nextLesson && (
                     <div className="mb-3">
-                      <p className="text-gray-300 text-sm mb-1">الدرس التالي:</p>
+                      <p className="text-gray-300 text-sm mb-1">Next lesson:</p>
                       <p className="text-white text-sm font-medium">{course.nextLesson}</p>
                     </div>
                   )}
@@ -297,7 +297,7 @@ const StudentDashboard = () => {
                   <div className="flex space-x-2 space-x-reverse">
                     <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded text-sm flex items-center justify-center">
                       <Play className="h-4 w-4 ml-1" />
-                      {course.progress === 100 ? 'مراجعة' : 'متابعة'}
+                      {course.progress === 100 ? 'Review' : 'Continue'}
                     </button>
                     <button className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded text-sm">
                       <Eye className="h-4 w-4" />
@@ -313,7 +313,7 @@ const StudentDashboard = () => {
             {/* Recent Activities */}
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white">النشاطات الأخيرة</h3>
+                <h3 className="text-xl font-bold text-white">Recent Activities</h3>
                 <BarChart3 className="h-6 w-6 text-blue-400" />
               </div>
               <div className="space-y-4">
@@ -328,7 +328,7 @@ const StudentDashboard = () => {
                       </div>
                       <div className="flex-1">
                         <p className="text-white text-sm">{activity.message}</p>
-                        <p className="text-gray-400 text-xs">منذ {activity.time}</p>
+                        <p className="text-gray-400 text-xs">{activity.time} ago</p>
                       </div>
                     </div>
                   );
@@ -339,7 +339,7 @@ const StudentDashboard = () => {
             {/* Upcoming Events */}
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white">الأحداث القادمة</h3>
+                <h3 className="text-xl font-bold text-white">Upcoming Events</h3>
                 <Calendar className="h-6 w-6 text-blue-400" />
               </div>
               <div className="space-y-4">
@@ -355,8 +355,8 @@ const StudentDashboard = () => {
                         event.type === 'exam' ? 'bg-orange-600 text-orange-100' :
                         'bg-blue-600 text-blue-100'
                       }`}>
-                        {event.type === 'live' ? 'مباشر' :
-                         event.type === 'exam' ? 'امتحان' : 'ورشة'}
+                        {event.type === 'live' ? 'Live' :
+                         event.type === 'exam' ? 'Exam' : 'Workshop'}
                       </span>
                     </div>
                     <div className="flex items-center space-x-4 space-x-reverse text-xs text-gray-300">
@@ -378,7 +378,7 @@ const StudentDashboard = () => {
           {/* Achievements */}
           <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">الإنجازات والشارات</h3>
+              <h3 className="text-xl font-bold text-white">Achievements and Badges</h3>
               <Award className="h-6 w-6 text-blue-400" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
