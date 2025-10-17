@@ -45,7 +45,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
 
     try {
       // Test 1: Firebase Initialization
-      addTestResult('Firebase Initialization', 'success', 'Firebase تم تهيئته بنجاح');
+      addTestResult('Firebase Initialization', 'success', 'Firebase تم تهيئته successfully');
       setDiagnostics(prev => ({ ...prev, firebaseInit: true }));
 
       // Test 2: Authentication Status
@@ -62,11 +62,11 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
       // Test 3: Database Connection
       const databaseConnected = await checkDatabaseConnection();
       if (databaseConnected) {
-        addTestResult('Database Connection', 'success', 'الاتصال بقاعدة البيانات يعمل بنجاح');
+        addTestResult('Database Connection', 'success', 'الاتصال بقاعدة البيانات يعمل successfully');
         setDiagnostics(prev => ({ ...prev, databaseConnection: true }));
       } else {
-        addTestResult('Database Connection', 'error', 'فشل في الاتصال بقاعدة البيانات', {
-          solution: 'تحقق من إعدادات Firebase وقواعد الأمان'
+        addTestResult('Database Connection', 'error', 'Failure في الاتصال بقاعدة البيانات', {
+          solution: 'تحقق من إعدادات Firebase وقواعد Security'
         });
       }
 
@@ -86,7 +86,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
             });
           }
         } catch (error) {
-          addTestResult('User Profile', 'error', 'خطأ في قراءة ملف User', {
+          addTestResult('User Profile', 'error', 'Error في قراءة ملف User', {
             error: error.message,
             code: error.code
           });
@@ -94,7 +94,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
       }
 
     } catch (error) {
-      addTestResult('General Error', 'error', 'خطأ عام في التشخيص', {
+      addTestResult('General Error', 'error', 'Error عام في التشخيص', {
         error: error.message
       });
     }
@@ -196,7 +196,7 @@ const FirebaseDiagnostic = ({ isOpen, onClose }) => {
                         <p className="text-blue-400">الحل: {result.details.solution}</p>
                       )}
                       {result.details.error && (
-                        <p className="text-red-400">خطأ: {result.details.error}</p>
+                        <p className="text-red-400">Error: {result.details.error}</p>
                       )}
                     </div>
                   )}

@@ -207,9 +207,9 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
             className="bg-gray-700 border border-gray-500 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-400"
           >
             <option value="all">جميع الأوقات</option>
-            <option value="today">اليوم</option>
-            <option value="week">الأسبوع الماضي</option>
-            <option value="month">الشهر الماضي</option>
+            <option value="today">الday</option>
+            <option value="week">الweek الماضي</option>
+            <option value="month">الmonth الماضي</option>
           </select>
           
           <button
@@ -226,7 +226,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           icon={<Users className="w-6 h-6" />}
-          title="students المشاركون"
+          title="students المShareون"
           value={analytics.uniquestudents}
           color="blue"
         />
@@ -245,7 +245,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
         <MetricCard
           icon={<Clock className="w-6 h-6" />}
           title="Intermediate الوقت"
-          value={`${Math.round(analytics.averageTime / 60)} دقيقة`}
+          value={`${Math.round(analytics.averageTime / 60)} minute`}
           color="purple"
         />
       </div>
@@ -253,7 +253,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
       {/* Additional Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-gray-800 border border-gray-600 rounded-lg p-4">
-          <h4 className="text-white font-medium mb-2">معدل النجاح</h4>
+          <h4 className="text-white font-medium mb-2">معدل الSuccess</h4>
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="flex-1 bg-gray-700 rounded-full h-3">
               <div 
@@ -323,7 +323,7 @@ const QuizAnalytics = ({ courseId, lessonId, quizTitle }) => {
                   <span className="text-white font-medium">student {submission.studentId}</span>
                   <div className="text-gray-400 text-sm">
                     {new Date(submission.submittedAt).toLocaleDateString('ar-EG')} • 
-                    {Math.round(submission.timeSpent / 60)} دقيقة
+                    {Math.round(submission.timeSpent / 60)} minute
                   </div>
                 </div>
                 <div className="flex items-center space-x-2 space-x-reverse">

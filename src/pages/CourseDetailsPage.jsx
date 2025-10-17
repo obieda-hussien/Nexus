@@ -91,7 +91,7 @@ const CourseDetailsPage = () => {
         const result = await CourseService.enrollstudent(currentUser.uid, course.id);
         if (result.success) {
           setIsEnrolled(true);
-          toast.success('تم التسجيل في الكورس بنجاح!');
+          toast.success('تم التسجيل في الكورس successfully!');
         } else {
           toast.error('An error occurred during registration');
         }
@@ -114,7 +114,7 @@ const CourseDetailsPage = () => {
     }
     
     if (!paymentData.vodafoneNumber || !paymentData.transactionId) {
-      toast.error('يرجى ملء جميع البيانات المطلوبة');
+      toast.error('Please ملء جميع البيانات المطلوبة');
       return;
     }
 
@@ -143,7 +143,7 @@ const CourseDetailsPage = () => {
         if (enrollmentResult.success) {
           setShowPaymentModal(false);
           setIsEnrolled(true);
-          toast.success('تم Submit طلب الدفع! سيتم Confirm paymentة خلال 24 ساعة');
+          toast.success('تم Submit طلب الدفع! سيتم Confirm paymentة خلال 24 hour');
         } else {
           toast.error('An error occurred during registration');
         }
@@ -188,20 +188,20 @@ const CourseDetailsPage = () => {
       toast.success('🎉 Payment successful! Welcome to the course');
     } catch (error) {
       console.error('Error handling PayPal success:', error);
-      toast.error('تم الدفع لكن An error occurred في التسجيل. يرجى التواصل مع الدعم الفني.');
+      toast.error('تم الدفع لكن An error occurred في التسجيل. Please التواصل مع Support الفني.');
     }
   };
 
   const handlePayPalError = (error) => {
     console.error('PayPal payment error:', error);
-    toast.error('فشل في الدفع عبر PayPal. يرجى المحاولة مرة أخرى.');
+    toast.error('Failure في الدفع عبر PayPal. Please المحاولة مرة أخرى.');
   };
 
   const getPlaceholderCourse = () => ({
     id: id,
     title: 'Python Programming Basics',
-    description: 'كورس شامل لتعلم Programming بلغة Python من الصفر إلى الاحتراف. يغطي الكورس جميع الBasics والمفاهيم الAdvancedة مع تطبيقات عملية ومشاريع حقيقية.',
-    shortDescription: 'تعلم Programming بـ Python من الصفر مع أمثلة عملية',
+    description: 'كورس شامل لتعلم Programming بلغة Python من الصفر إلى الاحتراف. يغطي الكورس جميع الBasics والمفاهيم الAdvancedة مع Applyات عملية ومشاريع حقيقية.',
+    shortDescription: 'تعلم Programming بـ Python من الصفر مع Examples عملية',
     price: 299,
     originalPrice: 399,
     isfree: false,
@@ -224,7 +224,7 @@ const CourseDetailsPage = () => {
       'Basics لغة Python',
       'Programming الكائنية',
       'التعامل مع الملفات وقواعد البيانات',
-      'بناء تطبيقات ويب بسيطة',
+      'بناء Applyات ويب بسيطة',
       'حل المشاكل البرمجية',
       'أفضل المMarchات في Programming'
     ],
@@ -344,7 +344,7 @@ const CourseDetailsPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5 text-gray-400" />
-                    <span className="text-gray-300">{Math.floor(course.duration / 60)} ساعة</span>
+                    <span className="text-gray-300">{Math.floor(course.duration / 60)} hour</span>
                   </div>
                 </div>
 
@@ -373,7 +373,7 @@ const CourseDetailsPage = () => {
                           <div>
                             <span className="text-gray-500 line-through text-lg">{course.originalPrice} EGP</span>
                             <span className="bg-red-500 text-white px-2 py-1 rounded-full text-sm ml-2">
-                              خصم {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}%
+                              Discount {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}%
                             </span>
                           </div>
                         )}
@@ -391,7 +391,7 @@ const CourseDetailsPage = () => {
                         to={`/learn/${course.id}`}
                         className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors block text-center"
                       >
-                        متابعة التعلم
+                        مFollowة التعلم
                       </Link>
                     </div>
                   ) : (
@@ -415,11 +415,11 @@ const CourseDetailsPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300">دعم فني مباشر</span>
+                    <span className="text-gray-300">Technical support مباشر</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300">مشاهدة على الجوال</span>
+                    <span className="text-gray-300">مWatchة على الجوال</span>
                   </div>
                 </div>
               </div>
@@ -486,7 +486,7 @@ const CourseDetailsPage = () => {
                                 <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs">معاينة</span>
                               )}
                             </div>
-                            <span className="text-gray-400 text-sm">{lesson.duration} دقيقة</span>
+                            <span className="text-gray-400 text-sm">{lesson.duration} minute</span>
                           </div>
                         ))}
                       </div>
@@ -510,15 +510,15 @@ const CourseDetailsPage = () => {
                     }</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">عدد الدروس</span>
+                    <span className="text-gray-400">Number of lessons</span>
                     <span className="text-white">{course.lessonsCount || 0}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Duration</span>
-                    <span className="text-white">{Math.floor(course.duration / 60)} ساعة</span>
+                    <span className="text-white">{Math.floor(course.duration / 60)} hour</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">اللغة</span>
+                    <span className="text-gray-400">Language</span>
                     <span className="text-white">Arabic</span>
                   </div>
                 </div>
@@ -550,7 +550,7 @@ const CourseDetailsPage = () => {
                     <p className="text-gray-400 text-sm">مدرب معتمد</p>
                   </div>
                 </div>
-                <p className="text-gray-300 text-sm">Instructor متخصص في {course.category === 'programming' ? 'Programming' : course.category} مع سنوات من الخبرة في التدريس.</p>
+                <p className="text-gray-300 text-sm">Instructor متخصص في {course.category === 'programming' ? 'Programming' : course.category} مع years من الخبرة في التدريس.</p>
               </div>
 
               {/* student Review Submission (only for enrolled students) */}
@@ -600,7 +600,7 @@ const CourseDetailsPage = () => {
                             <p className="text-gray-400 text-sm">دفع instant آمن - بطاقات ائتمان دولية</p>
                           </div>
                         </div>
-                        <span className="text-green-400 text-xs bg-green-900/20 px-2 py-1 rounded">موصى به</span>
+                        <span className="text-green-400 text-xs bg-green-900/20 px-2 py-1 rounded">Recommended</span>
                       </label>
 
                       <label className="flex items-center gap-3 p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
@@ -618,7 +618,7 @@ const CourseDetailsPage = () => {
                           </div>
                           <div>
                             <p className="text-white font-medium">Vodafone Cash</p>
-                            <p className="text-gray-400 text-sm">تحويل عبر Vodafone Cash (يتطلب مراجعة يدوية)</p>
+                            <p className="text-gray-400 text-sm">تحويل عبر Vodafone Cash (يتطلب Review يدوية)</p>
                           </div>
                         </div>
                       </label>
@@ -652,7 +652,7 @@ const CourseDetailsPage = () => {
                           <li>1. حول {course.price} EGP إلى رقم Vodafone Cash: <strong>01234567890</strong></li>
                           <li>2. اكتب رقم Vodafone Cash الخاص بك أدناه</li>
                           <li>3. اكتب رقم العملية (Transaction ID)</li>
-                          <li>4. سيتم Confirm payment خلال 24 ساعة</li>
+                          <li>4. سيتم Confirm payment خلال 24 hour</li>
                         </ol>
                       </div>
 

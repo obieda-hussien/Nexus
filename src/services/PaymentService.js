@@ -173,7 +173,7 @@ class PaymentService {
       await this.sendNotification(payment.userId, {
         type: 'payment_confirmed',
         title: 'تم Confirm دفعتك',
-        message: 'تم Confirm دفعتك بنجاح. يمكنك الآن الوصول إلى الكورس.',
+        message: 'تم Confirm دفعتك successfully. يمكنك الآن الوصول إلى الكورس.',
         data: { paymentId, courseId: payment.courseId }
       });
       
@@ -231,7 +231,7 @@ class PaymentService {
       await this.sendNotification(payment.userId, {
         type: 'payment_failed',
         title: 'Failed to confirm paymentة',
-        message: reason || 'لم يتم Confirm دفعتك. يرجى التحقق من بيانات الدفع والمحاولة مرة أخرى.',
+        message: reason || 'لم يتم Confirm دفعتك. Please التحقق من بيانات الدفع والمحاولة مرة أخرى.',
         data: { paymentId, courseId: payment.courseId }
       });
       

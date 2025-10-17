@@ -11,7 +11,7 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
       type: 'review',
       title: 'تقييم New على كورسك',
       message: 'حصل كورس "Basic Physics" على تقييم 5 نجوم من الstudent Ahmed Mohamed',
-      time: '10 دقائق',
+      time: '10 minutes',
       isRead: false,
       icon: Star
     },
@@ -36,9 +36,9 @@ const NotificationsTab = ({ notifications, onMarkAsRead }) => {
     {
       id: 4,
       type: 'alert',
-      title: 'مراجعة مطلوبة',
-      message: 'كورس "ميكانيكا الكم" في انتظار مراجعة المحتوى',
-      time: '3 ساعات',
+      title: 'Review مطلوبة',
+      message: 'كورس "ميكانيكا الكم" في انتظار Review Content',
+      time: '3 hours',
       isRead: false,
       icon: AlertCircle
     }

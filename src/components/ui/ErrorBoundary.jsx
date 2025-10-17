@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component {
             </div>
             <h3 className="text-lg font-semibold mb-2">An error occurred غير متوقع</h3>
             <p className="text-gray-300 text-sm mb-4">
-              يرجى المحاولة مرة أخرى أو Update الصفحة
+              Please المحاولة مرة أخرى أو Update الصفحة
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: null })}

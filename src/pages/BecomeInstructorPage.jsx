@@ -109,7 +109,7 @@ const BecomeInstructorPage = () => {
       const result = await InstructorService.submitApplication(applicationData, currentUser.uid);
       
       if (result.success) {
-        toast.success('تم Submit طلبك بنجاح! سيتم مراجعته خلال 48 ساعة');
+        toast.success('تم Submit طلبك successfully! سيتم مReviewته خلال 48 hour');
         setApplicationStatus(result.application);
         setCanApply(false);
       } else {
@@ -130,7 +130,7 @@ const BecomeInstructorPage = () => {
         <main className="pt-20 min-h-screen">
           <div className="container mx-auto px-4 py-8 text-center">
             <GraduationCap className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-2">يرجى Login</h1>
+            <h1 className="text-2xl font-bold text-white mb-2">Please Login</h1>
             <p className="text-gray-400 mb-6">يجب Login للتOld كInstructor</p>
           </div>
         </main>
@@ -150,7 +150,7 @@ const BecomeInstructorPage = () => {
               كن Instructorاً في Nexus
             </h1>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              انضم إلى فريق Instructorين المعتمدين وشارك خبرتك مع آلاف students حول العالم
+              انضم إلى فريق Instructorين المعتمدين وShare خبرتك مع آلاف students حول العالم
             </p>
           </div>
 
@@ -177,22 +177,22 @@ const BecomeInstructorPage = () => {
                     applicationStatus.status === 'approved' ? 'text-green-400' :
                     'text-red-400'
                   }`}>
-                    {applicationStatus.status === 'pending' ? 'طلبك قيد المراجعة' :
+                    {applicationStatus.status === 'pending' ? 'طلبك قيد الReview' :
                      applicationStatus.status === 'approved' ? 'Your request has been accepted!' :
                      'تم رفض طلبك'}
                   </h3>
                 </div>
                 <p className="text-gray-300">
                   {applicationStatus.status === 'pending' 
-                    ? 'تم استلام طلبك وهو قيد المراجعة من قبل فريقنا. سيتم الرد عليك خلال 48 ساعة.'
+                    ? 'تم استلام طلبك وهو قيد الReview من قبل فريقنا. سيتم الرد عليك خلال 48 hour.'
                     : applicationStatus.status === 'approved'
-                    ? 'مبروك! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.'
+                    ? 'Congratulations! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.'
                     : 'عذراً، لم يتم قبول طلبك في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.'}
                 </p>
                 {applicationStatus.reviewNotes && (
                   <div className="mt-3 p-3 bg-gray-800/50 rounded-lg">
                     <p className="text-sm text-gray-400">
-                      <strong>ملاحظات المراجع:</strong> {applicationStatus.reviewNotes}
+                      <strong>Feedback المReview:</strong> {applicationStatus.reviewNotes}
                     </p>
                   </div>
                 )}
@@ -209,7 +209,7 @@ const BecomeInstructorPage = () => {
               <div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <GraduationCap className="w-6 h-6 text-blue-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">شارك معرفتك</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Share معرفتك</h3>
               <p className="text-gray-400 text-sm">
                 علم آلاف students وساعدهم في تحقيق أهدافهم التعليمية
               </p>
@@ -326,13 +326,13 @@ const BecomeInstructorPage = () => {
                         onChange={handleChange}
                         rows={3}
                         className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        placeholder="اكتب عن مؤهلاتك الدراسية والشهادات الحاصل عليها..."
+                        placeholder="اكتب عن مؤهلاتك الدراسية وCertificates الحاصل عليها..."
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-white font-medium mb-2">رابط أعمالك السابقة</label>
+                      <label className="block text-white font-medium mb-2">رابط أعمالك Previousة</label>
                       <input
                         type="url"
                         name="portfolio"
@@ -436,7 +436,7 @@ const BecomeInstructorPage = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>إجادة اللغة Arabic والتواصل الفعال</span>
+                    <span>إجادة Language Arabic والتواصل الفعال</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
@@ -454,11 +454,11 @@ const BecomeInstructorPage = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>دعم تسويقي ومتابعة مبيعات</span>
+                    <span>دعم تسويقي ومFollowة مبيعات</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                    <span>أدوات إنشاء المحتوى المتطورة</span>
+                    <span>أدوات إنشاء Content المتطورة</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />

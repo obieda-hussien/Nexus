@@ -11,7 +11,7 @@ export const addSampleReviews = async () => {
         studentId: 'student1',
         studentName: 'Ahmed Mohamed',
         rating: 5,
-        comment: 'كورس ممتاز وشرح واضح جداً! استفدت كثيراً من المحتوى المقدم والأمثلة العملية.',
+        comment: 'كورس ممتاز وشرح واضح جداً! استفدت كثيراً من Content المقدم والExamples العملية.',
         createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days ago
       },
       {
@@ -21,17 +21,17 @@ export const addSampleReviews = async () => {
         comment: 'كورس مفيد ومفهوم، لكن كنت أتمنى More من التمارين العملية.',
         createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
         instructorReply: {
-          message: 'شكراً لك على التقييم! سأضيف More من التمارين العملية في الUpdate القادم.',
+          message: 'Thank you لك على Rating! سأضيف More من التمارين العملية في الUpdate القادم.',
           timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
           instructorId: 'instructor1',
-          instructorName: 'د. محمد علي'
+          instructorName: 'Dr. محمد علي'
         }
       },
       {
         studentId: 'student3',
         studentName: 'عمر حسام',
         rating: 5,
-        comment: 'من أفضل Courses التي أخذتها! المحتوى منظم والشرح مبسط ومفهوم.',
+        comment: 'من أفضل Courses التي أخذتها! Content منظم والشرح مبسط ومفهوم.',
         createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString() // 1 week ago
       },
       {

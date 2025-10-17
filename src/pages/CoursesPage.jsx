@@ -58,7 +58,7 @@ const CoursesPage = () => {
     {
       id: '1',
       title: 'Python Programming Basics',
-      description: 'تعلم Programming من الصفر باستخدام لغة Python مع أمثلة عملية ومشاريع تطبيقية',
+      description: 'تعلم Programming من الصفر باستخدام لغة Python مع Examples عملية ومشاريع Applyية',
       shortDescription: 'كورس شامل لتعلم Programming بـ Python للBeginnerين',
       price: 299,
       originalPrice: 399,
@@ -78,12 +78,12 @@ const CoursesPage = () => {
     {
       id: '2',
       title: 'Physics المرحلة الثانوية',
-      description: 'شرح مفصل ومبسط لمنهج Physics للصف الثالث الثانوي مع حل المسائل',
+      description: 'شرح مفصل ومبسط لمنهج Physics للصف الثالث الثانوي مع حل الProblems',
       shortDescription: 'منهج Physics كامل للثانوية العامة',
       price: 0,
       isfree: true,
       thumbnail: '/placeholder-course.jpg',
-      instructorName: 'د. سارة أحمد',
+      instructorName: 'Dr. Sarah Ahmed',
       instructorAvatar: '',
       category: 'physics',
       duration: 200,
@@ -251,7 +251,7 @@ const CoursesPage = () => {
                     <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        <span>{course.duration} دقيقة</span>
+                        <span>{course.duration} minute</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
@@ -281,7 +281,7 @@ const CoursesPage = () => {
                         to={`/courses/${course.id}`}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                       >
-                        View التفاصيل
+                        View الDetails
                       </Link>
                     </div>
                   </div>

@@ -87,7 +87,7 @@ const PayPalPaymentButton = ({
 
     } catch (error) {
       console.error('❌ Error in success handler:', error);
-      toast.error('An error occurred بعد الدفع. يرجى التواصل مع الدعم الفني.');
+      toast.error('An error occurred بعد الدفع. Please التواصل مع Support الفني.');
     }
   };
 
@@ -113,7 +113,7 @@ const PayPalPaymentButton = ({
             <div className="p-2 bg-red-500/20 rounded-lg">
               <AlertTriangle className="w-5 h-5 text-red-400" />
             </div>
-            <h3 className="font-semibold text-red-400 text-lg">خطأ في PayPal</h3>
+            <h3 className="font-semibold text-red-400 text-lg">Error في PayPal</h3>
           </div>
           <p className="text-text-secondary mb-4">{error}</p>
           <button
@@ -136,7 +136,7 @@ const PayPalPaymentButton = ({
             <div className="p-2 bg-neon-blue/20 rounded-lg">
               <CreditCard className="w-5 h-5 text-neon-blue" />
             </div>
-            <h3 className="font-semibold text-white text-lg">ملخص الدفع</h3>
+            <h3 className="font-semibold text-white text-lg">Summary الدفع</h3>
           </div>
           
           <div className="space-y-3">

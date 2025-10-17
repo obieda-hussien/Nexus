@@ -345,7 +345,7 @@ const CourseCard = ({ course, onEdit, onDelete, getStatusColor, getStatusText })
           onClick={onEdit}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:scale-105 transition-transform"
         >
-          إدارة المحتوى
+          إدارة Content
         </button>
       </div>
     </div>

@@ -139,7 +139,7 @@ const ReviewsDisplay = ({ courseId }) => {
           <div className="text-center py-8">
             <Star className="w-12 h-12 text-gray-400 mx-auto mb-3" />
             <p className="text-gray-400">لا توجد تقييمات حتى الآن</p>
-            <p className="text-gray-500 text-sm">كن أول من يقيم هذا الكورس</p>
+            <p className="text-gray-500 text-sm">كن أول من يRate هذا الكورس</p>
           </div>
         )}
       </div>

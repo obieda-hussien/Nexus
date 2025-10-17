@@ -50,8 +50,8 @@ const Pricing = () => {
       description: isRTL ? 'Most Popular' : 'Most popular',
       features: [
         isRTL ? 'الوصول إلى جميع الدورات' : 'Access to all courses',
-        isRTL ? 'جلسات مباشرة أسبوعية' : 'Weekly live sessions',
-        isRTL ? 'شهادة معتمدة' : 'Certified certificate',
+        isRTL ? 'جلسات مباشرة weekية' : 'Weekly live sessions',
+        isRTL ? 'Certified certificate' : 'Certified certificate',
         isRTL ? 'دعم 24/7' : '24/7 support',
         isRTL ? 'Graduation Project' : 'Capstone project',
         isRTL ? 'مجتمع طلابي خاص' : 'Private student community'
@@ -88,7 +88,7 @@ const Pricing = () => {
     e.preventDefault();
     // Handle form submission
     console.log('Form submitted:', formData);
-    alert(isRTL ? 'تم التسجيل بنجاح!' : 'Registration successful!');
+    alert(isRTL ? 'تم التسجيل successfully!' : 'Registration successful!');
     setShowRegistration(false);
   };
 
@@ -277,7 +277,7 @@ const Pricing = () => {
                     />
 
                     <Input
-                      label={isRTL ? 'رقم الهاتف' : 'Phone Number'}
+                      label={isRTL ? 'رقم Phone' : 'Phone Number'}
                       placeholder={isRTL ? '+966 XX XXX XXXX' : '+1 XXX XXX XXXX'}
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}

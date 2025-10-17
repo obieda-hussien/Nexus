@@ -137,7 +137,7 @@ class InstructorService {
       await this.sendNotification(application.userId, {
         type: 'application_approved',
         title: 'Your request has been accepted!',
-        message: 'تهانينا! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.',
+        message: 'Congratulations! تم قبولك كInstructor في Nexus Platform. يمكنك الآن إنشاء كورساتك الأولى.',
         data: { applicationId }
       });
       
@@ -178,7 +178,7 @@ class InstructorService {
       // Send notification to user
       await this.sendNotification(application.userId, {
         type: 'application_rejected',
-        title: 'طلبك مرفوض',
+        title: 'طلبك rejected',
         message: reviewNotes || 'عذراً، لم يتم قبول طلبك لتصبح Instructor في هذا الوقت. يمكنك التOld مرة أخرى لاحقاً.',
         data: { applicationId }
       });
@@ -311,7 +311,7 @@ class InstructorService {
         return { 
           success: true, 
           canApply: false, 
-          reason: 'لديك طلب قيد المراجعة حالياً' 
+          reason: 'لديك طلب قيد الReview حالياً' 
         };
       }
       
@@ -334,7 +334,7 @@ class InstructorService {
           return { 
             success: true, 
             canApply: false, 
-            reason: `يمكنك التOld مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} يوم` 
+            reason: `يمكنك التOld مرة أخرى بعد ${Math.ceil(30 - daysSinceRejection)} day` 
           };
         }
       }

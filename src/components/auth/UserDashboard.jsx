@@ -102,13 +102,13 @@ const UserDashboard = ({ isOpen, onClose }) => {
       const mockActivity = [
         {
           type: 'lesson_completed',
-          title: 'أكمل درس: قوانين نيوتن',
+          title: 'أكمل درس: قوانين Newton',
           time: '2024-12-29T10:30:00',
           course: 'Physics Basics'
         },
         {
           type: 'quiz_passed',
-          title: 'Passed في Quiz: الحركة الدائرية',
+          title: 'Passed في Quiz: Motion الدائرية',
           time: '2024-12-29T09:15:00',
           course: 'Physics Basics'
         },
@@ -182,7 +182,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <GraduationCap className="h-4 w-4 ml-1" />
                   Dashboard الشخصية
                 </p>
-                <p className="text-sm text-neon-blue/80 mt-1">Ready للتعلم اليوم؟</p>
+                <p className="text-sm text-neon-blue/80 mt-1">Ready للتعلم الday؟</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -210,7 +210,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
             </div>
           ) : !userProfile ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-6">
-              <div className="text-red-400 text-xl font-semibold">خطأ في تحميل البيانات</div>
+              <div className="text-red-400 text-xl font-semibold">Error في تحميل البيانات</div>
               <div className="text-center max-w-md">
                 <p className="text-gray-400 mb-4">
                   لم يتم العثور على بيانات Profile.<br/>
@@ -289,9 +289,9 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-neon-purple/10 rounded-full blur-xl group-hover:bg-neon-purple/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-purple-300 text-sm font-medium mb-1">ساعات الدراسة</p>
+                      <p className="text-purple-300 text-sm font-medium mb-1">hours الStudy</p>
                       <p className="text-3xl font-bold text-white">{stats.totalStudyTime}</p>
-                      <p className="text-xs text-purple-200/60 mt-1">دقيقة Total</p>
+                      <p className="text-xs text-purple-200/60 mt-1">minute Total</p>
                     </div>
                     <div className="bg-neon-purple/20 p-3 rounded-xl">
                       <Clock className="h-8 w-8 text-neon-purple" />
@@ -308,7 +308,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-orange-400/10 rounded-full blur-xl group-hover:bg-orange-400/20 transition-all duration-300"></div>
                   <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-orange-300 text-sm font-medium mb-1">أيام متتالية</p>
+                      <p className="text-orange-300 text-sm font-medium mb-1">days متتالية</p>
                       <p className="text-3xl font-bold text-white">{stats.streakDays}</p>
                       <p className="text-xs text-orange-200/60 mt-1">🔥 سلسلة Activeة</p>
                     </div>
@@ -380,7 +380,7 @@ const UserDashboard = ({ isOpen, onClose }) => {
                           <div className="flex justify-end">
                             <button className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 hover:from-neon-blue/30 hover:to-neon-purple/30 border border-neon-blue/30 text-neon-blue hover:text-white px-6 py-2 rounded-xl font-medium flex items-center transition-all duration-200 group">
                               <PlayCircle className="h-5 w-5 ml-2 group-hover:scale-110 transition-transform duration-200" />
-                              متابعة التعلم
+                              مFollowة التعلم
                             </button>
                           </div>
                         </div>

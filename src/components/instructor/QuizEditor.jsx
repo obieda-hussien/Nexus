@@ -229,14 +229,14 @@ const QuizEditor = ({ quizData, onChange, placeholder = "إنشاء Quiz تفا�
                     className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <HelpCircle className="w-4 h-4" />
-                    <span>صح أم خطأ</span>
+                    <span>صح أم Error</span>
                   </button>
                   <button
                     onClick={() => addQuestion('short_answer')}
                     className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                   >
                     <Edit3 className="w-4 h-4" />
-                    <span>Answer قصيرة</span>
+                    <span>Answer Cutيرة</span>
                   </button>
                 </div>
               </div>
@@ -311,7 +311,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           <span className="text-white font-medium">الQuestion {index + 1}</span>
           <span className="text-gray-400 text-sm">
             ({question.type === 'multiple_choice' ? 'اختيار متعدد' : 
-              question.type === 'true_false' ? 'صح أم خطأ' : 'Answer قصيرة'})
+              question.type === 'true_false' ? 'صح أم Error' : 'Answer Cutيرة'})
           </span>
         </div>
         
@@ -428,7 +428,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
-                  خطأ
+                  Error
                 </button>
               </div>
             </div>
@@ -453,7 +453,7 @@ const QuestionEditor = ({ question, index, onUpdate, onDelete, onMove, canMoveUp
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">
-                النقاط
+                Points
               </label>
               <input
                 type="number"
@@ -505,7 +505,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-2">
             <Clock className="w-4 h-4 inline ml-1" />
-            الحد الزمني (دقيقة)
+            الحد الزمني (minute)
           </label>
           <input
             type="number"
@@ -536,7 +536,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
         {/* Passing Score */}
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-2">
-            Score النجاح (%)
+            Score الSuccess (%)
           </label>
           <input
             type="number"
@@ -598,7 +598,7 @@ const QuizSettings = ({ quiz, onUpdateSetting, onUpdateQuizSetting }) => {
               onChange={(e) => onUpdateSetting('allowReview', e.target.checked)}
               className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
             />
-            <span className="text-gray-300">السماح بمراجعة الإجابات</span>
+            <span className="text-gray-300">السماح بReview الإجابات</span>
           </label>
 
           <label className="flex items-center space-x-2 space-x-reverse">
@@ -883,7 +883,7 @@ const QuizPreview = ({ quiz, onClose }) => {
                   className="sr-only"
                 />
                 <X className="w-5 h-5" />
-                <span className="font-semibold">خطأ</span>
+                <span className="font-semibold">Error</span>
               </label>
             </div>
           )}
@@ -911,7 +911,7 @@ const QuizPreview = ({ quiz, onClose }) => {
           className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-600"
         >
           <ChevronRight className="w-4 h-4 rotate-180" />
-          <span>السابق</span>
+          <span>Previous</span>
         </button>
         
         {currentQuestion === quiz.questions.length - 1 ? (
@@ -920,14 +920,14 @@ const QuizPreview = ({ quiz, onClose }) => {
             className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg shadow-green-500/30 hover:scale-105"
           >
             <Trophy className="w-4 h-4" />
-            <span>إنهاء الQuiz</span>
+            <span>Finish الQuiz</span>
           </button>
         ) : (
           <button
             onClick={() => setCurrentQuestion(Math.min(quiz.questions.length - 1, currentQuestion + 1))}
             className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:scale-105"
           >
-            <span>التالي</span>
+            <span>Next</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         )}

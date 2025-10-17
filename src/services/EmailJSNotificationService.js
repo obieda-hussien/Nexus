@@ -79,7 +79,7 @@ export class EmailJSNotificationService {
       // Send browser notification as fallback
       await this.sendBrowserNotification({
         title: 'تم Submit Earnings',
-        body: `تم تحويل ${payoutData.amount} ${payoutData.currency || 'EGP'} بنجاح`,
+        body: `تم تحويل ${payoutData.amount} ${payoutData.currency || 'EGP'} successfully`,
         icon: '/favicon.ico'
       });
 
@@ -176,7 +176,7 @@ export class EmailJSNotificationService {
         available_balance: reportData.availableBalance || 0,
         courses_sold: reportData.coursesSold || 0,
         new_students: reportData.newstudents || 0,
-        top_course: reportData.topCourse || 'غير متاح',
+        top_course: reportData.topCourse || 'Not available',
         platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         report_date: new Date().toLocaleDateString('ar-EG'),
@@ -300,7 +300,7 @@ export class EmailJSNotificationService {
   }
 
   // Test email configuration
-  static async sendTestEmail(recipientEmail, recipientName = 'المختبر') {
+  static async sendTestEmail(recipientEmail, recipientName = 'الLaboratory') {
     try {
       if (!this.isConfigured()) {
         throw new Error('خدمة EmailJS Not readyّة بشكل صحيح. تحقق من متغيرات البيئة.');
@@ -331,7 +331,7 @@ export class EmailJSNotificationService {
         payout_status: 'test',
         estimated_arrival: 'instant',
         // Generic fields
-        test_message: 'هذه رسالة Quiz للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
+        test_message: 'هذه Thesis Quiz للتأكد من أن خدمة EmailJS تعمل بشكل صحيح.',
         platform_name: 'Nexus Educational Platform',
         support_email: 'support@nexus-edu.com',
         test_date: new Date().toLocaleDateString('ar-EG'),
@@ -361,14 +361,14 @@ export class EmailJSNotificationService {
       return { 
         success: true, 
         messageId: response.text,
-        message: 'Test email sent successfully! تحقق من صندوق الوارد.'
+        message: 'Test email sent successfully! تحقق من صندوق الوارDr.'
       };
 
     } catch (error) {
       console.error('❌ Test email error:', error);
       
       // Provide more specific error messages
-      let errorMessage = 'فشل في Submit رسالة الQuiz';
+      let errorMessage = 'Failure في Submit Thesis الQuiz';
       
       if (error.text) {
         if (error.text.includes('Invalid')) {
@@ -376,9 +376,9 @@ export class EmailJSNotificationService {
         } else if (error.text.includes('Forbidden')) {
           errorMessage = 'المفتاح العام غير مصرح له بالوصول';
         } else if (error.text.includes('Limit')) {
-          errorMessage = 'تم تجاوز الحد المسموح من Messages الشهرية';
+          errorMessage = 'تم تجاوز الحد المسموح من Messages الmonthية';
         } else {
-          errorMessage = `خطأ في الخدمة: ${error.text}`;
+          errorMessage = `Error في الخدمة: ${error.text}`;
         }
       } else if (error.message) {
         errorMessage = error.message;
@@ -419,8 +419,8 @@ export class EmailJSNotificationService {
     const arrivals = {
       bank: '3-5 business days',
       paypal: 'instant',
-      vodafone: '24 ساعة',
-      fawry: '24-48 ساعة',
+      vodafone: '24 hour',
+      fawry: '24-48 hour',
       stripe: 'instant'
     };
     return arrivals[paymentMethodType] || '1-3 business days';

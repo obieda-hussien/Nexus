@@ -37,7 +37,7 @@ export class freeExportService {
       
       return { success: true, format: 'CSV', filename };
     } catch (error) {
-      console.error('خطأ في Export CSV:', error);
+      console.error('Error في Export CSV:', error);
       return { success: false, error: error.message };
     }
   }
@@ -374,7 +374,7 @@ export class freeExportService {
       
     } catch (error) {
       console.error('File download error:', error);
-      throw new Error(`فشل في تحميل الملف: ${error.message}`);
+      throw new Error(`Failure في تحميل الملف: ${error.message}`);
     }
   }
 
@@ -394,7 +394,7 @@ export class freeExportService {
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    return months[monthNumber - 1] || `الشهر ${monthNumber}`;
+    return months[monthNumber - 1] || `الmonth ${monthNumber}`;
   }
 
   static getMonthNameEnglish(monthNumber) {
@@ -458,7 +458,7 @@ export class freeExportService {
       features: [
         'Export CSV محلي',
         'Export Excel متوافق', 
-        'دعم اللغة Arabic',
+        'دعم Language Arabic',
         'لا توجد قيود على الحجم',
         'عمل دون اتصال بالإنترنت'
       ]

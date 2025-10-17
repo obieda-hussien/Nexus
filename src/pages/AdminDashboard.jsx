@@ -29,10 +29,10 @@ const AdminDashboard = () => {
   });
 
   const [recentActivities] = useState([
-    { id: 1, type: 'user', message: 'Ahmed Mohamed انضم للمنصة', time: '5 دقائق', icon: Users },
-    { id: 2, type: 'course', message: 'تم Create New Course: Advanced Physics', time: '15 دقيقة', icon: BookOpen },
-    { id: 3, type: 'payment', message: 'تم استلام دفعة بقيمة 500 EGP', time: '30 minutes', icon: DollarSign },
-    { id: 4, type: 'instructor', message: 'طلب تدريس New من د. سارة أحمد', time: '1 ساعة', icon: UserCheck },
+    { id: 1, type: 'user', message: 'Ahmed Mohamed انضم للمنصة', time: '5 minutes', icon: Users },
+    { id: 2, type: 'course', message: 'تم Create New Course: Advanced Physics', time: '15 minute', icon: BookOpen },
+    { id: 3, type: 'payment', message: 'تم استلام دفعة بRateة 500 EGP', time: '30 minutes', icon: DollarSign },
+    { id: 4, type: 'instructor', message: 'طلب تدريس New من Dr. Sarah Ahmed', time: '1 hour', icon: UserCheck },
     { id: 5, type: 'alert', message: 'Update أمني مطلوب للنظام', time: '2 hours', icon: AlertCircle }
   ]);
 
@@ -74,7 +74,7 @@ const AdminDashboard = () => {
                 <div>
                   <p className="text-blue-100 text-sm">Total Userين</p>
                   <p className="text-3xl font-bold">{stats.totalUsers.toLocaleString()}</p>
-                  <p className="text-blue-100 text-xs">+12% من الشهر الماضي</p>
+                  <p className="text-blue-100 text-xs">+12% من الmonth الماضي</p>
                 </div>
                 <Users className="h-12 w-12 text-blue-200" />
               </div>
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100 text-sm">الإيرادات الشهرية</p>
+                  <p className="text-purple-100 text-sm">الإيرادات الmonthية</p>
                   <p className="text-3xl font-bold">{(stats.monthlyRevenue / 1000).toFixed(0)}K EGP</p>
                   <p className="text-purple-100 text-xs">+8% نمو</p>
                 </div>
@@ -151,7 +151,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg transition-colors">
                   <UserCheck className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">موافقة Instructorين</span>
+                  <span className="text-sm">OKة Instructorين</span>
                   <span className="block text-xs text-blue-200">({stats.pendingApprovals} في الانتظار)</span>
                 </button>
                 <button className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-lg transition-colors">
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
                 </button>
                 <button className="bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-lg transition-colors">
                   <Award className="h-6 w-6 mx-auto mb-2" />
-                  <span className="text-sm">إدارة الشهادات</span>
+                  <span className="text-sm">إدارة Certificates</span>
                   <span className="block text-xs text-orange-200">نظام آلي</span>
                 </button>
               </div>
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">اسم الكورس</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">عدد students</th>
                     <th className="text-right py-3 px-4 text-gray-400 font-medium">الإيرادات</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">التقييم</th>
+                    <th className="text-right py-3 px-4 text-gray-400 font-medium">Rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -230,7 +230,7 @@ const AdminDashboard = () => {
 
             <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-white">Intermediate التقييم</h4>
+                <h4 className="text-lg font-semibold text-white">Intermediate Rating</h4>
                 <Award className="h-5 w-5 text-yellow-400" />
               </div>
               <p className="text-3xl font-bold text-yellow-400">{stats.averageRating}</p>

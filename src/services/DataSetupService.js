@@ -53,13 +53,13 @@ class DataSetupService {
             'Calculus Applications',
             'Integration',
             'Integration Applications',
-            'المعادلات Calculusية'
+            'Calculus Equations'
           ],
-          requirements: ['إتمام الجبر والهندسة بنجاح', 'معرفة جيدة بالدوال'],
+          requirements: ['Successfully completing Algebra and Geometry', 'Good knowledge of functions'],
           learning_outcomes: [
-            'إتقان مفاهيم Calculus وIntegration',
-            'حل المعادلات Calculusية',
-            'تطبيق المفاهيم في المسائل العملية'
+            'Mastering Calculus and Integration concepts',
+            'Solving Calculus equations',
+            'Applying concepts to practical problems'
           ],
           status: 'active',
           featured: true,
@@ -67,8 +67,8 @@ class DataSetupService {
           updated_at: new Date().toISOString()
         },
         {
-          title: 'Chemistry العضوية الأساسية',
-          description: 'مقدمة شاملة للChemistry العضوية وتفاعلاتها',
+          title: 'Basic Organic Chemistry',
+          description: 'Comprehensive introduction to Organic Chemistry and its reactions',
           subject: 'chemistry',
           level: 'university',
           instructor_id: 'instructor_3',
@@ -76,20 +76,20 @@ class DataSetupService {
           price: 349,
           currency: 'EGP',
           thumbnail: '/images/chemistry-course.jpg',
-          tags: ['Chemistry', 'عضوية', 'تفاعلات', 'University'],
+          tags: ['Chemistry', 'Organic', 'Reactions', 'University'],
           modules: [
-            'المركبات العضوية',
-            'التصاوغ',
-            'التفاعلات العضوية',
-            'الألكانات والألكينات',
-            'المركبات الأروماتية',
-            'المجموعات الوظيفية'
+            'Organic Compounds',
+            'Isomerism',
+            'Organic Reactions',
+            'Alkanes and Alkenes',
+            'Aromatic Compounds',
+            'Functional Groups'
           ],
-          requirements: ['Basics Chemistry العامة', 'معرفة بالجدول الدوري'],
+          requirements: ['General Chemistry Basics', 'Knowledge of Periodic Table'],
           learning_outcomes: [
-            'فهم بنية المركبات العضوية',
-            'توقع نتائج التفاعلات العضوية',
-            'تطبيق المعرفة في المختبر'
+            'Understanding the structure of organic compounds',
+            'Predicting results of organic reactions',
+            'Applying knowledge in the laboratory'
           ],
           status: 'active',
           featured: false,
@@ -119,67 +119,67 @@ class DataSetupService {
         // Physics Course Lessons
         {
           course_id: courseIds[0],
-          title: 'مقدمة في Mechanics',
-          description: 'التعرف على Basics الحركة والقوة',
+          title: 'Introduction to Mechanics',
+          description: 'Learning the basics of motion and force',
           order: 1,
           duration_minutes: 45,
           type: 'video',
           content_url: 'https://example.com/lesson1',
           free_preview: true,
           learning_objectives: [
-            'تعريف الحركة والسكون',
-            'فهم مفهوم القوة',
-            'تطبيق قوانين نيوتن'
+            'Definition of motion and rest',
+            'Understanding the concept of force',
+            'Apply Newton's laws'
           ],
           created_at: new Date().toISOString()
         },
         {
           course_id: courseIds[0],
-          title: 'قوانين الحركة',
-          description: 'دراسة قوانين نيوتن الثلاثة',
+          title: 'Laws of motion',
+          description: 'Study of Newton's three laws',
           order: 2,
           duration_minutes: 60,
           type: 'video',
           content_url: 'https://example.com/lesson2',
           free_preview: false,
           learning_objectives: [
-            'القانون الأول لنيوتن',
-            'القانون الثاني لنيوتن',
-            'القانون الثالث لنيوتن'
+            'Newton's First Law',
+            'Newton's Second Law',
+            'Newton's Third Law'
           ],
           created_at: new Date().toISOString()
         },
         // Math Course Lessons
         {
           course_id: courseIds[1],
-          title: 'مفهوم النهاية',
-          description: 'التعرف على مفهوم النهاية وخصائصها',
+          title: 'The concept of limit',
+          description: 'Learning the concept of limit and its properties',
           order: 1,
           duration_minutes: 50,
           type: 'video',
           content_url: 'https://example.com/math-lesson1',
           free_preview: true,
           learning_objectives: [
-            'تعريف النهاية',
-            'حساب النهايات البسيطة',
-            'النهايات اللانهائية'
+            'Definition of limit',
+            'Calculating simple limits',
+            'Infinite limits'
           ],
           created_at: new Date().toISOString()
         },
         // Chemistry Course Lessons
         {
           course_id: courseIds[2],
-          title: 'مقدمة في المركبات العضوية',
-          description: 'تعريف المركبات العضوية وخصائصها',
+          title: 'Introduction to Organic Compounds',
+          description: 'Definition and properties of organic compounds',
           order: 1,
           duration_minutes: 40,
           type: 'video',
           content_url: 'https://example.com/chem-lesson1',
           free_preview: true,
           learning_objectives: [
-            'تعريف المركبات العضوية',
-            'خصائص الكربون',
-            'أنواع الروابط'
+            'Definition of organic compounds',
+            'Properties of carbon',
+            'Types of bonds'
           ],
           created_at: new Date().toISOString()
         }
@@ -202,30 +202,30 @@ class DataSetupService {
         {
           course_id: courseIds[0],
           title: 'Quiz Basics Mechanics',
-          description: 'Quiz شامل على Basics Mechanics',
+          description: 'Comprehensive quiz on Mechanics Basics',
           order: 1,
           time_limit_minutes: 30,
           total_questions: 10,
           passing_score: 70,
           questions: [
             {
-              question: 'ما هو القانون الأول لنيوتن؟',
+              question: 'What is Newton's First Law?',
               type: 'multiple_choice',
               options: [
-                'الجسم الساكن يبقى ساكناً والمتحرك يبقى متحركاً ما لم تؤثر عليه قوة خارجية',
-                'القوة تساوي الكتلة مضروبة في التسارع',
-                'لكل فعل رد فعل مساوٍ له في المقدار ومضاد له في الاتجاه',
-                'الطاقة لا تفنى ولا تستحدث'
+                'A body at rest remains at rest and a body in motion remains in motion unless acted upon by an external force',
+                'Force equals mass multiplied by acceleration',
+                'For every action there is an equal and opposite reaction',
+                'Energy cannot be created or destroyed'
               ],
               correct_answer: 0,
-              explanation: 'القانون الأول لنيوتن ينص على أن الجسم يحافظ على حالة السكون أو الحركة المنتظمة ما لم تؤثر عليه قوة خارجية'
+              explanation: 'Newton's First Law ينص على أن الجسم يحافظ على حالة السكون أو Motion المنتظمة ما لم تؤثر عليه قوة خارجية'
             },
             {
-              question: 'وحدة قياس القوة في النظام الدولي هي:',
+              question: 'The SI unit of force is:',
               type: 'multiple_choice',
-              options: ['كيلوجرام', 'متر', 'نيوتن', 'جول'],
+              options: ['Kilogram', 'Meter', 'Newton', 'Joule'],
               correct_answer: 2,
-              explanation: 'النيوتن هو وحدة قياس القوة في النظام الدولي'
+              explanation: 'The Newton is the SI unit of force'
             }
           ],
           created_at: new Date().toISOString()
@@ -247,42 +247,42 @@ class DataSetupService {
     try {
       const sessions = [
         {
-          title: 'مراجعة شاملة في Physics',
-          instructor_name: 'د. Ahmed Mohamed',
+          title: 'Comprehensive review in Physics',
+          instructor_name: 'Dr. Ahmed Mohamed',
           subject: 'physics',
           scheduled_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
           duration_minutes: 90,
           max_participants: 100,
           current_participants: 45,
-          description: 'مراجعة شاملة لأهم موضوعات Physics مع حل أمثلة تطبيقية',
+          description: 'Comprehensive review of important Physics topics with practical examples',
           meeting_url: 'https://meet.nexus.com/physics-review',
           status: 'scheduled',
-          tags: ['مراجعة', 'Physics', 'أمثلة'],
+          tags: ['Review', 'Physics', 'Examples'],
           created_at: new Date().toISOString()
         },
         {
-          title: 'حل مسائل Calculus وIntegration',
-          instructor_name: 'د. فاطمة علي',
+          title: 'Solving Calculus and Integration problems',
+          instructor_name: 'Dr. Fatima Ali',
           subject: 'mathematics',
           scheduled_at: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // Day after tomorrow
           duration_minutes: 120,
           max_participants: 80,
           current_participants: 32,
-          description: 'جلسة تفاعلية لحل مسائل متنوعة في Calculus وIntegration',
+          description: 'Interactive session for solving various Calculus and Integration problems',
           meeting_url: 'https://meet.nexus.com/calculus-problems',
           status: 'scheduled',
-          tags: ['Calculus', 'Integration', 'مسائل'],
+          tags: ['Calculus', 'Integration', 'Problems'],
           created_at: new Date().toISOString()
         },
         {
-          title: 'تجارب Chemistry العضوية',
-          instructor_name: 'د. محمد حسن',
+          title: 'Organic Chemistry experiments',
+          instructor_name: 'Dr. Mohamed Hassan',
           subject: 'chemistry',
           scheduled_at: new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString(), // 3 days from now
           duration_minutes: 105,
           max_participants: 50,
           current_participants: 28,
-          description: 'View تجارب عملية في Chemistry العضوية مع الشرح التفصيلي',
+          description: 'View practical experiments in Organic Chemistry with detailed explanation',
           meeting_url: 'https://meet.nexus.com/organic-chemistry-lab',
           status: 'scheduled',
           tags: ['تجارب', 'Organic Chemistry', 'عملي'],
@@ -306,8 +306,8 @@ class DataSetupService {
       const instructors = [
         {
           id: 'instructor_1',
-          name: 'د. Ahmed Mohamed Ali',
-          title: 'أستاذ Physics - University القاهرة',
+          name: 'Dr. Ahmed Mohamed Ali',
+          title: 'Professor Physics - University القاهرة',
           bio: 'دكتوراه في Physics النظرية مع خبرة 15 عام في التدريس الجامعي والثانوي',
           specialties: ['Physics', 'Mathematics', 'Physics نووية'],
           experience_years: 15,
@@ -320,12 +320,12 @@ class DataSetupService {
         },
         {
           id: 'instructor_2',
-          name: 'د. فاطمة علي محمود',
-          title: 'أستاذة Mathematics - University الأزهر',
+          name: 'Dr. Fatima Ali محمود',
+          title: 'Professorة Mathematics - University الأزهر',
           bio: 'خبيرة في Applied Mathematics مع التركيز على Calculus وIntegration والإحصاء',
-          specialties: ['Mathematics', 'إحصاء', 'تحليل عددي'],
+          specialties: ['Mathematics', 'إحصاء', 'Analysis عددي'],
           experience_years: 12,
-          education: ['دكتوراه Mathematics - University الأزهر', 'ماجستير Mathematics تطبيقية - University القاهرة'],
+          education: ['دكتوراه Mathematics - University الأزهر', 'ماجستير Mathematics Applyية - University القاهرة'],
           rating: 4.9,
           total_students: 1800,
           profile_image: '/images/instructor-2.jpg',
@@ -334,10 +334,10 @@ class DataSetupService {
         },
         {
           id: 'instructor_3',
-          name: 'د. محمد حسن إبراهيم',
-          title: 'أستاذ Chemistry - University عين شمس',
-          bio: 'متخصص في Chemistry العضوية والتحليلية مع خبرة واسعة في الأبحاث والتدريس',
-          specialties: ['Organic Chemistry', 'Chemistry تحليلية', 'Chemistry حيوية'],
+          name: 'Dr. Mohamed Hassan إبراهيم',
+          title: 'Professor Chemistry - University عين شمس',
+          bio: 'متخصص في Chemistry الOrganic والAnalysisية مع خبرة واسعة في الأبحاث والتدريس',
+          specialties: ['Organic Chemistry', 'Chemistry Analysisية', 'Chemistry حيوية'],
           experience_years: 18,
           education: ['دكتوراه Organic Chemistry - University عين شمس', 'ماجستير Chemistry - University القاهرة'],
           rating: 4.7,

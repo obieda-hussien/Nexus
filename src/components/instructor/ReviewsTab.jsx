@@ -65,14 +65,14 @@ const ReviewsTab = ({ courses = [] }) => {
       // No need to initialize a separate course_reviews path
       // We'll use the existing courses structure: courses/{courseId}/reviews/{reviewId}
       // This leverages existing Firebase rules for courses
-      console.log('استخدام هيكل Courses الموجود للمراجعات');
+      console.log('استخدام هيكل Courses الموجود للمReviewات');
       
       setDatabaseInitialized(true);
     } catch (error) {
-      console.error('خطأ في تهيئة قاعدة البيانات:', error);
+      console.error('Error في تهيئة قاعدة البيانات:', error);
       setError({
         type: 'initialization',
-        message: 'فشل في تهيئة قاعدة بيانات المراجعات',
+        message: 'Failure في تهيئة قاعدة بيانات المReviewات',
         details: error.message
       });
       setLoading(false);
@@ -137,7 +137,7 @@ const ReviewsTab = ({ courses = [] }) => {
             },
             (error) => {
               hasError = true;
-              console.error(`خطأ في جلب مراجعات الكورس ${course.title}:`, error);
+              console.error(`Error في جلب مReviewات الكورس ${course.title}:`, error);
               reject(error);
             }
           );
@@ -147,10 +147,10 @@ const ReviewsTab = ({ courses = [] }) => {
       await Promise.allSettled(coursePromises);
       
     } catch (error) {
-      console.error('خطأ في جلب المراجعات:', error);
+      console.error('Error في جلب المReviewات:', error);
       setError({
         type: 'fetch',
-        message: 'An error occurred في جلب المراجعات',
+        message: 'An error occurred في جلب المReviewات',
         details: error.message
       });
       setLoading(false);
@@ -206,7 +206,7 @@ const ReviewsTab = ({ courses = [] }) => {
 
   const handleReply = async (reviewId) => {
     if (!replyText.trim()) {
-      toast.error('يرجى كتابة الرد أولاً');
+      toast.error('Please كتابة الرد أولاً');
       return;
     }
 
@@ -224,10 +224,10 @@ const ReviewsTab = ({ courses = [] }) => {
 
       setReplyText('');
       setReplyingTo(null);
-      toast.success('تم Submit الرد بنجاح');
+      toast.success('تم Submit الرد successfully');
     } catch (error) {
       console.error('Error sending reply:', error);
-      toast.error('An error occurred في Submit الرد. يرجى المحاولة مرة أخرى.');
+      toast.error('An error occurred في Submit الرDr. Please المحاولة مرة أخرى.');
     }
   };
 
@@ -275,7 +275,7 @@ const ReviewsTab = ({ courses = [] }) => {
         <Database className="w-8 h-8 text-blue-400" />
       </div>
       <h3 className="text-xl font-semibold text-white mb-2">جاري تهيئة قاعدة البيانات</h3>
-      <p className="text-blue-300 mb-4">يتم إعداد نظام المراجعات لأول مرة...</p>
+      <p className="text-blue-300 mb-4">يتم إعداد نظام المReviewات لأول مرة...</p>
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto"></div>
     </div>
   );
@@ -312,7 +312,7 @@ const ReviewsTab = ({ courses = [] }) => {
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400 mx-auto mb-4"></div>
-              <p className="text-white">جاري تحميل المراجعات...</p>
+              <p className="text-white">جاري تحميل المReviewات...</p>
             </div>
           </div>
         )}
@@ -327,11 +327,11 @@ const ReviewsTab = ({ courses = [] }) => {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-white flex items-center">
             <MessageSquare className="w-6 h-6 ml-3 text-purple-400" />
-            إدارة المراجعات وReviews
+            إدارة المReviewات وReviews
           </h2>
           <div className="flex items-center space-x-2 space-x-reverse">
             <BarChart3 className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300">{stats.totalReviews} مراجعة</span>
+            <span className="text-purple-300">{stats.totalReviews} Review</span>
           </div>
         </div>
 
@@ -339,17 +339,17 @@ const ReviewsTab = ({ courses = [] }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-white">{stats.totalReviews}</div>
-            <div className="text-purple-300 text-sm">Total المراجعات</div>
+            <div className="text-purple-300 text-sm">Total المReviewات</div>
           </div>
           <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-white">{stats.averageRating}</div>
-            <div className="text-green-300 text-sm">Intermediate التقييم</div>
+            <div className="text-green-300 text-sm">Intermediate Rating</div>
           </div>
           <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-lg p-4 text-center">
             <div className="flex justify-center mb-1">
               {renderStars(Math.round(stats.averageRating))}
             </div>
-            <div className="text-yellow-300 text-sm">التقييم العام</div>
+            <div className="text-yellow-300 text-sm">Rating العام</div>
           </div>
           <div className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-white">{courses.length}</div>
@@ -392,7 +392,7 @@ const ReviewsTab = ({ courses = [] }) => {
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="الSearch في المراجعات..."
+              placeholder="الSearch في المReviewات..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-lg px-10 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -443,7 +443,7 @@ const ReviewsTab = ({ courses = [] }) => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">لا توجد كورسات Publishedة</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    يجب Publish Courses أولاً حتى يتمكن students من تقييمها وكتابة المراجعات
+                    يجب Publish Courses أولاً حتى يتمكن students من تقييمها وكتابة المReviewات
                   </p>
                   <div className="flex items-center justify-center space-x-6 space-x-reverse text-sm text-gray-500">
                     <div className="flex items-center space-x-2 space-x-reverse">
@@ -470,9 +470,9 @@ const ReviewsTab = ({ courses = [] }) => {
                   <div className="w-24 h-24 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <MessageSquare className="w-12 h-12 text-yellow-400" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد مراجعات حتى الآن</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">لا توجد مReviewات حتى الآن</h3>
                   <p className="text-gray-400 text-lg mb-6 max-w-md mx-auto leading-relaxed">
-                    لم يقم أي student بكتابة مراجعة أو تقييم لكورساتك بعد. عندما يبدأ students في التفاعل مع المحتوى ستظهر مراجعاتهم هنا.
+                    لم يقم أي student بكتابة Review أو تقييم لكورساتك بعDr. عندما يبدأ students في التفاعل مع Content ستظهر مReviewاتهم هنا.
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 max-w-lg mx-auto">
                     <div className="flex items-start space-x-3 space-x-reverse">
@@ -499,7 +499,7 @@ const ReviewsTab = ({ courses = [] }) => {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">No results</h3>
                 <p className="text-gray-400 mb-4">
-                  لا توجد مراجعات تطابق المرشحات المحددة
+                  لا توجد مReviewات تطابق المرشحات المحددة
                 </p>
                 <button
                   onClick={() => {
@@ -576,7 +576,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       <textarea
                         value={replyText}
                         onChange={(e) => setReplyText(e.target.value)}
-                        placeholder="اكتب ردك على هذه المراجعة..."
+                        placeholder="اكتب ردك على هذه الReview..."
                         className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none h-24"
                       />
                       <div className="flex space-x-2 space-x-reverse">
@@ -604,7 +604,7 @@ const ReviewsTab = ({ courses = [] }) => {
                       className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition-all duration-300"
                     >
                       <Reply className="w-4 h-4" />
-                      <span>الرد على المراجعة</span>
+                      <span>الرد على الReview</span>
                     </button>
                   )}
                 </div>

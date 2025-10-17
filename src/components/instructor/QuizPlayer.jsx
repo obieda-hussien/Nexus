@@ -246,7 +246,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
       <div className="bg-white rounded-lg p-8 max-w-md mx-auto text-center">
         <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
         <h3 className="text-xl font-bold text-gray-900 mb-4">كلمة مرور مطلوبة</h3>
-        <p className="text-gray-600 mb-4">يتطلب هذا الQuiz كلمة مرور للمتابعة</p>
+        <p className="text-gray-600 mb-4">يتطلب هذا الQuiz كلمة مرور للمFollowة</p>
         <input
           type="password"
           value={passwordInput}
@@ -406,7 +406,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
                   onChange={() => handleAnswerChange(currentQ.id, false)}
                   className="w-4 h-4 text-blue-600"
                 />
-                <span className="text-gray-700 flex-1">خطأ</span>
+                <span className="text-gray-700 flex-1">Error</span>
               </label>
             </div>
           )}
@@ -431,7 +431,7 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
           className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>السابق</span>
+          <span>Previous</span>
         </button>
 
         <div className="flex space-x-2 space-x-reverse">
@@ -441,14 +441,14 @@ const QuizPlayer = ({ quiz, courseId, lessonId, onComplete, onClose }) => {
               className="flex items-center space-x-2 space-x-reverse px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               <Trophy className="w-4 h-4" />
-              <span>إنهاء الQuiz</span>
+              <span>Finish الQuiz</span>
             </button>
           ) : (
             <button
               onClick={goToNext}
               className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
-              <span>التالي</span>
+              <span>Next</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -477,11 +477,11 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{quiz.timeLimit}</div>
-          <div className="text-gray-600 text-sm">دقيقة</div>
+          <div className="text-gray-600 text-sm">minute</div>
         </div>
         <div className="text-center p-4 bg-gray-50 rounded-lg">
           <div className="text-2xl font-bold text-gray-900">{quiz.passingScore}%</div>
-          <div className="text-gray-600 text-sm">Score النجاح</div>
+          <div className="text-gray-600 text-sm">Score الSuccess</div>
         </div>
       </div>
 
@@ -494,7 +494,7 @@ const QuizIntro = ({ quiz, onStart, onClose, previousAttempts, maxAttempts }) =>
       {/* Attempt Info */}
       {previousAttempts.length > 0 && (
         <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <h4 className="font-semibold text-yellow-900 mb-2">محاولاتك السابقة:</h4>
+          <h4 className="font-semibold text-yellow-900 mb-2">محاولاتك Previousة:</h4>
           <div className="space-y-2">
             {previousAttempts.slice(-3).map((attempt, index) => (
               <div key={index} className="flex justify-between text-sm text-yellow-800">
@@ -549,7 +549,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
             ? 'bg-green-100 text-green-800' 
             : 'bg-red-100 text-red-800'
         }`}>
-          {passed ? 'مبروك! لقد Passedت' : 'للأسف لم تPassed'}
+          {passed ? 'Congratulations! لقد Passedت' : 'للأسف لم تPassed'}
         </div>
       </div>
 
@@ -587,7 +587,7 @@ const QuizResults = ({ score, quiz, answers, onClose, onRetry, canRetry, attempt
 
       {!canRetry && !passed && (
         <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-center">
-          <p className="text-red-800">لقد استنفدت جميع المحاولات المتاحة لهذا الQuiz</p>
+          <p className="text-red-800">لقد استنفدت جميع المحاولات الAvailableة لهذا الQuiz</p>
         </div>
       )}
     </div>

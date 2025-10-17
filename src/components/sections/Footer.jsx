@@ -52,14 +52,14 @@ const Footer = () => {
         { name: isRTL ? 'حولنا' : 'About Us', href: '#' },
         { name: isRTL ? 'فريق العمل' : 'Our Team', href: '#' },
         { name: isRTL ? 'الوظائف' : 'Careers', href: '#' },
-        { name: isRTL ? 'الأخبار' : 'News', href: '#' }
+        { name: isRTL ? 'News' : 'News', href: '#' }
       ]
     },
     {
-      title: isRTL ? 'الدعم' : 'Support',
+      title: isRTL ? 'Support' : 'Support',
       links: [
-        { name: isRTL ? 'مركز المساعدة' : 'Help Center', href: '#' },
-        { name: isRTL ? 'الأسئلة الشائعة' : 'FAQ', href: '#' },
+        { name: isRTL ? 'مركز Help' : 'Help Center', href: '#' },
+        { name: isRTL ? 'FAQ' : 'FAQ', href: '#' },
         { name: isRTL ? 'تواصل معنا' : 'Contact Us', href: '#' },
         { name: isRTL ? 'حالة النظام' : 'System Status', href: '#' }
       ]
@@ -67,7 +67,7 @@ const Footer = () => {
     {
       title: isRTL ? 'قانوني' : 'Legal',
       links: [
-        { name: isRTL ? 'سياسة الخصوصية' : 'Privacy Policy', href: '#' },
+        { name: isRTL ? 'Privacy Policy' : 'Privacy Policy', href: '#' },
         { name: isRTL ? 'شروط الاستخدام' : 'Terms of Service', href: '#' },
         { name: isRTL ? 'ملفات تعريف الارتباط' : 'Cookie Policy', href: '#' },
         { name: isRTL ? 'إخلاء المسؤولية' : 'Disclaimer', href: '#' }
@@ -84,7 +84,7 @@ const Footer = () => {
     },
     {
       icon: Phone,
-      title: isRTL ? 'الهاتف' : 'Phone',
+      title: isRTL ? 'Phone' : 'Phone',
       value: isRTL ? '+20 2 123 4567' : '+20 2 123 4567',
       href: 'tel:+20212340567'
     },
@@ -147,7 +147,7 @@ const Footer = () => {
             </h3>
             <p className="text-text-secondary max-w-2xl mx-auto">
               {isRTL 
-                ? 'اشترك في Publishتنا الإخبارية للحصول على آخر الأخبار والدورات الNewة'
+                ? 'اشترك في Publishتنا الإخبارية للحصول على آخر News والدورات الNewة'
                 : 'Subscribe to our newsletter for the latest news and new courses'
               }
             </p>
@@ -276,7 +276,7 @@ const Footer = () => {
             {/* Social Links */}
             <div className="mt-6">
               <h5 className="text-white font-medium mb-3">
-                {isRTL ? 'تابعنا' : 'Follow Us'}
+                {isRTL ? 'Followنا' : 'Follow Us'}
               </h5>
               <div className="flex space-x-3">
                 {socialLinks.map((social, index) => {
@@ -288,7 +288,7 @@ const Footer = () => {
                       className={`w-10 h-10 glass rounded-lg flex items-center justify-center text-text-secondary transition-all duration-300 ${social.color}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      aria-label={`${isRTL ? 'تابعنا على' : 'Follow us on'} ${social.name}`}
+                      aria-label={`${isRTL ? 'Followنا على' : 'Follow us on'} ${social.name}`}
                     >
                       <Icon size={18} aria-hidden="true" />
                     </motion.a>

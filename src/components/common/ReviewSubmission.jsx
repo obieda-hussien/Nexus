@@ -45,7 +45,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
 
   const handleSubmitReview = async () => {
     if (rating === 0) {
-      toast.error('يرجى تحديد التقييم أولاً');
+      toast.error('Please تحديد Rating أولاً');
       return;
     }
 
@@ -67,17 +67,17 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
           ...reviewData,
           updatedAt: new Date().toISOString()
         });
-        toast.success('تم Update تقييمك بنجاح');
+        toast.success('تم Update تقييمك successfully');
       } else {
         // Create new review - use courses/{courseId}/reviews path
         const reviewsRef = ref(db, `courses/${courseId}/reviews`);
         await push(reviewsRef, reviewData);
-        toast.success('تم Submit تقييمك بنجاح');
+        toast.success('تم Submit تقييمك successfully');
         setHasReviewed(true);
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      toast.error('An error occurred في Submit التقييم');
+      toast.error('An error occurred في Submit Rating');
     } finally {
       setIsSubmitting(false);
     }
@@ -110,7 +110,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
     <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6">
       <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
         <MessageSquare className="w-5 h-5 ml-2 text-blue-400" />
-        {hasReviewed ? 'Update تقييمك' : 'قيم هذا الكورس'}
+        {hasReviewed ? 'Update تقييمك' : 'Rate هذا الكورس'}
       </h3>
 
       {hasReviewed && (
@@ -124,11 +124,11 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
 
       {/* Rating Stars */}
       <div className="mb-4">
-        <label className="block text-white font-medium mb-2">التقييم</label>
+        <label className="block text-white font-medium mb-2">Rating</label>
         <div className="flex items-center space-x-1 space-x-reverse">
           {renderStars()}
           <span className="text-gray-300 mr-3">
-            {rating > 0 ? `${rating}/5` : 'اختر التقييم'}
+            {rating > 0 ? `${rating}/5` : 'اختر Rating'}
           </span>
         </div>
       </div>
@@ -141,7 +141,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="شاركنا رأيك في الكورس..."
+          placeholder="Shareنا رأيك في الكورس..."
           className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none h-24"
           maxLength={500}
         />
@@ -168,7 +168,7 @@ const ReviewSubmission = ({ courseId, courseTitle }) => {
         ) : (
           <>
             <Send className="w-4 h-4" />
-            <span>{hasReviewed ? 'Update التقييم' : 'Submit التقييم'}</span>
+            <span>{hasReviewed ? 'Update Rating' : 'Submit Rating'}</span>
           </>
         )}
       </button>

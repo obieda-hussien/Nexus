@@ -229,7 +229,7 @@ const BasicInfoTab = ({ data, onChange }) => {
 
         <div>
           <label className="block text-gray-300 text-sm font-semibold mb-2">
-            اللغة
+            Language
           </label>
           <select
             value={data.language || 'ar'}
@@ -251,7 +251,7 @@ const BasicInfoTab = ({ data, onChange }) => {
             className="w-full bg-gray-700 border border-gray-500 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400"
           >
             <option value="draft">Draft</option>
-            <option value="pending">في المراجعة</option>
+            <option value="pending">في الReview</option>
             <option value="published">Published</option>
           </select>
         </div>
@@ -390,7 +390,7 @@ const CurriculumTab = ({ sections, setSections, courseId }) => {
                 lessonTotal + (lesson.duration || 0), 0) || 0), 0
             )}
           </p>
-          <p className="text-gray-300">دقيقة</p>
+          <p className="text-gray-300">minute</p>
         </div>
       </div>
 
@@ -507,7 +507,7 @@ const SettingsTab = ({ data, onChange }) => {
               className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor="isActive" className="text-white font-medium">
-              كورس Active ومتاح للتسجيل
+              كورس Active وAvailable للتسجيل
             </label>
           </div>
 
@@ -870,7 +870,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
             />
             <label htmlFor={`published-${lesson.id}`} className="text-gray-300 text-sm">
-              Published ومتاح For students
+              Published وAvailable For students
             </label>
           </div>
 
@@ -905,7 +905,7 @@ const EditableLessonCard = ({ lesson, lessonIndex, onUpdate, onDelete }) => {
               <h5 className="text-white font-medium">{lesson.title}</h5>
               <div className="flex items-center space-x-2 space-x-reverse text-gray-400 text-sm">
                 <span>{getTypeLabel(lesson.type)}</span>
-                {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} دقيقة</span>}
+                {lesson.type === 'video' && lesson.duration > 0 && <span>• {lesson.duration} minute</span>}
                 {lesson.type === 'quiz' && lesson.quiz?.questions?.length > 0 && (
                   <span>• {lesson.quiz.questions.length} Question</span>
                 )}
@@ -1006,7 +1006,7 @@ const AnalyticsTab = ({ course, sections }) => {
               </div>
               <div className="text-gray-400 text-sm">
                 {lesson.quiz?.questions?.length || 0} Question • 
-                {lesson.quiz?.timeLimit || 30} دقيقة
+                {lesson.quiz?.timeLimit || 30} minute
               </div>
             </div>
             

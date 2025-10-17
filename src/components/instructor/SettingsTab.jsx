@@ -195,7 +195,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
         vodafoneCashNumber: ''
       });
       
-      toast.success('تم Add طريقة الدفع بنجاح!');
+      toast.success('تم Add طريقة الدفع successfully!');
     } catch (error) {
       toast.error('An error occurred في Add طريقة الدفع');
       console.error(error);
@@ -208,7 +208,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
         const methodRef = ref(db, `users/${currentUser.uid}/paymentMethods/${methodId}`);
         await remove(methodRef);
         await loadPaymentMethods();
-        toast.success('تم Delete طريقة الدفع بنجاح!');
+        toast.success('تم Delete طريقة الدفع successfully!');
       } catch (error) {
         toast.error('An error occurred في Delete طريقة الدفع');
         console.error(error);
@@ -223,7 +223,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
     }
 
     if (amount > availableBalance) {
-      toast.error('المبلغ المطلوب أكبر من الرصيد المتاح');
+      toast.error('المبلغ المطلوب أكبر من الرصيد الAvailable');
       return;
     }
 
@@ -249,7 +249,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
       await loadWithdrawalHistory();
       await loadAvailableBalance();
       
-      toast.success('تم تOld طلب السحب بنجاح!');
+      toast.success('تم تOld طلب السحب successfully!');
     } catch (error) {
       toast.error('An error occurred في تOld طلب السحب');
       console.error(error);
@@ -351,7 +351,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
                 value={formData.specialization}
                 onChange={(e) => handleInputChange('specialization', e.target.value)}
                 className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-                placeholder="مثال: أستاذ Physics النووية"
+                placeholder="مثال: Professor Physics النووية"
               />
             ) : (
               <p className="text-white bg-white/5 px-4 py-3 rounded-xl">{formData.specialization || 'Not specified'}</p>
@@ -361,7 +361,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           <div>
             <label className="block text-purple-200 text-sm font-semibold mb-2">
               <Phone className="w-4 h-4 inline ml-1" />
-              رقم الهاتف
+              رقم Phone
             </label>
             {isEditing ? (
               <input
@@ -430,7 +430,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           
           <NotificationToggle
             label="Notifications الinstantة"
-            description="إشعارات instantة في المتصفح"
+            description="إشعارات instantة في المBrowse"
             checked={formData.pushNotifications}
             onChange={(checked) => handleInputChange('pushNotifications', checked)}
             disabled={!isEditing}
@@ -456,7 +456,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
 
       {/* Privacy Settings */}
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6">
-        <h3 className="text-xl font-semibold text-white mb-6">إعدادات الخصوصية</h3>
+        <h3 className="text-xl font-semibold text-white mb-6">إعدادات Privacy</h3>
         
         <div className="space-y-4">
           <NotificationToggle
@@ -476,7 +476,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           />
           
           <NotificationToggle
-            label="إظهار رقم الهاتف"
+            label="إظهار رقم Phone"
             description="إظهار رقم هاتفك في Profile"
             checked={formData.showPhone}
             onChange={(checked) => handleInputChange('showPhone', checked)}
@@ -495,7 +495,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
         {/* Available Balance */}
         <div className="grid md:grid-cols-3 gap-6 mb-6">
           <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-400/30 rounded-xl p-4">
-            <h4 className="text-green-300 text-sm font-medium">الرصيد المتاح للسحب</h4>
+            <h4 className="text-green-300 text-sm font-medium">الرصيد الAvailable للسحب</h4>
             <p className="text-white font-bold text-2xl">{availableBalance.toLocaleString()} EGP</p>
           </div>
           <div className="bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-400/30 rounded-xl p-4">
@@ -627,7 +627,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
 
             <div>
               <label className="block text-purple-200 text-sm font-semibold mb-2">
-                يوم السحب التلقائي
+                day السحب التلقائي
               </label>
               {isEditing ? (
                 <select
@@ -636,18 +636,18 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
                   className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-400"
                 >
                   {Array.from({length: 28}, (_, i) => i + 1).map(day => (
-                    <option key={day} value={day}>يوم {day}</option>
+                    <option key={day} value={day}>day {day}</option>
                   ))}
                 </select>
               ) : (
-                <p className="text-white bg-white/5 px-4 py-3 rounded-xl">يوم {formData.withdrawalDay}</p>
+                <p className="text-white bg-white/5 px-4 py-3 rounded-xl">day {formData.withdrawalDay}</p>
               )}
             </div>
           </div>
           
           <NotificationToggle
             label="السحب التلقائي"
-            description="سحب Earnings تلقائياً في تاريخ محدد كل شهر"
+            description="سحب Earnings تلقائياً في تاريخ محدد كل month"
             checked={formData.autoWithdrawal}
             onChange={(checked) => handleInputChange('autoWithdrawal', checked)}
             disabled={!isEditing}
@@ -663,7 +663,7 @@ const SettingsTab = ({ instructorData, onUpdateProfile }) => {
           <div className="bg-white/5 rounded-lg p-6 text-center">
             <Clock className="w-12 h-12 text-purple-300 mx-auto mb-3" />
             <p className="text-purple-200">لا توجد عمليات سحب بعد</p>
-            <p className="text-purple-300 text-sm">ستظهر هنا جميع طلبات السحب السابقة والحالية</p>
+            <p className="text-purple-300 text-sm">ستظهر هنا جميع طلبات السحب Previousة والحالية</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -914,7 +914,7 @@ const WithdrawalHistoryItem = ({ withdrawal }) => {
       case 'completed':
         return 'Completed';
       case 'failed':
-        return 'فشل';
+        return 'Failure';
       case 'approved':
         return 'معتمد';
       default:

@@ -98,7 +98,7 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
       await set(courseRef, courseDataToSave);
 
       console.log('✅ Course created successfully with ID:', courseRef.key);
-      toast.success('تم إنشاء الكورس بنجاح!');
+      toast.success('تم إنشاء الكورس successfully!');
       onCourseCreated();
     } catch (error) {
       console.error('❌ Error creating course:', error);
@@ -112,11 +112,11 @@ const CreateCourseTab = ({ onCourseCreated, onCancel }) => {
         console.error('📋 Current user role:', userProfile?.role);
         console.error('📋 Required role: instructor or admin');
       } else if (error.code === 'network-request-failed') {
-        errorMessage = 'خطأ في الشبكة. تحقق من اتصالك بالإنترنت';
+        errorMessage = 'Error في الشبكة. تحقق من اتصالك بالإنترنت';
       } else if (error.code === 'auth/requires-recent-login') {
-        errorMessage = 'يجب إعادة Login للمتابعة';
+        errorMessage = 'يجب إعادة Login للمFollowة';
       } else if (error.message) {
-        errorMessage = `خطأ: ${error.message}`;
+        errorMessage = `Error: ${error.message}`;
       }
       
       toast.error(errorMessage);
@@ -193,7 +193,7 @@ const CourseCreationSteps = ({ currentStep }) => {
     { id: 1, title: 'Basic Information' },
     { id: 2, title: 'Curriculum' },
     { id: 3, title: 'Pricing' },
-    { id: 4, title: 'المراجعة والPublish' }
+    { id: 4, title: 'الReview والPublish' }
   ];
 
   return (
@@ -284,7 +284,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           value={formData.shortDescription}
           onChange={(e) => handleInputChange('shortDescription', e.target.value)}
           className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:border-purple-400"
-          placeholder="وصف قصير يلخص Course Content في سطر واحد"
+          placeholder="وصف Cutير يلخص Course Content في سطر واحد"
           maxLength="120"
         />
       </div>
@@ -320,7 +320,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
 
         <div>
           <label className="block text-purple-200 text-sm font-semibold mb-2">
-            اللغة
+            Language
           </label>
           <select
             value={formData.language}
@@ -338,7 +338,7 @@ const BasicInfoStep = ({ data, onChange, onNext }) => {
           onClick={handleNext}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
         >
-          التالي: Curriculum
+          Next: Curriculum
         </button>
       </div>
     </div>
@@ -470,7 +470,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
 
   const handleNext = () => {
     if (sections.length === 0) {
-      toast.error('يرجى Add وحدة واحدة على الLess');
+      toast.error('Please Add وحدة واحدة على الLess');
       return;
     }
 
@@ -479,7 +479,7 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
     );
 
     if (hasEmptyLessons) {
-      toast.error('يرجى إكمال جميع عناوين الدروس');
+      toast.error('Please إكمال جميع عناوين الدروس');
       return;
     }
 
@@ -561,13 +561,13 @@ const CurriculumStep = ({ curriculum, onChange, onNext, onBack }) => {
           onClick={onBack}
           className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
         >
-          السابق
+          Previous
         </button>
         <button
           onClick={handleNext}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
         >
-          التالي: Pricing
+          Next: Pricing
         </button>
       </div>
     </div>
@@ -924,7 +924,7 @@ console.log('مرحباً بالعالم');
               <h5 className="text-white font-medium">{lesson.title}</h5>
               <p className="text-purple-300 text-sm">
                 {getTypeLabel(lesson.type)}
-                {lesson.type === 'video' && lesson.duration > 0 && ` • ${lesson.duration} دقيقة`}
+                {lesson.type === 'video' && lesson.duration > 0 && ` • ${lesson.duration} minute`}
                 {lesson.type === 'quiz' && lesson.quizData?.questions?.length > 0 && ` • ${lesson.quizData.questions.length} Question`}
               </p>
             </div>
@@ -1006,13 +1006,13 @@ const PricingStep = ({ data, onChange, onNext, onBack }) => {
           onClick={onBack}
           className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
         >
-          السابق
+          Previous
         </button>
         <button
           onClick={onNext}
           className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform"
         >
-          التالي: المراجعة
+          Next: الReview
         </button>
       </div>
     </div>
@@ -1023,7 +1023,7 @@ const PricingStep = ({ data, onChange, onNext, onBack }) => {
 const ReviewStep = ({ data, onSubmit, onBack }) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white">مراجعة مScienceات الكورس</h3>
+      <h3 className="text-xl font-semibold text-white">Review مScienceات الكورس</h3>
       
       <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
         <div>
@@ -1057,7 +1057,7 @@ const ReviewStep = ({ data, onSubmit, onBack }) => {
           onClick={onBack}
           className="px-6 py-3 text-purple-200 hover:text-white transition-colors"
         >
-          السابق
+          Previous
         </button>
         <button
           onClick={onSubmit}
@@ -1079,11 +1079,11 @@ const InstructorUpgradePrompt = () => {
     try {
       setIsUpgrading(true);
       await becomeInstructor();
-      toast.success('🎉 تم ترقية حسابك لInstructor بنجاح! يمكنك الآن إنشاء Courses');
+      toast.success('🎉 تم ترقية حسابك لInstructor successfully! يمكنك الآن إنشاء Courses');
       // The page will automatically update due to role change
     } catch (error) {
       console.error('❌ Error becoming instructor:', error);
-      toast.error(error.message || 'فشل في ترقية الحساب. يرجى المحاولة مرة أخرى');
+      toast.error(error.message || 'Failure في ترقية الحساب. Please المحاولة مرة أخرى');
     } finally {
       setIsUpgrading(false);
     }
@@ -1114,7 +1114,7 @@ const InstructorUpgradePrompt = () => {
           <div className="grid md:grid-cols-2 gap-4 text-right">
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-purple-200">إنشاء كورسات غير محدودة</span>
+              <span className="text-purple-200">إنشاء كورسات غير Limitedة</span>
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -1122,7 +1122,7 @@ const InstructorUpgradePrompt = () => {
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-purple-200">متابعة تقدم students</span>
+              <span className="text-purple-200">مFollowة تقدم students</span>
             </div>
             <div className="flex items-center space-x-3 space-x-reverse">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>

@@ -69,7 +69,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal request notification:', error);
-      throw new Error(`فشل في Submit إشعار طلب السحب: ${error.message}`);
+      throw new Error(`Failure في Submit إشعار طلب السحب: ${error.message}`);
     }
   }
 
@@ -112,7 +112,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal completion notification:', error);
-      throw new Error(`فشل في Submit إشعار إتمام السحب: ${error.message}`);
+      throw new Error(`Failure في Submit إشعار إتمام السحب: ${error.message}`);
     }
   }
 
@@ -133,7 +133,7 @@ export class EmailNotificationService {
           paymentMethod: this.getPaymentMethodNameAr(withdrawalData.paymentMethod.type),
           failureDate: new Date().toLocaleDateString('ar-EG'),
           withdrawalId: withdrawalData.id,
-          errorMessage: errorMessage || 'خطأ Not specified',
+          errorMessage: errorMessage || 'Error Not specified',
           refundAmount: withdrawalData.amount, // Amount will be refunded to available balance
           nextSteps: this.getFailureNextSteps(withdrawalData.paymentMethod.type),
           supportEmail: 'support@nexus-edu.com',
@@ -153,7 +153,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending withdrawal failure notification:', error);
-      throw new Error(`فشل في Submit إشعار فشل السحب: ${error.message}`);
+      throw new Error(`Failure في Submit إشعار Failure السحب: ${error.message}`);
     }
   }
 
@@ -200,7 +200,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending monthly earnings report:', error);
-      throw new Error(`فشل في Submit التقرير الشهري: ${error.message}`);
+      throw new Error(`Failure في Submit الReport الmonthي: ${error.message}`);
     }
   }
 
@@ -250,7 +250,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Error sending tax report notification:', error);
-      throw new Error(`فشل في Submit تقرير الضرائب: ${error.message}`);
+      throw new Error(`Failure في Submit Report الضرائب: ${error.message}`);
     }
   }
 
@@ -350,12 +350,12 @@ export class EmailNotificationService {
           <div class="info-row">
             <strong>الوقت المتوقع للمعالجة:</strong> ${data.estimatedProcessing}
           </div>
-          <p>سيتم معالجة طلبك في أقرب وقت ممكن وستصلك رسالة Confirm عند إتمام العملية.</p>
+          <p>سيتم معالجة طلبك في أقرب وقت ممكن وستصلك Thesis Confirm عند إتمام العملية.</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalCompleted:
         return `
-          <h2>🎉 تم إتمام عملية السحب بنجاح</h2>
+          <h2>🎉 تم إتمام عملية السحب successfully</h2>
           <div class="info-row">
             <strong>المبلغ المحول:</strong> <span class="amount">${data.netAmount} ${data.currency}</span>
           </div>
@@ -368,27 +368,27 @@ export class EmailNotificationService {
           <div class="info-row">
             <strong>تاريخ الإتمام:</strong> ${data.completedDate}
           </div>
-          <p>تم تحويل Earnings بنجاح إلى حسابك. شكراً لاستخدام Nexus Platform!</p>
+          <p>تم تحويل Earnings successfully إلى حسابك. Thank you لاستخدام Nexus Platform!</p>
         `;
         
       case EMAIL_CONFIG.templates.withdrawalFailed:
         return `
-          <h2>❌ فشل في عملية السحب</h2>
+          <h2>❌ Failure في عملية السحب</h2>
           <div class="info-row">
             <strong>المبلغ:</strong> ${data.withdrawalAmount} ${data.currency}
           </div>
           <div class="info-row">
-            <strong>سبب الفشل:</strong> ${data.errorMessage}
+            <strong>سبب الFailure:</strong> ${data.errorMessage}
           </div>
           <div class="info-row">
             <strong>معرف الطلب:</strong> ${data.withdrawalId}
           </div>
-          <p>تم إرجاع المبلغ إلى رصيدك المتاح. يمكنك المحاولة مرة أخرى أو التواصل مع الدعم الفني.</p>
-          <p><strong>الخطوات التالية:</strong> ${data.nextSteps}</p>
+          <p>تم إرجاع المبلغ إلى رصيدك الAvailable. يمكنك المحاولة مرة أخرى أو التواصل مع Support الفني.</p>
+          <p><strong>الخطوات Nextة:</strong> ${data.nextSteps}</p>
         `;
         
       default:
-        return '<p>رسالة من Nexus Educational Platform</p>';
+        return '<p>Thesis من Nexus Educational Platform</p>';
     }
   }
 
@@ -425,7 +425,7 @@ export class EmailNotificationService {
       fawry: 'تحقق من بيانات مSaveة instant',
       stripe: 'تحقق من بيانات البطاقة الائتمانية'
     };
-    return steps[paymentMethodType] || 'تواصل مع الدعم الفني للمساعدة';
+    return steps[paymentMethodType] || 'تواصل مع Support الفني للمساعدة';
   }
 
   static getTaxAdvice() {
@@ -433,17 +433,17 @@ export class EmailNotificationService {
       'احتفظ بجميع إيصالات الدخل والمصروفات',
       'Consult a qualified tax accountant to review your tax return',
       'تأكد من تسجيل جميع الدخل من المنصة في إقرارك',
-      'يمكن خصم بعض المصروفات المتعلقة بالتدريس كمصروفات قابلة للخصم'
+      'يمكن Discount بعض المصروفات المتCommentة بالتدريس كمصروفات قابلة للDiscount'
     ];
   }
 
   static getEmailSubject(templateId) {
     const subjects = {
       [EMAIL_CONFIG.templates.withdrawalRequested]: 'Withdrawal request received Earnings - Nexus Platform',
-      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب Earnings بنجاح - Nexus Platform',
-      [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: فشل في عملية سحب Earnings - Nexus Platform',
-      [EMAIL_CONFIG.templates.monthlyReport]: 'التقرير الشهري للأرباح - Nexus Platform',
-      [EMAIL_CONFIG.templates.taxReport]: 'تقرير الضرائب السنوي - Nexus Platform'
+      [EMAIL_CONFIG.templates.withdrawalCompleted]: 'تم إتمام سحب Earnings successfully - Nexus Platform',
+      [EMAIL_CONFIG.templates.withdrawalFailed]: 'تنبيه: Failure في عملية سحب Earnings - Nexus Platform',
+      [EMAIL_CONFIG.templates.monthlyReport]: 'الReport الmonthي للأرباح - Nexus Platform',
+      [EMAIL_CONFIG.templates.taxReport]: 'Report الضرائب السنوي - Nexus Platform'
     };
     return subjects[templateId] || 'إشعار من Nexus Platform';
   }
@@ -460,8 +460,8 @@ export class EmailNotificationService {
         subject: 'Quiz خدمة Email - Nexus Platform',
         html: `
           <div style="font-family: Arial, sans-serif; direction: rtl; padding: 20px;">
-            <h2>✅ تم إعداد خدمة Email بنجاح</h2>
-            <p>هذه رسالة Quiz لConfirm أن خدمة Submit Notifications تعمل بشكل صحيح.</p>
+            <h2>✅ تم إعداد خدمة Email successfully</h2>
+            <p>هذه Thesis Quiz لConfirm أن خدمة Submit Notifications تعمل بشكل صحيح.</p>
             <p>التاريخ: ${new Date().toLocaleDateString('ar-EG')}</p>
             <p>الوقت: ${new Date().toLocaleTimeString('ar-EG')}</p>
             <br>
@@ -480,7 +480,7 @@ export class EmailNotificationService {
 
     } catch (error) {
       console.error('Test email sending error:', error);
-      throw new Error(`فشل في Submit رسالة الQuiz: ${error.message}`);
+      throw new Error(`Failure في Submit Thesis الQuiz: ${error.message}`);
     }
   }
 

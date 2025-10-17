@@ -12,7 +12,7 @@ const TestimonialsReviews = () => {
       roleEn: "Engineering student - Cairo University",
       avatar: "👨‍🎓",
       rating: 5,
-      review: "منصة رائعة ساعدتني في فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والأمثلة عملية.",
+      review: "منصة رائعة ساعدتني في فهم Physics بطريقة سهلة ومبسطة. الشرح واضح والExamples عملية.",
       reviewEn: "Amazing platform that helped me understand physics in an easy and simplified way. Clear explanations and practical examples."
     },
     {
@@ -23,7 +23,7 @@ const TestimonialsReviews = () => {
       roleEn: "Mathematics student - Al-Azhar University",
       avatar: "👩‍🎓",
       rating: 5,
-      review: "أفضل منصة تعليمية جربتها. المحتوى غني والتفاعل مع Instructorين ممتاز.",
+      review: "أفضل منصة تعليمية جربتها. Content غني والتفاعل مع Instructorين ممتاز.",
       reviewEn: "The best educational platform I've tried. Rich content and excellent interaction with instructors."
     },
     {
@@ -56,7 +56,7 @@ const TestimonialsReviews = () => {
       roleEn: "Graduate student - Ain Shams University",
       avatar: "👨‍🔬",
       rating: 5,
-      review: "المحتوى الAdvanced في Physics النظرية ممتاز. استفدت كثيراً في رسالة الماجستير.",
+      review: "Content الAdvanced في Physics النظرية ممتاز. استفدت كثيراً في Thesis الماجستير.",
       reviewEn: "The advanced content in theoretical physics is excellent. It helped me a lot with my master's thesis."
     },
     {
@@ -232,7 +232,7 @@ const TestimonialsReviews = () => {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
             >
-              Start Your Success Story | ابدأ قصة نجاحك
+              Start Your Success Story | ابدأ Cutة Successك
             </motion.button>
           </div>
         </motion.div>
