@@ -9,60 +9,39 @@ const LiveSessions = () => {
     {
       id: 1,
       title: "Advanced Quantum Mechanics",
-      titleAr: "ميكانيكا الكم المتقدمة",
       instructor: "Dr. Ahmed Mohamed",
-      instructorAr: "د. أحمد محمد",
       date: "December 28, 2024",
-      dateAr: "٢٨ ديسمبر ٢٠٢٤",
       time: "8:00 PM EET",
-      timeAr: "٨:٠٠ مساءً بتوقيت القاهرة",
       duration: "2 hours",
-      durationAr: "ساعتان",
       participants: 156,
       level: "Advanced",
-      levelAr: "متقدم",
       description: "Deep dive into quantum superposition and entanglement",
-      descriptionAr: "غوص عميق في التراكب الكمي والتشابك الكمي",
       isLive: false,
       category: "Physics"
     },
     {
       id: 2,
       title: "Calculus Problem Solving",
-      titleAr: "حل مسائل التفاضل والتكامل",
       instructor: "Prof. Sara Ahmed",
-      instructorAr: "أ.د. سارة أحمد",
       date: "December 29, 2024",
-      dateAr: "٢٩ ديسمبر ٢٠٢٤",
       time: "6:00 PM EET",
-      timeAr: "٦:٠٠ مساءً بتوقيت القاهرة",
       duration: "1.5 hours",
-      durationAr: "ساعة ونصف",
       participants: 234,
       level: "Intermediate",
-      levelAr: "متوسط",
       description: "Master complex calculus problems step by step",
-      descriptionAr: "إتقان مسائل التفاضل والتكامل المعقدة خطوة بخطوة",
       isLive: true,
       category: "Mathematics"
     },
     {
       id: 3,
       title: "Organic Chemistry Lab",
-      titleAr: "مختبر الكيمياء العضوية",
       instructor: "Dr. Mohamed Hassan",
-      instructorAr: "د. محمد حسن",
       date: "December 30, 2024",
-      dateAr: "٣٠ ديسمبر ٢٠٢٤",
       time: "7:00 PM EET",
-      timeAr: "٧:٠٠ مساءً بتوقيت القاهرة",
       duration: "2.5 hours",
-      durationAr: "ساعتان ونصف",
       participants: 89,
       level: "Beginner",
-      levelAr: "مبتدئ",
       description: "Virtual lab session with interactive experiments",
-      descriptionAr: "جلسة مختبر افتراضي مع تجارب تفاعلية",
       isLive: false,
       category: "Chemistry"
     }
@@ -72,25 +51,21 @@ const LiveSessions = () => {
     {
       icon: <Video className="w-6 h-6" />,
       title: "HD Video Streaming",
-      titleAr: "بث فيديو عالي الدقة",
       description: "Crystal clear 1080p streaming"
     },
     {
       icon: <MessageCircle className="w-6 h-6" />,
       title: "Interactive Chat",
-      titleAr: "دردشة تفاعلية",
       description: "Real-time Q&A with instructors"
     },
     {
       icon: <BookOpen className="w-6 h-6" />,
       title: "Digital Whiteboard",
-      titleAr: "السبورة الرقمية",
       description: "Collaborative problem solving"
     },
     {
       icon: <Award className="w-6 h-6" />,
       title: "Live Certificates",
-      titleAr: "شهادات فورية",
       description: "Instant participation certificates"
     }
   ];
@@ -164,9 +139,6 @@ const LiveSessions = () => {
                 <h3 className="text-lg font-semibold text-white mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-blue-300 text-sm mb-2">
-                  {feature.titleAr}
-                </p>
                 <p className="text-gray-400 text-sm">
                   {feature.description}
                 </p>
@@ -178,7 +150,7 @@ const LiveSessions = () => {
         {/* Upcoming Sessions */}
         <div className="space-y-8">
           <h3 className="text-2xl font-bold text-white text-center mb-8">
-            Upcoming Sessions | الجلسات القادمة
+            Upcoming Live Sessions
           </h3>
           
           {upcomingSessions.map((session, index) => (
@@ -202,31 +174,22 @@ const LiveSessions = () => {
                       {session.category}
                     </span>
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold border ml-2 ${getLevelColor(session.level)}`}>
-                      {session.level} | {session.levelAr}
+                      {session.level}
                     </span>
                   </div>
 
                   <h4 className="text-xl font-bold text-white mb-2">
                     {session.title}
                   </h4>
-                  <p className="text-lg text-blue-300 mb-4">
-                    {session.titleAr}
-                  </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div className="flex items-center text-gray-300">
                       <Calendar className="w-4 h-4 mr-2" />
-                      <div>
-                        <span className="block text-sm">{session.date}</span>
-                        <span className="block text-xs text-gray-400">{session.dateAr}</span>
-                      </div>
+                      <span className="text-sm">{session.date}</span>
                     </div>
                     <div className="flex items-center text-gray-300">
                       <Clock className="w-4 h-4 mr-2" />
-                      <div>
-                        <span className="block text-sm">{session.time}</span>
-                        <span className="block text-xs text-gray-400">{session.timeAr}</span>
-                      </div>
+                      <span className="text-sm">{session.time}</span>
                     </div>
                     <div className="flex items-center text-gray-300">
                       <Users className="w-4 h-4 mr-2" />
@@ -235,14 +198,11 @@ const LiveSessions = () => {
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-gray-300 text-sm mb-1">{session.description}</p>
-                    <p className="text-gray-400 text-xs">{session.descriptionAr}</p>
+                    <p className="text-gray-300 text-sm">{session.description}</p>
                   </div>
 
                   <div className="text-gray-400 text-sm">
                     <span className="font-semibold">Instructor:</span> {session.instructor}
-                    <span className="mx-2">|</span>
-                    <span>{session.instructorAr}</span>
                     <span className="mx-2">|</span>
                     <span>{session.duration} ({session.durationAr})</span>
                   </div>

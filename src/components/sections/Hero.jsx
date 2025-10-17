@@ -5,12 +5,6 @@ import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import Button from '../ui/Button';
 
 const Hero = () => {
-  const [isRTL, setIsRTL] = useState(false);
-
-  useEffect(() => {
-    const dir = document.documentElement.getAttribute('dir');
-    setIsRTL(dir === 'rtl');
-  }, []);
 
   const floatingShapes = Array.from({ length: 6 }, (_, i) => (
     <motion.div
@@ -86,7 +80,7 @@ const Hero = () => {
           >
             <Sparkles className="w-4 h-4 text-neon-blue mr-2" aria-hidden="true" />
             <span className="text-sm text-text-secondary">
-              {isRTL ? 'منصة تعليمية حديثة' : 'Modern Educational Platform'}
+              Open Course Marketplace & Teaching Platform
             </span>
           </motion.div>
         </motion.div>
@@ -96,18 +90,18 @@ const Hero = () => {
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
         >
           <span className="gradient-text">
-            {isRTL ? 'اكتشف عالم' : 'Discover the World of'}
+            Teach & Earn with
           </span>
           <br />
           <TypeAnimation
             sequence={[
-              isRTL ? 'الفيزياء' : 'Physics',
+              'Physics',
               2000,
-              isRTL ? 'الرياضيات' : 'Mathematics', 
+              'Mathematics', 
               2000,
-              isRTL ? 'العلوم' : 'Science',
+              'Chemistry',
               2000,
-              isRTL ? 'المعرفة' : 'Knowledge',
+              'Any Subject',
               2000,
             ]}
             wrapper="span"
@@ -121,10 +115,7 @@ const Hero = () => {
           variants={itemVariants}
           className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto mb-8 leading-relaxed"
         >
-          {isRTL 
-            ? 'انضم إلى مجتمع تعليمي متطور مصمم خصيصاً للجيل الجديد. تعلم الفيزياء والرياضيات بطريقة تفاعلية وممتعة مع أحدث التقنيات التعليمية.'
-            : 'Join a cutting-edge educational community designed for the new generation. Learn physics and mathematics in an interactive and engaging way with the latest educational technologies.'
-          }
+          Create and publish courses on any subject. Perfect for high school teachers, university professors, and online tutors. Build your teaching business with built-in payment processing and student management.
         </motion.p>
 
         <motion.div
@@ -132,7 +123,7 @@ const Hero = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <Button variant="gradient" size="lg" className="group">
-            <span>{isRTL ? 'ابدأ رحلتك التعليمية' : 'Start Your Learning Journey'}</span>
+            <span>Start Teaching Today</span>
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </Button>
           
@@ -140,10 +131,10 @@ const Hero = () => {
             variant="ghost" 
             size="lg" 
             className="group"
-            aria-label={isRTL ? 'شاهد الفيديو التعريفي للمنصة' : 'Watch platform demo video'}
+            aria-label="Browse available courses"
           >
             <Play className="w-5 h-5 mr-2" aria-hidden="true" />
-            <span>{isRTL ? 'شاهد الفيديو التعريفي' : 'Watch Demo'}</span>
+            <span>Browse Courses</span>
           </Button>
         </motion.div>
 
@@ -155,15 +146,15 @@ const Hero = () => {
           {[
             { 
               number: '10K+', 
-              label: isRTL ? 'طالب نشط' : 'Active Students' 
+              label: 'Active Students' 
             },
             { 
-              number: '50+', 
-              label: isRTL ? 'دورة تعليمية' : 'Courses Available' 
+              number: '500+', 
+              label: 'Instructors Teaching' 
             },
             { 
               number: '95%', 
-              label: isRTL ? 'معدل النجاح' : 'Success Rate' 
+              label: 'Satisfaction Rate' 
             }
           ].map((stat, index) => (
             <motion.div
