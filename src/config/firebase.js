@@ -14,8 +14,8 @@ const firebaseConfig = {
   projectId: "nexus-012", 
   storageBucket: "nexus-012.firebasestorage.app", // Storage not used in free plan
   messagingSenderId: "272428886699",
-  appId: "1:272428886699:web:f2ca98a2855ef56ee7a5ee",
-  measurementId: "G-03MW3Y67RF"
+  appId: "1:272428886699:web:b426957001b662b9e7a5ee",
+  measurementId: "G-D6ZFG1MHJM"
 };
 
 // Initialize Firebase
