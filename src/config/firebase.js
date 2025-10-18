@@ -3,7 +3,7 @@
 // Configured for free plan: Authentication + Realtime Database (no Storage, no Firestore)
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, goOffline, goOnline } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
 
 // Firebase configuration - REALTIME DATABASE ONLY
@@ -26,6 +26,34 @@ export const auth = getAuth(app);
 
 // Initialize Realtime Database
 export const db = getDatabase(app);
+
+// Initialize connection management to avoid deprecated unload event handlers
+// This replaces Firebase's default behavior that uses deprecated 'unload' events
+if (typeof window !== 'undefined') {
+  // Use visibilitychange API instead of deprecated unload events
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // Page is hidden, disconnect from Firebase to save resources
+      goOffline(db);
+    } else {
+      // Page is visible again, reconnect to Firebase
+      goOnline(db);
+    }
+  });
+
+  // Handle page lifecycle for mobile browsers
+  // This covers cases where visibilitychange might not fire
+  window.addEventListener('pagehide', () => {
+    goOffline(db);
+  });
+
+  window.addEventListener('pageshow', (event) => {
+    // Reconnect if page is restored from cache
+    if (event.persisted) {
+      goOnline(db);
+    }
+  });
+}
 
 // Initialize Analytics (only in production)
 export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
