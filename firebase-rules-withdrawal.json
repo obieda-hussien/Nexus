@@ -1,0 +1,76 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid",
+        "paymentMethods": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        },
+        "withdrawalHistory": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid",
+          ".indexOn": ["requestedAt", "status", "amount"]
+        },
+        "earnings": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        }
+      }
+    },
+    "courses": {
+      ".read": true,
+      ".indexOn": ["instructorId", "category", "price", "createdAt"],
+      "$courseId": {
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() == 'instructor' || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    },
+    "lessons": {
+      ".read": "auth != null",
+      "$lessonId": {
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() == 'instructor' || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    },
+    "user_progress": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "analytics_events": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null"
+    },
+    "security_logs": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    },
+    "test": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "enrollments": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["userId", "courseId", "transactionId", "enrollmentDate", "status"]
+    },
+    "payments": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["userId", "status", "transactionId", "createdAt", "courseId"]
+    },
+    "instructorApplications": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "auth != null",
+      ".indexOn": ["userId", "status", "applicationDate"]
+    },
+    "withdrawalRequests": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      "$requestId": {
+        ".read": "auth != null && (data.child('instructorId').val() == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin')",
+        ".write": "auth != null && (data.child('instructorId').val() == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin')"
+      }
+    }
+  }
+}

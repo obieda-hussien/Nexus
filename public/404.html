@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexus - Educational Platform</title>
+  <script>
+    // GitHub Pages SPA fallback
+    // This script redirects 404s to the main page with the original path
+    // so React Router can handle client-side routing
+    (function() {
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect !== location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    // If we're on a GitHub Pages site, handle SPA routing
+    if (location.hostname === 'obieda-hussien.github.io') {
+      // Store the current path and redirect to the main page
+      sessionStorage.redirect = location.href;
+      location.replace('/Nexus/');
+    }
+  </script>
+</body>
+</html>

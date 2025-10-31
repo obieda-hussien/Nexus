@@ -1,0 +1,133 @@
+{
+  "unsplash_replacements": {
+    "photo-1516321318423-f06f85e504b3": {
+      "original_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800",
+      "local_alternative": "/imgs/education_thumbnail_1.png",
+      "description": "Educational image - students in classroom with computer and books",
+      "alt_text": "Educational image representing modern learning",
+      "usage_context": "Default thumbnail for educational courses",
+      "files": [
+        "/workspace/Nexus/src/pages/CourseDetailsPage.jsx:418",
+        "/workspace/Nexus/src/pages/CoursesPage.jsx:270",
+        "/workspace/Nexus/src/pages/InstructorProfilePage.jsx:282"
+      ]
+    },
+    "photo-1635070041078-e363dbe005cb": {
+      "original_url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800",
+      "local_alternative": "/imgs/development_thumbnail.png",
+      "description": "Programming and development image - code on screen with laptop",
+      "alt_text": "Programming and software development image",
+      "usage_context": "Thumbnail for programming and software development courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:112",
+        "/workspace/Nexus/src/services/EnhancedDataSetupService.js:227",
+        "/workspace/nexus-platform/src/services/EnhancedDataSetupService.js:227"
+      ]
+    },
+    "photo-1518709268805-4e9042af2176": {
+      "original_url": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800",
+      "local_alternative": "/imgs/design_thumbnail.png",
+      "description": "Graphic design image - design tools and drawing",
+      "alt_text": "Graphic design image",
+      "usage_context": "Thumbnail for graphic design courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:138"
+      ]
+    },
+    "photo-1532094349884-543bc11b234d": {
+      "original_url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800",
+      "local_alternative": "/imgs/marketing_thumbnail.png",
+      "description": "Digital marketing image - social media and analytics",
+      "alt_text": "Digital marketing image",
+      "usage_context": "Thumbnail for digital marketing courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:164"
+      ]
+    },
+    "photo-1526379879527-8559ecfcaec0": {
+      "original_url": "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?w=800",
+      "local_alternative": "/imgs/data_analysis_thumbnail.png",
+      "description": "Data analysis image - dashboards and statistics",
+      "alt_text": "Data analysis image",
+      "usage_context": "Thumbnail for data analysis courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:190"
+      ]
+    },
+    "photo-1509228468518-180dd4864904": {
+      "original_url": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800",
+      "local_alternative": "/imgs/cybersecurity_thumbnail.png",
+      "description": "Cybersecurity image - security lock and protection symbols",
+      "alt_text": "Cybersecurity image",
+      "usage_context": "Thumbnail for cybersecurity courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:216"
+      ]
+    },
+    "photo-1559757148-5c350d0d3c56": {
+      "original_url": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800",
+      "local_alternative": "/imgs/education_thumbnail_1.png",
+      "description": "General educational image - same educational image used",
+      "alt_text": "General educational image",
+      "usage_context": "Default thumbnail for courses",
+      "files": [
+        "/workspace/Nexus/src/services/CourseService.js:242"
+      ]
+    },
+    "photo-1636466497217-26a8cbeaf0aa": {
+      "original_url": "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=800",
+      "local_alternative": "/imgs/development_thumbnail.png",
+      "description": "Programming image - programming and development image used",
+      "alt_text": "Programming image",
+      "usage_context": "Thumbnail for programming courses",
+      "files": [
+        "/workspace/Nexus/src/services/EnhancedDataSetupService.js:267"
+      ]
+    },
+    "photo-1603126857599-f6e157fa2fe6": {
+      "original_url": "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?w=800",
+      "local_alternative": "/imgs/data_analysis_thumbnail.png",
+      "description": "Data analysis image - data analysis image used",
+      "alt_text": "Data analysis image",
+      "usage_context": "Thumbnail for data analysis courses",
+      "files": [
+        "/workspace/Nexus/src/services/EnhancedDataSetupService.js:310"
+      ]
+    },
+    "photo-1633356122544-f134324a6cee": {
+      "original_url": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800",
+      "local_alternative": "/imgs/marketing_thumbnail.png",
+      "description": "Marketing image - digital marketing image used",
+      "alt_text": "Digital marketing image",
+      "usage_context": "Thumbnail for marketing courses",
+      "files": [
+        "/workspace/Nexus/src/services/EnhancedDataSetupService.js:349"
+      ]
+    },
+    "photo-1509228627152-72ae9ae6848d": {
+      "original_url": "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=800",
+      "local_alternative": "/imgs/design_thumbnail.png",
+      "description": "Design image - graphic design image used",
+      "alt_text": "Graphic design image",
+      "usage_context": "Thumbnail for design courses",
+      "files": [
+        "/workspace/Nexus/src/services/EnhancedDataSetupService.js:393"
+      ]
+    }
+  },
+  "replacement_strategy": {
+    "approach": "Replace with local images instead of using external Unsplash images",
+    "benefits": [
+      "No dependency on external services",
+      "Better loading speed",
+      "Application independence",
+      "Zero cost",
+      "Guaranteed image availability"
+    ],
+    "implementation_notes": [
+      "Image files must be moved to public/imgs/ directory",
+      "Update all references in source files",
+      "Test all images after replacement"
+    ]
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "lessons": {
+    "lesson001": {
+      "id": "lesson001",
+      "courseId": "course001",
+      "title": "Introduction to Physics",
+      "description": "Overview of physics science and its practical applications in everyday life",
+      "content": "<h2>Welcome to the World of Physics</h2><p>In this lesson we will learn about:</p><ul><li>Definition of physics and its fields</li><li>Different branches of physics (classical and modern)</li><li>Importance of physics in our daily lives</li><li>Relationship between physics and other sciences</li></ul><p>Physics is the science that studies matter, energy, and the interactions between them.</p>",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "duration": 720,
+      "order": 1,
+      "type": "video",
+      "isPreview": true,
+      "resources": [
+        {
+          "title": "Explanation File - Physics Introduction",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "type": "pdf"
+        },
+        {
+          "title": "Exercises and Questions",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-09-20T10:00:00Z",
+      "updatedAt": "2025-10-01T14:30:00Z"
+    },
+    "lesson002": {
+      "id": "lesson002",
+      "courseId": "course001",
+      "title": "Newton's Laws of Motion",
+      "description": "Detailed study of Newton's three laws and their practical applications",
+      "content": "<h2>Newton's Three Laws</h2><p>We will study in this lesson:</p><ul><li>Newton's First Law: Law of Inertia</li><li>Newton's Second Law: F = ma</li><li>Newton's Third Law: Action and Reaction</li><li>Practical applications of each law</li></ul>",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "duration": 1080,
+      "order": 2,
+      "type": "video",
+      "isPreview": false,
+      "resources": [
+        {
+          "title": "Practical Examples of Newton's Laws",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-09-20T10:00:00Z",
+      "updatedAt": "2025-10-05T11:15:00Z"
+    },
+    "lesson003": {
+      "id": "lesson003",
+      "courseId": "course001",
+      "title": "Motion in a Straight Line",
+      "description": "Study of linear motion and kinematic equations",
+      "content": "<h2>Linear Motion</h2><p>We will learn:</p><ul><li>Distance and displacement</li><li>Velocity and acceleration</li><li>Equations of linear motion</li><li>Uniform and variable motion</li></ul>",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "duration": 960,
+      "order": 3,
+      "type": "video",
+      "isPreview": false,
+      "createdAt": "2025-09-21T10:00:00Z"
+    },
+    "lesson004": {
+      "id": "lesson004",
+      "courseId": "course003",
+      "title": "Introduction to Chemistry",
+      "description": "Fundamentals of chemistry science and preliminary concepts",
+      "content": "<h2>What is Chemistry?</h2><p>Chemistry is the science that studies:</p><ul><li>Matter and its properties</li><li>Chemical reactions</li><li>Structure of atoms and molecules</li><li>Changes in matter</li></ul>",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "duration": 600,
+      "order": 1,
+      "type": "video",
+      "isPreview": true,
+      "createdAt": "2025-10-10T13:00:00Z"
+    },
+    "lesson005": {
+      "id": "lesson005",
+      "courseId": "course003",
+      "title": "The Periodic Table",
+      "description": "Understanding the organization of elements in the periodic table",
+      "content": "<h2>The Periodic Table of Elements</h2><p>We will learn:</p><ul><li>History of the periodic table</li><li>Organization of elements</li><li>Groups and periods</li><li>Periodic properties</li></ul>",
+      "duration": 720,
+      "order": 2,
+      "type": "video",
+      "isPreview": false,
+      "createdAt": "2025-10-10T13:30:00Z"
+    },
+    "lesson006": {
+      "id": "lesson006",
+      "courseId": "course005",
+      "title": "Introduction to JavaScript",
+      "description": "Basics of JavaScript language and its variables",
+      "content": "<h2>Welcome to JavaScript</h2><p>In this lesson:</p><ul><li>What is JavaScript?</li><li>How to write code</li><li>Variables and types</li><li>Basic operations</li></ul>",
+      "duration": 900,
+      "order": 1,
+      "type": "video",
+      "isPreview": true,
+      "createdAt": "2025-10-08T15:00:00Z"
+    },
+    "lesson007": {
+      "id": "lesson007",
+      "courseId": "course007",
+      "title": "Concept of Management",
+      "description": "Definition of management and its basic functions",
+      "content": "<h2>Management and Leadership</h2><p>We will learn:</p><ul><li>Definition of management</li><li>Four functions of management</li><li>Difference between management and leadership</li><li>Skills of a successful manager</li></ul>",
+      "duration": 840,
+      "order": 1,
+      "type": "video",
+      "isPreview": true,
+      "createdAt": "2025-10-12T11:00:00Z"
+    }
+  },
+  "enrollments": {
+    "enrollment001": {
+      "id": "enrollment001",
+      "userId": "student001",
+      "courseId": "course001",
+      "transactionId": "txn_001_nexus",
+      "paymentMethod": "vodafone",
+      "amount": 200,
+      "currency": "EGP",
+      "platformFee": 20,
+      "instructorEarnings": 180,
+      "status": "active",
+      "enrollmentDate": "2025-10-15T16:30:00Z",
+      "completionDate": null,
+      "progress": 65,
+      "lastAccessedAt": "2025-10-30T14:20:00Z",
+      "timeSpent": 7200
+    },
+    "enrollment002": {
+      "id": "enrollment002",
+      "userId": "student001",
+      "courseId": "course003",
+      "transactionId": null,
+      "paymentMethod": "free",
+      "amount": 0,
+      "currency": "EGP",
+      "status": "completed",
+      "enrollmentDate": "2025-10-20T10:00:00Z",
+      "completionDate": "2025-10-28T18:45:00Z",
+      "progress": 100,
+      "lastAccessedAt": "2025-10-28T18:45:00Z",
+      "timeSpent": 3600
+    },
+    "enrollment003": {
+      "id": "enrollment003",
+      "userId": "student001",
+      "courseId": "course007",
+      "transactionId": null,
+      "paymentMethod": "free",
+      "amount": 0,
+      "currency": "EGP",
+      "status": "active",
+      "enrollmentDate": "2025-10-25T12:00:00Z",
+      "progress": 30,
+      "lastAccessedAt": "2025-10-30T10:15:00Z",
+      "timeSpent": 1800
+    }
+  },
+  "payments": {
+    "payment001": {
+      "id": "payment001",
+      "userId": "student001",
+      "courseId": "course001",
+      "transactionId": "txn_001_nexus",
+      "paymentMethod": "vodafone",
+      "amount": 200,
+      "currency": "EGP",
+      "platformFee": 20,
+      "instructorEarnings": 180,
+      "status": "completed",
+      "gatewayResponse": {
+        "success": true,
+        "transactionId": "TXN202510151630001",
+        "message": "Payment completed successfully"
+      },
+      "createdAt": "2025-10-15T16:30:00Z",
+      "completedAt": "2025-10-15T16:32:15Z",
+      "refundedAt": null
+    }
+  },
+  "reviews": {
+    "review001": {
+      "id": "review001",
+      "userId": "student001",
+      "courseId": "course001",
+      "rating": 5,
+      "comment": "Excellent and very useful course, clear explanation and practical examples. I highly recommend it to every high school student!",
+      "status": "approved",
+      "createdAt": "2025-10-28T20:30:00Z",
+      "updatedAt": "2025-10-28T20:30:00Z",
+      "helpfulVotes": 8
+    },
+    "review002": {
+      "id": "review002",
+      "userId": "student001",
+      "courseId": "course003",
+      "rating": 4,
+      "comment": "Great free course for beginners in chemistry. The content is simplified and understandable.",
+      "status": "approved",
+      "createdAt": "2025-10-28T21:00:00Z",
+      "helpfulVotes": 12
+    },
+    "review003": {
+      "id": "review003",
+      "userId": "student001",
+      "courseId": "course007",
+      "rating": 5,
+      "comment": "Business management fundamentals explained in a simplified and useful way. I benefited a lot!",
+      "status": "approved",
+      "createdAt": "2025-10-29T15:45:00Z",
+      "helpfulVotes": 5
+    }
+  },
+  "user_progress": {
+    "student001": {
+      "course001": {
+        "lesson001": {
+          "completed": true,
+          "completedAt": "2025-10-20T14:30:00Z",
+          "timeSpent": 720,
+          "score": 95,
+          "attempts": 1
+        },
+        "lesson002": {
+          "completed": true,
+          "completedAt": "2025-10-25T16:15:00Z",
+          "timeSpent": 1080,
+          "score": 88,
+          "attempts": 2
+        },
+        "lesson003": {
+          "completed": false,
+          "timeSpent": 480,
+          "score": 0,
+          "attempts": 0
+        }
+      },
+      "course003": {
+        "lesson004": {
+          "completed": true,
+          "completedAt": "2025-10-21T10:00:00Z",
+          "timeSpent": 600,
+          "score": 92,
+          "attempts": 1
+        },
+        "lesson005": {
+          "completed": true,
+          "completedAt": "2025-10-22T14:20:00Z",
+          "timeSpent": 720,
+          "score": 85,
+          "attempts": 1
+        }
+      }
+    }
+  },
+  "withdrawalRequests": {
+    "withdrawal001": {
+      "id": "withdrawal001",
+      "instructorId": "instructor001",
+      "amount": 2500,
+      "currency": "EGP",
+      "paymentMethod": "bank",
+      "paymentDetails": "National Bank of Egypt - Account number 1234567890123",
+      "status": "pending",
+      "adminNotes": "",
+      "requestedAt": "2025-10-29T12:00:00Z",
+      "processedAt": null,
+      "completedAt": null,
+      "transactionReference": ""
+    },
+    "withdrawal002": {
+      "id": "withdrawal002",
+      "instructorId": "instructor002",
+      "amount": 1200,
+      "currency": "EGP",
+      "paymentMethod": "vodafone",
+      "paymentDetails": "Vodafone Cash - Number +201998887776",
+      "status": "completed",
+      "adminNotes": "Transfer completed successfully",
+      "requestedAt": "2025-10-25T09:30:00Z",
+      "processedAt": "2025-10-26T11:15:00Z",
+      "completedAt": "2025-10-26T14:45:00Z",
+      "transactionReference": "TXN202510261145001"
+    }
+  },
+  "instructorApplications": {
+    "application001": {
+      "id": "application001",
+      "userId": "user123",
+      "userEmail": "newteacher@example.com",
+      "userName": "Professor Mohamed New",
+      "status": "pending",
+      "applicationDate": "2025-10-28T10:00:00Z",
+      "reviewDate": null,
+      "reviewedBy": null,
+      "reviewNotes": "",
+      "specialization": "mathematics",
+      "experience": "5 years",
+      "education": "Master's degree in Applied Mathematics",
+      "portfolio": "",
+      "socialLinks": {},
+      "vodafoneCashNumber": "+201123456789",
+      "nationalId": "12345678901234",
+      "cv": "",
+      "certificates": [],
+      "motivation": "I want to share my experience in mathematics with students"
+    }
+  }
+}
