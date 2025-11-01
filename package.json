@@ -1,0 +1,69 @@
+{
+  "name": "modern-nexus",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "dev:open": "vite --open",
+    "preview:build": "npm run build && npm run preview",
+    "clean": "rm -rf node_modules dist .vite",
+    "clean-install": "npm run clean && npm install"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@paypal/paypal-js": "^8.1.3",
+    "@stripe/stripe-js": "^3.2.0",
+    "aos": "^2.3.4",
+    "axios": "^1.7.7",
+    "core-js": "^3.46.0",
+    "date-fns": "^3.6.0",
+    "firebase": "^10.12.0",
+    "framer-motion": "^10.18.0",
+    "jspdf": "^2.5.1",
+    "lucide-react": "^0.462.0",
+    "micromark-util-combine-extensions": "^2.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-intersection-observer": "^9.13.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.26.2",
+    "react-type-animation": "^3.2.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/react": "^18.3.8",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.11",
+    "eslint": "^9.11.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16",
+    "vite": "^4.5.5"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "> 0.5%"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/obieda-hussien/Nexus.git"
+  },
+  "author": "Nexus Team",
+  "license": "MIT"
+}

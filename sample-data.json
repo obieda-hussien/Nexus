@@ -1,0 +1,1131 @@
+{
+  "users": {
+    "admin001": {
+      "uid": "admin001",
+      "displayName": "System Administration",
+      "email": "admin@nexus.edu",
+      "role": "admin",
+      "createdAt": "2025-09-01T08:00:00Z",
+      "lastLogin": "2025-10-30T18:00:00Z",
+      "profilePicture": null,
+      "preferences": {
+        "language": "ar",
+        "notifications": true,
+        "darkMode": true,
+        "theme": "dark"
+      }
+    },
+    "instructor001": {
+      "uid": "instructor001",
+      "displayName": "Dr. Mohamed Ahmed Hassan",
+      "email": "mohamed.hassan@nexus.edu",
+      "role": "instructor",
+      "createdAt": "2025-09-15T09:00:00Z",
+      "lastLogin": "2025-10-30T12:45:00Z",
+      "profilePicture": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+      "bio": "Professor of Theoretical Physics at Cairo University with 15 years of experience in teaching and scientific research",
+      "phoneNumber": "+201112223334",
+      "dateOfBirth": "1980-03-20",
+      "preferences": {
+        "language": "ar",
+        "notifications": true,
+        "darkMode": false,
+        "theme": "light"
+      },
+      "instructorData": {
+        "bio": "Specialist in theoretical and applied physics with focus on quantum mechanics and relativity",
+        "specialization": "physics",
+        "experience": "15 years",
+        "coursesCreated": 4,
+        "totalStudents": 287,
+        "rating": 4.8,
+        "joinedAsInstructorAt": "2025-09-15T09:00:00Z",
+        "qualifications": [
+          "PhD in Theoretical Physics - Cairo University",
+          "MSc in Applied Physics - Ain Shams University",
+          "BSc in Physics - Cairo University"
+        ],
+        "achievements": [
+          "Best Physics Teacher Award 2023",
+          "Published 25+ research papers",
+          "1000+ students taught"
+        ]
+      },
+      "paymentMethods": {
+        "bank": {
+          "bankName": "National Bank of Egypt",
+          "accountNumber": "1234567890123",
+          "accountHolder": "Mohamed Ahmed Hassan"
+        },
+        "vodafone": {
+          "phoneNumber": "+201112223334"
+        }
+      },
+      "earnings": {
+        "totalEarned": 15750,
+        "pendingWithdrawals": 2500,
+        "availableBalance": 3250,
+        "totalWithdrawals": 10000,
+        "lifetimeEarnings": 15750
+      }
+    },
+    "instructor002": {
+      "uid": "instructor002",
+      "displayName": "Dr. Sarah Mahmoud Al-Tayeb",
+      "email": "sarah.mahmoud@nexus.edu",
+      "role": "instructor",
+      "createdAt": "2025-09-20T10:00:00Z",
+      "lastLogin": "2025-10-30T14:20:00Z",
+      "profilePicture": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg",
+      "bio": "Professor of Organic and Analytical Chemistry with 12 years of experience in university teaching",
+      "phoneNumber": "+201998887776",
+      "dateOfBirth": "1985-07-12",
+      "instructorData": {
+        "bio": "Specialist in organic and analytical chemistry with special interest in biochemistry",
+        "specialization": "chemistry",
+        "experience": "12 years",
+        "coursesCreated": 3,
+        "totalStudents": 156,
+        "rating": 4.7,
+        "qualifications": [
+          "PhD in Organic Chemistry - Alexandria University",
+          "MSc in Analytical Chemistry - Cairo University"
+        ]
+      },
+      "earnings": {
+        "totalEarned": 8950,
+        "availableBalance": 1200,
+        "totalWithdrawals": 7750
+      }
+    },
+    "instructor003": {
+      "uid": "instructor003",
+      "displayName": "Ahmed Kareem Al-Najjar",
+      "email": "ahmed.kareem@nexus.edu",
+      "role": "instructor",
+      "createdAt": "2025-10-01T11:30:00Z",
+      "lastLogin": "2025-10-30T16:45:00Z",
+      "profilePicture": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
+      "bio": "Software developer and trainer in web and application development with 8 years of experience",
+      "instructorData": {
+        "bio": "Full-stack developer with experience in React, Node.js, Python and databases",
+        "specialization": "programming",
+        "experience": "8 years",
+        "coursesCreated": 2,
+        "totalStudents": 89,
+        "rating": 4.9
+      },
+      "earnings": {
+        "totalEarned": 12400,
+        "availableBalance": 2100,
+        "totalWithdrawals": 10300
+      }
+    },
+    "instructor004": {
+      "uid": "instructor004",
+      "displayName": "Dr. Layla Ahmed Fahmy",
+      "email": "layla.ahmed@nexus.edu",
+      "role": "instructor",
+      "createdAt": "2025-10-05T14:00:00Z",
+      "lastLogin": "2025-10-30T13:30:00Z",
+      "profilePicture": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+      "bio": "Expert in business management and digital marketing with 10 years of experience",
+      "instructorData": {
+        "bio": "Specialist in business management and digital marketing with focus on entrepreneurship",
+        "specialization": "business",
+        "experience": "10 years",
+        "coursesCreated": 3,
+        "totalStudents": 198,
+        "rating": 4.6
+      },
+      "earnings": {
+        "totalEarned": 18200,
+        "availableBalance": 3100,
+        "totalWithdrawals": 15100
+      }
+    },
+    "instructor005": {
+      "uid": "instructor005",
+      "displayName": "Mariam Ahmed Ali",
+      "email": "mariam.ahmed@nexus.edu",
+      "role": "instructor",
+      "createdAt": "2025-10-10T16:00:00Z",
+      "lastLogin": "2025-10-30T11:20:00Z",
+      "profilePicture": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+      "bio": "Graphic designer and UX/UI Design specialist with 6 years of experience in digital design",
+      "instructorData": {
+        "bio": "Specialist in user interface and user experience design with deep knowledge of Adobe tools and Figma",
+        "specialization": "design",
+        "experience": "6 years",
+        "coursesCreated": 2,
+        "totalStudents": 134,
+        "rating": 4.8
+      },
+      "earnings": {
+        "totalEarned": 9870,
+        "availableBalance": 1850,
+        "totalWithdrawals": 8020
+      }
+    },
+    "student001": {
+      "uid": "student001",
+      "displayName": "Ahmed Mohamed Ali",
+      "email": "ahmed.test@nexus.edu",
+      "role": "student",
+      "createdAt": "2025-10-01T10:00:00Z",
+      "lastLogin": "2025-10-30T15:30:00Z",
+      "profilePicture": null,
+      "bio": "High school student passionate about physics and programming",
+      "phoneNumber": "+201234567890",
+      "dateOfBirth": "2006-05-15",
+      "preferences": {
+        "language": "ar",
+        "notifications": true,
+        "darkMode": true,
+        "theme": "dark"
+      },
+      "enrolledCourses": ["course001", "course002", "course003", "course007"],
+      "completedCourses": ["course003"],
+      "totalTimeSpent": 14400,
+      "coursesCompleted": 1,
+      "achievementsUnlocked": ["first_course_completed", "physics_enthusiast"],
+      "learningStreak": 7
+    }
+  },
+  "categories": {
+    "physics": {
+      "id": "physics",
+      "name": "Physics",
+      "description": "Theoretical and applied physics courses",
+      "icon": "atom",
+      "color": "#3B82F6",
+      "coursesCount": 2
+    },
+    "chemistry": {
+      "id": "chemistry",
+      "name": "Chemistry",
+      "description": "General and organic chemistry courses",
+      "icon": "flask",
+      "color": "#10B981",
+      "coursesCount": 2
+    },
+    "programming": {
+      "id": "programming",
+      "name": "Programming",
+      "description": "Software and application development courses",
+      "icon": "code",
+      "color": "#8B5CF6",
+      "coursesCount": 2
+    },
+    "business": {
+      "id": "business",
+      "name": "Business Management",
+      "description": "Business management and marketing courses",
+      "icon": "briefcase",
+      "color": "#F59E0B",
+      "coursesCount": 3
+    },
+    "design": {
+      "id": "design",
+      "name": "Design",
+      "description": "Graphic design and UI/UX courses",
+      "icon": "palette",
+      "color": "#EC4899",
+      "coursesCount": 1
+    },
+    "marketing": {
+      "id": "marketing",
+      "name": "Marketing",
+      "description": "Digital marketing and social media courses",
+      "icon": "chart",
+      "color": "#EF4444",
+      "coursesCount": 0
+    },
+    "languages": {
+      "id": "languages",
+      "name": "Languages",
+      "description": "Foreign language learning courses",
+      "icon": "globe",
+      "color": "#6366F1",
+      "coursesCount": 0
+    },
+    "mathematics": {
+      "id": "mathematics",
+      "name": "Mathematics",
+      "description": "Basic and advanced mathematics courses",
+      "icon": "calculator",
+      "color": "#06B6D4",
+      "coursesCount": 0
+    }
+  },
+  "courses": {
+    "course001": {
+      "id": "course001",
+      "title": "Physics Fundamentals for High School",
+      "shortDescription": "Comprehensive course to understand fundamental physics laws",
+      "description": "Complete course covering all physics topics for senior year with practical applications and problem solutions. You will learn Newton's laws, motion, energy, and many important concepts.",
+      "category": "physics",
+      "level": "beginner",
+      "instructorId": "instructor001",
+      "instructorName": "Dr. Mohamed Ahmed Hassan",
+      "price": 200,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/256262/pexels-photo-256262.jpeg",
+      "duration": 1800,
+      "lessonsCount": 25,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-09-20T10:00:00Z",
+      "updatedAt": "2025-10-15T14:30:00Z",
+      "publishedAt": "2025-09-25T16:00:00Z",
+      "studentsCount": 87,
+      "rating": 4.7,
+      "reviewsCount": 23,
+      "salesCount": 87,
+      "totalRevenue": 17400,
+      "tags": ["physics", "high school", "exams", "newton laws"],
+      "requirements": ["Basic knowledge of mathematics", "Completion of second year high school"],
+      "objectives": ["Understand Newton's laws of motion", "Apply conservation laws", "Solve complex physics problems"],
+      "whoShouldAttend": ["Senior year students", "Students preparing for exams", "Those interested in studying physics"],
+      "courseLanguage": "ar",
+      "certificate": true,
+      "previewVideo": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+    },
+    "course002": {
+      "id": "course002",
+      "title": "Quantum Mechanics for Beginners",
+      "shortDescription": "Simplified introduction to the world of quantum mechanics",
+      "description": "Explore the world of atoms and particles through simplified and enjoyable quantum mechanics concepts. You will learn the basic principles, Schrodinger equation and its practical applications.",
+      "category": "physics",
+      "level": "advanced",
+      "instructorId": "instructor001",
+      "instructorName": "Dr. Mohamed Ahmed Hassan",
+      "price": 350,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg",
+      "duration": 2400,
+      "lessonsCount": 30,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-01T11:00:00Z",
+      "updatedAt": "2025-10-20T09:15:00Z",
+      "publishedAt": "2025-10-05T14:00:00Z",
+      "studentsCount": 34,
+      "rating": 4.9,
+      "reviewsCount": 12,
+      "salesCount": 34,
+      "totalRevenue": 11900,
+      "tags": ["advanced physics", "quantum mechanics", "university", "schrodinger"],
+      "requirements": ["Completion of basic physics courses", "Basic knowledge of calculus"],
+      "objectives": ["Understand quantum mechanics principles", "Apply Schrodinger equation", "Understand uncertainty principle"],
+      "whoShouldAttend": ["University physics students", "Physics researchers", "Interested in modern sciences"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course003": {
+      "id": "course003",
+      "title": "Introduction to General Chemistry",
+      "shortDescription": "Learn chemistry basics in a short time",
+      "description": "Free and concise course covering general chemistry basics. You will learn the periodic table, chemical bonds, and basic reactions.",
+      "category": "chemistry",
+      "level": "beginner",
+      "instructorId": "instructor002",
+      "instructorName": "Dr. Sarah Mahmoud Al-Tayeb",
+      "price": 0,
+      "currency": "EGP",
+      "isFree": true,
+      "thumbnail": "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg",
+      "duration": 900,
+      "lessonsCount": 15,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-10T13:00:00Z",
+      "updatedAt": "2025-10-25T16:20:00Z",
+      "publishedAt": "2025-10-12T10:00:00Z",
+      "studentsCount": 245,
+      "rating": 4.5,
+      "reviewsCount": 67,
+      "salesCount": 0,
+      "totalRevenue": 0,
+      "tags": ["chemistry", "free", "beginners", "periodic table"],
+      "requirements": [],
+      "objectives": ["Understand the periodic table", "Learn about chemical bonds", "Basics of reactions"],
+      "whoShouldAttend": ["Chemistry beginners", "Middle school students", "High school students"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course004": {
+      "id": "course004",
+      "title": "Advanced Organic Chemistry",
+      "shortDescription": "Deep understanding of organic chemistry and its reactions",
+      "description": "Comprehensive course in organic chemistry covering molecular structures, complex reactions, and industrial and biological applications.",
+      "category": "chemistry",
+      "level": "advanced",
+      "instructorId": "instructor002",
+      "instructorName": "Dr. Sarah Mahmoud Al-Tayeb",
+      "price": 280,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/3735747/pexels-photo-3735747.jpeg",
+      "duration": 2100,
+      "lessonsCount": 28,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-15T09:30:00Z",
+      "updatedAt": "2025-10-28T11:45:00Z",
+      "publishedAt": "2025-10-18T13:00:00Z",
+      "studentsCount": 52,
+      "rating": 4.8,
+      "reviewsCount": 18,
+      "salesCount": 52,
+      "totalRevenue": 14560,
+      "tags": ["organic chemistry", "advanced", "reactions", "industry"],
+      "requirements": ["Completion of general chemistry course", "Basic understanding of molecular structures"],
+      "objectives": ["Master organic reactions", "Understand mechanisms", "Industrial applications"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course005": {
+      "id": "course005",
+      "title": "Modern Programming with JavaScript",
+      "shortDescription": "Learn JavaScript from scratch to mastery",
+      "description": "Comprehensive course to learn modern JavaScript ES6+ with focus on practical applications and building real projects.",
+      "category": "programming",
+      "level": "beginner",
+      "instructorId": "instructor003",
+      "instructorName": "Ahmed Kareem Al-Najjar",
+      "price": 320,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg",
+      "duration": 2700,
+      "lessonsCount": 35,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-08T15:00:00Z",
+      "updatedAt": "2025-10-25T10:30:00Z",
+      "publishedAt": "2025-10-10T12:00:00Z",
+      "studentsCount": 78,
+      "rating": 4.9,
+      "reviewsCount": 31,
+      "salesCount": 78,
+      "totalRevenue": 24960,
+      "tags": ["programming", "JavaScript", "ES6", "projects"],
+      "requirements": ["Basic computer knowledge", "No prior programming experience required"],
+      "objectives": ["Master modern JavaScript", "Build interactive applications", "Understand object-oriented programming"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course006": {
+      "id": "course006",
+      "title": "Advanced React Application Development",
+      "shortDescription": "Build modern web applications using React",
+      "description": "Learn how to build advanced and fast web applications using React library with Redux and the latest technologies.",
+      "category": "programming",
+      "level": "intermediate",
+      "instructorId": "instructor003",
+      "instructorName": "Ahmed Kareem Al-Najjar",
+      "price": 450,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
+      "duration": 3000,
+      "lessonsCount": 40,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-20T14:00:00Z",
+      "updatedAt": "2025-10-29T16:15:00Z",
+      "publishedAt": "2025-10-22T10:00:00Z",
+      "studentsCount": 29,
+      "rating": 4.8,
+      "reviewsCount": 11,
+      "salesCount": 29,
+      "totalRevenue": 13050,
+      "tags": ["React", "Redux", "web apps", "advanced"],
+      "requirements": ["Master JavaScript", "Know HTML and CSS", "Understand programming basics"],
+      "objectives": ["Build advanced React applications", "Manage state with Redux", "Deploy applications"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course007": {
+      "id": "course007",
+      "title": "Business Management Fundamentals",
+      "shortDescription": "Comprehensive introduction to the world of business management",
+      "description": "Free course covering basic concepts in business management, leadership, and strategic planning.",
+      "category": "business",
+      "level": "beginner",
+      "instructorId": "instructor004",
+      "instructorName": "Dr. Layla Ahmed Fahmy",
+      "price": 0,
+      "currency": "EGP",
+      "isFree": true,
+      "thumbnail": "https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg",
+      "duration": 1200,
+      "lessonsCount": 20,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-12T11:00:00Z",
+      "updatedAt": "2025-10-27T14:30:00Z",
+      "publishedAt": "2025-10-15T09:00:00Z",
+      "studentsCount": 156,
+      "rating": 4.6,
+      "reviewsCount": 43,
+      "salesCount": 0,
+      "totalRevenue": 0,
+      "tags": ["business management", "free", "leadership", "strategy"],
+      "requirements": [],
+      "objectives": ["Understand management basics", "Develop leadership skills", "Strategic planning"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course008": {
+      "id": "course008",
+      "title": "Digital Marketing and Social Media",
+      "shortDescription": "Master digital marketing and online presence",
+      "description": "Comprehensive course in digital marketing covering social media, paid advertising, and data analytics.",
+      "category": "business",
+      "level": "intermediate",
+      "instructorId": "instructor004",
+      "instructorName": "Dr. Layla Ahmed Fahmy",
+      "price": 380,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg",
+      "duration": 2200,
+      "lessonsCount": 32,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-18T13:30:00Z",
+      "updatedAt": "2025-10-30T09:45:00Z",
+      "publishedAt": "2025-10-20T15:00:00Z",
+      "studentsCount": 64,
+      "rating": 4.7,
+      "reviewsCount": 22,
+      "salesCount": 64,
+      "totalRevenue": 24320,
+      "tags": ["digital marketing", "social media", "advertising", "analytics"],
+      "requirements": ["Basic business knowledge", "Using internet and social media"],
+      "objectives": ["Master digital marketing strategies", "Manage advertising campaigns", "Analyze performance"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course009": {
+      "id": "course009",
+      "title": "Entrepreneurship and Startups",
+      "shortDescription": "Start your own project from idea to successful company",
+      "description": "Comprehensive guide to establishing startups from idea stage to funding, growth and expansion.",
+      "category": "business",
+      "level": "advanced",
+      "instructorId": "instructor004",
+      "instructorName": "Dr. Layla Ahmed Fahmy",
+      "price": 420,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+      "duration": 2500,
+      "lessonsCount": 33,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-25T10:15:00Z",
+      "updatedAt": "2025-10-30T12:00:00Z",
+      "publishedAt": "2025-10-27T14:00:00Z",
+      "studentsCount": 18,
+      "rating": 4.9,
+      "reviewsCount": 7,
+      "salesCount": 18,
+      "totalRevenue": 7560,
+      "tags": ["entrepreneurship", "startups", "funding", "growth"],
+      "requirements": ["Understand business basics", "Desire to start own project"],
+      "objectives": ["Develop business model", "Attract investment", "Manage growth"],
+      "courseLanguage": "ar",
+      "certificate": true
+    },
+    "course010": {
+      "id": "course010",
+      "title": "User Interface Design UX/UI",
+      "shortDescription": "Learn user experience and interface design",
+      "description": "Comprehensive course in user interface design and user experience using Figma and Adobe XD.",
+      "category": "design",
+      "level": "intermediate",
+      "instructorId": "instructor005",
+      "instructorName": "Mariam Ahmed Ali",
+      "price": 350,
+      "currency": "EGP",
+      "isFree": false,
+      "thumbnail": "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg",
+      "duration": 2000,
+      "lessonsCount": 28,
+      "status": "published",
+      "isActive": true,
+      "createdAt": "2025-10-22T14:30:00Z",
+      "updatedAt": "2025-10-30T08:45:00Z",
+      "publishedAt": "2025-10-25T11:00:00Z",
+      "studentsCount": 45,
+      "rating": 4.8,
+      "reviewsCount": 15,
+      "salesCount": 45,
+      "totalRevenue": 15750,
+      "tags": ["design", "UX", "UI", "Figma"],
+      "requirements": ["Basic design knowledge", "Familiarity with computer tools"],
+      "objectives": ["Master design principles", "Use Figma professionally", "Design prototypes"],
+      "courseLanguage": "ar",
+      "certificate": true
+    }
+  },
+  "lessons": {
+    "course001": {
+      "lesson001": {
+        "id": "lesson001",
+        "courseId": "course001",
+        "title": "Introduction to Physics Science",
+        "description": "Understanding physics science basics and its importance",
+        "duration": 720,
+        "order": 1,
+        "isPreview": true,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Introduction to Physics",
+            "url": "https://example.com/physics-intro.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 5,
+          "passingScore": 70
+        }
+      },
+      "lesson002": {
+        "id": "lesson002",
+        "courseId": "course001",
+        "title": "Measurements and Units",
+        "description": "Learn how to measure and use different units",
+        "duration": 900,
+        "order": 2,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Measurements Guide",
+            "url": "https://example.com/measurements-guide.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 8,
+          "passingScore": 70
+        }
+      },
+      "lesson003": {
+        "id": "lesson003",
+        "courseId": "course001",
+        "title": "Newton's Laws of Motion",
+        "description": "Understanding and applying Newton's three laws of motion",
+        "duration": 1200,
+        "order": 3,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Newton's Laws - Detailed Explanation",
+            "url": "https://example.com/newton-laws.pdf"
+          },
+          {
+            "type": "video",
+            "title": "Practical Experiments of Newton's Laws",
+            "url": "https://example.com/newton-experiments.mp4"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 10,
+          "passingScore": 75
+        }
+      },
+      "lesson004": {
+        "id": "lesson004",
+        "courseId": "course001",
+        "title": "Energy and Work",
+        "description": "Concepts of energy, work and conservation laws",
+        "duration": 1100,
+        "order": 4,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Exercises on Energy and Work",
+            "url": "https://example.com/energy-exercises.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 12,
+          "passingScore": 70
+        }
+      },
+      "lesson005": {
+        "id": "lesson005",
+        "courseId": "course001",
+        "title": "Pressure and Fluids",
+        "description": "Study of fluid properties and pressure laws",
+        "duration": 1000,
+        "order": 5,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 8,
+          "passingScore": 70
+        }
+      }
+    },
+    "course005": {
+      "lesson001": {
+        "id": "lesson001",
+        "courseId": "course005",
+        "title": "Introduction to JavaScript",
+        "description": "What is JavaScript and why do we learn it?",
+        "duration": 900,
+        "order": 1,
+        "isPreview": true,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Getting Started with JavaScript Guide",
+            "url": "https://example.com/js-intro-guide.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 5,
+          "passingScore": 60
+        }
+      },
+      "lesson002": {
+        "id": "lesson002",
+        "courseId": "course005",
+        "title": "Basics: Variables and Functions",
+        "description": "Learn how to create variables and write functions",
+        "duration": 1200,
+        "order": 2,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "code",
+            "title": "Examples of Variables and Functions",
+            "url": "https://example.com/variables-functions.js"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 8,
+          "passingScore": 70
+        }
+      },
+      "lesson003": {
+        "id": "lesson003",
+        "courseId": "course005",
+        "title": "Objects and Arrays",
+        "description": "Working with complex data using objects and arrays",
+        "duration": 1500,
+        "order": 3,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Objects and Arrays Reference",
+            "url": "https://example.com/objects-arrays-reference.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 10,
+          "passingScore": 75
+        }
+      },
+      "lesson004": {
+        "id": "lesson004",
+        "courseId": "course005",
+        "title": "DOM Manipulation",
+        "description": "Modifying page elements using JavaScript",
+        "duration": 1800,
+        "order": 4,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "code",
+            "title": "DOM Manipulation Projects",
+            "url": "https://example.com/dom-projects.zip"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 12,
+          "passingScore": 70
+        }
+      },
+      "lesson005": {
+        "id": "lesson005",
+        "courseId": "course005",
+        "title": "Modern ES6+ Features",
+        "description": "Using the latest JavaScript ES6+ features",
+        "duration": 1400,
+        "order": 5,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Comprehensive ES6+ Guide",
+            "url": "https://example.com/es6-guide.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 8,
+          "passingScore": 75
+        }
+      }
+    },
+    "course007": {
+      "lesson001": {
+        "id": "lesson001",
+        "courseId": "course007",
+        "title": "Introduction to Business Management",
+        "description": "Understanding business management concept and its importance",
+        "duration": 600,
+        "order": 1,
+        "isPreview": true,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Business Management Basics",
+            "url": "https://example.com/business-basics.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 5,
+          "passingScore": 60
+        }
+      },
+      "lesson002": {
+        "id": "lesson002",
+        "courseId": "course007",
+        "title": "Strategic Planning",
+        "description": "How to develop strategic plans for companies",
+        "duration": 900,
+        "order": 2,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "template",
+            "title": "Strategic Plan Template",
+            "url": "https://example.com/strategic-plan-template.xlsx"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 7,
+          "passingScore": 70
+        }
+      },
+      "lesson003": {
+        "id": "lesson003",
+        "courseId": "course007",
+        "title": "Leadership Skills",
+        "description": "Developing leadership skills and team management",
+        "duration": 1000,
+        "order": 3,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Leadership Skills Guide",
+            "url": "https://example.com/leadership-skills.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 8,
+          "passingScore": 70
+        }
+      },
+      "lesson004": {
+        "id": "lesson004",
+        "courseId": "course007",
+        "title": "Human Resources Management",
+        "description": "Employee management and development strategies",
+        "duration": 800,
+        "order": 4,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [
+          {
+            "type": "pdf",
+            "title": "Human Resources Management Reference",
+            "url": "https://example.com/hr-management.pdf"
+          }
+        ],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 6,
+          "passingScore": 70
+        }
+      },
+      "lesson005": {
+        "id": "lesson005",
+        "courseId": "course007",
+        "title": "Marketing and Sales",
+        "description": "Marketing strategies and increasing sales",
+        "duration": 1100,
+        "order": 5,
+        "isPreview": false,
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "resources": [],
+        "quiz": {
+          "hasQuiz": true,
+          "questionsCount": 9,
+          "passingScore": 70
+        }
+      }
+    }
+  },
+  "reviews": {
+    "course001": {
+      "review001": {
+        "id": "review001",
+        "courseId": "course001",
+        "userId": "student001",
+        "userName": "Ahmed Mohamed Ali",
+        "userAvatar": null,
+        "rating": 5,
+        "comment": "Excellent and very useful course, clear explanation and well-organized material",
+        "createdAt": "2025-10-15T14:30:00Z",
+        "isApproved": true
+      },
+      "review002": {
+        "id": "review002",
+        "courseId": "course001",
+        "userId": "user002",
+        "userName": "Fatima Ahmed",
+        "userAvatar": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+        "rating": 4,
+        "comment": "High quality and detailed explanation, I highly recommend it to all high school students",
+        "createdAt": "2025-10-18T10:15:00Z",
+        "isApproved": true
+      },
+      "review003": {
+        "id": "review003",
+        "courseId": "course001",
+        "userId": "user003",
+        "userName": "Mohamed Ali",
+        "userAvatar": null,
+        "rating": 5,
+        "comment": "Excellent! It helped me a lot in understanding physics and solving problems",
+        "createdAt": "2025-10-20T16:45:00Z",
+        "isApproved": true
+      }
+    },
+    "course005": {
+      "review001": {
+        "id": "review001",
+        "courseId": "course005",
+        "userId": "user004",
+        "userName": "Sarah Mahmoud",
+        "userAvatar": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg",
+        "rating": 5,
+        "comment": "Best JavaScript course in Arabic, excellent explanation and useful practical projects",
+        "createdAt": "2025-10-25T12:30:00Z",
+        "isApproved": true
+      }
+    }
+  },
+  "enrollments": {
+    "enrollment001": {
+      "id": "enrollment001",
+      "courseId": "course001",
+      "userId": "student001",
+      "enrolledAt": "2025-10-05T09:30:00Z",
+      "progress": 45,
+      "completedLessons": 11,
+      "totalLessons": 25,
+      "lastAccessedAt": "2025-10-29T15:20:00Z",
+      "isCompleted": false,
+      "certificateIssued": false,
+      "paymentStatus": "completed",
+      "paymentAmount": 200,
+      "paymentMethod": "credit_card"
+    },
+    "enrollment002": {
+      "id": "enrollment002",
+      "courseId": "course003",
+      "userId": "student001",
+      "enrolledAt": "2025-10-12T11:00:00Z",
+      "progress": 100,
+      "completedLessons": 15,
+      "totalLessons": 15,
+      "lastAccessedAt": "2025-10-28T14:45:00Z",
+      "isCompleted": true,
+      "certificateIssued": true,
+      "certificateIssuedAt": "2025-10-28T15:00:00Z",
+      "paymentStatus": "free",
+      "paymentAmount": 0,
+      "paymentMethod": null
+    },
+    "enrollment003": {
+      "id": "enrollment003",
+      "courseId": "course005",
+      "userId": "user005",
+      "enrolledAt": "2025-10-22T13:15:00Z",
+      "progress": 25,
+      "completedLessons": 9,
+      "totalLessons": 35,
+      "lastAccessedAt": "2025-10-30T10:30:00Z",
+      "isCompleted": false,
+      "certificateIssued": false,
+      "paymentStatus": "completed",
+      "paymentAmount": 320,
+      "paymentMethod": "paypal"
+    }
+  },
+  "payments": {
+    "payment001": {
+      "id": "payment001",
+      "userId": "student001",
+      "courseId": "course001",
+      "amount": 200,
+      "currency": "EGP",
+      "status": "completed",
+      "paymentMethod": "credit_card",
+      "transactionId": "txn_001_20251005",
+      "createdAt": "2025-10-05T09:30:00Z",
+      "completedAt": "2025-10-05T09:31:00Z",
+      "platformFee": 20,
+      "instructorEarnings": 180,
+      "refundAmount": 0,
+      "isRefunded": false
+    },
+    "payment002": {
+      "id": "payment002",
+      "userId": "user005",
+      "courseId": "course005",
+      "amount": 320,
+      "currency": "EGP",
+      "status": "completed",
+      "paymentMethod": "paypal",
+      "transactionId": "txn_002_20251022",
+      "createdAt": "2025-10-22T13:15:00Z",
+      "completedAt": "2025-10-22T13:16:00Z",
+      "platformFee": 32,
+      "instructorEarnings": 288,
+      "refundAmount": 0,
+      "isRefunded": false
+    }
+  },
+  "certificates": {
+    "certificate001": {
+      "id": "certificate001",
+      "courseId": "course003",
+      "userId": "student001",
+      "studentName": "Ahmed Mohamed Ali",
+      "instructorName": "Dr. Sarah Mahmoud Al-Tayeb",
+      "courseName": "Introduction to General Chemistry",
+      "issuedAt": "2025-10-28T15:00:00Z",
+      "certificateUrl": "https://nexus.edu/certificates/cert_001.pdf",
+      "verificationCode": "NEX2025CHEM001STU001",
+      "isValid": true
+    }
+  },
+  "notifications": {
+    "notification001": {
+      "id": "notification001",
+      "userId": "student001",
+      "type": "course_completed",
+      "title": "Congratulations! You have completed the General Chemistry course",
+      "message": "You have successfully completed the 'Introduction to General Chemistry' course and received a completion certificate",
+      "isRead": false,
+      "createdAt": "2025-10-28T15:05:00Z",
+      "actionUrl": "/certificates/cert_001"
+    },
+    "notification002": {
+      "id": "notification002",
+      "userId": "student001",
+      "type": "new_course",
+      "title": "New course available",
+      "message": "The 'User Interface Design UX/UI' course is now available for enrollment",
+      "isRead": true,
+      "createdAt": "2025-10-25T10:00:00Z",
+      "actionUrl": "/courses/course010"
+    }
+  },
+  "settings": {
+    "appSettings": {
+      "maintenanceMode": false,
+      "registrationEnabled": true,
+      "courseCreationEnabled": true,
+      "paymentGatewayEnabled": true,
+      "certificateGenerationEnabled": true,
+      "defaultCurrency": "EGP",
+      "platformFee": 10,
+      "minPayoutAmount": 100,
+      "maxFileUploadSize": 104857600,
+      "supportedVideoFormats": ["mp4", "webm", "ogg"],
+      "supportedImageFormats": ["jpg", "jpeg", "png", "webp"]
+    },
+    "featureFlags": {
+      "enableReviews": true,
+      "enableCertificates": true,
+      "enableLiveSessions": false,
+      "enableAssignments": true,
+      "enableDiscussionForums": false,
+      "enableMobileApp": false
+    }
+  },
+  "analytics": {
+    "platformStats": {
+      "totalUsers": 789,
+      "totalStudents": 623,
+      "totalInstructors": 6,
+      "totalCourses": 10,
+      "totalEnrollments": 1456,
+      "totalRevenue": 167440,
+      "monthlyActiveUsers": 342,
+      "averageCourseRating": 4.7,
+      "completionRate": 68.5,
+      "studentRetentionRate": 82.3
+    },
+    "courseAnalytics": {
+      "course001": {
+        "views": 234,
+        "enrollments": 87,
+        "completions": 59,
+        "averageRating": 4.7,
+        "revenue": 17400,
+        "conversionRate": 37.2
+      },
+      "course005": {
+        "views": 189,
+        "enrollments": 78,
+        "completions": 52,
+        "averageRating": 4.9,
+        "revenue": 24960,
+        "conversionRate": 41.3
+      }
+    }
+  }
+}
