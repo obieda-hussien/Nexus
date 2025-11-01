@@ -48,7 +48,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.11",
-    "eslint": "^8.57.0", // or latest 8.x release
+    "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2"
     "eslint-plugin-react-refresh": "^0.4.12",
     "postcss": "^8.5.6",
