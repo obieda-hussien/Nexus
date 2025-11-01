@@ -57,7 +57,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/Nexus">
         <div className="min-h-screen bg-primary-bg text-white">
           <Suspense fallback={<PageLoader />}>
             <Routes>
@@ -84,8 +84,7 @@ function App() {
               <Route path="/admin/*" element={<AdminDashboard />} />
               <Route path="/admin/instructors" element={<AdminInstructorPanel />} />
               
-              {/* Legacy route redirects (for backward compatibility) */}
-              <Route path="/Nexus" element={<Navigate to="/" replace />} />
+              {/* Catch-all route - redirect to home */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
